@@ -1,0 +1,166 @@
+/*
+ * Solarized color palette
+ * https://ethanschoonover.com/solarized/
+ */
+:root {
+    --solarized-base03: #002b36;
+    --solarized-base02: #073642;
+    --solarized-base01: #586e75;
+    --solarized-base00: #657b83;
+    --solarized-base0: #839496;
+    --solarized-base1: #93a1a1;
+    --solarized-base2: #eee8d5;
+    --solarized-base3: #fdf6e3;
+    --solarized-yellow: #b58900;
+    --solarized-orange: #cb4b16;
+    --solarized-red: #dc322f;
+    --solarized-magenta: #d33682;
+    --solarized-violet: #6c71c4;
+    --solarized-blue: #268bd2;
+    --solarized-cyan: #2aa198;
+    --solarized-green: #859900;
+}
+
+* {
+    boX-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: #333333;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+h1, h2, h3, h4 {
+    line-height: 1.2;
+    margin: 0;
+}
+
+a {
+    color: var(--solarized-blue);
+}
+
+header {
+    background-color: var(--solarized-base03);
+    color: var(--solarized-base0);
+    min-height: 3rem;
+    width: 100%;
+}
+
+header a {
+    color: var(--solarized-base1) !important;
+    text-decoration: none !important;
+}
+
+header a:active, header a:hover {
+    color: var(--solarized-base2) !important;
+    text-decoration: underline !important;
+}
+
+header nav {
+    max-width: 60rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+header .logo img {
+    max-height: 3rem;
+    width: auto;
+}
+
+header nav .container {
+    text-align: center;
+}
+
+header nav .logo {
+    margin: 0 auto;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin: 0 0.5rem;
+    height: 100%;
+}
+
+main > .container {
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+#landing-card h1 {
+    font-size: 2.5rem;
+}
+
+#landing-image {
+    background-image: url('/assets/img/pexels-sabel-blanco-1480530.jpg');
+    background-position: center;
+    background-size: auto 100%;
+    height: 20rem;
+}
+
+#landing-text {
+    padding: 2rem 1rem;
+}
+
+footer > .container {
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin: 0 auto;
+    max-width: 60rem;
+}
+
+@media all and (min-width: 36rem) {
+    header nav .logo {
+        margin: 0;
+    }
+
+    header nav .container {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    
+    header nav ul {
+        display: inline-block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header nav ul li {
+        display: inline-block;
+        margin: 0 0.5rem;
+        height: 100%;
+    }
+}
+
+@media all and (min-width: 48rem) {
+
+    main > .container {
+        padding: 2rem 1rem;
+    }
+
+    #landing-card {
+        display: flex;
+    }
+
+    #landing-card > div {
+        width: 50%;
+    }
+
+    #landing-image {
+        height: 40rem;
+    }
+}
