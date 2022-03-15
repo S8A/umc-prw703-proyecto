@@ -146,6 +146,15 @@ footer > .container {
     }
 }
 
+#signin, #signup {
+    max-width: 32rem;
+    margin: 0 auto;
+}
+
+#signin h1, #signup h1 {
+    text-align: center;
+}
+
 @media all and (min-width: 48rem) {
 
     main > .container {
