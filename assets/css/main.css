@@ -180,7 +180,11 @@ footer > .container {
 
 .exercises {
     border: 1px solid #999999;
-    overflow-x: scroll;
+    overflow-x: auto;
+}
+
+.exercises table {
+    width: 100%;
 }
 
 .exercises th {
