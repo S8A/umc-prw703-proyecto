@@ -148,11 +148,48 @@ footer > .container {
 
 #signin, #signup {
     max-width: 32rem;
-    margin: 0 auto;
+    margin: 1rem auto;
 }
 
-#signin h1, #signup h1 {
+#training-sessions-log {
+    margin: 1rem auto;
+}
+
+#signin h1, #signup h1, #training-sessions-log h1 {
     text-align: center;
+}
+
+#main-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+#main-buttons > button {
+    margin: 0 1rem;
+}
+
+.training-session {
+    background-color: #ffffff;
+    padding: 1rem;
+    border: 1px solid #999999;
+    box-shadow: 0 0 0.5rem #999999;
+    margin-bottom: 2rem;
+}
+
+.exercises {
+    border: 1px solid #999999;
+    overflow-x: scroll;
+}
+
+.exercises th {
+    border-bottom: 1px solid #999999;
+    padding: 0 0.5rem;
+}
+
+.exercises tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
 @media all and (min-width: 48rem) {
