@@ -136,6 +136,15 @@ form > div {
     padding: 0.25rem 0;
 }
 
+form textarea {
+    width: 100%;
+    resize: vertical;
+}
+
+form input[type="number"] {
+    max-width: 5rem !important;
+}
+
 a.btn {
     text-decoration: none !important;
     cursor: pointer;
@@ -209,6 +218,19 @@ a.btn {
 
 .exercises tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+.container.edit-training-session input {
+    width: auto !important;
+}
+
+.container.edit-training-session #form-buttons {
+    padding: 1rem 0;
+}
+
+.container.edit-training-session #form-buttons input {
+    margin: 0 auto;
+    display: block;
 }
 
 
