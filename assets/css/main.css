@@ -117,11 +117,7 @@ main h1 {
 main > .container {
     max-width: 60rem;
     margin: 0 auto;
-}
-
-main > .container > section {
     padding: 1rem;
-    margin: 0 auto;
 }
 
 footer > .container {
@@ -153,12 +149,12 @@ a.btn {
 
 /* Specific pages */
 
-#landing-card {
-    margin: 0;
+.container.landing-page {
+    margin: 0 auto;
     padding: 0;
 }
 
-#landing-card h1 {
+.container.landing-page h1 {
     font-size: 2.5rem;
     text-align: left;
 }
@@ -174,7 +170,7 @@ a.btn {
     padding: 2rem 1rem;
 }
 
-#signin, #signup {
+.container.signin, .container.signup {
     max-width: 32rem;
 }
 
@@ -189,7 +185,7 @@ a.btn {
     padding: 1rem 0;
 }
 
-.training-session {
+.container.training-log .training-session {
     background-color: #ffffff;
     padding: 1rem;
     border: 1px solid #999999;
@@ -251,14 +247,14 @@ a.btn {
 
 @media all and (min-width: 48rem) {
     main > .container {
-        padding: 2rem 0;
+        padding: 2rem 1rem;
     }
 
-    #landing-card {
+    .container.landing-page {
         display: flex;
     }
 
-    #landing-card > div {
+    .container.landing-page > div {
         width: 50%;
     }
 
@@ -268,7 +264,7 @@ a.btn {
 }
 
 @media all and (min-width: 62rem) {
-    main > .container > section {
-        padding: 1rem 0;
+    main > .container {
+        padding: 2rem 0;
     }
 }
