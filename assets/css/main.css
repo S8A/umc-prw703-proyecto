@@ -104,8 +104,8 @@ main > .container {
 }
 
 main > .container > section {
-    margin: 1rem auto;
     padding: 1rem;
+    margin: 0 auto;
 }
 
 footer > .container {
@@ -167,7 +167,7 @@ form > div {
     background-color: #ffffff;
     padding: 1rem;
     border: 1px solid #999999;
-    box-shadow: 0 0 0.5rem #999999;
+    box-shadow: 0 0.25rem 0.5rem #cccccc;
     margin-bottom: 2rem;
 }
 
@@ -224,9 +224,8 @@ form > div {
 }
 
 @media all and (min-width: 48rem) {
-
     main > .container {
-        padding: 2rem 1rem;
+        padding: 2rem 0;
     }
 
     #landing-card {
@@ -239,5 +238,11 @@ form > div {
 
     #landing-image {
         height: 40rem;
+    }
+}
+
+@media all and (min-width: 62rem) {
+    main > .container > section {
+        padding: 1rem 0;
     }
 }
