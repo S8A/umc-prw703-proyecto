@@ -140,6 +140,16 @@ form > div {
     padding: 0.25rem 0;
 }
 
+a.btn {
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: var(--solarized-blue);
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    margin: 0 0.25rem;
+}
+
 
 /* Specific pages */
 
