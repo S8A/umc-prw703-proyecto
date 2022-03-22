@@ -116,6 +116,14 @@ footer > .container {
     max-width: 60rem;
 }
 
+form input {
+    width: 100%;
+}
+
+form > div {
+    padding: 0.25rem 0;
+}
+
 
 /* Specific pages */
 
