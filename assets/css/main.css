@@ -156,11 +156,11 @@ form > div {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    padding: 1rem 0;
 }
 
-#main-buttons > button {
-    margin: 0 1rem;
+#date-filter {
+    padding: 1rem 0;
 }
 
 .training-session {
@@ -216,6 +216,10 @@ form > div {
         display: inline-block;
         margin: 0 0.5rem;
         height: 100%;
+    }
+
+    #date-filter input {
+        width: auto;
     }
 }
 
