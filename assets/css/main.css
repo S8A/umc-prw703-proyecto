@@ -240,7 +240,7 @@ section {
     padding: 1rem 0;
 }
 
-.container.edit-training-session #form-buttons input {
+.container.edit-training-session #form-buttons button {
     margin: 0 auto;
     display: block;
 }
