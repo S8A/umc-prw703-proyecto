@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar nueva sesión de entrenamiento &ndash; 8A Training</title>
+
+    <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="/" class="logo">
+                    <img src="/assets/img/8a-training-full-bg.svg" alt="Inicio">
+                </a>
+                <ul>
+                    <li><a href="/historial/">Historial</a></li>
+                    <li><a href="/recursos.html">Recursos</a></li>
+                    <li><a href="/iniciar-sesion.html">Iniciar sesión</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container edit-training-session">
+            <h1 id="main-title">Registrar nueva sesión de entrenamiento</h1>
+            <p>Para cancelar el registro, simplemente regrese a la página anterior sin guardar los datos.</p>
+            <form method="POST" aria-labelledby="main-title">
+                <section id="basic-data">
+                    <h2>Datos generales</h2>
+                    <p>Los campos requeridos son indicados por <abbr title="requerido">*</abbr>.</p>
+                    <div>
+                        <label for="date">Fecha:<abbr title="requerido" aria-label="requerido">*</abbr></label> 
+                        <input type="date" name="date" id="date" required pattern="\d{4}-\d{2}-\d{2}">
+                    </div>
+                    <div>
+                        <label for="time">Hora:<abbr title="requerido" aria-label="requerido">*</abbr></label> 
+                        <input type="time" name="time" id="time" required pattern="[0-9]{2}:[0-9]{2}">
+                    </div>
+                    <div>
+                        <label for="short-title">Título breve:</label> 
+                        <input type="text" name="short-title" id="short-title" maxlength="50">
+                    </div>
+                    <div>
+                        <label for="duration">Duración de la sesión (minutos):</label> 
+                        <input type="number" name="duration" id="duration" min="0">
+                    </div>
+                    <div>
+                        <label for="bodyweight">Peso corporal (kilogramos):</label> 
+                        <input type="number" name="bodyweight" id="bodyweight" min="0">
+                    </div>
+                    <div>
+                        <label for="comments">Comentarios:</label> 
+                        <textarea name="comments" id="comments" cols="50" rows="10" maxlength="280"></textarea>
+                    </div>
+                </section>
+                <section id="exercises">
+                    <h2>Ejercicios</h2>
+                    <p>Los campos requeridos son indicados por <abbr title="requerido">*</abbr>.</p>
+                    <div id="main-buttons">
+                        <button type="button" class="add-btn">Agregar ejercicio</button>
+                        <button type="button" class="remove-btn">Eliminar seleccionado</button>
+                        <button type="button" class="duplicate-btn">Duplicar seleccionado</button>
+                        <button type="button" class="move-up-btn">Subir seleccionado</button>
+                        <button type="button" class="move-down-btn">Bajar seleccionado</button>
+                    </div>
+                    <div class="exercises">
+                        <table>
+                            <thead>
+                                <th></th>
+                                <th>Ejercicio<abbr title="requerido" aria-label="requerido">*</abbr></th>
+                                <th>Modalidad<abbr title="requerido" aria-label="requerido">*</abbr></th>
+                                <th>Peso (kg)</th>
+                                <th>Series<abbr title="requerido" aria-label="requerido">*</abbr></th>
+                                <th>Repeticiones</th>
+                                <th>Comentarios</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="selected" id="selected-1" value="1" aria-label="Seleccionar ítem 1" checked>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="exercise-1" id="exercise-1" minlength="1" maxlength="50" required>
+                                    </td>
+                                    <td>
+                                        <select name="set-type-1" id="set-type-1" required>
+                                            <option value="warmup">Calentamiento</option>
+                                            <option value="work" selected>Trabajo</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="weight-1" id="weight-1" min="0">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="sets-1" id="sets-1" min="0" required>
+                                    </td>
+                                    <td>
+                                        &ndash;
+                                    </td>
+                                    <td>
+                                        <input type="text" name="comments-1" id="comments-1" maxlength="50">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section id="form-buttons">
+                    <button type="submit">Guardar registro</button>
+                </section>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>Samuel Ochoa · UMC PRW703 · 2022</p>
+        </div>
+    </footer>
+</body>
+</html>
