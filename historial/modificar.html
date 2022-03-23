@@ -27,7 +27,8 @@
     <main>
         <div class="container edit-training-session">
             <h1>Modificar sesión de entrenamiento: 2022/02/26 15:00 &ndash; RFBR-A</h1>
-            <form action="#" method="GET">
+            <p>Para cancelar la modificación, simplemente regrese a la página anterior sin guardar los cambios.</p>
+            <form action="#" method="POST">
                 <section id="basic-data">
                     <h2>Datos generales</h2>
                     <p>Los campos requeridos son indicados por <abbr title="requerido">*</abbr>.</p>
@@ -58,6 +59,7 @@
                 </section>
                 <section id="exercises">
                     <h2>Ejercicios</h2>
+                    <p>Los campos requeridos son indicados por <abbr title="requerido">*</abbr>.</p>
                     <div id="main-buttons">
                         <button type="button" class="add-btn">Agregar ejercicio</button>
                         <button type="button" class="remove-btn">Eliminar seleccionado</button>
@@ -69,23 +71,23 @@
                         <table>
                             <thead>
                                 <th></th>
-                                <th>Ejercicio</th>
-                                <th>Modalidad</th>
-                                <th>Peso</th>
-                                <th>Series</th>
+                                <th>Ejercicio<abbr title="requerido" aria-label="requerido">*</abbr></th>
+                                <th>Modalidad<abbr title="requerido" aria-label="requerido">*</abbr></th>
+                                <th>Peso (kg)</th>
+                                <th>Series<abbr title="requerido" aria-label="requerido">*</abbr></th>
                                 <th>Repeticiones</th>
                                 <th>Comentarios</th>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-1" value="1" checked>
+                                        <input type="radio" name="selected" id="selected-1" value="1" aria-label="Seleccionar ítem 1" checked>
                                     </td>
                                     <td>
-                                        <input type="text" name="exercise-1" id="exercise-1" minlength="1" maxlength="50" value="Pullup">
+                                        <input type="text" name="exercise-1" id="exercise-1" minlength="1" maxlength="50" required value="Pullup">
                                     </td>
                                     <td>
-                                        <select name="set-type-1" id="set-type-1">
+                                        <select name="set-type-1" id="set-type-1" required>
                                             <option value="warmup">Calentamiento</option>
                                             <option value="work" selected>Trabajo</option>
                                         </select>
@@ -94,20 +96,20 @@
                                         <input type="number" name="weight-1" id="weight-1" min="0">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-1" id="sets-1" min="0" value="3">
+                                        <input type="number" name="sets-1" id="sets-1" min="0" value="3" required>
                                     </td>
                                     <td>
                                         <p>
-                                            <label for="sets-1-1">Serie 1:</label>
-                                            <input type="number" name="sets-1-1" id="sets-1-1" min="1" value="5">
+                                            <label for="sets-1-1">Serie 1:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-1-1" id="sets-1-1" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-1-2">Serie 2:</label>
-                                            <input type="number" name="sets-1-2" id="sets-1-2" min="1" value="5">
+                                            <label for="sets-1-2">Serie 2:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-1-2" id="sets-1-2" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-1-3">Serie 3:</label>
-                                            <input type="number" name="sets-1-3" id="sets-1-3" min="1" value="7">
+                                            <label for="sets-1-3">Serie 3:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-1-3" id="sets-1-3" min="1" value="7" required>
                                         </p>
                                     </td>
                                     <td>
@@ -116,13 +118,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-2" value="2">
+                                        <input type="radio" name="selected" id="selected-2" value="2" aria-label="Seleccionar ítem 2">
                                     </td>
                                     <td>
-                                        <input type="text" name="exercise-2" id="exercise-2" minlength="1" maxlength="50" value="Pushup">
+                                        <input type="text" name="exercise-2" id="exercise-2" minlength="1" maxlength="50" required value="Pushup">
                                     </td>
                                     <td>
-                                        <select name="set-type-2" id="set-type-2">
+                                        <select name="set-type-2" id="set-type-2" required>
                                             <option value="warmup">Calentamiento</option>
                                             <option value="work" selected>Trabajo</option>
                                         </select>
@@ -131,16 +133,16 @@
                                         <input type="number" name="weight-2" id="weight-2" min="0">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-2" id="sets-2" min="0" value="2">
+                                        <input type="number" name="sets-2" id="sets-2" min="0" value="2" required>
                                     </td>
                                     <td>
                                         <p>
-                                            <label for="sets-2-1">Serie 1:</label>
-                                            <input type="number" name="sets-2-1" id="sets-2-1" min="1" value="10">
+                                            <label for="sets-2-1">Serie 1:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-2-1" id="sets-2-1" min="1" value="10" required>
                                         </p>
                                         <p>
-                                            <label for="sets-2-2">Serie 2:</label>
-                                            <input type="number" name="sets-2-2" id="sets-2-2" min="1" value="10">
+                                            <label for="sets-2-2">Serie 2:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-2-2" id="sets-2-2" min="1" value="10" required>
                                         </p>
                                     </td>
                                     <td>
@@ -149,13 +151,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-3" value="3">
+                                        <input type="radio" name="selected" id="selected-3" value="3" aria-label="Seleccionar ítem 3">
                                     </td>
                                     <td>
-                                        <input type="text" name="exercise-3" id="exercise-3" minlength="1" maxlength="50" value="Molding Mobility warm-up">
+                                        <input type="text" name="exercise-3" id="exercise-3" minlength="1" maxlength="50" required value="Molding Mobility warm-up">
                                     </td>
                                     <td>
-                                        <select name="set-type-3" id="set-type-3">
+                                        <select name="set-type-3" id="set-type-3" required>
                                             <option value="warmup" selected>Calentamiento</option>
                                             <option value="work">Trabajo</option>
                                         </select>
@@ -164,7 +166,7 @@
                                         <input type="number" name="weight-3" id="weight-3" min="0">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-3" id="sets-3" min="0" value="0">
+                                        <input type="number" name="sets-3" id="sets-3" min="0" value="0" required>
                                     </td>
                                     <td>
                                         &ndash;
@@ -175,13 +177,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-4" value="4">
+                                        <input type="radio" name="selected" id="selected-4" value="4" aria-label="Seleccionar ítem 4">
                                     </td>
                                     <td>
-                                        <input type="text" name="exercise-4" id="exercise-4" minlength="1" maxlength="50" value="Barbell row">
+                                        <input type="text" name="exercise-4" id="exercise-4" minlength="1" maxlength="50" required value="Barbell row">
                                     </td>
                                     <td>
-                                        <select name="set-type-4" id="set-type-4">
+                                        <select name="set-type-4" id="set-type-4" required>
                                             <option value="warmup" selected>Calentamiento</option>
                                             <option value="work">Trabajo</option>
                                         </select>
@@ -190,16 +192,16 @@
                                         <input type="number" name="weight-4" id="weight-4" min="0" value="30">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-4" id="sets-4" min="0" value="2">
+                                        <input type="number" name="sets-4" id="sets-4" min="0" value="2" required>
                                     </td>
                                     <td>
                                         <p>
-                                            <label for="sets-4-1">Serie 1:</label>
-                                            <input type="number" name="sets-4-1" id="sets-4-1" min="1" value="5">
+                                            <label for="sets-4-1">Serie 1:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-4-1" id="sets-4-1" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-4-2">Serie 2:</label>
-                                            <input type="number" name="sets-4-2" id="sets-4-2" min="1" value="5">
+                                            <label for="sets-4-2">Serie 2:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-4-2" id="sets-4-2" min="1" value="5" required>
                                         </p>
                                     </td>
                                     <td>
@@ -208,13 +210,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-5" value="5">
+                                        <input type="radio" name="selected" id="selected-5" value="5" aria-label="Seleccionar ítem 5">
                                     </td>
                                     <td>
-                                        <input type="text" name="exercise-5" id="exercise-5" minlength="1" maxlength="50" value="Barbell row">
+                                        <input type="text" name="exercise-5" id="exercise-5" minlength="1" maxlength="50" required value="Barbell row">
                                     </td>
                                     <td>
-                                        <select name="set-type-5" id="set-type-5">
+                                        <select name="set-type-5" id="set-type-5" required>
                                             <option value="warmup">Calentamiento</option>
                                             <option value="work" selected>Trabajo</option>
                                         </select>
@@ -223,20 +225,20 @@
                                         <input type="number" name="weight-5" id="weight-5" min="0" value="45">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-5" id="sets-5" min="0" value="3">
+                                        <input type="number" name="sets-5" id="sets-5" min="0" value="3" required>
                                     </td>
                                     <td>
                                         <p>
-                                            <label for="sets-5-1">Serie 1:</label>
-                                            <input type="number" name="sets-5-1" id="sets-5-1" min="1" value="5">
+                                            <label for="sets-5-1">Serie 1:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-5-1" id="sets-5-1" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-5-2">Serie 2:</label>
-                                            <input type="number" name="sets-5-2" id="sets-5-2" min="1" value="5">
+                                            <label for="sets-5-2">Serie 2:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-5-2" id="sets-5-2" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-5-3">Serie 3:</label>
-                                            <input type="number" name="sets-5-3" id="sets-5-3" min="1" value="10">
+                                            <label for="sets-5-3">Serie 3:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-5-3" id="sets-5-3" min="1" value="10" required>
                                         </p>
                                     </td>
                                     <td>
@@ -245,12 +247,12 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-6" value="6"></td>
+                                        <input type="radio" name="selected" id="selected-6" value="6">< aria-label="<label for=""></l selected-6beSeleccionar ítem ">
                                     <td>
-                                        <input type="text" name="exercise-6" id="exercise-6" minlength="1" maxlength="50" value="Decline pushup">
+                                        <input type="text" name="exercise-6" id="exercise-6" minlength="1" maxlength="50" required value="Decline pushup">
                                     </td>
                                     <td>
-                                        <select name="set-type-6" id="set-type-6">
+                                        <select name="set-type-6" id="set-type-6" required>
                                             <option value="warmup" selected>Calentamiento</option>
                                             <option value="work">Trabajo</option>
                                         </select>
@@ -259,16 +261,16 @@
                                         <input type="number" name="weight-6" id="weight-6" min="0">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-6" id="sets-6" min="0" value="2">
+                                        <input type="number" name="sets-6" id="sets-6" min="0" value="2" required>
                                     </td>
                                     <td>
                                         <p>
-                                            <label for="sets-6-1">Serie 1:</label>
-                                            <input type="number" name="sets-6-1" id="sets-6-1" min="1" value="10">
+                                            <label for="sets-6-1">Serie 1:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-6-1" id="sets-6-1" min="1" value="10" required>
                                         </p>
                                         <p>
-                                            <label for="sets-6-2">Serie 2:</label>
-                                            <input type="number" name="sets-6-2" id="sets-6-2" min="1" value="10">
+                                            <label for="sets-6-2">Serie 2:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-6-2" id="sets-6-2" min="1" value="10" required>
                                         </p>
                                     </td>
                                     <td>
@@ -277,13 +279,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-7" value="7">
+                                        <input type="radio" name="selected" id="selected-7" value="7" aria-label="Seleccionar ítem 7">
                                     </td>
                                     <td>
-                                        <input type="text" name="exercise-7" id="exercise-7" minlength="1" maxlength="50" value="Bench press">
+                                        <input type="text" name="exercise-7" id="exercise-7" minlength="1" maxlength="50" required value="Bench press">
                                     </td>
                                     <td>
-                                        <select name="set-type-7" id="set-type-7">
+                                        <select name="set-type-7" id="set-type-7" required>
                                             <option value="warmup">Calentamiento</option>
                                             <option value="work" selected>Trabajo</option>
                                         </select>
@@ -292,20 +294,20 @@
                                         <input type="number" name="weight-7" id="weight-7" min="0" value="45">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-7" id="sets-7" min="0" value="3">
+                                        <input type="number" name="sets-7" id="sets-7" min="0" value="3" required>
                                     </td>
                                     <td>
                                         <p>
-                                            <label for="sets-7-1">Serie 1:</label>
-                                            <input type="number" name="sets-7-1" id="sets-7-1" min="1" value="5">
+                                            <label for="sets-7-1">Serie 1:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-7-1" id="sets-7-1" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-7-2">Serie 2:</label>
-                                            <input type="number" name="sets-7-2" id="sets-7-2" min="1" value="5">
+                                            <label for="sets-7-2">Serie 2:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-7-2" id="sets-7-2" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-7-3">Serie 3:</label>
-                                            <input type="number" name="sets-7-3" id="sets-7-3" min="1" value="15">
+                                            <label for="sets-7-3">Serie 3:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-7-3" id="sets-7-3" min="1" value="15" required>
                                         </p>
                                     </td>
                                     <td>
@@ -314,13 +316,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-8" value="8">
+                                        <input type="radio" name="selected" id="selected-8" value="8" aria-label="Seleccionar ítem 8">
                                     </td>
                                     <td>
-                                        <input type="text" name="exercise-8" id="exercise-8" minlength="1" maxlength="50" value="Squat">
+                                        <input type="text" name="exercise-8" id="exercise-8" minlength="1" maxlength="50" required value="Squat">
                                     </td>
                                     <td>
-                                        <select name="set-type-8" id="set-type-8">
+                                        <select name="set-type-8" id="set-type-8" required>
                                             <option value="warmup" selected>Calentamiento</option>
                                             <option value="work">Trabajo</option>
                                         </select>
@@ -329,16 +331,16 @@
                                         <input type="number" name="weight-8" id="weight-8" min="0" value="45">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-8" id="sets-8" min="0" value="2">
+                                        <input type="number" name="sets-8" id="sets-8" min="0" value="2" required>
                                     </td>
                                     <td>
                                         <p>
-                                            <label for="sets-8-1">Serie 1:</label>
-                                            <input type="number" name="sets-8-1" id="sets-8-1" min="1" value="5">
+                                            <label for="sets-8-1">Serie 1:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-8-1" id="sets-8-1" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-8-2">Serie 2:</label>
-                                            <input type="number" name="sets-8-2" id="sets-8-2" min="1" value="5">
+                                            <label for="sets-8-2">Serie 2:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-8-2" id="sets-8-2" min="1" value="5" required>
                                         </p>
                                     </td>
                                     <td>
@@ -347,13 +349,13 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="radio" name="selected" id="selected-9" value="9">
+                                        <input type="radio" name="selected" id="selected-9" value="9" aria-label="Seleccionar ítem 9">
                                     </td>
                                     <td>
-                                        <input type="text" name="exercise-9" id="exercise-9" minlength="1" maxlength="50" value="Squat">
+                                        <input type="text" name="exercise-9" id="exercise-9" minlength="1" maxlength="50" required value="Squat">
                                     </td>
                                     <td>
-                                        <select name="set-type-9" id="set-type-9">
+                                        <select name="set-type-9" id="set-type-9" required>
                                             <option value="warmup">Calentamiento</option>
                                             <option value="work" selected>Trabajo</option>
                                         </select>
@@ -362,20 +364,20 @@
                                         <input type="number" name="weight-9" id="weight-9" min="0" value="55">
                                     </td>
                                     <td>
-                                        <input type="number" name="sets-9" id="sets-9" min="0" value="3">
+                                        <input type="number" name="sets-9" id="sets-9" min="0" value="3" required>
                                     </td>
                                     <td>
                                         <p>
-                                            <label for="sets-9-1">Serie 1:</label>
-                                            <input type="number" name="sets-9-1" id="sets-9-1" min="1" value="5">
+                                            <label for="sets-9-1">Serie 1:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-9-1" id="sets-9-1" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-9-2">Serie 2:</label>
-                                            <input type="number" name="sets-9-2" id="sets-9-2" min="1" value="5">
+                                            <label for="sets-9-2">Serie 2:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-9-2" id="sets-9-2" min="1" value="5" required>
                                         </p>
                                         <p>
-                                            <label for="sets-9-3">Serie 3:</label>
-                                            <input type="number" name="sets-9-3" id="sets-9-3" min="1" value="15">
+                                            <label for="sets-9-3">Serie 3:<abbr title="requerido" aria-label="requerido">*</abbr></label>
+                                            <input type="number" name="sets-9-3" id="sets-9-3" min="1" value="15" required>
                                         </p>
                                     </td>
                                     <td>
