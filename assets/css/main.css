@@ -191,6 +191,10 @@ section {
     max-width: 32rem;
 }
 
+.container.signin button, .container.signup button {
+    width: 100%;
+}
+
 #main-buttons {
     display: flex;
     align-items: center;
