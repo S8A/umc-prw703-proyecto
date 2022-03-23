@@ -31,8 +31,8 @@
                 <a href="/historial/crear.html" class="btn">Registrar sesión</a>
             </div>
             <div>
-                <form id="date-filter" action="#" method="get">
-                    <label for="date">Filtrar por fecha:</label>
+                <form id="date-filter" method="get" role="search" aria-labelledby="date-filter-label">
+                    <label for="date" id="date-filter-label">Filtrar por fecha:</label>
                     <input type="date" name="date" id="date-filter-input">
                     <button type="submit">Buscar</button>
                 </form>
