@@ -58,9 +58,17 @@
                 </section>
                 <section id="exercises">
                     <h2>Ejercicios</h2>
+                    <div id="main-buttons">
+                        <button type="button" class="add-btn">Agregar ejercicio</button>
+                        <button type="button" class="remove-btn">Eliminar seleccionado</button>
+                        <button type="button" class="duplicate-btn">Duplicar seleccionado</button>
+                        <button type="button" class="move-up-btn">Subir seleccionado</button>
+                        <button type="button" class="move-down-btn">Bajar seleccionado</button>
+                    </div>
                     <div class="exercises">
                         <table>
                             <thead>
+                                <th></th>
                                 <th>Ejercicio</th>
                                 <th>Modalidad</th>
                                 <th>Peso</th>
@@ -70,6 +78,9 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>
+                                        <input type="radio" name="selected" id="selected-1" value="1" checked>
+                                    </td>
                                     <td>
                                         <input type="text" name="exercise-1" id="exercise-1" minlength="1" maxlength="50" value="Pullup">
                                     </td>
@@ -105,6 +116,9 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <input type="radio" name="selected" id="selected-2" value="2">
+                                    </td>
+                                    <td>
                                         <input type="text" name="exercise-2" id="exercise-2" minlength="1" maxlength="50" value="Pushup">
                                     </td>
                                     <td>
@@ -135,6 +149,9 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <input type="radio" name="selected" id="selected-3" value="3">
+                                    </td>
+                                    <td>
                                         <input type="text" name="exercise-3" id="exercise-3" minlength="1" maxlength="50" value="Molding Mobility warm-up">
                                     </td>
                                     <td>
@@ -157,6 +174,9 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <input type="radio" name="selected" id="selected-4" value="4">
+                                    </td>
                                     <td>
                                         <input type="text" name="exercise-4" id="exercise-4" minlength="1" maxlength="50" value="Barbell row">
                                     </td>
@@ -187,6 +207,9 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <input type="radio" name="selected" id="selected-5" value="5">
+                                    </td>
                                     <td>
                                         <input type="text" name="exercise-5" id="exercise-5" minlength="1" maxlength="50" value="Barbell row">
                                     </td>
@@ -222,6 +245,8 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <input type="radio" name="selected" id="selected-6" value="6"></td>
+                                    <td>
                                         <input type="text" name="exercise-6" id="exercise-6" minlength="1" maxlength="50" value="Decline pushup">
                                     </td>
                                     <td>
@@ -251,6 +276,9 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <input type="radio" name="selected" id="selected-7" value="7">
+                                    </td>
                                     <td>
                                         <input type="text" name="exercise-7" id="exercise-7" minlength="1" maxlength="50" value="Bench press">
                                     </td>
@@ -286,6 +314,9 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <input type="radio" name="selected" id="selected-8" value="8">
+                                    </td>
+                                    <td>
                                         <input type="text" name="exercise-8" id="exercise-8" minlength="1" maxlength="50" value="Squat">
                                     </td>
                                     <td>
@@ -315,6 +346,9 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <input type="radio" name="selected" id="selected-9" value="9">
+                                    </td>
                                     <td>
                                         <input type="text" name="exercise-9" id="exercise-9" minlength="1" maxlength="50" value="Squat">
                                     </td>
