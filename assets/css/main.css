@@ -163,6 +163,14 @@ section {
     text-align: center;
 }
 
+ul#pagination {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 1rem 0;
+}
+
 
 /* Specific pages */
 
