@@ -171,6 +171,31 @@ ul#pagination {
     margin: 1rem 0;
 }
 
+#status-messages > .alert {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+#status-messages > .alert.info {
+    color: #ffffff;
+    background-color: var(--solarized-blue);
+}
+
+#status-messages > .alert.success {
+    color: #ffffff;
+    background-color: var(--solarized-green);
+}
+
+#status-messages > .alert.warning {
+    color: #ffffff;
+    background-color: var(--solarized-orange);
+}
+
+#status-messages > .alert.error {
+    color: #ffffff;
+    background-color: var(--solarized-red);
+}
+
 
 /* Specific pages */
 
