@@ -145,6 +145,19 @@ form input[type="number"] {
     max-width: 5rem !important;
 }
 
+form input:invalid {
+    outline: 1px solid #ff0000;
+}
+
+form input:focus:invalid {
+    outline: none;
+}
+
+form .invalid-feedback {
+    color: #ff0000 !important;
+    font-size: 80% !important;
+}
+
 a.btn {
     text-decoration: none !important;
     cursor: pointer;
