@@ -66,5 +66,158 @@
             <p>Samuel Ochoa · UMC PRW703 · 2022</p>
         </div>
     </footer>
+    <script type="module">
+        import * as utils from '/assets/js/utils.js';
+
+        window.addEventListener( "load", function () {
+            let form = document.querySelector('form#signup-form');
+    
+            let email = form.querySelector('input[type="email"]#email');
+            let emailFeedback = email.parentElement.querySelector('.invalid-feedback');
+
+            let firstName = form.querySelector('input[type="text"]#first-name');
+            let firstNameFeedback = firstName.parentElement.querySelector('.invalid-feedback');
+
+            let lastName = form.querySelector('input[type="text"]#last-name');
+            let lastNameFeedback = lastName.parentElement.querySelector('.invalid-feedback');
+
+            let password = form.querySelector('input[type="password"]#password');
+            let passwordFeedback = password.parentElement.querySelector('.invalid-feedback');
+
+            let confirmPassword = form.querySelector('input[type="password"]#confirm-password');
+            let confirmPasswordFeedback = confirmPassword.parentElement.querySelector('.invalid-feedback');
+
+            let submit = form.querySelector('button[type="submit"]');
+
+            function showEmailError() {
+                if (email.validity.valueMissing) {
+                    emailFeedback.textContent = 'Debe ingresar una dirección de correo electrónico.';
+                } else if (email.validity.tooLong) {
+                    emailFeedback.textContent = 'Demasiados caracteres (máximo ' + email.maxLength + ').';
+                } else if (email.validity.typeMismatch) {
+                    emailFeedback.textContent = 'El texto ingresado no es una dirección de correo electrónico válida.';
+                }
+            }
+
+            email.addEventListener('invalid', function (event) {
+                showEmailError();
+            });
+
+            email.addEventListener('input', function (event) {
+                if (email.validity.valid) {
+                    emailFeedback.textContent = '';
+                } else {
+                    showEmailError();
+                }
+            });
+
+            function showFirstNameError() {
+                if (firstName.validity.valueMissing) {
+                    firstNameFeedback.textContent = 'Debe ingresar su nombre.'
+                } else if (firstName.validity.tooLong) {
+                    firstNameFeedback.textContent = 'Demasiados caracteres (máximo ' + firstName.maxLength + ').';
+                } else if (firstName.validity.typeMismatch) {
+                    firstNameFeedback.textContent = 'Solo se permiten caracteres alfanuméricos.';
+                }
+            }
+
+            firstName.addEventListener('invalid', function (event) {
+                showFirstNameError();
+            });
+
+            firstName.addEventListener('input', function (event) {
+                if (firstName.validity.valid) {
+                    firstNameFeedback.textContent = '';
+                } else {
+                    showFirstNameError();
+                }
+            });
+
+            function showLastNameError() {
+                if (lastName.validity.valueMissing) {
+                    lastNameFeedfirstNameFeedback.textContent = 'Debe ingresar su nombre.'
+                } else if (lastName.validity.tooLong) {
+                    lastNameFeedback.textContent = 'Demasiados caracteres (máximo ' + lastName.maxLength + ').';
+                } else if (lastName.validity.typeMismatch) {
+                    lastNameFeedback.textContent = 'Solo se permiten caracteres alfanuméricos.';
+                }
+            }
+
+            lastName.addEventListener('invalid', function (event) {
+                showLastNameError();
+            });
+
+            lastName.addEventListener('input', function (event) {
+                if (lastName.validity.valid) {
+                    lastNameFeedback.textContent = '';
+                } else {
+                    showLastNameError();
+                }
+            });
+
+            function showPasswordError() {
+                if (password.validity.valueMissing) {
+                    passwordFeedback.textContent = 'Debe ingresar una contraseña.';
+                } else if (password.validity.tooLong) {
+                    passwordFeedback.textContent = 'Demasiados caracteres (máximo ' + password.maxLength + ').';
+                } else if (password.validity.tooShort) {
+                    passwordFeedback.textContent = 'Insuficientes caracteres (mínimo ' + password.minLength + ').';
+                } else if (password.validity.typeMismatch) {
+                    passwordFeedback.textContent = 'Solo se permiten caracteres alfanuméricos.';
+                }
+            }
+
+            password.addEventListener('invalid', function (event) {
+                console.log('invalid password');
+                showPasswordError();
+            });
+
+            password.addEventListener('input', function (event) {
+                if (password.validity.valid) {
+                    passwordFeedback.textContent = '';
+                } else {
+                    showPasswordError();
+                }
+
+                checkConfirmPassword();
+            });
+
+            function checkConfirmPassword() {
+                if (password.value !== confirmPassword.value) {
+                    let feedback = 'El texto ingresado no coincide con la contraseña.';
+                    confirmPassword.setCustomValidity(feedback);
+                    confirmPasswordFeedback.textContent = feedback;
+                } else {
+                    confirmPassword.setCustomValidity('');
+                    confirmPasswordFeedback.textContent = '';
+                }
+            }
+
+            confirmPassword.addEventListener('input', function (event) {
+                checkConfirmPassword();
+            });
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (form.reportValidity()) {
+                    let accountCreated = utils.createAccount(email.value, firstName.value, lastName.value, password.value);
+                
+                    if (accountCreated) {
+                        utils.addStatusMessage('success', ['Cuenta creada exitosamente.']);
+                        email.disabled = true;
+                        firstName.disabled = true;
+                        lastName.disabled = true;
+                        password.disabled = true;
+                        confirmPassword.disabled = true;
+                        submit.disabled = true;
+                    } else {
+                        utils.addStatusMessage('error', ['Error al crear la cuenta.']);
+                    }
+                } else {
+                    utils.addStatusMessage('error', ['Corrija los errores en los datos ingresados.']);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
