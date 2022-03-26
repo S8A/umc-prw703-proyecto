@@ -49,6 +49,46 @@ export function createAccount(email, firstName, lastName, password) {
 }
 
 
+export function getSignedInAccount() {
+  /* Return the data of the currently signed-in account, or null if the
+  user is not signed in. */
+
+  return JSON.parse(sessionStorage.getItem('account'));
+}
+
+
+export function setUpSignedInHeader(account) {
+  /* Remove sign-in nav link in header, add div with the account's 
+  name and a sign-out button. */
+
+  let headerNavContainer = document.querySelector('header nav .container');
+
+  let navLinks = headerNavContainer.querySelectorAll('ul > li');
+  navLinks[navLinks.length - 1].remove();
+
+  let accountDiv = document.createElement('div');
+  accountDiv.classList.add('account');
+
+  let fullName = document.createElement('span');
+  fullName.textContent = account.firstName + " " + account.lastName;
+
+  let signOut = document.createElement('button');
+  signOut.type = 'button';
+  signOut.id = 'sign-out-btn';
+  signOut.textContent = 'Salir';
+
+  signOut.addEventListener('click', function (event) {
+    sessionStorage.clear();
+    window.location.assign('/');
+  });
+
+  accountDiv.appendChild(fullName);
+  accountDiv.appendChild(signOut);
+
+  headerNavContainer.appendChild(accountDiv);
+}
+
+
 export function addStatusMessage(alertType, paragraphs) {
   /* Add status message to the top of the page. */
   
