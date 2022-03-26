@@ -2,7 +2,7 @@
     {
         "id": 1,
         "accountEmail": "samuel@example.com",
-        "date": "2021/08/15",
+        "date": "2021-08-15",
         "time": "15:00",
         "shortTitle": "",
         "duration": 90,
@@ -19,7 +19,7 @@
     {
         "id": 2,
         "accountEmail": "samuel@example.com",
-        "date": "2021/08/17",
+        "date": "2021-08-17",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -39,7 +39,7 @@
     {
         "id": 3,
         "accountEmail": "samuel@example.com",
-        "date": "2021/08/19",
+        "date": "2021-08-19",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -60,7 +60,7 @@
     {
         "id": 4,
         "accountEmail": "samuel@example.com",
-        "date": "2021/08/21",
+        "date": "2021-08-21",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -80,7 +80,7 @@
     {
         "id": 5,
         "accountEmail": "samuel@example.com",
-        "date": "2021/08/24",
+        "date": "2021-08-24",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -101,7 +101,7 @@
     {
         "id": 6,
         "accountEmail": "samuel@example.com",
-        "date": "2021/08/26",
+        "date": "2021-08-26",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -120,7 +120,7 @@
     {
         "id": 7,
         "accountEmail": "samuel@example.com",
-        "date": "2021/08/28",
+        "date": "2021-08-28",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -139,7 +139,7 @@
     {
         "id": 8,
         "accountEmail": "samuel@example.com",
-        "date": "2021/09/06",
+        "date": "2021-09-06",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -159,7 +159,7 @@
     {
         "id": 9,
         "accountEmail": "samuel@example.com",
-        "date": "2021/09/08",
+        "date": "2021-09-08",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -179,7 +179,7 @@
     {
         "id": 10,
         "accountEmail": "samuel@example.com",
-        "date": "2021/09/10",
+        "date": "2021-09-10",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -199,7 +199,7 @@
     {
         "id": 11,
         "accountEmail": "samuel@example.com",
-        "date": "2021/09/12",
+        "date": "2021-09-12",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -219,7 +219,7 @@
     {
         "id": 12,
         "accountEmail": "samuel@example.com",
-        "date": "2021/09/14",
+        "date": "2021-09-14",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -239,7 +239,7 @@
     {
         "id": 13,
         "accountEmail": "samuel@example.com",
-        "date": "2021/09/16",
+        "date": "2021-09-16",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -258,7 +258,7 @@
     {
         "id": 14,
         "accountEmail": "samuel@example.com",
-        "date": "2021/09/19",
+        "date": "2021-09-19",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -278,7 +278,7 @@
     {
         "id": 15,
         "accountEmail": "samuel@example.com",
-        "date": "2021/09/28",
+        "date": "2021-09-28",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -297,7 +297,7 @@
     {
         "id": 16,
         "accountEmail": "samuel@example.com",
-        "date": "2021/10/03",
+        "date": "2021-10-03",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -317,7 +317,7 @@
     {
         "id": 17,
         "accountEmail": "samuel@example.com",
-        "date": "2021/10/05",
+        "date": "2021-10-05",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -336,7 +336,7 @@
     {
         "id": 18,
         "accountEmail": "samuel@example.com",
-        "date": "2021/10/08",
+        "date": "2021-10-08",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -356,7 +356,7 @@
     {
         "id": 19,
         "accountEmail": "samuel@example.com",
-        "date": "2021/10/10",
+        "date": "2021-10-10",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -376,7 +376,7 @@
     {
         "id": 20,
         "accountEmail": "samuel@example.com",
-        "date": "2021/10/14",
+        "date": "2021-10-14",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -396,7 +396,7 @@
     {
         "id": 21,
         "accountEmail": "samuel@example.com",
-        "date": "2021/10/17",
+        "date": "2021-10-17",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -415,7 +415,7 @@
     {
         "id": 22,
         "accountEmail": "samuel@example.com",
-        "date": "2021/10/19",
+        "date": "2021-10-19",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -435,7 +435,7 @@
     {
         "id": 23,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/11",
+        "date": "2021-11-11",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -454,7 +454,7 @@
     {
         "id": 24,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/13",
+        "date": "2021-11-13",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -474,7 +474,7 @@
     {
         "id": 25,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/16",
+        "date": "2021-11-16",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -493,7 +493,7 @@
     {
         "id": 26,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/19",
+        "date": "2021-11-19",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -513,7 +513,7 @@
     {
         "id": 27,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/21",
+        "date": "2021-11-21",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -532,7 +532,7 @@
     {
         "id": 28,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/23",
+        "date": "2021-11-23",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -552,7 +552,7 @@
     {
         "id": 29,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/25",
+        "date": "2021-11-25",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -571,7 +571,7 @@
     {
         "id": 30,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/28",
+        "date": "2021-11-28",
         "time": "15:00",
         "shortTitle": "RFBR-B*",
         "duration": 90,
@@ -591,7 +591,7 @@
     {
         "id": 31,
         "accountEmail": "samuel@example.com",
-        "date": "2021/11/30",
+        "date": "2021-11-30",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -610,7 +610,7 @@
     {
         "id": 32,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/04",
+        "date": "2021-12-04",
         "time": "15:00",
         "shortTitle": "RFBR-B*",
         "duration": 90,
@@ -630,7 +630,7 @@
     {
         "id": 33,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/06",
+        "date": "2021-12-06",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -649,7 +649,7 @@
     {
         "id": 34,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/08",
+        "date": "2021-12-08",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -668,7 +668,7 @@
     {
         "id": 35,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/12",
+        "date": "2021-12-12",
         "time": "15:00",
         "shortTitle": "RFBR-A*",
         "duration": 90,
@@ -685,7 +685,7 @@
     {
         "id": 36,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/13",
+        "date": "2021-12-13",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -704,7 +704,7 @@
     {
         "id": 37,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/18",
+        "date": "2021-12-18",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -723,7 +723,7 @@
     {
         "id": 38,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/22",
+        "date": "2021-12-22",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -742,7 +742,7 @@
     {
         "id": 39,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/25",
+        "date": "2021-12-25",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -761,7 +761,7 @@
     {
         "id": 40,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/27",
+        "date": "2021-12-27",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -780,7 +780,7 @@
     {
         "id": 41,
         "accountEmail": "samuel@example.com",
-        "date": "2021/12/30",
+        "date": "2021-12-30",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -800,7 +800,7 @@
     {
         "id": 42,
         "accountEmail": "samuel@example.com",
-        "date": "2022/01/05",
+        "date": "2022-01-05",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -819,7 +819,7 @@
     {
         "id": 43,
         "accountEmail": "samuel@example.com",
-        "date": "2022/01/07",
+        "date": "2022-01-07",
         "time": "15:00",
         "shortTitle": "RFBR-B",
         "duration": 90,
@@ -839,7 +839,7 @@
     {
         "id": 44,
         "accountEmail": "samuel@example.com",
-        "date": "2022/01/09",
+        "date": "2022-01-09",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -858,7 +858,7 @@
     {
         "id": 45,
         "accountEmail": "samuel@example.com",
-        "date": "2022/02/22",
+        "date": "2022-02-22",
         "time": "15:00",
         "shortTitle": "Bodyweight only",
         "duration": 90,
@@ -872,7 +872,7 @@
     {
         "id": 46,
         "accountEmail": "samuel@example.com",
-        "date": "2022/02/26",
+        "date": "2022-02-26",
         "time": "15:00",
         "shortTitle": "RFBR-A",
         "duration": 90,
@@ -893,7 +893,7 @@
     {
         "id": 47,
         "accountEmail": "samuel@example.com",
-        "date": "2022/03/03",
+        "date": "2022-03-03",
         "time": "15:00",
         "shortTitle": "Bodyweight only",
         "duration": 90,
