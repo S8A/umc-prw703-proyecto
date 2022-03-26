@@ -55,6 +55,11 @@
         import * as utils from '/assets/js/utils.js';
 
         window.addEventListener( "load", function () {
+            let signedInAccount = utils.getSignedInAccount();
+            if (signedInAccount) {
+                window.location.assign('/');
+            }
+
             let form = document.querySelector('form#signin-form');
     
             let email = form.querySelector('input[type="email"]#email');
