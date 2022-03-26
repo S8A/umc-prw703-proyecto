@@ -1,3 +1,12 @@
+export function getQueryParams() {
+  /* Get the current page's query parameters. */
+
+  return new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+}
+
+
 export function getAccounts() {
   /* Get the list of user accounts from localStorage. */
 
