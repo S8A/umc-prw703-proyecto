@@ -141,3 +141,148 @@ export async function getTrainingSessionsJSON() {
   
   return trainingSessions;
 }
+
+
+export function getAllTrainingSessions() {
+  /* Get complete training sessions data from localStorage. */
+
+  if (!localStorage.trainingSessions) {
+    localStorage.setItem('trainingSessions', JSON.stringify([]));
+  }
+
+  return JSON.parse(localStorage.getItem('trainingSessions'));
+}
+
+
+export function getTrainingSessions(date = null, sort = true) {
+  /* Get training sessions of the currently signed-in account, or null
+  if not signed-in.  */
+
+  let account = getSignedInAccount();
+
+  if (account) {
+    let sessions = getAllTrainingSessions();
+
+    if (date) {
+      sessions = sessions.filter(
+          s => s.accountEmail === account.email && s.date === date);
+    } else {
+      sessions = sessions.filter(s => s.accountEmail === account.email);
+    }
+
+    if (sort) {
+      sessions.sort((a, b) => {
+        let datetime_a = Date.parse(a.date + 'T' + a.time);
+        let datetime_b = Date.parse(b.date + 'T' + b.time);
+        return datetime_b - datetime_a;
+      });
+    }
+
+    return sessions;
+  } else {
+    return null;
+  }
+}
+
+
+export function createTrainingSession(
+  date, time, shortTitle, duration, bodyweight, comments, exercises
+) {
+  /* Create a training session for the current user with the given data
+  and return the sanitized session data, or return null if the 
+  operation failed for any reason. */
+
+  let account = getSignedInAccount();
+
+  if (account) {
+    let session = {
+      id: null,
+      accountEmail: account.email,
+      date: date,
+      time: time,
+      shortTitle: shortTitle ? shortTitle : "",
+      duration: null,
+      bodyweight: null,
+      comments: comments ? comments : "",
+      exercises: [],
+    }
+
+    if (!Date.parse(date + 'T' + time)) {
+      return null;
+    }
+    
+    if (duration) {
+      let durationNumber = Number(duration);
+
+      if (!durationNumber.isNaN()) {
+        session.duration = durationNumber;
+      }
+    }
+
+    if (bodyweight) {
+      let bodyweightNumber = Number(bodyweight);
+
+      if (!bodyweightNumber.isNaN()) {
+        session.bodyweight = bodyweightNumber;
+      }
+    }
+
+    for (let exc of exercises) {
+      let item = {
+        exercise: exc.exercise,
+        setType: exc.setType,
+        weight: exc.weight,
+        sets: exc.sets ? Number(exc.sets) : Number(0),
+        reps: exc.reps ? exc.reps : [],
+        comments: exc.comments ? exc.comments : "",
+      }
+
+      if (!item.exercise) {
+        continue;
+      }
+
+      if (item.setType !== 'work' && item.setType !== 'warmup') {
+        continue;
+      }
+
+      if (item.weight) {
+        let weightNumber = Number(item.weight);
+
+        if (!weightNumber.isNaN()) {
+          item.weight = weightNumber;
+        } else {
+          continue;
+        }
+      }
+
+      if (item.sets.isNaN()) {
+        continue;
+      }
+
+      if (item.sets !== Number(item.reps.length)) {
+        continue;
+      } else {
+        let repNumbers = item.reps.map(r => Number(r));
+        if (repNumbers.every(r => !r.isNaN())) {
+          continue;
+        } else {
+          item.reps = repNumbers;
+        }
+      }
+
+      session.exercises.push(item);
+    }
+
+    if (session.exercises.length) {
+      let sessions = getAllTrainingSessions();
+      session.id = sessions.length + 1;
+      sessions.push(session);
+      localStorage.setItem('trainingSessions', sessions);
+      return session;
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
