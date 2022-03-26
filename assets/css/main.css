@@ -70,7 +70,7 @@ header {
 }
 
 header a {
-    color: var(--solarized-base1) !important;
+    color: var(--solarized-base2) !important;
     text-decoration: none !important;
 }
 
@@ -213,6 +213,22 @@ ul#pagination {
 #status-messages > .alert.error {
     color: #ffffff !important;
     background-color: var(--solarized-red);
+}
+
+header .account {
+    padding: 0 0.5rem;
+}
+
+header .account > span {
+    margin-right: 0.5rem;
+}
+
+#sign-out-btn {
+    background: none;
+    border: 1px solid var(--solarized-magenta);
+    color: var(--solarized-magenta);
+    padding: 0.125rem 0.25rem;
+    cursor: pointer;
 }
 
 
