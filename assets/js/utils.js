@@ -20,16 +20,9 @@ export function getAccounts() {
 
 export function getAccountByEmail(email) {
   /* Return user account registered with the given email, or return
-  null if no such account exists. */
+  undefined if no such account exists. */
 
-  let accounts = getAccounts();
-  for (let account of accounts) {
-    if (account.email === email) {
-      return account;
-    }
-  }
-
-  return null;
+  return getAccounts().find(account => account.email === email);
 }
 
 
