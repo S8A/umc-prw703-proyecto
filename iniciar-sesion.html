@@ -60,6 +60,8 @@
                 window.location.assign('/');
             }
 
+            const params = utils.getQueryParams();
+
             let form = document.querySelector('form#signin-form');
     
             let email = form.querySelector('input[type="email"]#email');
@@ -123,7 +125,18 @@
                         if (account.password === password.value) {
                             delete account.password;
                             sessionStorage.setItem('account', JSON.stringify(account));
-                            window.location.assign('/');
+
+                            const validRedirects = [
+                                '/',
+                                '/historial/',
+                                '/historial/crear.html'
+                            ];
+
+                            if (validRedirects.includes(params.next)) {
+                                window.location.assign(params.next);
+                            } else {
+                                window.location.assign('/');
+                            }
                         } else {
                             utils.addStatusMessage('error', ['Contraseña incorrecta.']);
                         }
