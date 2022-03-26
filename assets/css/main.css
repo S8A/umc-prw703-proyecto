@@ -223,7 +223,7 @@ ul#pagination {
     padding: 0;
 }
 
-.container.landing-page h1 {
+#landing-page-content h1 {
     font-size: 2.5rem;
     text-align: left;
 }
@@ -340,11 +340,11 @@ ul#pagination {
         padding: 2rem 1rem;
     }
 
-    .container.landing-page {
+    #landing-page-content {
         display: flex;
     }
 
-    .container.landing-page > div {
+    #landing-page-content > div {
         width: 50%;
     }
 
