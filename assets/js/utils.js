@@ -7,6 +7,14 @@ export function getQueryParams() {
 }
 
 
+export function setQueryParams(data) {
+  /* Set the current page's query parameters. */
+
+  let params = new URLSearchParams(data);
+  window.location.search = params.toString();
+}
+
+
 export function getAccounts() {
   /* Get the list of user accounts from localStorage. */
 
