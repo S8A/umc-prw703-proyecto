@@ -42,33 +42,6 @@
             <p>Samuel Ochoa · UMC PRW703 · 2022</p>
         </div>
     </footer>
-    <script type="module">
-        import * as utils from '/assets/js/utils.js';
-
-        window.addEventListener('load', function () {
-            let signedInAccount = utils.getSignedInAccount();
-            if (signedInAccount) {
-                utils.setUpSignedInHeader(signedInAccount);
-
-                let actionCall = document.querySelector('#action-call');
-                actionCall.textContent = 'Le damos la bienvenida, ' + signedInAccount.firstName + '. Puede revisar su ';
-                
-                let trainingLogLink = document.createElement('a');
-                trainingLogLink.href = '/historial/';
-                trainingLogLink.textContent = 'historial de entrenamiento';
-
-                actionCall.appendChild(trainingLogLink);
-
-                actionCall.appendChild(document.createTextNode(' o '));
-
-                let createTrainingSessionLink = document.createElement('a');
-                createTrainingSessionLink.href = '/historial/crear.html';
-                createTrainingSessionLink.textContent = 'registrar una nueva sesión de entrenamiento';
-
-                actionCall.appendChild(createTrainingSessionLink);
-                actionCall.appendChild(document.createTextNode('.'));
-            }
-        });
-    </script>
+    <script type="module" src="/assets/js/home.js"></script>
 </body>
 </html>
