@@ -270,49 +270,8 @@ export function createTrainingSession(
       }
     }
 
-    for (let exc of exercises) {
-      let item = {
-        exercise: exc.exercise,
-        setType: exc.setType,
-        weight: exc.weight,
-        sets: exc.sets ? Number(exc.sets) : Number(0),
-        reps: exc.reps ? exc.reps : [],
-        comments: exc.comments ? exc.comments : "",
-      };
-
-      if (!item.exercise) {
-        continue;
-      }
-
-      if (item.setType !== 'work' && item.setType !== 'warmup') {
-        continue;
-      }
-
-      if (item.weight) {
-        let weightNumber = Number(item.weight);
-
-        if (!weightNumber.isNaN()) {
-          item.weight = weightNumber;
-        } else {
-          continue;
-        }
-      }
-
-      if (item.sets.isNaN()) {
-        continue;
-      }
-
-      if (item.sets !== Number(item.reps.length)) {
-        continue;
-      } else {
-        let repNumbers = item.reps.map(r => Number(r));
-        if (repNumbers.every(r => !r.isNaN())) {
-          continue;
-        } else {
-          item.reps = repNumbers;
-        }
-      }
-
+    for (let itemData of exercises) {
+      let item = createTrainingSessionExerciseItem(itemData);
       session.exercises.push(item);
     }
 
@@ -328,4 +287,54 @@ export function createTrainingSession(
   } else {
     return null;
   }
+}
+
+
+export function createTrainingSessionExerciseItem(data) {
+  /* Create a valid training session exercise item from the given data
+  and return it, or return null if data is incomplete or invalid. */
+
+  let item = {
+    exercise: exc.exercise,
+    setType: exc.setType,
+    weight: exc.weight,
+    sets: exc.sets ? Number(exc.sets) : Number(0),
+    reps: exc.reps ? exc.reps : [],
+    comments: exc.comments ? exc.comments : "",
+  };
+
+  if (!item.exercise) {
+    return null;
+  }
+
+  if (item.setType !== 'work' && item.setType !== 'warmup') {
+    return null;
+  }
+
+  if (item.weight) {
+    let weightNumber = Number(item.weight);
+
+    if (!weightNumber.isNaN()) {
+      item.weight = weightNumber;
+    } else {
+      return null;
+    }
+  }
+
+  if (item.sets.isNaN()) {
+    return null;
+  }
+
+  if (item.sets !== Number(item.reps.length)) {
+    return null;
+  } else {
+    let repNumbers = item.reps.map(r => Number(r));
+    if (repNumbers.every(r => !r.isNaN())) {
+      return null;
+    } else {
+      item.reps = repNumbers;
+    }
+  }
+
+  return item;
 }
