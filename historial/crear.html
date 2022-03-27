@@ -121,17 +121,6 @@
             <p>Samuel Ochoa · UMC PRW703 · 2022</p>
         </div>
     </footer>
-    <script type="module">
-        import * as utils from '/assets/js/utils.js';
-
-        window.addEventListener('load', function () {
-            let signedInAccount = utils.getSignedInAccount();
-            if (signedInAccount) {
-                utils.setUpSignedInHeader(signedInAccount);
-            } else {
-                window.location.assign('/iniciar-sesion.html?next=/historial/crear.html');
-            }
-        });
-    </script>
+    <script type="module" src="/assets/js/training-session-create.js"></script>
 </body>
 </html>
