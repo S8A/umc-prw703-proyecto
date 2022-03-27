@@ -1,3 +1,10 @@
+/* CONSTANTS */
+
+export const TRAINING_LOG_ITEMS_PER_PAGE = 10;
+export const NBSP = '\u00a0';
+export const NDASH = '\u2013';
+
+
 /* QUERY PARAMETERS */
 
 export function getQueryParams() {
