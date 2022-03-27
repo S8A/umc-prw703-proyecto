@@ -356,3 +356,18 @@ export function getTrainingSession(id) {
 
   return null;
 }
+
+
+export function getTrainingSessionFullTitle(session) {
+  /* Get the full title of the given training session by combining its
+  date, time, and short title if present. */
+
+  let title = session.date + ' ' + session.time;
+
+  if (session.shortTitle) {
+    // \u2013 = en dash
+    title += ' \u2013 ' + session.shortTitle;
+  }
+
+  return title;
+}
