@@ -4,35 +4,35 @@ import * as utils from '/assets/js/utils.js';
 /* ACTION BUTTON FUNCTIONS */
 
 function addExercise() {
-  /* add */
+  /* Add an empty exercise item at the end of the table. */
 
   console.log('TODO: add');
 }
 
 
 function removeExercise() {
-  /* remove */
+  /* Remove selected exercise item. */
 
   console.log('TODO: remove');
 }
 
 
 function duplicateExercise() {
-  /* duplicate */
+  /* Duplicate selected exercise item. */
 
   console.log('TODO: duplicate');
 }
 
 
 function moveUpExercise() {
-  /* moveUp */
+  /* Move selected exercise item one position up. */
 
   console.log('TODO: moveUp');
 }
 
 
 function moveDownExercise() {
-  /* moveDown */
+  /* Move selected exercise item one position down. */
 
   console.log('TODO: moveDown');
 }
