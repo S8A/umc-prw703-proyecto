@@ -22,11 +22,8 @@ export function setQueryParams(data) {
 export function getAccounts() {
   /* Get the list of user accounts from localStorage. */
 
-  if (!localStorage.accounts) {
-    localStorage.setItem('accounts', JSON.stringify([]));
-  }
-
-  return JSON.parse(localStorage.getItem('accounts'));
+  let accounts = JSON.parse(localStorage.getItem('accounts'));
+  return accounts ? accounts : [];
 }
 
 
