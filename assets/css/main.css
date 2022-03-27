@@ -178,10 +178,12 @@ section {
 
 ul#pagination {
     list-style: none;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    column-gap: 1rem;
+    grid-template-columns: auto auto auto;
     padding: 0;
     margin: 1rem 0;
+    text-align: center;
 }
 
 #status-messages > .alert {
