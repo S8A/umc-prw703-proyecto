@@ -51,7 +51,7 @@ export function createAccount(email, firstName, lastName, password) {
     firstName: firstName,
     lastName: lastName,
     password: password
-  }
+  };
 
   accounts.push(new_account);
   localStorage.setItem('accounts', JSON.stringify(accounts));
@@ -71,7 +71,7 @@ export function getSignedInAccount() {
 /* SIGNED-IN HEADER */
 
 export function setUpSignedInHeader(account) {
-  /* Remove sign-in nav link in header, add div with the account's 
+  /* Remove sign-in nav link in header, add div with the account's
   name and a sign-out button. */
 
   let headerNavContainer = document.querySelector('header nav .container');
@@ -106,29 +106,28 @@ export function setUpSignedInHeader(account) {
 
 export function addStatusMessage(alertType, paragraphs) {
   /* Add status message to the top of the page. */
-  
+
   let statusMessages = document.getElementById('status-messages');
-  
+
   let statusMessage = document.createElement('div');
   statusMessage.classList.add('alert', alertType);
-  
+
   let closeButton = document.createElement('span');
   closeButton.innerHTML = '&#x2715;'
   closeButton.classList.add('close');
   closeButton.setAttribute('aria-label', 'Cerrar esta alerta');
-  
-  
+
   statusMessage.appendChild(closeButton);
-  
+
   for (let text of paragraphs) {
     let paragraph = document.createElement('p');
     paragraph.textContent = text;
-    
+
     statusMessage.appendChild(paragraph);
   }
-  
+
   statusMessages.prepend(statusMessage);
-  
+
   closeButton.addEventListener('click', function (event) {
     this.parentElement.remove();
   });
@@ -179,13 +178,13 @@ export function setPendingStatusMessage(alertType, paragraphs) {
 
 export async function getTrainingSessionsJSON() {
   /* Request training sessions JSON file and return data object. */
-  
+
   const requestURL = '/data/training-sessions.json';
   const request = new Request(requestURL);
-  
+
   const response = await fetch(request);
   const trainingSessions = await response.json();
-  
+
   return trainingSessions;
 }
 
@@ -233,7 +232,7 @@ export function createTrainingSession(
   date, time, shortTitle, duration, bodyweight, comments, exercises
 ) {
   /* Create a training session for the current user with the given data
-  and return the sanitized session data, or return null if the 
+  and return the sanitized session data, or return null if the
   operation failed for any reason. */
 
   let account = getSignedInAccount();
@@ -249,12 +248,12 @@ export function createTrainingSession(
       bodyweight: null,
       comments: comments ? comments : "",
       exercises: [],
-    }
+    };
 
     if (!Date.parse(date + 'T' + time)) {
       return null;
     }
-    
+
     if (duration) {
       let durationNumber = Number(duration);
 
@@ -279,7 +278,7 @@ export function createTrainingSession(
         sets: exc.sets ? Number(exc.sets) : Number(0),
         reps: exc.reps ? exc.reps : [],
         comments: exc.comments ? exc.comments : "",
-      }
+      };
 
       if (!item.exercise) {
         continue;
