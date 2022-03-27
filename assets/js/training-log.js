@@ -43,14 +43,7 @@ function createTrainingSessionContainer(session) {
   let h2 = document.createElement('h2');
   let a = document.createElement('a');
   a.href = '/historial/detalle.html?id=' + session.id;
-
-  let title = session.date + ' ' + session.time;
-  if (session.shortTitle) {
-    // \u2013 = en dash
-    title += ' \u2013 ' + session.shortTitle;
-  }
-
-  a.textContent = title;
+  a.textContent = utils.getTrainingSessionFullTitle(session);
 
   h2.appendChild(a);
 
