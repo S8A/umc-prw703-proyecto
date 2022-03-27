@@ -146,6 +146,34 @@ export function clearStatusMessages() {
 }
 
 
+export function addPendingStatusMessage() {
+  /* Add pending status message from sessionStorage then clear it. */
+
+  let statusMessage = JSON.parse(sessionStorage.getItem('pendingStatus'));
+
+  if (statusMessage) {
+    if (statusMessage.alertType && statusMessage.paragraphs) {
+      addStatusMessage(statusMessage.alertType, statusMessage.paragraphs);
+    }
+  }
+
+  sessionStorage.removeItem('pendingStatus');
+}
+
+
+export function setPendingStatusMessage(alertType, paragraphs) {
+  /* Set pending status message in sessionStorage. */
+
+  if (alertType && paragraphs && paragraphs.length > 0) {
+    let status = {
+      alertType: alertType,
+      paragraphs: paragraphs,
+    };
+
+    sessionStorage.setItem('pendingStatus', JSON.stringify(status));
+  }
+}
+
 
 /* TRAINING SESSIONS */
 
