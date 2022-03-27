@@ -21,7 +21,7 @@ function createQuery(date, page) {
 function addTrainingSessions(sessions) {
   /* Add the given training sessions to the page. */
 
-  if (sessions) {
+  if (sessions && sessions.length) {
     let trainingSessions = document.querySelector('#training-sessions');
 
     let emptyText = trainingSessions.querySelector('#empty-text');
