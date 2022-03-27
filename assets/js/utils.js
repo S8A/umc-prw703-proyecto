@@ -193,11 +193,8 @@ export async function getTrainingSessionsJSON() {
 export function getAllTrainingSessions() {
   /* Get complete training sessions data from localStorage. */
 
-  if (!localStorage.trainingSessions) {
-    localStorage.setItem('trainingSessions', JSON.stringify([]));
-  }
-
-  return JSON.parse(localStorage.getItem('trainingSessions'));
+  let sessions = JSON.parse(localStorage.getItem('trainingSessions'));
+  return sessions ? sessions : [];
 }
 
 
