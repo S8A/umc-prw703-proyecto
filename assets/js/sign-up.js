@@ -184,6 +184,7 @@ window.addEventListener( "load", function () {
       statusText = 'Corrija los errores en los datos ingresados.';
     }
 
+    utils.clearStatusMessages();
     utils.addStatusMessage(statusType, [statusText]);
   });
 });
