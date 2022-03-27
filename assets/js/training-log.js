@@ -41,6 +41,8 @@ function createTrainingSessionContainer(session) {
   trainingSession.classList.add('training-session');
 
   let h2 = document.createElement('h2');
+  let a = document.createElement('a');
+  a.href = '/historial/detalle.html?id=' + session.id;
 
   let title = session.date + ' ' + session.time;
   if (session.shortTitle) {
@@ -48,7 +50,9 @@ function createTrainingSessionContainer(session) {
     title += ' \u2013 ' + session.shortTitle;
   }
 
-  h2.textContent = title;
+  a.textContent = title;
+
+  h2.appendChild(a);
 
   let p = document.createElement('p');
   p.textContent =
