@@ -338,3 +338,21 @@ export function createTrainingSessionExerciseItem(data) {
 
   return item;
 }
+
+
+export function getTrainingSession(id) {
+  /* Get the training session of the given ID if it exists and belongs
+  to the signed-in account, or return null otherwise. */
+
+  let sessions = getTrainingSessions();
+
+  if (sessions) {
+    let session = sessions.find(s => s.id === id);
+
+    if (session) {
+      return session;
+    }
+  }
+
+  return null;
+}
