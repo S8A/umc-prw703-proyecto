@@ -242,5 +242,26 @@ window.addEventListener('load', function () {
 
     // Add sessions data to page
     addTrainingSessions(sessions);
+
+    // Get date filter and field
+    let dateFilter = document.querySelector('form#date-filter');
+    let dateField =
+        dateFilter.querySelector('input[type="date"]#date-filter-input');
+
+    // Set date field value if date query param is set
+    if (date) {
+      dateField.value = date;
+    }
+
+    // Add event listener for date filter form submission
+    dateFilter.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      if (dateFilter.reportValidity()) {
+        // If form is valid, filter by the selected date
+        let filterDate = dateField.value;
+        utils.setQueryParams(createQuery(filterDate, null));
+      }
+    });
   }
 });
