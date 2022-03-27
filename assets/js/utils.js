@@ -1,3 +1,5 @@
+/* QUERY PARAMETERS */
+
 export function getQueryParams() {
   /* Get the current page's query parameters. */
 
@@ -14,6 +16,8 @@ export function setQueryParams(data) {
   window.location.search = params.toString();
 }
 
+
+/* ACCOUNTS */
 
 export function getAccounts() {
   /* Get the list of user accounts from localStorage. */
@@ -67,6 +71,8 @@ export function getSignedInAccount() {
 }
 
 
+/* SIGNED-IN HEADER */
+
 export function setUpSignedInHeader(account) {
   /* Remove sign-in nav link in header, add div with the account's 
   name and a sign-out button. */
@@ -99,6 +105,8 @@ export function setUpSignedInHeader(account) {
 }
 
 
+/* STATUS MESSAGES */
+
 export function addStatusMessage(alertType, paragraphs) {
   /* Add status message to the top of the page. */
   
@@ -129,6 +137,9 @@ export function addStatusMessage(alertType, paragraphs) {
   });
 }
 
+
+
+/* TRAINING SESSIONS */
 
 export async function getTrainingSessionsJSON() {
   /* Request training sessions JSON file and return data object. */
