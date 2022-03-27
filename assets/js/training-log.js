@@ -1,7 +1,7 @@
 import * as utils from '/assets/js/utils.js';
 
 
-function createQuery(date = null, page = null) {
+function createQuery(date, page) {
   /* Create query parameters object with the given date and page. */
 
   let query = {};
@@ -133,7 +133,7 @@ function addPagination(date, numPages, page) {
     a.href = pathname + '?' + queryParams;
     a.rel = 'prev';
     a.textContent = 'Anterior';
-    
+
     previous.appendChild(a);
   }
 
@@ -149,7 +149,7 @@ function addPagination(date, numPages, page) {
     a.href = pathname + '?' + queryParams;
     a.rel = 'next';
     a.textContent = 'Siguiente';
-    
+
     next.appendChild(a);
   }
 
@@ -176,16 +176,17 @@ window.addEventListener('load', function () {
     const params = utils.getQueryParams();
 
     // Get filter date from query parameter, if present
-    let date = params.date ? Date.parse(params.date) : null;
+    let date = params.date ? params.date : null;
+    let dateNumber = Date.parse(params.date);
 
     // Get page number from query parameter
     let page = params.page ? Number(params.page) : 1;
 
     // Handle invalid date and/or page number, if necessary
-    if (isNaN(date) || isNaN(page)) {
+    if ((date && isNaN(dateNumber)) || isNaN(page) || page <= 0) {
       // Empty out invalid query parameters
-      date = isNaN(date) ? null : date;
-      page = isNaN(page) ? null : page;
+      date = isNaN(dateNumber) ? null : date;
+      page = (isNaN(page) || page <= 0) ? null : page;
 
       // Redirect appropriately and end event handler execution
       utils.setQueryParams(createQuery(date, page));
@@ -201,6 +202,9 @@ window.addEventListener('load', function () {
 
     // Computer total number of pages
     let numPages = Math.ceil(sessions.length / itemsPerPage);
+    if (numPages <= 0) {
+      numPages = 1;
+    }
 
     // Redirect to first page if the page number is too high
     if (page > numPages) {
