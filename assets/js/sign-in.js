@@ -33,12 +33,20 @@ function showPasswordError(password, feedback) {
 
 window.addEventListener( "load", function () {
   let signedInAccount = utils.getSignedInAccount();
+
+  // If signed-in, redirect to home page and end event handler execution
   if (signedInAccount) {
     window.location.assign('/');
+    return;
   }
 
+  // Add pending status message to page
+  utils.addPendingStatusMessage();
+
+  // Get query parameters
   const params = utils.getQueryParams();
 
+  // Get form, fields and feedback elements
   let form = document.querySelector('form#signin-form');
 
   let email = form.querySelector('input[type="email"]#email');
@@ -47,6 +55,7 @@ window.addEventListener( "load", function () {
   let password = form.querySelector('input[type="password"]#password');
   let passwordFeedback = password.parentElement.querySelector('.invalid-feedback');
 
+  // Add event listeners to form fields
   email.addEventListener('invalid', function (event) {
     showEmailError(email, emailFeedback);
   });
@@ -71,18 +80,24 @@ window.addEventListener( "load", function () {
     }
   });
 
+  // Add event listener for form submission
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+
     let statusText = '';
 
     if (form.reportValidity()) {
+      // If form is valid, try to find account linked to email
       let account = utils.getAccountByEmail(email.value);
 
       if (account) {
         if (account.password === password.value) {
+          // If the account exists and password matches, save it for
+          // the current session
           delete account.password;
           sessionStorage.setItem('account', JSON.stringify(account));
 
+          // List of valid redirect destinations
           const validRedirects = [
             '/',
             '/historial/',
@@ -96,17 +111,23 @@ window.addEventListener( "load", function () {
           } else {
             window.location.assign('/');
           }
+
+          // End event handler execution
           return;
         } else {
+          // If the account exists but the password does not match
           statusText = 'Contraseña incorrecta.';
         }
       } else {
+        // If the account does not exist
         statusText = 'No existe ninguna cuenta con ese correo electrónico.';
       }
     } else {
+      // If the form is not valid
       statusText = 'Corrija los errores en los datos ingresados.';
     }
 
+    // Clear status area and add appropriate error message
     utils.clearStatusMessages();
     utils.addStatusMessage('error', [statusText]);
   });

@@ -74,10 +74,17 @@ function checkConfirmPassword(password, confirm, feedback) {
 
 window.addEventListener( "load", function () {
   let signedInAccount = utils.getSignedInAccount();
+
+  // If signed-in, redirect to home page and end event handler execution
   if (signedInAccount) {
     window.location.assign('/');
+    return;
   }
 
+  // Add pending status message to page
+  utils.addPendingStatusMessage();
+
+  // Get form, fields and feedback elements
   let form = document.querySelector('form#signup-form');
 
   let email = form.querySelector('input[type="email"]#email');
@@ -101,6 +108,7 @@ window.addEventListener( "load", function () {
 
   let submit = form.querySelector('button[type="submit"]');
 
+  // Add event listeners to form fields
   email.addEventListener('invalid', function (event) {
     showEmailError(email, emailFeedback);
   });
@@ -155,16 +163,20 @@ window.addEventListener( "load", function () {
     checkConfirmPassword(password, confirm, confirmFeedback);
   });
 
+  // Add event listener for form submission
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+
     let statusText = '';
     let statusType = 'error'
 
     if (form.reportValidity()) {
+      // If form is valid, try to create account with the given data
       let accountCreated = utils.createAccount(
           email.value, firstName.value, lastName.value, password.value);
 
       if (accountCreated) {
+        // If the account was created, create pending success message
         statusType = 'success';
         statusText = 'Cuenta creada exitosamente.';
 
@@ -175,14 +187,18 @@ window.addEventListener( "load", function () {
         confirm.disabled = true;
         submit.disabled = true;
       } else {
+        // If the account was not created, then email already belongs
+        // to an account
         statusText =
             'El correo electrónico ingresado ya está asociado a una cuenta.';
       }
     } else {
+      // If the form is not valid
       checkConfirmPassword(password, confirm, confirmFeedback);
       statusText = 'Corrija los errores en los datos ingresados.';
     }
 
+    // Clear status area and add appropriate error message
     utils.clearStatusMessages();
     utils.addStatusMessage(statusType, [statusText]);
   });

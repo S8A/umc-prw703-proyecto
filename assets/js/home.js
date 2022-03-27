@@ -29,8 +29,13 @@ function setUpSignedInActionCall(account) {
 
 window.addEventListener('load', function () {
   let signedInAccount = utils.getSignedInAccount();
+
+  // If signed-in, set up header & customized action call
   if (signedInAccount) {
     utils.setUpSignedInHeader(signedInAccount);
     setUpSignedInActionCall(signedInAccount);
   }
+
+  // Add pending status message to page
+  utils.addPendingStatusMessage();
 });
