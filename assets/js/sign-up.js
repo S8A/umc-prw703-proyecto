@@ -65,7 +65,6 @@ function checkConfirmPassword(password, confirm, feedback) {
     let text = 'El texto ingresado no coincide con la contraseña.';
     confirm.setCustomValidity(text);
     feedback.textContent = text;
-    console.log('mismatch');
   } else {
     confirm.setCustomValidity('');
     feedback.textContent = '';
