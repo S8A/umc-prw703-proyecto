@@ -115,6 +115,22 @@ function createTrainingSessionContainer(session) {
 }
 
 
+function setPageTitle(date, page) {
+  /* Add filter date (if any) and page number to title. */
+
+  let title = ['Historial de entrenamiento'];
+  if (date) {
+    title[0] += ': ' + date;
+  }
+
+  title.push('Página ' + page);
+  title.push('8A Training');
+
+  // Join title components with en dash
+  document.title = title.join(' \u2013 ');
+}
+
+
 function addPagination(date, numPages, page) {
   /* Add pagination links based on the given parameters. */
 
@@ -192,6 +208,9 @@ window.addEventListener('load', function () {
       utils.setQueryParams(createQuery(date, page));
       return;
     }
+
+    // Set page title with filter date and page number
+    setPageTitle(date, page);
 
     // Number of items per page
     const itemsPerPage = 10;
