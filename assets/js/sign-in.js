@@ -96,6 +96,7 @@ window.addEventListener( "load", function () {
           } else {
             window.location.assign('/');
           }
+          return;
         } else {
           statusText = 'Contraseña incorrecta.';
         }
