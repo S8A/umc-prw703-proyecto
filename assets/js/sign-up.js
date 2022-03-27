@@ -106,8 +106,6 @@ window.addEventListener( "load", function () {
   let confirmFeedback =
       confirm.parentElement.querySelector('.invalid-feedback');
 
-  let submit = form.querySelector('button[type="submit"]');
-
   // Add event listeners to form fields
   email.addEventListener('invalid', function (event) {
     showEmailError(email, emailFeedback);
@@ -178,14 +176,12 @@ window.addEventListener( "load", function () {
       if (accountCreated) {
         // If the account was created, create pending success message
         statusType = 'success';
-        statusText = 'Cuenta creada exitosamente.';
+        statusText = 'Cuenta creada exitosamente. Puede iniciar sesión.';
+        utils.setPendingStatusMessage(statusType, [statusText]);
 
-        email.disabled = true;
-        firstName.disabled = true;
-        lastName.disabled = true;
-        password.disabled = true;
-        confirm.disabled = true;
-        submit.disabled = true;
+        // Redirect to sign-in page and end event handler execution
+        window.location.assign('/iniciar-sesion.html');
+        return;
       } else {
         // If the account was not created, then email already belongs
         // to an account
