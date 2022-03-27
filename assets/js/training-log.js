@@ -76,11 +76,10 @@ function createTrainingSessionContainer(session) {
 
       let weight = document.createElement('td');
       weight.classList.add('ta-center');
-      weight.textContent = '\u2013'; // en dash
+      weight.textContent = utils.NDASH;
 
       if (item.weight) {
-        // \u00a0 = non-breaking space
-        weight.textContent = item.weight + '\u00a0' + 'kg'
+        weight.textContent = item.weight + utils.NBSP + 'kg'
       }
 
       let sets = document.createElement('td');
@@ -123,8 +122,7 @@ function setPageTitle(date, page) {
   title.push('Página ' + page);
   title.push('8A Training');
 
-  // Join title components with en dash
-  document.title = title.join(' \u2013 ');
+  document.title = title.join(utils.NDASH);
 }
 
 
@@ -209,15 +207,13 @@ window.addEventListener('load', function () {
     // Set page title with filter date and page number
     setPageTitle(date, page);
 
-    // Number of items per page
-    const itemsPerPage = 10;
-
     // Get this account's training sessions, filtered by date if the
     // parameter is set
     let sessions = utils.getTrainingSessions(date);
 
     // Computer total number of pages
-    let numPages = Math.ceil(sessions.length / itemsPerPage);
+    let numPages =
+        Math.ceil(sessions.length / utils.TRAINING_LOG_ITEMS_PER_PAGE);
     if (numPages <= 0) {
       numPages = 1;
     }
@@ -231,8 +227,8 @@ window.addEventListener('load', function () {
     addPagination(date, numPages, page);
 
     // Compute indexes of first and last items
-    let first = itemsPerPage * (page - 1);
-    let last = first + itemsPerPage;
+    let first = utils.TRAINING_LOG_ITEMS_PER_PAGE * (page - 1);
+    let last = first + utils.TRAINING_LOG_ITEMS_PER_PAGE;
 
     // Keep only this page's training sessions
     sessions = sessions.slice(first, last);
