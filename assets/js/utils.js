@@ -138,6 +138,17 @@ export function addStatusMessage(alertType, paragraphs) {
 }
 
 
+export function clearStatusMessages() {
+  /* Clear all status messages from the top of the page. */
+
+  let statusMessages = document.getElementById('status-messages');
+
+  while (statusMessages.firstChild) {
+    statusMessages.removeChild(statusMessages.firstChild);
+  }
+}
+
+
 
 /* TRAINING SESSIONS */
 
