@@ -247,6 +247,9 @@ window.addEventListener('load', function () {
     // Add sessions data to page
     addTrainingSessions(sessions);
 
+    // Add pending status message to page
+    utils.addPendingStatusMessage();
+
     // Get date filter and field
     let dateFilter = document.querySelector('form#date-filter');
     let dateField =
