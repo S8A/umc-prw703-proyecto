@@ -43,11 +43,7 @@
             </div>
 
             <nav aria-label="Páginas">
-                <ul id="pagination">
-                    <li>Anterior</li>
-                    <li>Página 1 de 5</li>
-                    <li><a href="?page=2">Siguiente</a></li>
-                </ul>
+                <ul id="pagination"></ul>
             </nav>
         </div>
     </main>
@@ -56,85 +52,6 @@
             <p>Samuel Ochoa · UMC PRW703 · 2022</p>
         </div>
     </footer>
-    <script type="module">
-        import * as utils from '/assets/js/utils.js';
-
-        window.addEventListener('load', function () {
-            let signedInAccount = utils.getSignedInAccount();
-            if (signedInAccount) {
-                // Set up signed-in header
-                utils.setUpSignedInHeader(signedInAccount);
-
-                // Get query params
-                const params = utils.getQueryParams();
-                
-                // Get page number from query parameter
-                let page = 1;
-                if (params.page) {
-                    let pageNumber = Number(params.page);
-                    
-                    if (pageNumber.isNaN() || pageNumber <= 0) {
-                        // Redirect to first page if page number is 
-                        // not a number, zero or negative
-                        let query = {};
-                        if (params.date) {
-                            query.date = params.date;
-                        }
-                        utils.setQueryParams(query);
-                    } else {
-                        page = pageNumber;
-                    }
-                }
-
-                // Get this account's training sessions, filtered 
-                // by the date parameter
-                let sessions = utils.getTrainingSessions(params.date);
-
-                // Compute indexes of first and last items
-                const itemsPerPage = 10;
-                let first = itemsPerPage * (page - 1);
-                let last = first + itemsPerPage;
-
-                // Compute previous and next page numbers
-                let previousPage = (page === 1) ? null : page - 1;
-                let nextPage = (last >= sessions.length) ? null : page + 1;
-
-                if (first > page.length) {
-                    // Redirect to previous page if the page number is too high
-                    let query = {};
-                    if (params.date) {
-                        query.date = params.date;
-                    }
-                    query.page = previousPage;
-                    utils.setQueryParams(query);
-                }
-
-                // Keep only this page's training sessions
-                sessions = sessions.slice(first, last);
-
-                // Text element that indicates that no sessions were found
-                let emptyText = document.querySelector('#empty-text');
-
-                if (sessions) {
-                    // Hide empty text element
-                    emptyText.style.display = 'none';
-                }
-
-                // Append sessions data to page
-                // TODO: Implement correctly
-                let trainingSessions = document.querySelector(
-                    '#training-sessions');
-                let sessionsList = document.createElement('ul');
-                for (let session of sessions) {
-                    let trainingSession = document.createElement('li');
-                    trainingSession.textContent = JSON.stringify(session);
-                    sessionsList.appendChild(trainingSession);
-                }
-                trainingSessions.append(sessionsList);
-            } else {
-                window.location.assign('/iniciar-sesion.html?next=/historial/');
-            }
-        });
-    </script>
+    <script type="module" src="/assets/js/training-log.js"></script>
 </body>
 </html>
