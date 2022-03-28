@@ -69,10 +69,10 @@
                     <p>Los campos requeridos son indicados por <abbr title="requerido">*</abbr>.</p>
                     <div id="main-buttons">
                         <button type="button" id="add-btn">Agregar ejercicio</button>
-                        <button type="button" id="remove-btn">Eliminar seleccionado</button>
-                        <button type="button" id="duplicate-btn">Duplicar seleccionado</button>
-                        <button type="button" id="move-up-btn">Subir seleccionado</button>
-                        <button type="button" id="move-down-btn">Bajar seleccionado</button>
+                        <button type="button" id="remove-btn" disabled>Eliminar seleccionado</button>
+                        <button type="button" id="duplicate-btn" disabled>Duplicar seleccionado</button>
+                        <button type="button" id="move-up-btn" disabled>Subir seleccionado</button>
+                        <button type="button" id="move-down-btn" disabled>Bajar seleccionado</button>
                     </div>
                     <div class="exercises">
                         <table>
@@ -86,32 +86,6 @@
                                 <th>Comentarios</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="selected" id="selected-1" value="1" aria-label="Seleccionar ítem 1" checked>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="exercise-1" id="exercise-1" minlength="1" maxlength="50" required>
-                                    </td>
-                                    <td>
-                                        <select name="set-type-1" id="set-type-1" required>
-                                            <option value="warmup">Calentamiento</option>
-                                            <option value="work" selected>Trabajo</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="weight-1" id="weight-1" min="0">
-                                    </td>
-                                    <td>
-                                        <input type="number" name="sets-1" id="sets-1" min="0" required>
-                                    </td>
-                                    <td>
-                                        &ndash;
-                                    </td>
-                                    <td>
-                                        <input type="text" name="comments-1" id="comments-1" maxlength="50">
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
