@@ -1,9 +1,7 @@
 import * as utils from '/assets/js/utils.js';
 
 
-
-/* ACTION BUTTON FUNCTIONS */
-
+/* GENERAL HELPERS */
 
 function getSelectedRowNumber() {
   /* Get the currently selected row number if any, or return null. */
@@ -18,6 +16,55 @@ function getSelectedRowNumber() {
   }
 
   return null;
+}
+
+
+export function getRows() {
+  /* Get all exercise item rows. */
+
+  return document.querySelectorAll('.exercises table tbody > tr.exercise-item');
+}
+
+
+/* ACTION BUTTON FUNCTIONS */
+
+export function toggleActionButtons() {
+  /* Enable/disable action buttons based on the currently selected row
+  number, if any. */
+
+  let selected = getSelectedRowNumber();
+  let rowCount = getRows().length;
+
+  let removeButton = document.querySelector('button#remove-btn');
+  let duplicateButton = document.querySelector('button#duplicate-btn');
+  let moveUpButton = document.querySelector('button#move-up-btn');
+  let moveDownButton = document.querySelector('button#move-down-btn');
+
+  if (selected === 1) {
+    // First item selected
+    removeButton.disabled = false;
+    duplicateButton.disabled = false;
+    moveUpButton.disabled = true;
+    moveDownButton.disabled = rowCount === 1;
+  } else if (selected === rowCount) {
+    // Last item selected
+    removeButton.disabled = false;
+    duplicateButton.disabled = false;
+    moveUpButton.disabled = false;
+    moveDownButton.disabled = true;
+  } else if (Number.isInteger(selected)) {
+    // Selected item is somewhere between the first and the last
+    removeButton.disabled = false;
+    duplicateButton.disabled = false;
+    moveUpButton.disabled = false;
+    moveDownButton.disabled = false;
+  } else {
+    // None selected
+    removeButton.disabled = true;
+    duplicateButton.disabled = true;
+    moveUpButton.disabled = true;
+    moveDownButton.disabled = true;
+  }
 }
 
 
