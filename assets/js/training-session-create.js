@@ -137,7 +137,7 @@ window.addEventListener('load', function () {
       let statusText = '';
       let statusType = 'error';
 
-      if (form.reportValidity()) {
+      if (form.checkValidity()) {
         // If form is valid, try to create training session with the given data
         let exercises = gatherExerciseData();
 
