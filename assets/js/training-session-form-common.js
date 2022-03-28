@@ -6,12 +6,14 @@ import * as utils from '/assets/js/utils.js';
 function getSelectedRowNumber() {
   /* Get the currently selected row number if any, or return null. */
 
-  let radios = document.querySelector(
-      '.exercises input[type="radio"][id^="selection-"]');
+  let radios = document.querySelectorAll(
+      '.exercises input[type="radio"][name="selection"]');
 
-  for (let radio of radios) {
-    if (radio.checked) {
-      return radio.dataset.rowNumber;
+  if (radios && radios.length) {
+    for (let radio of radios) {
+      if (radio.checked) {
+        return Number(radio.dataset.rowNumber);
+      }
     }
   }
 
