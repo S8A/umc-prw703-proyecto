@@ -216,7 +216,7 @@ export function createEditableExerciseItemRow(rowNumber, data) {
   // Selection
   let selectionTd = createSelectionTd(rowNumber);
 
-  // Exercise* 
+  // Exercise*
   let exercise = (data && data.exercise) ? data.exercise : '';
   let exerciseTd = createExerciseTd(rowNumber, exercise);
 
@@ -235,8 +235,8 @@ export function createEditableExerciseItemRow(rowNumber, data) {
   // Reps
   let repsTd = document.createElement('td');
 
-  if (sets.value > 0) {
-    for (let i = 0; i < sets.value; i++) {
+  if (sets > 0) {
+    for (let i = 0; i < sets; i++) {
       let setNumber = i + 1;
 
       let reps = null;
@@ -330,17 +330,17 @@ function createSetTypeTd(rowNumber, value) {
   let setTypeTd = document.createElement('td');
   
   let setType = document.createElement('select');
-  setType.name = "set-type-";
+  setType.name = "set-type-" + rowNumber;
   setType.id = setType.name;
   setType.dataset.rowNumber = rowNumber;
   setType.required = true;
   
   let warmupOption = document.createElement('option');
-  warmupOptionworkOption.value = warmup;
-  warmupOptionworkOption.textContent = 'Calentamiento';
+  warmupOption.value = "warmup";
+  warmupOption.textContent = 'Calentamiento';
   
   let workOption = document.createElement('option');
-  workOption.value = work;
+  workOption.value = "work";
   workOption.textContent = 'Trabajo';
   
   if (value === 'warmup') {
@@ -349,8 +349,8 @@ function createSetTypeTd(rowNumber, value) {
     workOption.selected = true;
   }
   
-  setType.appendChild(work);
-  setType.appendChild(warmup);
+  setType.appendChild(workOption);
+  setType.appendChild(warmupOption);
   
   setType.addEventListener('invalid', function (event) {
     console.log('TODO: ' + this.id + ' invalid');
@@ -409,7 +409,7 @@ function createSetsTd(rowNumber, value) {
   sets.name = "sets-" + rowNumber;
   sets.id = sets.name;
   sets.dataset.rowNumber = rowNumber;
-  sets.required = True;
+  sets.required = true;
   
   if (value) {
     sets.value = value;
