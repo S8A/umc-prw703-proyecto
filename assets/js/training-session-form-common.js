@@ -135,7 +135,7 @@ export function showCommentsError(comments) {
 
 /* EXERCISE DATA PROCESSING */
 
-function gatherExercisesFData() {
+export function gatherExercisesFormData() {
   /* Return a list of training sessions with the form fields' data. */
 
   let exercise = document.querySelectorAll(
@@ -226,6 +226,7 @@ function createSelectionTd(rowNumber) {
   selection.name = 'selection';
   selection.id = selection.name + '-' + rowNumber;
   selection.dataset.rowNumber = rowNumber;
+  selection.ariaLabel = 'Seleccionar ítem ' + rowNumber;
 
   selection.addEventListener('click', function (event) {
     console.log('TODO: ' + this.id + ' click');
@@ -245,8 +246,8 @@ function createExerciseTd(rowNumber, value) {
 
   let exercise = document.createElement('input');
   exercise.type = "text";
-  exercise.id = "exercise-" + rowNumber;
-  exercise.name = exercise.id;
+  exercise.name = "exercise-" + rowNumber;
+  exercise.id = exercise.name;
   exercise.dataset.rowNumber = rowNumber;
   exercise.maxLength = 20;
   exercise.pattern = '[0-9A-Za-z &\'\\-\\+\\.]+';
@@ -278,8 +279,8 @@ function createSetTypeTd(rowNumber, value) {
   let setTypeTd = document.createElement('td');
   
   let setType = document.createElement('select');
-  setType.id = "set-type-";
-  setType.name = setType.id;
+  setType.name = "set-type-";
+  setType.id = setType.name;
   setType.dataset.rowNumber = rowNumber;
   setType.required = true;
   
@@ -323,8 +324,8 @@ function createWeightTd(rowNumber, value) {
   
   let weight = document.createElement('input');
   weight.type = "number";
-  weight.id = "weight-" + rowNumber;
-  weight.name = weight.id;
+  weight.name = "weight-" + rowNumber;
+  weight.id = weight.name;
   weight.dataset.rowNumber = rowNumber;
   
   if (!Number.isNaN(value)) {
@@ -354,8 +355,8 @@ function createSetsTd(rowNumber, value) {
   
   let sets = document.createElement('input');
   sets.type = "number";
-  sets.id = "sets-" + rowNumber;
-  sets.name = sets.id;
+  sets.name = "sets-" + rowNumber;
+  sets.id = sets.name;
   sets.dataset.rowNumber = rowNumber;
   sets.required = True;
   
@@ -400,7 +401,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
   let reps = document.createElement('input');
   reps.type = "number";
   reps.id = repsLabel.for;
-  reps.name = reps.id;
+  reps.id = reps.name;
   reps.dataset.rowNumber = rowNumber;
   reps.dataset.setNumber = setNumber;
   reps.required = true;
@@ -432,8 +433,8 @@ function createCommentsTd(rowNumber, value) {
   let commentsTd = document.createElement('td');
 
   let comments = document.createElement('textarea');
-  comments.id = "comments-" + rowNumber;
-  comments.name = comments.id;
+  comments.name = "comments-" + rowNumber;
+  comments.id = comments.name;
   comments.dataset.rowNumber = rowNumber;
   comments.pattern = '[0-9A-Za-z &\'\\-\\+\\.]*';
   comments.maxLength = 50;
