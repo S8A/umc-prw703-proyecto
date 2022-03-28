@@ -280,7 +280,7 @@ function createSelectionTd(rowNumber) {
   selection.ariaLabel = 'Seleccionar ítem ' + rowNumber;
 
   selection.addEventListener('click', function (event) {
-    console.log('TODO: ' + this.id + ' click');
+    toggleActionButtons();
   });
 
   selectionTd.appendChild(selection);
