@@ -40,45 +40,45 @@ function moveDownExercise() {
 
 /* FORM FIELD ERRORS */
 
-function showDateError(date, feedback) {
+function showDateError(date) {
   /* showDateError */
 
   console.log('TODO: showDateError');
 }
 
 
-function showTimeError(time, feedback) {
+function showTimeError(time) {
   /* showTimeError */
 
   console.log('TODO: showTimeError');
 }
 
 
-function showShortTitleError(shortTitle, feedback) {
+function showShortTitleError(shortTitle) {
   /* showShortTitleError */
 
   console.log('TODO: showShortTitleError');
 }
 
 
-function showDurationError(duration, feedback) {
+function showDurationError(duration) {
   /* showDurationError */
 
   console.log('TODO: showDurationError');
 }
 
 
-function showBodyweightError(bodyweight, feedback) {
+function showBodyweightError(bodyweight) {
   /* showBodyweightError */
 
   console.log('TODO: showBodyweightError');
 }
 
 
-function showGeneralCommentsError(comments, feedback) {
-  /* showGeneralCommentsError */
+function showCommentsError(comments) {
+  /* showCommentsError */
 
-  console.log('TODO: showGeneralCommentsError');
+  console.log('TODO: showCommentsError');
 }
 
 
@@ -122,26 +122,11 @@ window.addEventListener('load', function () {
     let form = document.querySelector('form#create-form');
 
     let date = form.querySelector('input[type="date"]#date');
-    let dateFeedback = date.parentElement.querySelector('.invalid-feedback');
-
     let time = form.querySelector('input[type="time"]#time');
-    let timeFeedback = time.parentElement.querySelector('.invalid-feedback');
-
     let shortTitle = form.querySelector('input[type="text"]#short-title');
-    let shortTitleFeedback =
-        shortTitle.parentElement.querySelector('.invalid-feedback');
-
     let duration = form.querySelector('input[type="number"]#duration');
-    let durationFeedback =
-        duration.parentElement.querySelector('.invalid-feedback');
-
     let bodyweight = form.querySelector('input[type="number"]#bodyweight');
-    let bodyweightFeedback =
-        bodyweight.parentElement.querySelector('.invalid-feedback');
-
     let comments = form.querySelector('textarea#comments');
-    let commentsFeedback =
-        comments.parentElement.querySelector('.invalid-feedback');
 
     // Get action buttons
     let addButton = document.querySelector('button#add-btn');
@@ -152,74 +137,74 @@ window.addEventListener('load', function () {
 
     // Add event listeners to form fields
     date.addEventListener('invalid', function (event) {
-      showDateError(date, dateFeedback);
+      showDateError(date);
     });
 
     date.addEventListener('input', function (event) {
       if (date.validity.valid) {
-        dateFeedback.textContent = '';
+        utils.getInvalidFeedbackElement(date).textContent = '';
       } else {
-        showDateError(date, dateFeedback);
+        showDateError(date);
       }
     });
 
     time.addEventListener('invalid', function (event) {
-      showTimeError(time, timeFeedback);
+      showTimeError(time);
     });
 
     time.addEventListener('input', function (event) {
       if (time.validity.valid) {
-        timeFeedback.textContent = '';
+        utils.getInvalidFeedbackElement(time).textContent = '';
       } else {
-        showTimeError(time, timeFeedback);
+        showTimeError(time);
       }
     });
 
     shortTitle.addEventListener('invalid', function (event) {
-      showShortTitleError(shortTitle, shortTitleFeedback);
+      showShortTitleError(shortTitle);
     });
 
     shortTitle.addEventListener('input', function (event) {
       if (shortTitle.validity.valid) {
-        shortTitleFeedback.textContent = '';
+        utils.getInvalidFeedbackElement(shortTitle).textContent = '';
       } else {
-        showShortTitleError(shortTitle, shortTitleFeedback);
+        showShortTitleError(shortTitle);
       }
     });
 
     duration.addEventListener('invalid', function (event) {
-      showDurationError(duration, durationFeedback);
+      showDurationError(duration);
     });
 
     duration.addEventListener('input', function (event) {
       if (duration.validity.valid) {
-        durationFeedback.textContent = '';
+        utils.getInvalidFeedbackElement(duration).textContent = '';
       } else {
-        showDurationError(duration, durationFeedback);
+        showDurationError(duration);
       }
     });
 
     bodyweight.addEventListener('invalid', function (event) {
-      showBodyweightError(bodyweight, bodyweightFeedback);
+      showBodyweightError(bodyweight);
     });
 
     bodyweight.addEventListener('input', function (event) {
       if (bodyweight.validity.valid) {
-        bodyweightFeedback.textContent = '';
+        utils.getInvalidFeedbackElement(bodyweight).textContent = '';
       } else {
-        showBodyweightError(bodyweight, bodyweightFeedback);
+        showBodyweightError(bodyweight);
       }
     });
 
     comments.addEventListener('invalid', function (event) {
-      showGeneralCommentsError(comments, commentsFeedback);
+      showCommentsError(comments);
     });
 
     comments.addEventListener('input', function (event) {
       if (comments.validity.valid) {
-        commentsFeedback.textContent = '';
+        utils.getInvalidFeedbackElement(comments).textContent = '';
       } else {
-        showGeneralCommentsError(comments, commentsFeedback);
+        showCommentsError(comments);
       }
     });
 
