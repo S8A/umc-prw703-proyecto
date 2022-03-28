@@ -1,8 +1,10 @@
 import * as utils from '/assets/js/utils.js';
 
 
-function showEmailError(email, feedback) {
+function showEmailError(email) {
   /* Show feedback if the email field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(email);
 
   if (email.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar una dirección de correo electrónico.';
@@ -16,35 +18,44 @@ function showEmailError(email, feedback) {
 }
 
 
-function showFirstNameError(firstName, feedback) {
+function showFirstNameError(firstName) {
   /* Show feedback if the first name field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(firstName);
 
   if (firstName.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar su nombre.'
   } else if (firstName.validity.tooLong) {
-    feedback.textContent = 'Demasiados caracteres (máximo ' + firstName.maxLength + ').';
-  } else if (firstName.validity.typeMismatch) {
-    feedback.textContent = 'Solo se permiten caracteres alfanuméricos.';
+    feedback.textContent =
+        'Demasiados caracteres (máximo ' + firstName.maxLength + ').';
+  } else if (firstName.validity.patternMismatch) {
+    feedback.textContent =
+        'Solo se permiten caracteres alfanuméricos y espacios.';
   }
 }
 
 
-function showLastNameError(lastName, feedback) {
+function showLastNameError(lastName) {
   /* Show feedback if the last name field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(lastName);
 
   if (lastName.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar su apellido.'
   } else if (lastName.validity.tooLong) {
     feedback.textContent =
         'Demasiados caracteres (máximo ' + lastName.maxLength + ').';
-  } else if (lastName.validity.typeMismatch) {
-    feedback.textContent = 'Solo se permiten caracteres alfanuméricos.';
+  } else if (lastName.validity.patternMismatch) {
+    feedback.textContent =
+        'Solo se permiten caracteres alfanuméricos y espacios.';
   }
 }
 
 
-function showPasswordError(password, feedback) {
+function showPasswordError(password) {
   /* Show feedback if the password field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(password);
 
   if (password.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar una contraseña.';
@@ -54,13 +65,18 @@ function showPasswordError(password, feedback) {
   } else if (password.validity.tooShort) {
     feedback.textContent =
         'Insuficientes caracteres (mínimo ' + password.minLength + ').';
-  } else if (password.validity.typeMismatch) {
+  } else if (password.validity.patternMismatch) {
     feedback.textContent = 'Solo se permiten caracteres alfanuméricos.';
   }
 }
 
 
-function checkConfirmPassword(password, confirm, feedback) {
+function checkConfirmPassword(password, confirm) {
+  /* Check that the confirm password field's input matches the
+  password field's input, and updates feedback accordingly. */
+
+  let feedback = utils.getInvalidFeedbackElement(confirm);
+
   if (password.value !== confirm.value) {
     let text = 'El texto ingresado no coincide con la contraseña.';
     confirm.setCustomValidity(text);
@@ -84,81 +100,68 @@ window.addEventListener( "load", function () {
   // Add pending status message to page
   utils.addPendingStatusMessage();
 
-  // Get form, fields and feedback elements
+  // Get form and fields
   let form = document.querySelector('form#signup-form');
 
   let email = form.querySelector('input[type="email"]#email');
-  let emailFeedback = email.parentElement.querySelector('.invalid-feedback');
-
   let firstName = form.querySelector('input[type="text"]#first-name');
-  let firstNameFeedback =
-      firstName.parentElement.querySelector('.invalid-feedback');
-
   let lastName = form.querySelector('input[type="text"]#last-name');
-  let lastNameFeedback =
-      lastName.parentElement.querySelector('.invalid-feedback');
-
   let password = form.querySelector('input[type="password"]#password');
-  let passwordFeedback =
-      password.parentElement.querySelector('.invalid-feedback');
-
   let confirm = form.querySelector('input[type="password"]#confirm-password');
-  let confirmFeedback =
-      confirm.parentElement.querySelector('.invalid-feedback');
 
   // Add event listeners to form fields
   email.addEventListener('invalid', function (event) {
-    showEmailError(email, emailFeedback);
+    showEmailError(email);
   });
 
   email.addEventListener('input', function (event) {
     if (email.validity.valid) {
-      emailFeedback.textContent = '';
+      utils.getInvalidFeedbackElement(email).textContent = '';
     } else {
-      showEmailError(email, emailFeedback);
+      showEmailError(email);
     }
   });
 
   firstName.addEventListener('invalid', function (event) {
-    showFirstNameError(firstName, firstNameFeedback);
+    showFirstNameError(firstName);
   });
 
   firstName.addEventListener('input', function (event) {
     if (firstName.validity.valid) {
-      firstNameFeedback.textContent = '';
+      utils.getInvalidFeedbackElement(firstName).textContent = '';
     } else {
-      showFirstNameError(firstName, firstNameFeedback);
+      showFirstNameError(firstName);
     }
   });
 
   lastName.addEventListener('invalid', function (event) {
-    showLastNameError(lastName, lastNameFeedback);
+    showLastNameError(lastName);
   });
 
   lastName.addEventListener('input', function (event) {
     if (lastName.validity.valid) {
-      lastNameFeedback.textContent = '';
+      utils.getInvalidFeedbackElement(lastName).textContent = '';
     } else {
-      showLastNameError(lastName, lastNameFeedback);
+      showLastNameError(lastName);
     }
   });
 
   password.addEventListener('invalid', function (event) {
-    showPasswordError(password, passwordFeedback);
+    showPasswordError(password);
   });
 
   password.addEventListener('input', function (event) {
     if (password.validity.valid) {
-      passwordFeedback.textContent = '';
+      utils.getInvalidFeedbackElement(password).textContent = '';
     } else {
-      showPasswordError(password, passwordFeedback);
+      showPasswordError(password);
     }
 
-    checkConfirmPassword(password, confirm, confirmFeedback);
+    checkConfirmPassword(password, confirm);
   });
 
   confirm.addEventListener('input', function (event) {
-    checkConfirmPassword(password, confirm, confirmFeedback);
+    checkConfirmPassword(password, confirm);
   });
 
   // Add event listener for form submission
@@ -168,7 +171,7 @@ window.addEventListener( "load", function () {
     let statusText = '';
     let statusType = 'error'
 
-    if (form.reportValidity()) {
+    if (form.checkValidity()) {
       // If form is valid, try to create account with the given data
       let accountCreated = utils.createAccount(
           email.value, firstName.value, lastName.value, password.value);
@@ -190,7 +193,6 @@ window.addEventListener( "load", function () {
       }
     } else {
       // If the form is not valid
-      checkConfirmPassword(password, confirm, confirmFeedback);
       statusText = 'Corrija los errores en los datos ingresados.';
     }
 

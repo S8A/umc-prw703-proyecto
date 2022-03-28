@@ -1,31 +1,37 @@
 import * as utils from '/assets/js/utils.js';
 
 
-function showEmailError(email, feedback) {
+function showEmailError(email) {
   /* Show feedback if the email field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(email);
 
   if (email.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar su dirección de correo electrónico.';
   } else if (email.validity.tooLong) {
     feedback.textContent =
         'Demasiados caracteres (máximo ' + email.maxLength + ').';
-      } else if (email.validity.typeMismatch) {
-        feedback.textContent =
+  } else if (email.validity.typeMismatch) {
+    feedback.textContent =
         'El texto ingresado no es una dirección de correo electrónico válida.';
   }
 }
 
 
-function showPasswordError(password, feedback) {
+function showPasswordError(password) {
   /* Show feedback if the password field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(password);
 
   if (password.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar su contraseña.';
   } else if (password.validity.tooLong) {
-    feedback.textContent = 'Demasiados caracteres (máximo ' + password.maxLength + ').';
+    feedback.textContent =
+        'Demasiados caracteres (máximo ' + password.maxLength + ').';
   } else if (password.validity.tooShort) {
-    feedback.textContent = 'Insuficientes caracteres (mínimo ' + password.minLength + ').';
-  } else if (password.validity.typeMismatch) {
+    feedback.textContent =
+        'Insuficientes caracteres (mínimo ' + password.minLength + ').';
+  } else if (password.validity.patternMismatch) {
     feedback.textContent = 'Solo se permiten caracteres alfanuméricos.';
   }
 }
@@ -46,37 +52,34 @@ window.addEventListener( "load", function () {
   // Get query parameters
   const params = utils.getQueryParams();
 
-  // Get form, fields and feedback elements
+  // Get form and fields
   let form = document.querySelector('form#signin-form');
 
   let email = form.querySelector('input[type="email"]#email');
-  let emailFeedback = email.parentElement.querySelector('.invalid-feedback');
-
   let password = form.querySelector('input[type="password"]#password');
-  let passwordFeedback = password.parentElement.querySelector('.invalid-feedback');
 
   // Add event listeners to form fields
   email.addEventListener('invalid', function (event) {
-    showEmailError(email, emailFeedback);
+    showEmailError(email);
   });
 
   email.addEventListener('input', function (event) {
     if (email.validity.valid) {
-      emailFeedback.textContent = '';
+      utils.getInvalidFeedbackElement(email).textContent = '';
     } else {
-      showEmailError(email, emailFeedback);
+      showEmailError(email);
     }
   });
 
   password.addEventListener('invalid', function (event) {
-    showPasswordError(password, passwordFeedback);
+    showPasswordError(password);
   });
 
   password.addEventListener('input', function (event) {
     if (password.validity.valid) {
-      passwordFeedback.textContent = '';
+      utils.getInvalidFeedbackElement(password).textContent = '';
     } else {
-      showPasswordError(password, passwordFeedback);
+      showPasswordError(password);
     }
   });
 
@@ -86,7 +89,7 @@ window.addEventListener( "load", function () {
 
     let statusText = '';
 
-    if (form.reportValidity()) {
+    if (form.checkValidity()) {
       // If form is valid, try to find account linked to email
       let account = utils.getAccountByEmail(email.value);
 
