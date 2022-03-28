@@ -70,10 +70,36 @@ export function toggleActionButtons() {
 }
 
 
-function addExercise() {
-  /* Add an empty exercise item at the end of the table. */
+export function addExercise() {
+  /* Add an empty exercise item after the currently selected item. */
 
-  console.log('TODO: add');
+  let tbody = document.querySelector('.exercises table tbody');
+  let rows = getRows();
+
+  let selected = getSelectedRowNumber();
+
+  let newRowNumber = selected ? selected + 1 : rows.length + 1;
+  let newExerciseItem = createEditableExerciseItemRow(newRowNumber);
+
+  if (!rows.length || !selected || selected === rows.length) {
+    // If the there are no rows, or no row is selected, or the last row
+    // is selected, append the new item to the end of the table
+    tbody.appendChild(newExerciseItem);
+  } else {
+    // Otherwise, all rows after the selected one must have
+    // their row number increased by one
+    for (let row of rows) {
+      let rowNumber = Number(row.dataset.rowNumber);
+      console.log(rowNumber);
+      if (rowNumber > selected) {
+        replaceExerciseItemRowNumber(row, rowNumber + 1);
+      }
+    }
+
+    // Finally, insert new row before the one following the selected one
+    // Reminder: selected is 1-index, rows is 0-index
+    tbody.insertBefore(newExerciseItem, rows[selected]);
+  }
 }
 
 
