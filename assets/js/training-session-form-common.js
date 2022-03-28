@@ -7,7 +7,7 @@ function getSelectedRowNumber() {
   /* Get the currently selected row number if any, or return null. */
 
   let radios = document.querySelectorAll(
-      '.exercises input[type="radio"][name="selection"]');
+    '.exercises input[type="radio"][name="selection"]');
 
   if (radios && radios.length) {
     for (let radio of radios) {
@@ -114,10 +114,10 @@ export function showDateError(date) {
 
   if (date.validity.valueMissing) {
     feedback.textContent =
-        'Debe ingresar la fecha de la sesión de entrenamiento.';
+      'Debe ingresar la fecha de la sesión de entrenamiento.';
   } else if (date.validity.patternMismatch) {
     feedback.textContent =
-        'El texto ingresado no es una fecha válida (YYYY-MM-DD).';
+      'El texto ingresado no es una fecha válida (YYYY-MM-DD).';
   }
 }
 
@@ -129,7 +129,7 @@ export function showTimeError(time) {
 
   if (time.validity.valueMissing) {
     feedback.textContent =
-        'Debe ingresar la hora de la sesión de entrenamiento.';
+      'Debe ingresar la hora de la sesión de entrenamiento.';
   } else if (time.validity.patternMismatch) {
     feedback.textContent = 'El texto ingresado no es una hora válida (HH:mm).';
   }
@@ -143,7 +143,7 @@ export function showShortTitleError(shortTitle) {
 
   if (shortTitle.validity.tooLong) {
     feedback.textContent =
-        'Demasiados caracteres (máximo ' + shortTitle.maxLength + ').';
+      'Demasiados caracteres (máximo ' + shortTitle.maxLength + ').';
   }
 }
 
@@ -177,7 +177,7 @@ export function showCommentsError(comments) {
 
   if (comments.validity.tooLong) {
     feedback.textContent =
-        'Demasiados caracteres (máximo ' + comments.maxLength + ').';
+      'Demasiados caracteres (máximo ' + comments.maxLength + ').';
   }
 }
 
@@ -188,16 +188,16 @@ export function gatherExercisesFormData() {
   /* Return a list of training sessions with the form fields' data. */
 
   let exercise = document.querySelectorAll(
-      '.exercises input[type="text"][id^="exercise-"]');
+    '.exercises input[type="text"][id^="exercise-"]');
   let setType = document.querySelectorAll('.exercises select[id^="set-type-"]');
   let weight = document.querySelectorAll(
-      '.exercises input[type="number"][id^="weight-"]');
+    '.exercises input[type="number"][id^="weight-"]');
   let sets = document.querySelectorAll(
-      '.exercises input[type="number"][id^="sets-"]');
+    '.exercises input[type="number"][id^="sets-"]');
   let reps = document.querySelectorAll(
-      '.exercises input[type="number"][id^="reps-"]');
+    '.exercises input[type="number"][id^="reps-"]');
   let comments = document.querySelectorAll(
-      '.exercises textarea[id^="comments-"]');
+    '.exercises textarea[id^="comments-"]');
 
   console.log('TODO: gatherExerciseData');
 }
@@ -311,7 +311,7 @@ function createExerciseTd(rowNumber, value) {
   exercise.addEventListener('invalid', function (event) {
     console.log('TODO: ' + this.id + ' invalid');
   });
-  
+
   exercise.addEventListener('input', function (event) {
     console.log('TODO: ' + this.id + ' input');
   });
@@ -328,34 +328,34 @@ function createSetTypeTd(rowNumber, value) {
   optional value. */
 
   let setTypeTd = document.createElement('td');
-  
+
   let setType = document.createElement('select');
   setType.name = "set-type-" + rowNumber;
   setType.id = setType.name;
   setType.dataset.rowNumber = rowNumber;
   setType.required = true;
-  
+
   let warmupOption = document.createElement('option');
   warmupOption.value = "warmup";
   warmupOption.textContent = 'Calentamiento';
-  
+
   let workOption = document.createElement('option');
   workOption.value = "work";
   workOption.textContent = 'Trabajo';
-  
+
   if (value === 'warmup') {
     warmupOption.selected = true;
   } else if (value === 'work') {
     workOption.selected = true;
   }
-  
+
   setType.appendChild(workOption);
   setType.appendChild(warmupOption);
-  
+
   setType.addEventListener('invalid', function (event) {
     console.log('TODO: ' + this.id + ' invalid');
   });
-  
+
   setType.addEventListener('input', function (event) {
     console.log('TODO: ' + this.id + ' input');
   });
@@ -372,28 +372,28 @@ function createWeightTd(rowNumber, value) {
   optional value. */
 
   let weightTd = document.createElement('td');
-  
+
   let weight = document.createElement('input');
   weight.type = "number";
   weight.name = "weight-" + rowNumber;
   weight.id = weight.name;
   weight.dataset.rowNumber = rowNumber;
-  
+
   if (!Number.isNaN(value)) {
     weight.value = value;
   }
-  
+
   weight.addEventListener('invalid', function (event) {
     console.log('TODO: ' + this.id + ' invalid');
   });
-  
+
   weight.addEventListener('input', function (event) {
     console.log('TODO: ' + this.id + ' input');
   });
-  
+
   weightTd.appendChild(weight);
   weightTd.appendChild(utils.createInvalidFeedbackElement());
-  
+
   return weightTd;
 }
 
@@ -403,22 +403,22 @@ function createSetsTd(rowNumber, value) {
   optional value. */
 
   let setsTd = document.createElement('td');
-  
+
   let sets = document.createElement('input');
   sets.type = "number";
   sets.name = "sets-" + rowNumber;
   sets.id = sets.name;
   sets.dataset.rowNumber = rowNumber;
   sets.required = true;
-  
+
   if (value) {
     sets.value = value;
   }
-  
+
   sets.addEventListener('invalid', function (event) {
     console.log('TODO: ' + this.id + ' invalid');
   });
-  
+
   sets.addEventListener('input', function (event) {
     console.log('TODO: ' + this.id + ' input');
   });
@@ -440,12 +440,12 @@ function createRepsDiv(rowNumber, setNumber, value) {
   repsLabel.for = "reps-" + rowNumber + '-' + setNumber;
 
   let repsLabelText = document.createTextNode('Serie ' + setNumber + ':');
-  
+
   let requiredAsterisk = document.createElement('abbr');
   requiredAsterisk.title = 'requerido';
   requiredAsterisk.ariaLabel = 'requerido';
   requiredAsterisk.textContent = '*';
-  
+
   repsLabel.appendChild(repsLabelText);
   repsLabel.appendChild(requiredAsterisk);
 
@@ -464,7 +464,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
   reps.addEventListener('invalid', function (event) {
     console.log('TODO: ' + this.id + ' invalid');
   });
-  
+
   reps.addEventListener('input', function (event) {
     console.log('TODO: ' + this.id + ' input');
   });
@@ -499,7 +499,7 @@ function createCommentsTd(rowNumber, value) {
   comments.addEventListener('invalid', function (event) {
     console.log('TODO: ' + this.id + ' invalid');
   });
-  
+
   comments.addEventListener('input', function (event) {
     console.log('TODO: ' + this.id + ' input');
   });
@@ -509,4 +509,61 @@ function createCommentsTd(rowNumber, value) {
 
   return commentsTd;
 }
-  
+
+
+/* MANIPULATE EXERCISE ITEM ROW ELEMENTS */
+
+function replaceExerciseItemRowNumber(row, newRowNumber) {
+  /* Replace the row number in all components of the given row. */
+
+  row.dataset.rowNumber = newRowNumber;
+
+  let selection = row.querySelector('input[type="radio"][name="selection"]');
+  selection.id = selection.name + '-' + newRowNumber;
+  selection.dataset.rowNumber = newRowNumber;
+  selection.ariaLabel = 'Seleccionar ítem ' + newRowNumber;
+
+  let exercise = row.querySelector('input[type="text"][id^="exercise-"]');
+  exercise.name = "exercise-" + newRowNumber;
+  exercise.id = exercise.name;
+  exercise.dataset.rowNumber = newRowNumber;
+
+  let setType = row.querySelector('select[id^="set-type-"]');
+  setType.name = "set-type-" + newRowNumber;
+  setType.id = setType.name;
+  setType.dataset.rowNumber = newRowNumber;
+
+  let weight = row.querySelector('input[type="number"][id^="weight-"]');
+  weight.name = "weight-" + newRowNumber;
+  weight.id = weight.name;
+  weight.dataset.rowNumber = newRowNumber;
+
+  let sets = row.querySelector('input[type="number"][id^="sets-"]');
+  sets.name = "sets-" + newRowNumber;
+  sets.id = sets.name;
+  sets.dataset.rowNumber = newRowNumber;
+
+  const repsRegexp = /reps-\d+-(\d+)/;
+  const repsRegexpReplacement = 'reps-' + newRowNumber + '-$1'
+
+  let repsLabels = row.querySelectorAll('label[for^="reps-"]');
+  if (repsLabels) {
+    for (let repsLabel of repsLabels) {
+      repsLabel.for = repsLabel.for.replace(repsRegexp, repsRegexpReplacement);
+    }
+  }
+
+  let reps = row.querySelector('input[type="number"][id^="reps-"]');
+  if (reps) {
+    for (let repsItem of reps) {
+      repsItem.name = repsItem.name.replace(repsRegexp, repsRegexpReplacement);
+      repsItem.id = reps.name;
+      repsItem.dataset.rowNumber = newRowNumber;
+    }
+  }
+
+  let comments = row.querySelector('textarea[id^="comments-"]');
+  comments.name = "comments-" + newRowNumber;
+  comments.id = comments.name;
+  comments.dataset.rowNumber = newRowNumber;
+}
