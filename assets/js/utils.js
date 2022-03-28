@@ -378,3 +378,21 @@ export function getTrainingSessionFullTitle(session) {
 
   return title;
 }
+
+
+/* INVALID FEEDBACK ELEMENT */
+
+export function getInvalidFeedbackElement(element) {
+  /* Get invalid feedback element corresponding to the given element. */
+
+  return element.parentElement.querySelector('.invalid-feedback');
+}
+
+
+export function createInvalidFeedbackElement() {
+  /* Create a generic invalid feedback div. */
+
+  let div = document.createElement('div');
+  div.classList.add('invalid-feedback');
+  return div;
+}
