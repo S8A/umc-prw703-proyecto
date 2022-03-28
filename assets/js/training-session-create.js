@@ -130,6 +130,9 @@ window.addEventListener('load', function () {
       common.moveDownExercise();
     });
 
+    // Add initial empty exercise item to table
+    common.addExercise();
+
     // Add event listener for form submission
     form.addEventListener('submit', function (event) {
       event.preventDefault();
