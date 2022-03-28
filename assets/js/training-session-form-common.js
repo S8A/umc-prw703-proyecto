@@ -161,6 +161,8 @@ export function createEditableExerciseItemRow(rowNumber, data) {
   initial values based on the given data object, if given. */
 
   let tr = document.createElement('tr');
+  tr.classList.add('exercise-item');
+  tr.dataset.rowNumber = rowNumber;
 
   // Selection
   let selectionTd = createSelectionTd(rowNumber);
