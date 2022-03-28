@@ -306,15 +306,28 @@ header .account > span {
     padding: 0 0.5rem;
 }
 
-.container.edit-training-session input {
+#action-buttons {
+    padding: 1rem 0;
+    text-align: center;
+}
+
+#action-buttons > button {
+    width: 100% !important;
+    margin: 0 0 0.5rem;
+}
+
+.create-training-session input,
+.edit-training-session input {
     width: auto !important;
 }
 
-.container.edit-training-session #form-buttons {
+.create-training-session #form-buttons,
+.edit-training-session #form-buttons {
     padding: 1rem 0;
 }
 
-.container.edit-training-session #form-buttons button {
+.create-training-session #form-buttons button,
+.edit-training-session #form-buttons button {
     margin: 0 auto;
     display: block;
 }
@@ -350,6 +363,11 @@ header .account > span {
 
     #date-filter input {
         width: auto;
+    }
+
+    #action-buttons > button {
+        width: auto !important;
+        margin: 0 auto 0.5rem;
     }
 }
 
