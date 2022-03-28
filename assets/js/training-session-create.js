@@ -1,106 +1,6 @@
 import * as utils from '/assets/js/utils.js';
+import * as common from '/assets/js/training-session-form-common.js';
 
-
-/* ACTION BUTTON FUNCTIONS */
-
-function addExercise() {
-  /* Add an empty exercise item at the end of the table. */
-
-  console.log('TODO: add');
-}
-
-
-function removeExercise() {
-  /* Remove selected exercise item. */
-
-  console.log('TODO: remove');
-}
-
-
-function duplicateExercise() {
-  /* Duplicate selected exercise item. */
-
-  console.log('TODO: duplicate');
-}
-
-
-function moveUpExercise() {
-  /* Move selected exercise item one position up. */
-
-  console.log('TODO: moveUp');
-}
-
-
-function moveDownExercise() {
-  /* Move selected exercise item one position down. */
-
-  console.log('TODO: moveDown');
-}
-
-
-/* FORM FIELD ERRORS */
-
-function showDateError(date) {
-  /* showDateError */
-
-  console.log('TODO: showDateError');
-}
-
-
-function showTimeError(time) {
-  /* showTimeError */
-
-  console.log('TODO: showTimeError');
-}
-
-
-function showShortTitleError(shortTitle) {
-  /* showShortTitleError */
-
-  console.log('TODO: showShortTitleError');
-}
-
-
-function showDurationError(duration) {
-  /* showDurationError */
-
-  console.log('TODO: showDurationError');
-}
-
-
-function showBodyweightError(bodyweight) {
-  /* showBodyweightError */
-
-  console.log('TODO: showBodyweightError');
-}
-
-
-function showCommentsError(comments) {
-  /* showCommentsError */
-
-  console.log('TODO: showCommentsError');
-}
-
-
-/* EXERCISE DATA PROCESSING */
-
-function gatherExerciseData() {
-  /* Return a list of training sessions with the form fields' data. */
-
-  let exercise =
-      document.querySelectorAll('input[type="text"][id^="exercise-"]');
-  let setType = document.querySelectorAll('select[id^="set-type-"]');
-  let weight = document.querySelectorAll('input[type="number"][id^="weight-"]');
-  let sets = document.querySelectorAll('input[type="number"][id^="sets-"]');
-  let reps = document.querySelectorAll('input[type="number"][id^="reps-"]');
-  let comments =
-      document.querySelectorAll('input[type="number"][id^="comments-"]');
-
-  console.log('TODO: gatherExerciseData');
-}
-
-
-/* ON WINDOW LOAD */
 
 window.addEventListener('load', function () {
   let signedInAccount = utils.getSignedInAccount();
@@ -137,97 +37,97 @@ window.addEventListener('load', function () {
 
     // Add event listeners to form fields
     date.addEventListener('invalid', function (event) {
-      showDateError(date);
+      common.showDateError(date);
     });
 
     date.addEventListener('input', function (event) {
       if (date.validity.valid) {
         utils.getInvalidFeedbackElement(date).textContent = '';
       } else {
-        showDateError(date);
+        common.showDateError(date);
       }
     });
 
     time.addEventListener('invalid', function (event) {
-      showTimeError(time);
+      common.showTimeError(time);
     });
 
     time.addEventListener('input', function (event) {
       if (time.validity.valid) {
         utils.getInvalidFeedbackElement(time).textContent = '';
       } else {
-        showTimeError(time);
+        common.showTimeError(time);
       }
     });
 
     shortTitle.addEventListener('invalid', function (event) {
-      showShortTitleError(shortTitle);
+      common.showShortTitleError(shortTitle);
     });
 
     shortTitle.addEventListener('input', function (event) {
       if (shortTitle.validity.valid) {
         utils.getInvalidFeedbackElement(shortTitle).textContent = '';
       } else {
-        showShortTitleError(shortTitle);
+        common.showShortTitleError(shortTitle);
       }
     });
 
     duration.addEventListener('invalid', function (event) {
-      showDurationError(duration);
+      common.showDurationError(duration);
     });
 
     duration.addEventListener('input', function (event) {
       if (duration.validity.valid) {
         utils.getInvalidFeedbackElement(duration).textContent = '';
       } else {
-        showDurationError(duration);
+        common.showDurationError(duration);
       }
     });
 
     bodyweight.addEventListener('invalid', function (event) {
-      showBodyweightError(bodyweight);
+      common.showBodyweightError(bodyweight);
     });
 
     bodyweight.addEventListener('input', function (event) {
       if (bodyweight.validity.valid) {
         utils.getInvalidFeedbackElement(bodyweight).textContent = '';
       } else {
-        showBodyweightError(bodyweight);
+        common.showBodyweightError(bodyweight);
       }
     });
 
     comments.addEventListener('invalid', function (event) {
-      showCommentsError(comments);
+      common.showCommentsError(comments);
     });
 
     comments.addEventListener('input', function (event) {
       if (comments.validity.valid) {
         utils.getInvalidFeedbackElement(comments).textContent = '';
       } else {
-        showCommentsError(comments);
+        common.showCommentsError(comments);
       }
     });
 
 
     // Add event listeners to action buttons
     addButton.addEventListener('click', function (event) {
-      addExercise();
+      common.addExercise();
     });
 
     removeButton.addEventListener('click', function (event) {
-      removeExercise();
+      common.removeExercise();
     });
 
     duplicateButton.addEventListener('click', function (event) {
-      duplicateExercise();
+      common.duplicateExercise();
     });
 
     moveUpButton.addEventListener('click', function (event) {
-      moveUpExercise();
+      common.moveUpExercise();
     });
 
     moveDownButton.addEventListener('click', function (event) {
-      moveDownExercise();
+      common.moveDownExercise();
     });
 
     // Add event listener for form submission

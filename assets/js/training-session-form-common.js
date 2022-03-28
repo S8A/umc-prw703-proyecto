@@ -1,6 +1,126 @@
 import * as utils from '/assets/js/utils.js';
 
 
+
+/* ACTION BUTTON FUNCTIONS */
+
+
+function getSelectedRowNumber() {
+  /* Get the currently selected row number if any, or return null. */
+
+  let radios = document.querySelector(
+      '.exercises input[type="radio"][id^="selection-"]');
+
+  for (let radio of radios) {
+    if (radio.checked) {
+      return radio.dataset.rowNumber;
+    }
+  }
+
+  return null;
+}
+
+
+function addExercise() {
+  /* Add an empty exercise item at the end of the table. */
+
+  console.log('TODO: add');
+}
+
+
+function removeExercise() {
+  /* Remove selected exercise item. */
+
+  console.log('TODO: remove');
+}
+
+
+function duplicateExercise() {
+  /* Duplicate selected exercise item. */
+
+  console.log('TODO: duplicate');
+}
+
+
+function moveUpExercise() {
+  /* Move selected exercise item one position up. */
+
+  console.log('TODO: moveUp');
+}
+
+
+function moveDownExercise() {
+  /* Move selected exercise item one position down. */
+
+  console.log('TODO: moveDown');
+}
+
+
+/* FORM FIELD ERRORS */
+
+function showDateError(date) {
+  /* showDateError */
+
+  console.log('TODO: showDateError');
+}
+
+
+function showTimeError(time) {
+  /* showTimeError */
+
+  console.log('TODO: showTimeError');
+}
+
+
+function showShortTitleError(shortTitle) {
+  /* showShortTitleError */
+
+  console.log('TODO: showShortTitleError');
+}
+
+
+function showDurationError(duration) {
+  /* showDurationError */
+
+  console.log('TODO: showDurationError');
+}
+
+
+function showBodyweightError(bodyweight) {
+  /* showBodyweightError */
+
+  console.log('TODO: showBodyweightError');
+}
+
+
+function showCommentsError(comments) {
+  /* showCommentsError */
+
+  console.log('TODO: showCommentsError');
+}
+
+
+/* EXERCISE DATA PROCESSING */
+
+function gatherExercisesFData() {
+  /* Return a list of training sessions with the form fields' data. */
+
+  let exercise = document.querySelectorAll(
+      '.exercises input[type="text"][id^="exercise-"]');
+  let setType = document.querySelectorAll('.exercises select[id^="set-type-"]');
+  let weight = document.querySelectorAll(
+      '.exercises input[type="number"][id^="weight-"]');
+  let sets = document.querySelectorAll(
+      '.exercises input[type="number"][id^="sets-"]');
+  let reps = document.querySelectorAll(
+      '.exercises input[type="number"][id^="reps-"]');
+  let comments = document.querySelectorAll(
+      '.exercises textarea[id^="comments-"]');
+
+  console.log('TODO: gatherExerciseData');
+}
+
+
 /* CREATE EDITABLE EXERCISE ITEM ROW ELEMENTS */
 
 export function createEditableExerciseItemRow(rowNumber, data) {
