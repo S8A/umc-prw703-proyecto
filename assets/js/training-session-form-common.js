@@ -58,45 +58,78 @@ function moveDownExercise() {
 
 /* FORM FIELD ERRORS */
 
-function showDateError(date) {
-  /* showDateError */
+export function showDateError(date) {
+  /* Show feedback if the date field's input is invalid. */
 
-  console.log('TODO: showDateError');
+  let feedback = utils.getInvalidFeedbackElement(date);
+
+  if (date.validity.valueMissing) {
+    feedback.textContent =
+        'Debe ingresar la fecha de la sesión de entrenamiento.';
+  } else if (date.validity.patternMismatch) {
+    feedback.textContent =
+        'El texto ingresado no es una fecha válida (YYYY-MM-DD).';
+  }
 }
 
 
-function showTimeError(time) {
-  /* showTimeError */
+export function showTimeError(time) {
+  /* Show feedback if the time field's input is invalid. */
 
-  console.log('TODO: showTimeError');
+  let feedback = utils.getInvalidFeedbackElement(time);
+
+  if (time.validity.valueMissing) {
+    feedback.textContent =
+        'Debe ingresar la hora de la sesión de entrenamiento.';
+  } else if (time.validity.patternMismatch) {
+    feedback.textContent = 'El texto ingresado no es una hora válida (HH:mm).';
+  }
 }
 
 
-function showShortTitleError(shortTitle) {
-  /* showShortTitleError */
+export function showShortTitleError(shortTitle) {
+  /* Show feedback if the short title field's input is invalid. */
 
-  console.log('TODO: showShortTitleError');
+  let feedback = utils.getInvalidFeedbackElement(shortTitle);
+
+  if (shortTitle.validity.tooLong) {
+    feedback.textContent =
+        'Demasiados caracteres (máximo ' + shortTitle.maxLength + ').';
+  }
 }
 
 
-function showDurationError(duration) {
-  /* showDurationError */
+export function showDurationError(duration) {
+  /* Show feedback if the duration field's input is invalid. */
 
-  console.log('TODO: showDurationError');
+  let feedback = utils.getInvalidFeedbackElement(duration);
+
+  if (duration.validity.rangeUnderflow) {
+    feedback.textContent = 'La duración no puede ser negativa.';
+  }
 }
 
 
-function showBodyweightError(bodyweight) {
-  /* showBodyweightError */
+export function showBodyweightError(bodyweight) {
+  /* Show feedback if the bodyweight field's input is invalid. */
 
-  console.log('TODO: showBodyweightError');
+  let feedback = utils.getInvalidFeedbackElement(bodyweight);
+
+  if (bodyweight.validity.rangeUnderflow) {
+    feedback.textContent = 'El peso corporal no puede ser negativo.';
+  }
 }
 
 
-function showCommentsError(comments) {
-  /* showCommentsError */
+export function showCommentsError(comments) {
+  /* Show feedback if the comments field's input is invalid. */
 
-  console.log('TODO: showCommentsError');
+  let feedback = utils.getInvalidFeedbackElement(comments);
+
+  if (comments.validity.tooLong) {
+    feedback.textContent =
+        'Demasiados caracteres (máximo ' + comments.maxLength + ').';
+  }
 }
 
 
