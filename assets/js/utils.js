@@ -372,8 +372,7 @@ export function getTrainingSessionFullTitle(session) {
   let title = session.date + ' ' + session.time;
 
   if (session.shortTitle) {
-    // \u2013 = en dash
-    title += ' \u2013 ' + session.shortTitle;
+    title += ' ' + NDASH + ' ' + session.shortTitle;
   }
 
   return title;
