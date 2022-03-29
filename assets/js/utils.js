@@ -286,7 +286,7 @@ export function createTrainingSession(
       let sessions = getAllTrainingSessions();
       session.id = sessions.length + 1;
       sessions.push(session);
-      localStorage.setItem('trainingSessions', sessions);
+      localStorage.setItem('trainingSessions', JSON.stringify(sessions));
       return session;
     } else {
       return null;
