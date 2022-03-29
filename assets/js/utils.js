@@ -302,12 +302,12 @@ export function createTrainingSessionExerciseItem(data) {
   and return it, or return null if data is incomplete or invalid. */
 
   let item = {
-    exercise: String(exc.exercise),
-    setType: exc.setType,
-    weight: exc.weight,
-    sets: exc.sets ? Number(exc.sets) : 0,
-    reps: exc.reps ? exc.reps : [],
-    comments: exc.comments ? String(exc.comments) : '',
+    exercise: String(data.exercise),
+    setType: data.setType,
+    weight: data.weight,
+    sets: data.sets ? Number(data.sets) : 0,
+    reps: data.reps ? data.reps : [],
+    comments: data.comments ? String(data.comments) : '',
   };
 
   // Exercise field is required and its max length is 50
