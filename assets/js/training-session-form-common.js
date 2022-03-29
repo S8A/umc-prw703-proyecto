@@ -407,10 +407,25 @@ function showExerciseCommentsError(comments) {
 
 /* EXERCISE DATA PROCESSING */
 
-export function gatherExercisesFormData() {
-  /* Return a list of training sessions with the form fields' data. */
+export function gatherExercisesData() {
+  /* Return a list of exercise objects created with the corresponding
+  form fields' data. */
 
-  console.log('TODO: gatherExerciseData');
+  let exercises = [];
+
+  let rows = getRows();
+  if (rows) {
+    for (let row of rows) {
+      let data = extractExerciseItemData(row);
+      let exercise = utils.createTrainingSessionExerciseItem(data);
+
+      if (exercise) {
+        exercises.push(exercise);
+      }
+    }
+  }
+
+  return exercises;
 }
 
 
