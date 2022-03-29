@@ -47,31 +47,27 @@ export function toggleActionButtons() {
   let selected = getSelectedRowNumber();
   let rowCount = getRows().length;
 
+  // Add button not here because it is always enabled
   let removeButton = document.querySelector('button#remove-btn');
   let duplicateButton = document.querySelector('button#duplicate-btn');
   let moveUpButton = document.querySelector('button#move-up-btn');
   let moveDownButton = document.querySelector('button#move-down-btn');
 
-  if (selected === 1) {
-    // First item selected
-    removeButton.disabled = false;
+  if (Number.isInteger(selected)) {
+    // If an item is selected, enable duplicate button
     duplicateButton.disabled = false;
-    moveUpButton.disabled = true;
-    moveDownButton.disabled = rowCount === 1;
-  } else if (selected === rowCount) {
-    // Last item selected
-    removeButton.disabled = false;
-    duplicateButton.disabled = false;
-    moveUpButton.disabled = false;
-    moveDownButton.disabled = true;
-  } else if (Number.isInteger(selected)) {
-    // Selected item is somewhere between the first and the last
-    removeButton.disabled = false;
-    duplicateButton.disabled = false;
-    moveUpButton.disabled = false;
-    moveDownButton.disabled = false;
+
+    // Disable remove button if there is only one item (or less, which
+    // is impossible)
+    removeButton.disabled = rowCount <= 1;
+
+    // Disable move up button if the selected item is the first
+    moveUpButton.disabled = selected === 1;
+
+    // Disable move down button if the selected item is the last
+    moveDownButton.disabled = selected === rowCount;
   } else {
-    // None selected
+    // If no item is selected, disable all buttons
     removeButton.disabled = true;
     duplicateButton.disabled = true;
     moveUpButton.disabled = true;
