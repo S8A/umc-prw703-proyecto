@@ -405,5 +405,6 @@ export function createInvalidFeedbackElement() {
 
   let div = document.createElement('div');
   div.classList.add('invalid-feedback');
+  div.ariaLive = 'polite';
   return div;
 }
