@@ -96,7 +96,6 @@ export function addExercise() {
     // their row number increased by one
     for (let row of rows) {
       let rowNumber = Number(row.dataset.rowNumber);
-      console.log(rowNumber);
       if (rowNumber > selected) {
         replaceExerciseItemRowNumber(row, rowNumber + 1);
       }
@@ -106,6 +105,9 @@ export function addExercise() {
     // Reminder: selected is 1-index, rows is 0-index
     tbody.insertBefore(newExerciseItem, rows[selected]);
   }
+
+  // Row count changed, toggle action buttons
+  toggleActionButtons();
 }
 
 
