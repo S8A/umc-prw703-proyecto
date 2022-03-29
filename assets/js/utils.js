@@ -235,65 +235,144 @@ export function getTrainingSessions(date = null, sort = true) {
 }
 
 
-export function createTrainingSession(
-  date, time, shortTitle, duration, bodyweight, comments, exercises
-) {
+export function createTrainingSession(data) {
   /* Create a training session for the current user with the given data
-  and return the sanitized session data, or return null if the
+  and return the sanitized session data object, or return null if the
   operation failed for any reason. */
 
   let account = getSignedInAccount();
 
   if (account) {
-    let session = {
-      id: null,
-      accountEmail: account.email,
-      date: date,
-      time: time,
-      shortTitle: shortTitle ? shortTitle : "",
-      duration: null,
-      bodyweight: null,
-      comments: comments ? comments : "",
-      exercises: [],
-    };
+    // If signed-in, try to create a valid training session object with
+    // the given data
+    let session = createTrainingSessionObject(null, account.email, data);
 
-    if (!Date.parse(date + 'T' + time)) {
-      return null;
-    }
-
-    if (duration) {
-      let durationNumber = Number(duration);
-
-      if (!durationNumber.isNaN()) {
-        session.duration = durationNumber;
-      }
-    }
-
-    if (bodyweight) {
-      let bodyweightNumber = Number(bodyweight);
-
-      if (!bodyweightNumber.isNaN()) {
-        session.bodyweight = bodyweightNumber;
-      }
-    }
-
-    for (let itemData of exercises) {
-      let item = createTrainingSessionExerciseItem(itemData);
-      session.exercises.push(item);
-    }
-
-    if (session.exercises.length) {
+    if (session) {
+      // If a valid training session object is successfully created,
+      // append it to the list, store it, and return the object
       let sessions = getAllTrainingSessions();
+
       session.id = sessions.length + 1;
       sessions.push(session);
+
       localStorage.setItem('trainingSessions', JSON.stringify(sessions));
+
       return session;
-    } else {
-      return null;
     }
-  } else {
+  }
+
+  return null;
+}
+
+
+export function updateTrainingSession(id, data) {
+  /* Update the training session of the specified ID using the given
+  data object, or return null if the session does not exist, does not
+  belong to the signed-in account, or if the given data is invalid. */
+
+  let account = getSignedInAccount();
+
+  if (account) {
+    // If signed-in, try to find training session by ID
+    let session = getTrainingSession(id);
+
+    if (session) {
+      // If the training session exists and belongs to the user,
+      // create a new one with its ID and the given data
+      let newSession = createTrainingSessionObject(id, account.email, data);
+
+      if (newSession) {
+        // If a valid training session object is successfully created
+        // with the given data, replace the session object in the list
+        let sessions = getAllTrainingSessions();
+        if (sessions.length) {
+          let success = false;
+
+          for (let i of sessions) {
+            if (sessions[i].id === id) {
+              sessions[i] = newSession;
+              success = true;
+            }
+          }
+
+          if (success) {
+            // If the training session object is successfully replaced
+            // in the list, store it, and return the object
+            localStorage.setItem('trainingSessions', JSON.stringify(sessions));
+
+            return newSession;
+          }
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+
+export function createTrainingSessionObject(id, accountEmail, data) {
+  /* Create a training session object with the given data, or return
+  null if it is incomplete or invalid. */
+
+  // Initial data
+  let session = {
+    id: id,
+    accountEmail: accountEmail,
+    date: data.date,
+    time: data.time,
+    shortTitle: data.shortTitle ? data.shortTitle : "",
+    duration: null,
+    bodyweight: null,
+    comments: data.comments ? data.comments : "",
+    exercises: [],
+  };
+
+  // Date and time are required and must be valid
+  if (!data.date || !data.time || !Date.parse(data.date + 'T' + data.time)) {
     return null;
   }
+
+  // Duration is not required, but if given must be a non-negative integer
+  if (data.duration) {
+    let durationNumber = Number(data.duration);
+
+    if (!Number.isInteger(durationNumber) || durationNumber < 0) {
+      session.duration = durationNumber;
+    }
+  }
+
+  // Bodyweight is not required, but if given must be a non-negative integer
+  if (data.bodyweight) {
+    let bodyweightNumber = Number(data.bodyweight);
+
+    if (!Number.isInteger(bodyweightNumber) || bodyweightNumber < 0) {
+      session.bodyweight = bodyweightNumber;
+    }
+  }
+
+  // Try to create valid exercise items from the given data and add them
+  // to the data object
+  if (data.exercises && data.exercises.length) {
+    for (let itemData of data.exercises) {
+      let item = createTrainingSessionExerciseItem(itemData);
+
+      if (item && item.length) {
+        session.exercises.push(item);
+      }
+    }
+  }
+
+  let exerciseCount = session.exercises.length;
+  if (!exerciseCount || exerciseCount !== data.exercises.length) {
+    // If there are no valid exercise items, or if the number of valid
+    // exercise items differs from the number of raw exercise items in
+    // the data (i.e. some items were invalid), then we must invalidate
+    // the entire training session
+    return null;
+  }
+
+  return session;
 }
 
 

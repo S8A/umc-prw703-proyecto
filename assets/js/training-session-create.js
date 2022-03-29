@@ -18,122 +18,21 @@ window.addEventListener('load', function () {
     // Get query params
     const params = utils.getQueryParams();
 
-    // Get form, basic data fields and feedback elements
-    let form = document.querySelector('form#create-form');
+    // Construct create form page
+    let mainTitleText = 'Registrar una nueva sesión de entrenamiento';
+    let formId = 'create-form';
+    let formLabel = 'Registrar datos de la sesión de entrenamiento';
+    let submitButtonText = 'Crear registro';
 
-    let date = form.querySelector('input[type="date"]#date');
-    let time = form.querySelector('input[type="time"]#time');
-    let shortTitle = form.querySelector('input[type="text"]#short-title');
-    let duration = form.querySelector('input[type="number"]#duration');
-    let bodyweight = form.querySelector('input[type="number"]#bodyweight');
-    let comments = form.querySelector('textarea#comments');
-
-    // Get action buttons
-    let addButton = document.querySelector('button#add-btn');
-    let removeButton = document.querySelector('button#remove-btn');
-    let duplicateButton = document.querySelector('button#duplicate-btn');
-    let moveUpButton = document.querySelector('button#move-up-btn');
-    let moveDownButton = document.querySelector('button#move-down-btn');
-
-    // Add event listeners to form fields
-    date.addEventListener('invalid', function (event) {
-      common.showDateError(date);
-    });
-
-    date.addEventListener('input', function (event) {
-      if (date.validity.valid) {
-        utils.getInvalidFeedbackElement(date).textContent = '';
-      } else {
-        common.showDateError(date);
-      }
-    });
-
-    time.addEventListener('invalid', function (event) {
-      common.showTimeError(time);
-    });
-
-    time.addEventListener('input', function (event) {
-      if (time.validity.valid) {
-        utils.getInvalidFeedbackElement(time).textContent = '';
-      } else {
-        common.showTimeError(time);
-      }
-    });
-
-    shortTitle.addEventListener('invalid', function (event) {
-      common.showShortTitleError(shortTitle);
-    });
-
-    shortTitle.addEventListener('input', function (event) {
-      if (shortTitle.validity.valid) {
-        utils.getInvalidFeedbackElement(shortTitle).textContent = '';
-      } else {
-        common.showShortTitleError(shortTitle);
-      }
-    });
-
-    duration.addEventListener('invalid', function (event) {
-      common.showDurationError(duration);
-    });
-
-    duration.addEventListener('input', function (event) {
-      if (duration.validity.valid) {
-        utils.getInvalidFeedbackElement(duration).textContent = '';
-      } else {
-        common.showDurationError(duration);
-      }
-    });
-
-    bodyweight.addEventListener('invalid', function (event) {
-      common.showBodyweightError(bodyweight);
-    });
-
-    bodyweight.addEventListener('input', function (event) {
-      if (bodyweight.validity.valid) {
-        utils.getInvalidFeedbackElement(bodyweight).textContent = '';
-      } else {
-        common.showBodyweightError(bodyweight);
-      }
-    });
-
-    comments.addEventListener('invalid', function (event) {
-      common.showCommentsError(comments);
-    });
-
-    comments.addEventListener('input', function (event) {
-      if (comments.validity.valid) {
-        utils.getInvalidFeedbackElement(comments).textContent = '';
-      } else {
-        common.showCommentsError(comments);
-      }
-    });
-
-
-    // Add event listeners to action buttons
-    addButton.addEventListener('click', function (event) {
-      common.addExercise();
-    });
-
-    removeButton.addEventListener('click', function (event) {
-      common.removeExercise();
-    });
-
-    duplicateButton.addEventListener('click', function (event) {
-      common.duplicateExercise();
-    });
-
-    moveUpButton.addEventListener('click', function (event) {
-      common.moveUpExercise();
-    });
-
-    moveDownButton.addEventListener('click', function (event) {
-      common.moveDownExercise();
-    });
+    common.constructTrainingSessionForm(
+        mainTitleText, formId, formLabel, submitButtonText);
 
     // Add initial empty exercise item to table
     common.addExercise();
 
-    // Add event listener for form submission
+    // Get form element and add event listener for submission
+    let form = document.getElementById(formId);
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
@@ -141,36 +40,21 @@ window.addEventListener('load', function () {
       let statusType = 'error';
 
       if (form.checkValidity()) {
-        // If form is valid, extract exercise data from form fields
-        let exercises = common.gatherExercisesData();
-        
-        if (exercises.length === common.getRows().length) {
-          // If all exercise item rows could be converted into valid
-          // exercise objects, try to create training session
-          let session = utils.createTrainingSession(
-            date.value,
-            time.value,
-            shortTitle.value,
-            duration.value,
-            bodyweight.value,
-            comments.value,
-            exercises
-          );
+        // If form is valid, extract data from form fields and try to
+        // create training session
+        let data = common.extractFormData(form);
+        let session = utils.createTrainingSession(data);
 
-          if (session) {
-            // If the training session was created, set pending success message
-            statusType = 'success';
-            statusText = 'Sesión de entrenamiento registrada exitosamente.'
-            utils.setPendingStatusMessage(statusType, [statusText]);
+        if (session) {
+          // If the training session was created, set pending success message
+          statusType = 'success';
+          statusText = 'Sesión de entrenamiento registrada exitosamente.'
+          utils.setPendingStatusMessage(statusType, [statusText]);
 
-            // Redirect to detail page of the newly created training session
-            // and end event handler execution
-            window.location.assign('/historial/detalle.html?id=' + session.id);
-            return;
-          } else {
-            // If the training session was not created, something went wrong
-            statusText = 'Error inesperado al tratar de registrar los datos.'
-          }
+          // Redirect to detail page of the newly created training session
+          // and end event handler execution
+          window.location.assign('/historial/detalle.html?id=' + session.id);
+          return;
         } else {
           // If the number of valid exercises differs from the number
           // of row items (logically by being lower), show error message

@@ -8,7 +8,11 @@ function populateTrainingSessionDetails(session) {
 
   // Title
   let mainTitle = mainContainer.querySelector('h1#main-title');
-  mainTitle.textContent = utils.getTrainingSessionFullTitle(session);
+  let fullTitle = utils.getTrainingSessionFullTitle(session);
+  mainTitle.textContent = fullTitle;
+  document.title =
+    'Sesión de entrenamiento: ' + fullTitle + ' ' + utils.NDASH 
+    + ' 8A Training';
 
   // Remove #empty-text element
   let emptyText = mainContainer.querySelector('p#empty-text');
@@ -224,10 +228,10 @@ window.addEventListener('load', function () {
     const params = utils.getQueryParams();
 
     // Training session ID
-    const id = params.id ? Number(params.id) : null;
+    const id = Number(params.id);
 
     // If no valid ID parameter set, redirect to training log page
-    if (!id || isNaN(id)) {
+    if (!Number.isInteger(id) || id <= 0) {
       window.location.assign('/historial/');
       return;
     }

@@ -1,6 +1,519 @@
 import * as utils from '/assets/js/utils.js';
 
 
+/* CONSTRUCT FORM PAGE */
+
+
+export function constructTrainingSessionForm(
+  mainTitleText, formId, formLabel, submitButtonText, session = {}
+) {
+  /* Construct create/edit form page with the given main title text,
+  form ID, form label, submit button text, and optional training session
+  data to populate the fields. */
+
+  let mainContainer = document.querySelector('main > .container');
+
+  // Main title
+  let mainTitle = mainContainer.querySelector('h1#main-title');
+  let fullTitle = utils.getTrainingSessionFullTitle(session);
+  mainTitle.textContent = mainTitleText;
+
+  // Remove #empty-text element
+  let emptyText = mainContainer.querySelector('p#empty-text');
+  mainContainer.removeChild(emptyText);
+
+  // Intro paragraph
+  let intro = document.createElement('p');
+  intro.textContent =
+      'Para cancelar la modificación, simplemente regrese a la página '
+      + 'anterior sin guardar los cambios.';
+
+  // Form
+  let form = document.createElement('form');
+  form.id = formId;
+  form.ariaLabel = formLabel;
+  form.noValidate = true;
+
+  // Basic data
+  let basicDataSection = document.createElement('section');
+  basicDataSection.id = 'basic-data';
+
+  let basicDataTitle = document.createElement('h2');
+  basicDataTitle.textContent = 'Datos generales';
+
+  let basicDataRequired = document.createElement('p');
+  basicDataRequired.appendChild(
+      document.createTextNode('Los campos requeridos son indicados por '));
+
+  let requiredAsterisk = document.createElement('abbr');
+  requiredAsterisk.textContent = '*';
+  requiredAsterisk.title = 'requerido';
+
+  basicDataRequired.appendChild(requiredAsterisk);
+  basicDataRequired.appendChild(document.createTextNode('.'));
+
+  let basicDataFormFields = createBasicDataFormFields(
+    session.date,
+    session.time,
+    session.shortTitle,
+    session.duration,
+    session.bodyweight,
+    session.comments
+  );
+
+  basicDataSection.appendChild(basicDataTitle);
+  basicDataSection.appendChild(basicDataRequired);
+  basicDataSection.appendChild(basicDataFormFields);
+
+  // Exercises
+  let exercisesSection = document.createElement('section');
+  exercisesSection.id = 'exercises';
+
+  let exercisesTitle = document.createElement('h2');
+  exercisesTitle.textContent = 'Ejercicios';
+
+  let exercisesRequired = basicDataRequired.cloneNode(true);
+
+  let actionButtons = createActionButtons();
+
+  let exercisesDiv = document.createElement('div');
+  exercisesDiv.classList.add('exercises');
+
+  let exercisesTable = createExercisesTable(session.exercises);
+  exercisesDiv.appendChild(exercisesTable);
+
+  exercisesSection.appendChild(exercisesTitle);
+  exercisesSection.appendChild(exercisesRequired);
+  exercisesSection.appendChild(actionButtons);
+  exercisesSection.appendChild(exercisesDiv);
+
+  // Form buttons
+  let formButtonsSection = document.createElement('section');
+  formButtonsSection.id = 'form-buttons';
+
+  let submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.textContent = submitButtonText;
+
+  formButtonsSection.appendChild(submitButton);
+
+  // Add sections to form
+  form.appendChild(basicDataSection);
+  form.appendChild(exercisesSection);
+  form.appendChild(formButtonsSection);
+
+  // Add elements to main container
+  mainContainer.appendChild(intro);
+  mainContainer.appendChild(form);
+}
+
+
+function createBasicDataFormFields(
+  date, time, shortTitle, duration, bodyweight, comments
+) {
+  /* Create basic data form fields with the data of the given session. */
+
+  let container = document.createElement('div');
+  container.id = "basic-data-fields";
+
+  container.appendChild(createDateDiv(date));
+  container.appendChild(createTimeDiv(time));
+  container.appendChild(createShortTitleDiv(shortTitle));
+  container.appendChild(createDurationDiv(duration));
+  container.appendChild(createBodyweightDiv(bodyweight));
+  container.appendChild(createGeneralCommentsDiv(comments));
+
+  return container;
+}
+
+
+function createActionButtons() {
+  /* Create action buttons for manipulating exercise items. */
+
+  let container = document.createElement('div');
+  container.id = 'action-buttons';
+  container.ariaLabel = 'Acciones';
+  container.setAttribute('role', 'toolbar');
+
+  // Add
+  let addButton = document.createElement('button');
+  addButton.type = 'button';
+  addButton.id = 'add-btn';
+  addButton.textContent = 'Agregar ejercicio';
+
+  addButton.addEventListener('click', function (event) {
+    addExercise();
+  });
+
+  // Remove
+  let removeButton = document.createElement('button');
+  removeButton.type = 'button';
+  removeButton.id = 'remove-btn';
+  removeButton.textContent = 'Eliminar seleccionado';
+
+  removeButton.addEventListener('click', function (event) {
+    removeExercise();
+  });
+
+  // Duplicate
+  let duplicateButton = document.createElement('button');
+  duplicateButton.type = 'button';
+  duplicateButton.id = 'duplicate-btn';
+  duplicateButton.textContent = 'Duplicar seleccionado';
+
+  duplicateButton.addEventListener('click', function (event) {
+    duplicateExercise();
+  });
+
+  // Move up
+  let moveUpButton = document.createElement('button');
+  moveUpButton.type = 'button';
+  moveUpButton.id = 'move-up-btn';
+  moveUpButton.textContent = 'Subir seleccionado';
+
+  moveUpButton.addEventListener('click', function (event) {
+    moveUpExercise();
+  });
+
+  // Move down
+  let moveDownButton = document.createElement('button');
+  moveDownButton.type = 'button';
+  moveDownButton.id = 'move-down-btn';
+  moveDownButton.textContent = 'Bajar seleccionado';
+
+  moveDownButton.addEventListener('click', function (event) {
+    moveDownExercise();
+  });
+
+  // Add to div
+  container.appendChild(addButton);
+  container.appendChild(removeButton);
+  container.appendChild(duplicateButton);
+  container.appendChild(moveUpButton);
+  container.appendChild(moveDownButton);
+
+  return container;
+}
+
+
+function createExercisesTable(exercises) {
+  /* Create table with the given editable exercise items. */
+
+  let table = document.createElement('table');
+
+  // Table head
+  let thead = document.createElement('thead');
+  let headers = [
+    {id: 'selection-th', text: '', required: false},
+    {id: 'exercise-th', text: 'Ejercicio', required: true},
+    {id: 'set-type-th', text: 'Modalidad', required: true},
+    {id: 'weight-th', text: 'Peso (kg)', required: false},
+    {id: 'sets-th', text: 'Series', required: true},
+    {id: 'reps-th', text: 'Repeticiones', required: false},
+    {id: 'comments-th', text: 'Comentarios', required: false},
+  ];
+
+  for (let header of headers) {
+    let th = document.createElement('th');
+    th.id = header.id;
+    th.appendChild(document.createTextNode(header.text));
+
+    if (header.required) {
+      let requiredAsterisk = document.createElement('abbr');
+      requiredAsterisk.textContent = '*';
+      requiredAsterisk.title = 'requerido';
+      requiredAsterisk.ariaLabel = 'requerido';
+
+      th.appendChild(requiredAsterisk);
+    }
+
+    thead.appendChild(th);
+  }
+
+  // Table body
+  let tbody = document.createElement('tbody');
+
+  if (exercises && exercises.length) {
+    for (let i in exercises) {
+      // For each exercise data object, create a new exercise item row
+      // and append it to the table body
+      let rowNumber = i + 1;
+      let data = exercises[i];
+      let row = createEditableExerciseItemRow(rowNumber, data);
+      tbody.appendChild(row);
+    }
+  }
+
+  table.appendChild(thead);
+  table.appendChild(tbody);
+
+  return table;
+}
+
+
+function createDateDiv(value = null) {
+  /* Create date field div element with the given value, if any. */
+
+  let dateDiv = document.createElement('div');
+
+  // Label
+  let dateLabel = document.createElement('label');
+  dateLabel.htmlFor = 'date';
+
+  dateLabel.appendChild(document.createTextNode('Fecha:'));
+
+  let requiredAsterisk = document.createElement('abbr');
+  requiredAsterisk.textContent = '*';
+  requiredAsterisk.title = 'requerido';
+  requiredAsterisk.ariaLabel = 'requerido';
+
+  dateLabel.appendChild(requiredAsterisk);
+  dateLabel.appendChild(document.createTextNode(' '));
+
+  // Input
+  let date = document.createElement('input');
+  date.type = "date";
+  date.id = dateLabel.htmlFor;
+  date.name = date.id;
+  date.pattern = '\d{4}-\d{2}-\d{2}';
+  date.required = true;
+  date.value = value;
+
+  // Event listeners
+  date.addEventListener('invalid', function (event) {
+    showDateError(date);
+  });
+
+  date.addEventListener('input', function (event) {
+    if (date.validity.valid) {
+      utils.getInvalidFeedbackElement(date).textContent = '';
+    } else {
+      showDateError(date);
+    }
+  });
+
+  // Add to div
+  dateDiv.appendChild(dateLabel);
+  dateDiv.appendChild(date);
+  dateDiv.appendChild(utils.createInvalidFeedbackElement());
+
+  return dateDiv;
+}
+
+
+function createTimeDiv(value = null) {
+  /* Create time field div element with the given value, if any. */
+
+  let timeDiv = document.createElement('div');
+
+  // Label
+  let timeLabel = document.createElement('label');
+  timeLabel.htmlFor = 'time';
+
+  timeLabel.appendChild(document.createTextNode('Hora:'));
+
+  let requiredAsterisk = document.createElement('abbr');
+  requiredAsterisk.textContent = '*';
+  requiredAsterisk.title = 'requerido';
+  requiredAsterisk.ariaLabel = 'requerido';
+
+  timeLabel.appendChild(requiredAsterisk);
+  timeLabel.appendChild(document.createTextNode(' '));
+
+  // Input
+  let time = document.createElement('input');
+  time.type = "time";
+  time.id = timeLabel.htmlFor;
+  time.name = time.id;
+  time.pattern = '\d{2}:\d{2}';
+  time.required = true;
+  time.value = value;
+
+  // Event listeners
+  time.addEventListener('invalid', function (event) {
+    showTimeError(time);
+  });
+
+  time.addEventListener('input', function (event) {
+    if (time.validity.valid) {
+      utils.getInvalidFeedbackElement(time).textContent = '';
+    } else {
+      showTimeError(time);
+    }
+  });
+
+  // Add to div
+  timeDiv.appendChild(timeLabel);
+  timeDiv.appendChild(time);
+  timeDiv.appendChild(utils.createInvalidFeedbackElement());
+
+  return timeDiv;
+}
+
+
+function createShortTitleDiv(value = null) {
+  /* Create short title field div element with the given value, if any. */
+
+  let shortTitleDiv = document.createElement('div');
+
+  // Label
+  let shortTitleLabel = document.createElement('label');
+  shortTitleLabel.htmlFor = 'short-title';
+  shortTitleLabel.textContent = 'Título breve: ';
+
+  // Input
+  let shortTitle = document.createElement('input');
+  shortTitle.type = "text";
+  shortTitle.id = shortTitleLabel.htmlFor;
+  shortTitle.name = shortTitle.id;
+  shortTitle.maxLength = 50;
+  shortTitle.value = value;
+
+  // Event listeners
+  shortTitle.addEventListener('invalid', function (event) {
+    showShortTitleError(shortTitle);
+  });
+
+  shortTitle.addEventListener('input', function (event) {
+    if (shortTitle.validity.valid) {
+      utils.getInvalidFeedbackElement(shortTitle).textContent = '';
+    } else {
+      showShortTitleError(shortTitle);
+    }
+  });
+
+  // Add to div
+  shortTitleDiv.appendChild(shortTitleLabel);
+  shortTitleDiv.appendChild(shortTitle);
+  shortTitleDiv.appendChild(utils.createInvalidFeedbackElement());
+
+  return shortTitleDiv;
+}
+
+
+function createDurationDiv(value = null) {
+  /* Create duration field div element with the given value, if any. */
+
+  let durationDiv = document.createElement('div');
+
+  // Label
+  let durationLabel = document.createElement('label');
+  durationLabel.htmlFor = 'duration';
+  durationLabel.textContent = 'Duración de la sesión (minutos): ';
+
+  // Input
+  let duration = document.createElement('input');
+  duration.type = "number";
+  duration.id = durationLabel.htmlFor;
+  duration.name = duration.id;
+  duration.min = 0;
+  duration.step = 1;
+  duration.value = value;
+
+  // Event listeners
+  duration.addEventListener('invalid', function (event) {
+    showDurationError(duration);
+  });
+
+  duration.addEventListener('input', function (event) {
+    if (duration.validity.valid) {
+      utils.getInvalidFeedbackElement(duration).textContent = '';
+    } else {
+      showDurationError(duration);
+    }
+  });
+
+  // Add to div
+  durationDiv.appendChild(durationLabel);
+  durationDiv.appendChild(duration);
+  durationDiv.appendChild(utils.createInvalidFeedbackElement());
+
+  return durationDiv;
+}
+
+
+function createBodyweightDiv(value = null) {
+  /* Create bodyweight field div element with the given value, if any. */
+
+  let bodyweightDiv = document.createElement('div');
+
+  // Label
+  let bodyweightLabel = document.createElement('label');
+  bodyweightLabel.htmlFor = 'bodyweight';
+  bodyweightLabel.textContent = 'Peso corporal (kilogramos): ';
+
+  // Input
+  let bodyweight = document.createElement('input');
+  bodyweight.type = "number";
+  bodyweight.id = bodyweightLabel.htmlFor;
+  bodyweight.name = bodyweight.id;
+  bodyweight.min = 0;
+  bodyweight.step = 1;
+  bodyweight.value = value;
+
+  // Event listeners
+  bodyweight.addEventListener('invalid', function (event) {
+    showBodyweightError(bodyweight);
+  });
+
+  bodyweight.addEventListener('input', function (event) {
+    if (bodyweight.validity.valid) {
+      utils.getInvalidFeedbackElement(bodyweight).textContent = '';
+    } else {
+      showBodyweightError(bodyweight);
+    }
+  });
+
+  // Add to div
+  bodyweightDiv.appendChild(bodyweightLabel);
+  bodyweightDiv.appendChild(bodyweight);
+  bodyweightDiv.appendChild(utils.createInvalidFeedbackElement());
+
+  return bodyweightDiv;
+}
+
+
+function createGeneralCommentsDiv(value = null) {
+  /* Create general comments field div element with the given value, if any. */
+
+  let commentsDiv = document.createElement('div');
+
+  // Label
+  let commentsLabel = document.createElement('label');
+  commentsLabel.htmlFor = 'comments';
+  commentsLabel.textContent = 'Comentarios: ';
+
+  // Input
+  let comments = document.createElement('textarea');
+  comments.id = commentsLabel.htmlFor;
+  comments.name = comments.id;
+  comments.cols = 50;
+  comments.rows = 10;
+  comments.maxLength = 280;
+  comments.value = value;
+
+  // Event listeners
+  comments.addEventListener('invalid', function (event) {
+    showCommentsError(comments);
+  });
+
+  comments.addEventListener('input', function (event) {
+    if (comments.validity.valid) {
+      utils.getInvalidFeedbackElement(comments).textContent = '';
+    } else {
+      showCommentsError(comments);
+    }
+  });
+
+  // Add to div
+  commentsDiv.appendChild(commentsLabel);
+  commentsDiv.appendChild(comments);
+  commentsDiv.appendChild(utils.createInvalidFeedbackElement());
+
+  return commentsDiv;
+}
+
+
 /* GENERAL HELPERS */
 
 function getSelectedRowNumber() {
@@ -141,7 +654,8 @@ export function duplicateExercise() {
 
   if (selected && selectedItem) {
     // If there is an exercise item selected, extract its data, create
-    // a new exercise item with the same data,
+    // a new exercise item with the same data, and place it below the
+    // selected item
     let data = extractExerciseItemData(selectedItem);
     let newRowNumber = selected + 1;
     let newExerciseItem = createEditableExerciseItemRow(newRowNumber, data);
@@ -285,7 +799,7 @@ export function showDurationError(duration) {
   let feedback = utils.getInvalidFeedbackElement(duration);
 
   if (duration.validity.badInput) {
-    feedback.textContent = 'Solo se permiten números.';
+    feedback.textContent = 'Solo se permiten números enteros.';
   } else if (duration.validity.rangeUnderflow) {
     feedback.textContent = 'La duración no puede ser negativa.';
   }
@@ -298,7 +812,7 @@ export function showBodyweightError(bodyweight) {
   let feedback = utils.getInvalidFeedbackElement(bodyweight);
 
   if (bodyweight.validity.badInput) {
-    feedback.textContent = 'Solo se permiten números.';
+    feedback.textContent = 'Solo se permiten números enteros.';
   } else if (bodyweight.validity.rangeUnderflow) {
     feedback.textContent = 'El peso corporal no puede ser negativo.';
   }
@@ -367,7 +881,7 @@ function showSetsError(sets) {
     feedback.textContent =
         'Debe ingresar el número de series (puede ser cero).';
   } else if (sets.validity.badInput) {
-    feedback.textContent = 'Solo se permiten números.';
+    feedback.textContent = 'Solo se permiten números enteros.';
   } else if (sets.validity.rangeUnderflow) {
     feedback.textContent = 'El número de series no puede ser negativo.';
   }
@@ -382,7 +896,7 @@ function showRepsError(reps) {
   if (reps.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar el número de repeticiones.';
   } else if (reps.validity.badInput) {
-    feedback.textContent = 'Solo se permiten números.';
+    feedback.textContent = 'Solo se permiten números enteros.';
   } else if (reps.validity.rangeUnderflow) {
     feedback.textContent = 'El número de repeticiones debe ser mayor a cero.';
   }
@@ -405,9 +919,40 @@ function showExerciseCommentsError(comments) {
 }
 
 
-/* EXERCISE DATA PROCESSING */
+/* FORM DATA PROCESSING */
 
-export function gatherExercisesData() {
+export function extractFormData(form) {
+  /* Extract training session data from the given form element. */
+
+  let data = {}
+
+  // Basic data fields
+  let date = form.querySelector('input[type="date"]#date');
+  data.date = date ? date.value : null;
+
+  let time = form.querySelector('input[type="time"]#time');
+  data.time = time ? time.value : null;
+
+  let shortTitle = form.querySelector('input[type="text"]#short-title');
+  data.shortTitle = shortTitle ? shortTitle.value : null;
+
+  let duration = form.querySelector('input[type="number"]#duration');
+  data.duration = duration ? duration.value : null;
+
+  let bodyweight = form.querySelector('input[type="number"]#bodyweight');
+  data.bodyweight = bodyweight ? bodyweight.value : null;
+
+  let comments = form.querySelector('textarea#comments');
+  data.comments = comments ? comments.value : null;
+
+  // Exercises' data
+  data.exercises = extractExercisesData();
+
+  return data;
+}
+
+
+function extractExercisesData() {
   /* Return a list of exercise objects created with the corresponding
   form fields' data. */
 
@@ -649,6 +1194,7 @@ function createSetsTd(rowNumber, value) {
   sets.id = sets.name;
   sets.dataset.rowNumber = rowNumber;
   sets.min = 0;
+  sets.step = 1;
   sets.required = true;
 
   if (value) {
@@ -712,6 +1258,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
   reps.dataset.rowNumber = rowNumber;
   reps.dataset.setNumber = setNumber;
   reps.min = 1;
+  reps.step = 1;
   reps.required = true;
 
   if (value) {
@@ -873,7 +1420,7 @@ async function updateRepsTd(rowNumber, setsCount) {
 
   let row = getRow(rowNumber);
   let repsTd = row ? row.querySelector('td[data-column="reps"]') : null;
-  
+
   if (repsTd && Number.isInteger(setsCount) && setsCount >= 0) {
     let repsDivs = repsTd ? repsTd.querySelectorAll('div.reps-item') : [];
     let repsDivsCount = Number(repsDivs.length);

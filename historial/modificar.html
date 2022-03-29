@@ -28,72 +28,7 @@
         <div class="container edit-training-session">
             <div id="status-messages"></div>
             <h1 id="main-title">Modificar sesión de entrenamiento</h1>
-            <p>Para cancelar la modificación, simplemente regrese a la página anterior sin guardar los cambios.</p>
-            <form id="edit-form" aria-labelledby="main-title" novalidate>
-                <section id="basic-data">
-                    <h2>Datos generales</h2>
-                    <p>Los campos requeridos son indicados por <abbr title="requerido">*</abbr>.</p>
-                    <div>
-                        <label for="date">Fecha:<abbr title="requerido" aria-label="requerido">*</abbr></label> 
-                        <input type="date" name="date" id="date" required pattern="\d{4}-\d{2}-\d{2}">
-                        <div class="invalid-feedback" aria-live="polite"></div>
-                    </div>
-                    <div>
-                        <label for="time">Hora:<abbr title="requerido" aria-label="requerido">*</abbr></label> 
-                        <input type="time" name="time" id="time" required pattern="[0-9]{2}:[0-9]{2}">
-                        <div class="invalid-feedback" aria-live="polite"></div>
-                    </div>
-                    <div>
-                        <label for="short-title">Título breve:</label> 
-                        <input type="text" name="short-title" id="short-title" maxlength="50">
-                        <div class="invalid-feedback" aria-live="polite"></div>
-                    </div>
-                    <div>
-                        <label for="duration">Duración de la sesión (minutos):</label> 
-                        <input type="number" name="duration" id="duration" min="0">
-                        <div class="invalid-feedback" aria-live="polite"></div>
-                    </div>
-                    <div>
-                        <label for="bodyweight">Peso corporal (kilogramos):</label> 
-                        <input type="number" name="bodyweight" id="bodyweight" min="0">
-                        <div class="invalid-feedback" aria-live="polite"></div>
-                    </div>
-                    <div>
-                        <label for="comments">Comentarios:</label> 
-                        <textarea name="comments" id="comments" cols="50" rows="10" maxlength="280"></textarea>
-                        <div class="invalid-feedback" aria-live="polite"></div>
-                    </div>
-                </section>
-                <section id="exercises">
-                    <h2>Ejercicios</h2>
-                    <p>Los campos requeridos son indicados por <abbr title="requerido">*</abbr>.</p>
-                    <div id="main-buttons">
-                        <button type="button" id="add-btn">Agregar ejercicio</button>
-                        <button type="button" id="remove-btn">Eliminar seleccionado</button>
-                        <button type="button" id="duplicate-btn">Duplicar seleccionado</button>
-                        <button type="button" id="move-up-btn">Subir seleccionado</button>
-                        <button type="button" id="move-down-btn">Bajar seleccionado</button>
-                    </div>
-                    <div class="exercises">
-                        <table>
-                            <thead>
-                                <th></th>
-                                <th>Ejercicio<abbr title="requerido" aria-label="requerido">*</abbr></th>
-                                <th>Modalidad<abbr title="requerido" aria-label="requerido">*</abbr></th>
-                                <th>Peso (kg)</th>
-                                <th>Series<abbr title="requerido" aria-label="requerido">*</abbr></th>
-                                <th>Repeticiones</th>
-                                <th>Comentarios</th>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-                <section id="form-buttons">
-                    <button type="submit">Guardar modificación</button>
-                </section>
-            </form>
+            <p id="empty-text">No se ha podido cargar la información de la sesión de entrenamiento solicitada.</p>
         </div>
     </main>
     <footer>
