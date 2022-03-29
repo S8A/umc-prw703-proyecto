@@ -141,32 +141,43 @@ window.addEventListener('load', function () {
       let statusType = 'error';
 
       if (form.checkValidity()) {
-        // If form is valid, try to create training session with the given data
-        let exercises = gatherExerciseData();
+        // If form is valid, extract exercise data from form fields
+        let exercises = common.gatherExercisesData();
+        
+        if (exercises.length === common.getRows().length) {
+          // If all exercise item rows could be converted into valid
+          // exercise objects, try to create training session
+          let session = utils.createTrainingSession(
+            date.value,
+            time.value,
+            shortTitle.value,
+            duration.value,
+            bodyweight.value,
+            comments.value,
+            exercises
+          );
 
-        let session = utils.createTrainingSession(
-          date.value,
-          time.value,
-          shortTitle.value,
-          duration.value,
-          bodyweight.value,
-          comments.value,
-          exercises
-        );
+          if (session) {
+            // If the training session was created, set pending success message
+            statusType = 'success';
+            statusText = 'Sesión de entrenamiento registrada exitosamente.'
+            utils.setPendingStatusMessage(statusType, [statusText]);
 
-        if (session) {
-          // If the training session was created, set pending success message
-          statusType = 'success';
-          statusText = 'Sesión de entrenamiento registrada exitosamente.'
-          utils.setPendingStatusMessage(statusType, [statusText]);
-
-          // Redirect to detail page of the newly created training session
-          // and end event handler execution
-          window.location.assign('/historial/detalle.html?id=' + session.id);
-          return;
+            // Redirect to detail page of the newly created training session
+            // and end event handler execution
+            window.location.assign('/historial/detalle.html?id=' + session.id);
+            return;
+          } else {
+            // If the training session was not created, something went wrong
+            statusText = 'Error inesperado al tratar de registrar los datos.'
+          }
         } else {
-          // If the training session was not created, something went wrong
-          statusText = 'Error inesperado al tratar de registrar los datos.'
+          // If the number of valid exercises differs from the number
+          // of row items (logically by being lower), show error message
+          console.log(exercises);
+          statusText = 
+              'Uno o varios ítems de ejercicio contienen datos inválidos. '
+              + 'Verifique todos los campos.';
         }
       } else {
         // If the form is not valid
