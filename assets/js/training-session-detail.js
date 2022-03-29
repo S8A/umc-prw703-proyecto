@@ -11,7 +11,7 @@ function populateTrainingSessionDetails(session) {
   let fullTitle = utils.getTrainingSessionFullTitle(session);
   mainTitle.textContent = fullTitle;
   document.title =
-    'Sesión de entrenamiento: ' + fullTitle + ' ' + utils.NDASH 
+    'Sesión de entrenamiento: ' + fullTitle + ' ' + utils.NDASH
     + ' 8A Training';
 
   // Remove #empty-text element
@@ -76,7 +76,7 @@ function createBasicDataList(session) {
   let basicDataList = document.createElement('ul');
 
   let datetimeListItem = document.createElement('li');
-  
+
   let datetimeLabel = document.createElement('b');
   datetimeLabel.textContent = 'Fecha y hora:';
   datetimeListItem.appendChild(datetimeLabel);
@@ -238,7 +238,7 @@ window.addEventListener('load', function () {
 
     // Try to get training session with the given ID
     let session = utils.getTrainingSession(id);
-    
+
     if (!session) {
       // If the training session was not found, add error status message
       let text = 'La sesión de entrenamiento solicitada no existe o '

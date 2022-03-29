@@ -58,7 +58,7 @@ window.addEventListener('load', function () {
         } else {
           // If the number of valid exercises differs from the number
           // of row items (logically by being lower), show error message
-          statusText = 
+          statusText =
               'Uno o varios ítems de ejercicio contienen datos inválidos. '
               + 'Verifique todos los campos.';
         }
