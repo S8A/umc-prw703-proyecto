@@ -429,8 +429,7 @@ function createExerciseTd(rowNumber, value) {
   exercise.name = "exercise-" + rowNumber;
   exercise.id = exercise.name;
   exercise.dataset.rowNumber = rowNumber;
-  exercise.maxLength = 20;
-  exercise.pattern = '[0-9A-Za-z &\'\\-\\+\\.]+';
+  exercise.maxLength = 50;
   exercise.required = true;
 
   if (value) {
@@ -507,8 +506,10 @@ function createWeightTd(rowNumber, value) {
   weight.name = "weight-" + rowNumber;
   weight.id = weight.name;
   weight.dataset.rowNumber = rowNumber;
+  weight.min = 0;
+  weight.step = 0.01;
 
-  if (!Number.isNaN(value)) {
+  if (value) {
     weight.value = value;
   }
 
@@ -538,6 +539,7 @@ function createSetsTd(rowNumber, value) {
   sets.name = "sets-" + rowNumber;
   sets.id = sets.name;
   sets.dataset.rowNumber = rowNumber;
+  sets.min = 0;
   sets.required = true;
 
   if (value) {
@@ -618,7 +620,7 @@ function createCommentsTd(rowNumber, value) {
   comments.id = comments.name;
   comments.dataset.rowNumber = rowNumber;
   comments.pattern = '[0-9A-Za-z &\'\\-\\+\\.]*';
-  comments.maxLength = 50;
+  comments.maxLength = 140;
   comments.cols = 20;
   comments.rows = 5;
 
