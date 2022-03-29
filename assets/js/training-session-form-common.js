@@ -451,6 +451,7 @@ export function createEditableExerciseItemRow(rowNumber, data) {
 
   // Reps
   let repsTd = document.createElement('td');
+  repsTd.dataset.column = 'reps';
 
   if (sets > 0) {
     for (let i = 0; i < sets; i++) {
@@ -488,6 +489,7 @@ function createSelectionTd(rowNumber) {
   /* Create radio selection table cell with the given row number. */
 
   let selectionTd = document.createElement('td');
+  selectionTd.dataset.column = 'selection';
 
   let selection = document.createElement('input');
   selection.type = 'radio';
@@ -511,6 +513,7 @@ function createExerciseTd(rowNumber, value) {
   optional value. */
 
   let exerciseTd = document.createElement('td');
+  exerciseTd.dataset.column = 'exercise';
 
   let exercise = document.createElement('input');
   exercise.type = "text";
@@ -548,6 +551,7 @@ function createSetTypeTd(rowNumber, value) {
   optional value. */
 
   let setTypeTd = document.createElement('td');
+  setTypeTd.dataset.column = 'setType';
 
   let setType = document.createElement('select');
   setType.name = "set-type-" + rowNumber;
@@ -596,6 +600,7 @@ function createWeightTd(rowNumber, value) {
   optional value. */
 
   let weightTd = document.createElement('td');
+  weightTd.dataset.column = 'weight';
 
   let weight = document.createElement('input');
   weight.type = "number";
@@ -633,6 +638,7 @@ function createSetsTd(rowNumber, value) {
   optional value. */
 
   let setsTd = document.createElement('td');
+  setsTd.dataset.column = 'sets';
 
   let sets = document.createElement('input');
   sets.type = "number";
@@ -725,6 +731,7 @@ function createCommentsTd(rowNumber, value) {
   optional value. */
 
   let commentsTd = document.createElement('td');
+  commentsTd.dataset.column = 'comments';
 
   let comments = document.createElement('textarea');
   comments.name = "comments-" + rowNumber;
