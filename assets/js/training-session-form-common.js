@@ -681,7 +681,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
   let repsDiv = document.createElement('div');
 
   let repsLabel = document.createElement('label');
-  repsLabel.for = "reps-" + rowNumber + '-' + setNumber;
+  repsLabel.htmlFor = "reps-" + rowNumber + '-' + setNumber;
 
   let repsLabelText = document.createTextNode('Serie ' + setNumber + ':');
 
@@ -695,7 +695,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
 
   let reps = document.createElement('input');
   reps.type = "number";
-  reps.id = repsLabel.for;
+  reps.id = repsLabel.htmlFor;
   reps.id = reps.name;
   reps.dataset.rowNumber = rowNumber;
   reps.dataset.setNumber = setNumber;
@@ -842,8 +842,10 @@ function extractExerciseItemData(row) {
 
   let reps = row.querySelector('input[type="number"][id^="reps-"]');
   data.reps = [];
-  for (let i = 0; i < data.sets; i++) {
-    data.reps.push(reps[i] ? reps[i].value : null);
+  if (reps) {
+    for (let i = 0; i < data.sets; i++) {
+      data.reps.push(reps[i] ? reps[i].value : null);
+    }
   }
 
   let comments = row.querySelector('textarea[id^="comments-"]');
