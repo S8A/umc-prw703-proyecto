@@ -302,45 +302,57 @@ export function createTrainingSessionExerciseItem(data) {
   and return it, or return null if data is incomplete or invalid. */
 
   let item = {
-    exercise: exc.exercise,
+    exercise: String(exc.exercise),
     setType: exc.setType,
     weight: exc.weight,
-    sets: exc.sets ? Number(exc.sets) : Number(0),
+    sets: exc.sets ? Number(exc.sets) : 0,
     reps: exc.reps ? exc.reps : [],
-    comments: exc.comments ? exc.comments : "",
+    comments: exc.comments ? String(exc.comments) : '',
   };
 
-  if (!item.exercise) {
+  // Exercise field is required and its max length is 50
+  if (!item.exercise || item.exercise.length > 50) {
     return null;
   }
 
+  // Set type field is required and its valid values are 'work' and 'warmup'
   if (item.setType !== 'work' && item.setType !== 'warmup') {
     return null;
   }
 
+  // Weight field is not required, but must be a non-negative number if present
   if (item.weight) {
     let weightNumber = Number(item.weight);
 
-    if (!weightNumber.isNaN()) {
+    if (!Number.isNaN(weightNumber) && weightNumber >= 0) {
       item.weight = weightNumber;
     } else {
       return null;
     }
   }
 
-  if (item.sets.isNaN()) {
+  // Sets field is required and must be a non-negative integer
+  if (!Number.isInteger(item.sets) || item.sets < 0) {
     return null;
   }
 
-  if (item.sets !== Number(item.reps.length)) {
+  // Reps field must be a list of integers greater than 0, and the
+  // length of the list must match the number of sets
+  if (item.sets !== item.reps.length) {
     return null;
-  } else {
+  } else if (item.reps.length) {
     let repNumbers = item.reps.map(r => Number(r));
-    if (repNumbers.every(r => !r.isNaN())) {
+
+    if (repNumbers.some(r => !Number.isInteger(r) || r <= 0)) {
       return null;
     } else {
       item.reps = repNumbers;
     }
+  }
+
+  // Comments field is not required, but its max length is 140 if present
+  if (item.comments.length > 140) {
+    return null;
   }
 
   return item;
