@@ -290,7 +290,9 @@ export function showDurationError(duration) {
 
   let feedback = utils.getInvalidFeedbackElement(duration);
 
-  if (duration.validity.rangeUnderflow) {
+  if (duration.validity.badInput) {
+    feedback.textContent = 'Solo se permiten números.';
+  } else if (duration.validity.rangeUnderflow) {
     feedback.textContent = 'La duración no puede ser negativa.';
   }
 }
@@ -301,7 +303,9 @@ export function showBodyweightError(bodyweight) {
 
   let feedback = utils.getInvalidFeedbackElement(bodyweight);
 
-  if (bodyweight.validity.rangeUnderflow) {
+  if (bodyweight.validity.badInput) {
+    feedback.textContent = 'Solo se permiten números.';
+  } else if (bodyweight.validity.rangeUnderflow) {
     feedback.textContent = 'El peso corporal no puede ser negativo.';
   }
 }
