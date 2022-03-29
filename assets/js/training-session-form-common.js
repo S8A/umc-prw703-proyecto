@@ -28,6 +28,16 @@ export function getRows() {
 }
 
 
+export function getRow(rowNumber) {
+  /* Get the exercise item row with the given row number. */
+
+  return document.querySelector(
+      '.exercises table tbody > tr.exercise-item[data-row-number="'
+      + rowNumber + '"]'
+  );
+}
+
+
 /* ACTION BUTTON FUNCTIONS */
 
 export function toggleActionButtons() {
