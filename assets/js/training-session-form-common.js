@@ -525,11 +525,15 @@ function createExerciseTd(rowNumber, value) {
   }
 
   exercise.addEventListener('invalid', function (event) {
-    console.log('TODO: ' + this.id + ' invalid');
+    showExerciseError(exercise);
   });
 
   exercise.addEventListener('input', function (event) {
-    console.log('TODO: ' + this.id + ' input');
+    if (exercise.validity.valid) {
+      utils.getInvalidFeedbackElement(exercise).textContent = '';
+    } else {
+      showExerciseError(exercise);
+    }
   });
 
   exerciseTd.appendChild(exercise);
@@ -569,11 +573,15 @@ function createSetTypeTd(rowNumber, value) {
   setType.appendChild(warmupOption);
 
   setType.addEventListener('invalid', function (event) {
-    console.log('TODO: ' + this.id + ' invalid');
+    showSetTypeError(setType);
   });
 
   setType.addEventListener('input', function (event) {
-    console.log('TODO: ' + this.id + ' input');
+    if (setType.validity.valid) {
+      utils.getInvalidFeedbackElement(setType).textContent = '';
+    } else {
+      showSetTypeError(setType);
+    }
   });
 
   setTypeTd.appendChild(setType);
@@ -602,11 +610,15 @@ function createWeightTd(rowNumber, value) {
   }
 
   weight.addEventListener('invalid', function (event) {
-    console.log('TODO: ' + this.id + ' invalid');
+    showWeightError(weight);
   });
 
   weight.addEventListener('input', function (event) {
-    console.log('TODO: ' + this.id + ' input');
+    if (weight.validity.valid) {
+      utils.getInvalidFeedbackElement(weight).textContent = '';
+    } else {
+      showWeightError(weight);
+    }
   });
 
   weightTd.appendChild(weight);
@@ -635,11 +647,18 @@ function createSetsTd(rowNumber, value) {
   }
 
   sets.addEventListener('invalid', function (event) {
-    console.log('TODO: ' + this.id + ' invalid');
+    showSetsError(sets);
   });
 
   sets.addEventListener('input', function (event) {
-    console.log('TODO: ' + this.id + ' input');
+    if (sets.validity.valid) {
+      utils.getInvalidFeedbackElement(sets).textContent = '';
+
+      let setsNumber = Number(sets.value);
+      console.log(rowNumber, setsNumber);
+    } else {
+      showSetsError(sets);
+    }
   });
 
   setsTd.appendChild(sets);
@@ -682,11 +701,15 @@ function createRepsDiv(rowNumber, setNumber, value) {
   }
 
   reps.addEventListener('invalid', function (event) {
-    console.log('TODO: ' + this.id + ' invalid');
+    showRepsError(reps);
   });
 
   reps.addEventListener('input', function (event) {
-    console.log('TODO: ' + this.id + ' input');
+    if (reps.validity.valid) {
+      utils.getInvalidFeedbackElement(reps).textContent = '';
+    } else {
+      showRepsError(reps);
+    }
   });
 
   repsDiv.appendChild(repsLabel);
@@ -717,11 +740,15 @@ function createCommentsTd(rowNumber, value) {
   }
 
   comments.addEventListener('invalid', function (event) {
-    console.log('TODO: ' + this.id + ' invalid');
+    showExerciseCommentsError(comments);
   });
 
   comments.addEventListener('input', function (event) {
-    console.log('TODO: ' + this.id + ' input');
+    if (comments.validity.valid) {
+      utils.getInvalidFeedbackElement(comments).textContent = '';
+    } else {
+      showExerciseCommentsError(comments);
+    }
   });
 
   commentsTd.appendChild(comments);
@@ -816,4 +843,11 @@ function extractExerciseItemData(row) {
   data.comments = comments.value;
 
   return data;
+}
+
+
+function updateRepsTd(rowNumber, sets) {
+  /* Create or remove reps divs to match the given number of sets. */
+
+  console.log('TODO: updateRepsTd ' + rowNumber + ' ' + sets);
 }
