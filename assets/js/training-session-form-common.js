@@ -323,6 +323,94 @@ export function showCommentsError(comments) {
 }
 
 
+function showExerciseError(exercise) {
+  /* Show feedback if the exercise field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(exercise);
+
+  if (exercise.validity.valueMissing) {
+    feedback.textContent = 'Debe ingresar el ejercicio realizado.';
+  } else if (exercise.validity.tooLong) {
+    feedback.textContent =
+        'Demasiados caracteres (máximo ' + exercise.maxLength + ').';
+  }
+}
+
+
+function showSetTypeError(setType) {
+  /* Show feedback if the set type field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(setType);
+
+  if (setType.validity.valueMissing) {
+    feedback.textContent =
+        'Debe seleccionar si las series son de calentamiento o de trabajo.';
+  }
+}
+
+
+function showWeightError(weight) {
+  /* Show feedback if the weight field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(weight);
+
+  if (weight.validity.badInput) {
+    feedback.textContent = 'Solo se permiten números.';
+  } else if (weight.validity.rangeUnderflow) {
+    feedback.textContent = 'El peso no puede ser negativo.';
+  } else if (weight.validity.stepMismatch) {
+    feedback.textContent = 'Solo se permiten hasta dos decimales.';
+  }
+}
+
+
+function showSetsError(sets) {
+  /* Show feedback if the sets field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(sets);
+
+  if (sets.validity.valueMissing) {
+    feedback.textContent =
+        'Debe ingresar el número de series (puede ser cero).';
+  } else if (sets.validity.badInput) {
+    feedback.textContent = 'Solo se permiten números.';
+  } else if (sets.validity.rangeUnderflow) {
+    feedback.textContent = 'El número de series no puede ser negativo.';
+  }
+}
+
+
+function showRepsError(reps) {
+  /* Show feedback if the reps field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(reps);
+
+  if (reps.validity.valueMissing) {
+    feedback.textContent = 'Debe ingresar el número de repeticiones.';
+  } else if (sets.validity.badInput) {
+    feedback.textContent = 'Solo se permiten números.';
+  } else if (reps.validity.rangeUnderflow) {
+    feedback.textContent = 'El número de repeticiones debe ser mayor a cero.';
+  }
+}
+
+
+function showExerciseCommentsError(comments) {
+  /* Show feedback if the exercise comments field's input is invalid. */
+
+  let feedback = utils.getInvalidFeedbackElement(comments);
+
+  if (comments.validity.tooLong) {
+    feedback.textContent =
+        'Demasiados caracteres (máximo ' + comments.maxLength + ').';
+  } else if (feedback.validity.patternMismatch) {
+    feedback.textContent =
+        'Solo se permiten caracteres alfanuméricos y los símbolos siguientes: '
+        + '.+-\'';
+  }
+}
+
+
 /* EXERCISE DATA PROCESSING */
 
 export function gatherExercisesFormData() {
