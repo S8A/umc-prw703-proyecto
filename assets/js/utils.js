@@ -357,7 +357,7 @@ export function createTrainingSessionObject(id, accountEmail, data) {
     for (let itemData of data.exercises) {
       let item = createTrainingSessionExerciseItem(itemData);
 
-      if (item && item.length) {
+      if (item) {
         session.exercises.push(item);
       }
     }
