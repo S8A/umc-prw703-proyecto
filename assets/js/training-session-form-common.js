@@ -469,6 +469,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
   reps.id = reps.name;
   reps.dataset.rowNumber = rowNumber;
   reps.dataset.setNumber = setNumber;
+  reps.min = 1;
   reps.required = true;
 
   if (value) {
