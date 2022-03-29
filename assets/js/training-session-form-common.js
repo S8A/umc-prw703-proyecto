@@ -111,31 +111,134 @@ export function addExercise() {
 }
 
 
-function removeExercise() {
-  /* Remove selected exercise item. */
+export function removeExercise() {
+  /* Remove selected exercise item, if any and unless it's the only
+  exercise item in the table. */
 
-  console.log('TODO: remove');
+  let selected = getSelectedRowNumber();
+
+  if (selected) {
+    // If there is an exercise item selected, look for it, remove it,
+    // and reduce by one the row number of all subsequent rows (if any)
+    let rows = getRows();
+
+    if (rows.length && rows.length > 1) {
+      for (let row of rows) {
+        let rowNumber = Number(row.dataset.rowNumber);
+        if (rowNumber === selected) {
+          row.remove();
+        } else if (rowNumber > selected) {
+          replaceExerciseItemRowNumber(row, rowNumber - 1);
+        }
+      }
+    }
+
+    // Selection unset, toggle action buttons
+    toggleActionButtons();
+  }
 }
 
 
-function duplicateExercise() {
-  /* Duplicate selected exercise item. */
+export function duplicateExercise() {
+  /* Duplicate selected exercise item, if any. */
 
-  console.log('TODO: duplicate');
+  let selected = getSelectedRowNumber();
+  let selectedItem = selected ? getRow(selected) : null;
+
+  if (selected && selectedItem) {
+    // If there is an exercise item selected, extract its data, create
+    // a new exercise item with the same data,
+    let data = extractExerciseItemData(selectedItem);
+    let newRowNumber = selected + 1;
+    let newExerciseItem = createEditableExerciseItemRow(newRowNumber, data);
+
+    let tbody = document.querySelector('.exercises table tbody');
+    let rows = getRows();
+
+    if (!rows.length || selected === rows.length) {
+      // If the there are no rows (impossible) or the last row is
+      // selected, append the new item to the end of the table
+      tbody.appendChild(newExerciseItem);
+    } else {
+      // Otherwise, all rows after the selected one must have
+      // their row number increased by one
+      for (let row of rows) {
+        let rowNumber = Number(row.dataset.rowNumber);
+        if (rowNumber > selected) {
+          replaceExerciseItemRowNumber(row, rowNumber + 1);
+        }
+      }
+
+      // Finally, insert new row before the one following the selected one
+      // Reminder: selected is 1-index, rows is 0-index
+      tbody.insertBefore(newExerciseItem, rows[selected]);
+    }
+
+    // Row count changed, toggle action buttons
+    toggleActionButtons();
+  }
 }
 
 
-function moveUpExercise() {
-  /* Move selected exercise item one position up. */
+export function moveUpExercise() {
+  /* Move selected exercise item (if any) one position up, unless it's
+  the first item. */
 
-  console.log('TODO: moveUp');
+  let selected = getSelectedRowNumber();
+  let selectedItem = selected ? getRow(selected) : null;
+
+  if (selected && selected > 1 && selectedItem) {
+    // If there is an exercise item selected and it's not the first one,
+    // swap it with the one above it
+    let tbody = document.querySelector('.exercises table tbody');
+    let rows = getRows();
+
+    if (rows.length && rows.length >= selected) {
+      // Reminder: selected is 1-index, rows is 0-index
+      let itemAbove = rows[selected - 2];
+
+      // Swap row numbers
+      replaceExerciseItemRowNumber(selectedItem, selected - 1);
+      replaceExerciseItemRowNumber(itemAbove, selected);
+
+      // Re-insert selected item before the one above it
+      tbody.insertBefore(selectedItem, itemAbove);
+
+      // Selection changed, toggle action buttons
+      toggleActionButtons();
+    }
+  }
 }
 
 
-function moveDownExercise() {
-  /* Move selected exercise item one position down. */
+export function moveDownExercise() {
+  /* Move selected exercise item (if any) one position down, unless it's
+  the last item. */
 
-  console.log('TODO: moveDown');
+  let selected = getSelectedRowNumber();
+  let selectedItem = selected ? getRow(selected) : null;
+
+  if (selected && selectedItem) {
+    // If there is an exercise item selected and it's not the first one,
+    // swap it with the one below it (if any)
+    let tbody = document.querySelector('.exercises table tbody');
+    let rows = getRows();
+
+    if (rows.length && selected < rows.length) {
+      // Reminder: selected is 1-index, rows is 0-index
+      let itemBelow = rows[selected];
+
+      // Swap row numbers
+      replaceExerciseItemRowNumber(itemBelow, selected);
+      replaceExerciseItemRowNumber(selectedItem, selected + 1);
+
+      // Re-insert bottom item before the selected one
+      tbody.insertBefore(itemBelow, selectedItem);
+
+      // Selection changed, toggle action buttons
+      toggleActionButtons();
+    }
+  }
 }
 
 
