@@ -213,18 +213,6 @@ export function showCommentsError(comments) {
 export function gatherExercisesFormData() {
   /* Return a list of training sessions with the form fields' data. */
 
-  let exercise = document.querySelectorAll(
-    '.exercises input[type="text"][id^="exercise-"]');
-  let setType = document.querySelectorAll('.exercises select[id^="set-type-"]');
-  let weight = document.querySelectorAll(
-    '.exercises input[type="number"][id^="weight-"]');
-  let sets = document.querySelectorAll(
-    '.exercises input[type="number"][id^="sets-"]');
-  let reps = document.querySelectorAll(
-    '.exercises input[type="number"][id^="reps-"]');
-  let comments = document.querySelectorAll(
-    '.exercises textarea[id^="comments-"]');
-
   console.log('TODO: gatherExerciseData');
 }
 
