@@ -6,18 +6,12 @@ import * as utils from '/assets/js/utils.js';
 function getSelectedRowNumber() {
   /* Get the currently selected row number if any, or return null. */
 
-  let radios = document.querySelectorAll(
-    '.exercises input[type="radio"][name="selection"]');
+  let selected = document.querySelector(
+      '.exercises input[type="radio"][name="selection"]:checked');
 
-  if (radios && radios.length) {
-    for (let radio of radios) {
-      if (radio.checked) {
-        return Number(radio.dataset.rowNumber);
-      }
-    }
-  }
+  let rowNumber = selected ? Number(selected.dataset.rowNumber) : null;
 
-  return null;
+  return Number.isInteger(rowNumber) ? rowNumber : null;
 }
 
 
@@ -658,10 +652,17 @@ function createSetsTd(rowNumber, value) {
 
   sets.addEventListener('input', function (event) {
     if (sets.validity.valid) {
+      // Temporarily disable field to avoid race condition
+      sets.disabled = true;
+
       utils.getInvalidFeedbackElement(sets).textContent = '';
 
-      let setsNumber = Number(sets.value);
-      console.log(rowNumber, setsNumber);
+      let setsCount = Number(sets.value);
+
+      // Update reps td accordingly and then enable field again
+      updateRepsTd(rowNumber, setsCount).then(() => {
+        sets.disabled = false;
+      });
     } else {
       showSetsError(sets);
     }
@@ -679,6 +680,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
   optional value. */
 
   let repsDiv = document.createElement('div');
+  repsDiv.classList.add('reps-item');
 
   let repsLabel = document.createElement('label');
   repsLabel.htmlFor = "reps-" + rowNumber + '-' + setNumber;
@@ -855,8 +857,32 @@ function extractExerciseItemData(row) {
 }
 
 
-function updateRepsTd(rowNumber, sets) {
+async function updateRepsTd(rowNumber, setsCount) {
   /* Create or remove reps divs to match the given number of sets. */
 
-  console.log('TODO: updateRepsTd ' + rowNumber + ' ' + sets);
+  let row = getRow(rowNumber);
+  let repsTd = row ? row.querySelector('td[data-column="reps"]') : null;
+  
+  if (repsTd && Number.isInteger(setsCount) && setsCount >= 0) {
+    let repsDivs = repsTd ? repsTd.querySelectorAll('div.reps-item') : [];
+    let repsDivsCount = Number(repsDivs.length);
+
+    if (setsCount > repsDivsCount) {
+      // If the number of sets is greater than the current number of
+      // reps divs, create as many new ones as needed to reach the
+      // required number, and append them to the td element
+      for (let set = repsDivsCount + 1; set <= setsCount; set++) {
+        let newRepsDiv = createRepsDiv(rowNumber, set);
+        repsTd.appendChild(newRepsDiv);
+      }
+    } else if (setsCount < repsDivsCount) {
+      // If the number of sets is lower than the current number of reps
+      // divs, delete existing ones from the end of the td until their
+      // number is reduced to the required number
+      for (let set = repsDivsCount; set > setsCount; set--) {
+        // Reminder: set number is 1-index, repsDivs is 0-index
+        repsDivs[set - 1].remove();
+      }
+    }
+  }
 }
