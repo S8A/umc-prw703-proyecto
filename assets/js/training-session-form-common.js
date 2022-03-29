@@ -702,55 +702,26 @@ function replaceExerciseItemRowNumber(row, newRowNumber) {
 
 
 function extractExerciseItemData(row) {
-  /* Create object with the given exercise item's data, or return null
-  if data is invalid or required data is missing. */
+  /* Create object with the given exercise item's data, valid or not. */
 
   let data = {};
 
   let exercise = row.querySelector('input[type="text"][id^="exercise-"]');
   data.exercise = exercise.value;
-  if (!data.exercise) {
-    return null;
-  }
 
   let setType = row.querySelector('select[id^="set-type-"]');
   data.setType = setType.value;
-  if (data.setType !== 'warmup' && data.setType !== 'work') {
-    return null;
-  }
 
   let weight = row.querySelector('input[type="number"][id^="weight-"]');
-  data.weight = null;
-  if (weight.value) {
-    let weightNumber = Number(weight.value);
-    if (Number.isInteger(weightNumber) && weightNumber >= 0) {
-      data.weight = weightNumber;
-    } else {
-      return null;
-    }
-  }
+  data.weight = weight.value ? Number(weight.value) : null;
 
   let sets = row.querySelector('input[type="number"][id^="sets-"]');
   data.sets = Number(sets.value);
-  if (!Number.isInteger(data.sets) || data.sets < 0) {
-    return null;
-  }
 
   let reps = row.querySelector('input[type="number"][id^="reps-"]');
   data.reps = [];
-  if (reps) {
-    for (let repsItem of reps) {
-      let repsNumber = Number(repsItem.value);
-      if (Number.isInteger(repsNumber) && repsNumber > 0) {
-        data.reps.push(repsNumber);
-      } else {
-        return null;
-      }
-    }
-  }
-
-  if (data.sets !== data.reps.length) {
-    return null;
+  for (let i = 0; i < data.sets; i++) {
+    data.reps.push(reps[i] ? reps[i].value : null);
   }
 
   let comments = row.querySelector('textarea[id^="comments-"]');
