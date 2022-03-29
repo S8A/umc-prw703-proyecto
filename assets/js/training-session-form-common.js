@@ -381,7 +381,7 @@ function showRepsError(reps) {
 
   if (reps.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar el número de repeticiones.';
-  } else if (sets.validity.badInput) {
+  } else if (reps.validity.badInput) {
     feedback.textContent = 'Solo se permiten números.';
   } else if (reps.validity.rangeUnderflow) {
     feedback.textContent = 'El número de repeticiones debe ser mayor a cero.';
@@ -450,14 +450,8 @@ export function createEditableExerciseItemRow(rowNumber, data) {
   if (sets > 0) {
     for (let i = 0; i < sets; i++) {
       let setNumber = i + 1;
-
-      let reps = null;
-      if (data && data.reps && Number.isInteger(data.reps[i])) {
-        reps = data.reps[i];
-      }
-
+      let reps = data.reps[i];
       let repsDiv = createRepsDiv(rowNumber, setNumber, reps);
-
       repsTd.appendChild(repsDiv);
     }
   }
@@ -657,10 +651,11 @@ function createSetsTd(rowNumber, value) {
 
       utils.getInvalidFeedbackElement(sets).textContent = '';
 
+      let currentRowNumber = Number(sets.dataset.rowNumber);
       let setsCount = Number(sets.value);
 
       // Update reps td accordingly and then enable field again
-      updateRepsTd(rowNumber, setsCount).then(() => {
+      updateRepsTd(currentRowNumber, setsCount).then(() => {
         sets.disabled = false;
       });
     } else {
@@ -697,7 +692,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
 
   let reps = document.createElement('input');
   reps.type = "number";
-  reps.id = repsLabel.htmlFor;
+  reps.name = repsLabel.htmlFor;
   reps.id = reps.name;
   reps.dataset.rowNumber = rowNumber;
   reps.dataset.setNumber = setNumber;
@@ -805,15 +800,16 @@ function replaceExerciseItemRowNumber(row, newRowNumber) {
   let repsLabels = row.querySelectorAll('label[for^="reps-"]');
   if (repsLabels) {
     for (let repsLabel of repsLabels) {
-      repsLabel.for = repsLabel.for.replace(repsRegexp, repsRegexpReplacement);
+      repsLabel.htmlFor =
+          repsLabel.htmlFor.replace(repsRegexp, repsRegexpReplacement);
     }
   }
 
-  let reps = row.querySelector('input[type="number"][id^="reps-"]');
+  let reps = row.querySelectorAll('input[type="number"][id^="reps-"]');
   if (reps) {
     for (let repsItem of reps) {
       repsItem.name = repsItem.name.replace(repsRegexp, repsRegexpReplacement);
-      repsItem.id = reps.name;
+      repsItem.id = repsItem.name;
       repsItem.dataset.rowNumber = newRowNumber;
     }
   }
@@ -842,7 +838,7 @@ function extractExerciseItemData(row) {
   let sets = row.querySelector('input[type="number"][id^="sets-"]');
   data.sets = Number(sets.value);
 
-  let reps = row.querySelector('input[type="number"][id^="reps-"]');
+  let reps = row.querySelectorAll('input[type="number"][id^="reps-"]');
   data.reps = [];
   if (reps) {
     for (let i = 0; i < data.sets; i++) {
