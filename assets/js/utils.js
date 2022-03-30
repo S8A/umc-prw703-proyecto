@@ -342,8 +342,10 @@ export function createTrainingSessionObject(id, accountEmail, data) {
   if (data.duration) {
     let durationNumber = Number(data.duration);
 
-    if (!Number.isInteger(durationNumber) || durationNumber < 0) {
+    if (Number.isInteger(durationNumber) && durationNumber >= 0) {
       session.duration = durationNumber;
+    } else {
+      return null;
     }
   }
 
@@ -351,8 +353,10 @@ export function createTrainingSessionObject(id, accountEmail, data) {
   if (data.bodyweight) {
     let bodyweightNumber = Number(data.bodyweight);
 
-    if (!Number.isInteger(bodyweightNumber) || bodyweightNumber < 0) {
+    if (Number.isInteger(bodyweightNumber) && bodyweightNumber >= 0) {
       session.bodyweight = bodyweightNumber;
+    } else {
+      return null;
     }
   }
 
@@ -388,7 +392,7 @@ export function createTrainingSessionExerciseItem(data) {
   let item = {
     exercise: String(data.exercise),
     setType: data.setType,
-    weight: data.weight,
+    weight: data.weight ? data.weight : null,
     sets: data.sets ? Number(data.sets) : 0,
     reps: data.reps ? data.reps : [],
     comments: data.comments ? String(data.comments) : '',
