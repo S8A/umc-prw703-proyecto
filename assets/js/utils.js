@@ -480,7 +480,7 @@ export function getTrainingSessionFullTitle(session) {
   /* Get the full title of the given training session by combining its
   date, time, and short title if present. */
 
-  let title = session.date + ' ' + session.time;
+  let title = session.date + NBSP + session.time;
 
   if (session.shortTitle) {
     title += ' ' + NDASH + ' ' + session.shortTitle;
