@@ -252,7 +252,16 @@ export function createTrainingSession(data) {
       // append it to the list, store it, and return the object
       let sessions = getAllTrainingSessions();
 
-      session.id = sessions.length + 1;
+      if (sessions) {
+        // If there are training sessions already stored, sort by ID
+        // descending, take the first item's ID and increase it by one
+        sessions.sort((a, b) => Number(b.id) - Number(a.id));
+        session.id = Number(sessions[0].id) + 1;
+      } else {
+        // If this is the first item, set its ID to 1 directly
+        session.id = 1;
+      }
+
       sessions.push(session);
 
       localStorage.setItem('trainingSessions', JSON.stringify(sessions));
