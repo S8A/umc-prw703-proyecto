@@ -98,25 +98,40 @@ function addTrainingSessions(sessions) {
 function createTrainingSessionContainer(session) {
   /* Create div with preview data from the given session data. */
 
+  // Training session card
   let trainingSession = document.createElement('div');
-  trainingSession.classList.add('training-session');
+  trainingSession.classList.add(
+      'training-session', 'card', 'mb-5', 'shadow');
 
+  // Card body
+  let cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+
+  // Card title
   let h2 = document.createElement('h2');
+  h2.classList.add('card-title')
+
   let a = document.createElement('a');
   a.href = '/historial/detalle.html?id=' + session.id;
   a.textContent = utils.getTrainingSessionFullTitle(session);
 
   h2.appendChild(a);
 
+  // Subtitle
   let p = document.createElement('p');
+  p.classList.add('card-subtitle', 'mb-2', 'text-muted');
   p.textContent =
       'Previsualización de ejercicios realizados (solo series de trabajo):'
 
+  // Exercises section
   let exercises = document.createElement('div');
   exercises.classList.add('exercises');
 
+  // Exercises table
   let table = document.createElement('table');
+  table.classList.add('table', 'table-striped', 'table-hover', 'table-sm');
 
+  // Table head
   let thead = document.createElement('thead');
   let headers = ['Ejercicio', 'Peso', 'Series', 'Repeticiones'];
 
@@ -126,6 +141,7 @@ function createTrainingSessionContainer(session) {
     thead.appendChild(th);
   }
 
+  // Table body
   let tbody = document.createElement('tbody');
 
   for (let item of session.exercises) {
@@ -136,7 +152,6 @@ function createTrainingSessionContainer(session) {
       exercise.textContent = item.exercise;
 
       let weight = document.createElement('td');
-      weight.classList.add('ta-center');
       weight.textContent = utils.NDASH;
 
       if (item.weight) {
@@ -144,7 +159,6 @@ function createTrainingSessionContainer(session) {
       }
 
       let sets = document.createElement('td');
-      sets.classList.add('ta-center');
       sets.textContent = item.sets;
 
       let reps = document.createElement('td');
@@ -164,9 +178,12 @@ function createTrainingSessionContainer(session) {
 
   exercises.appendChild(table);
 
-  trainingSession.appendChild(h2);
-  trainingSession.appendChild(p);
-  trainingSession.appendChild(exercises);
+  // Add everything to card
+  cardBody.appendChild(h2);
+  cardBody.appendChild(p);
+  cardBody.appendChild(exercises);
+
+  trainingSession.appendChild(cardBody);
 
   return trainingSession;
 }
@@ -187,47 +204,71 @@ function setPageTitle(date, page) {
 }
 
 
-function addPagination(date, numPages, page) {
+function addPagination(date, numPages, currentPage) {
   /* Add pagination links based on the given parameters. */
 
+  // Pagination parameters
   let pathname = window.location.pathname;
-  let previousPage = (page === 1) ? null : page - 1;
-  let nextPage = (page >= numPages) ? null : page + 1;
+  let previousPage = (currentPage === 1) ? null : currentPage - 1;
+  let nextPage = (currentPage >= numPages) ? null : currentPage + 1;
 
-  let pagination = document.querySelector('ul#pagination');
-
-  let previous = document.createElement('li');
-
+  // Pagination list
+  let paginationList = document.querySelector('nav#pagination ul.pagination');
+  
+  // Previous page
   if (previousPage) {
+    let previous = document.createElement('li');
+    previous.classList.add('page-item');
+
     let queryParams = new URLSearchParams(createQuery(date, previousPage));
 
     let a = document.createElement('a');
+    a.classList.add('page-link');
     a.href = pathname + '?' + queryParams;
     a.rel = 'prev';
     a.textContent = 'Anterior';
 
     previous.appendChild(a);
+    paginationList.appendChild(previous);
   }
 
-  let current = document.createElement('li');
-  current.textContent = 'Página ' + page + ' de ' + numPages;
+  // Page numbers
+  for (let page = 1; page <= numPages; page++) {
+    let pageItem = document.createElement('li');
+    pageItem.classList.add('page-item');
 
-  let next = document.createElement('li');
+    let a = document.createElement('a');
+    a.textContent = page;
+    a.classList.add('page-link');
 
+    if (page === currentPage) {
+      pageItem.classList.add('active');
+      a.href = '#';
+    } else {
+      let queryParams = new URLSearchParams(createQuery(date, page));
+      a.href = pathname + '?' + queryParams;
+    }
+
+    pageItem.appendChild(a);
+    paginationList.appendChild(pageItem);
+  }
+
+  // Next page
   if (nextPage) {
+    let next = document.createElement('li');
+    next.classList.add('page-item');
+
     let queryParams = new URLSearchParams(createQuery(date, nextPage));
 
     let a = document.createElement('a');
+    a.classList.add('page-link');
     a.href = pathname + '?' + queryParams;
     a.rel = 'next';
     a.textContent = 'Siguiente';
 
     next.appendChild(a);
+    paginationList.append(next);
   }
-
-  pagination.appendChild(previous);
-  pagination.appendChild(current);
-  pagination.appendChild(next);
 }
 
 
@@ -237,7 +278,7 @@ window.addEventListener('load', function () {
   if (!signedInAccount) {
     // If not signed-in, set pending info message and redirect to sign-in
     let text = 'Inicie sesión para acceder a su historial de entrenamiento.';
-    utils.setPendingStatusMessage('info', [text]);
+    utils.setPendingStatusMessage('alert-info', [text]);
     window.location.assign('/iniciar-sesion.html?next=/historial/');
     return;
   } else {
