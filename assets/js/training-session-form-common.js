@@ -11,18 +11,19 @@ export function constructTrainingSessionForm(
   form ID, form label, submit button text, and optional training session
   data to populate the fields. */
 
-  let mainContainer = document.querySelector('main > .container');
+  let container = document.querySelector('#training-session-form-container');
 
   // Main title
-  let mainTitle = mainContainer.querySelector('h1#main-title');
+  let mainTitle = container.querySelector('h1#main-title');
   mainTitle.textContent = mainTitleText;
 
   // Remove #empty-text element
-  let emptyText = mainContainer.querySelector('p#empty-text');
-  mainContainer.removeChild(emptyText);
+  let emptyText = container.querySelector('p#empty-text');
+  container.removeChild(emptyText);
 
   // Form
   let form = document.createElement('form');
+  form.classList.add('needs-validation');
   form.id = formId;
   form.ariaLabel = formLabel;
   form.noValidate = true;
@@ -70,7 +71,7 @@ export function constructTrainingSessionForm(
   let actionButtons = createActionButtons();
 
   let exercisesDiv = document.createElement('div');
-  exercisesDiv.classList.add('exercises');
+  exercisesDiv.classList.add('table-responsive');
 
   let exercisesTable = createExercisesTable(session.exercises);
   exercisesDiv.appendChild(exercisesTable);
@@ -82,9 +83,11 @@ export function constructTrainingSessionForm(
 
   // Form buttons
   let formButtonsSection = document.createElement('section');
+  formButtonsSection.classList.add('text-center');
   formButtonsSection.id = 'form-buttons';
 
   let submitButton = document.createElement('button');
+  submitButton.classList.add('btn', 'btn-primary');
   submitButton.type = 'submit';
   submitButton.textContent = submitButtonText;
 
@@ -95,7 +98,7 @@ export function constructTrainingSessionForm(
   form.appendChild(exercisesSection);
   form.appendChild(formButtonsSection);
 
-  mainContainer.appendChild(form);
+  container.appendChild(form);
 
   // Toggle action buttons
   toggleActionButtons();
@@ -108,7 +111,7 @@ function createBasicDataFormFields(
   /* Create basic data form fields with the data of the given session. */
 
   let container = document.createElement('div');
-  container.id = "basic-data-fields";
+  container.classList.add('row');
 
   container.appendChild(createDateDiv(date));
   container.appendChild(createTimeDiv(time));
@@ -125,12 +128,16 @@ function createActionButtons() {
   /* Create action buttons for manipulating exercise items. */
 
   let container = document.createElement('div');
+  container.classList.add(
+      'd-grid', 'gap-2', 'd-sm-block', 'mb-3', 'text-center');
   container.id = 'action-buttons';
   container.ariaLabel = 'Acciones';
   container.setAttribute('role', 'toolbar');
 
   // Add
   let addButton = document.createElement('button');
+  addButton.classList.add(
+      'btn', 'btn-success', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   addButton.type = 'button';
   addButton.id = 'add-btn';
   addButton.textContent = 'Agregar ejercicio';
@@ -141,6 +148,8 @@ function createActionButtons() {
 
   // Remove
   let removeButton = document.createElement('button');
+  removeButton.classList.add(
+      'btn', 'btn-danger', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   removeButton.type = 'button';
   removeButton.id = 'remove-btn';
   removeButton.textContent = 'Eliminar seleccionado';
@@ -151,6 +160,8 @@ function createActionButtons() {
 
   // Duplicate
   let duplicateButton = document.createElement('button');
+  duplicateButton.classList.add(
+      'btn', 'btn-secondary', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   duplicateButton.type = 'button';
   duplicateButton.id = 'duplicate-btn';
   duplicateButton.textContent = 'Duplicar seleccionado';
@@ -161,6 +172,8 @@ function createActionButtons() {
 
   // Move up
   let moveUpButton = document.createElement('button');
+  moveUpButton.classList.add(
+      'btn', 'btn-secondary', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   moveUpButton.type = 'button';
   moveUpButton.id = 'move-up-btn';
   moveUpButton.textContent = 'Subir seleccionado';
@@ -171,6 +184,8 @@ function createActionButtons() {
 
   // Move down
   let moveDownButton = document.createElement('button');
+  moveDownButton.classList.add(
+      'btn', 'btn-secondary', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   moveDownButton.type = 'button';
   moveDownButton.id = 'move-down-btn';
   moveDownButton.textContent = 'Bajar seleccionado';
@@ -194,6 +209,7 @@ function createExercisesTable(exercises) {
   /* Create table with the given editable exercise items. */
 
   let table = document.createElement('table');
+  table.classList.add('table', 'table-striped', 'table-hover')
 
   // Table head
   let thead = document.createElement('thead');
@@ -201,14 +217,15 @@ function createExercisesTable(exercises) {
     {id: 'selection-th', text: '', required: false},
     {id: 'exercise-th', text: 'Ejercicio', required: true},
     {id: 'set-type-th', text: 'Modalidad', required: true},
-    {id: 'weight-th', text: 'Peso (kg)', required: false},
+    {id: 'weight-th', text: 'Peso' + utils.NBSP + '(kg)', required: false},
     {id: 'sets-th', text: 'Series', required: true},
-    {id: 'reps-th', text: 'Repeticiones', required: false},
+    {id: 'reps-th', text: 'Repeticiones', required: true},
     {id: 'comments-th', text: 'Comentarios', required: false},
   ];
 
   for (let header of headers) {
     let th = document.createElement('th');
+    th.classList.add('px-2');
     th.id = header.id;
     th.appendChild(document.createTextNode(header.text));
 
@@ -250,9 +267,11 @@ function createDateDiv(value = null) {
   /* Create date field div element with the given value, if any. */
 
   let dateDiv = document.createElement('div');
+  dateDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
   let dateLabel = document.createElement('label');
+  dateLabel.classList.add('form-label');
   dateLabel.htmlFor = 'date';
 
   dateLabel.appendChild(document.createTextNode('Fecha:'));
@@ -267,6 +286,7 @@ function createDateDiv(value = null) {
 
   // Input
   let date = document.createElement('input');
+  date.classList.add('form-control');
   date.type = "date";
   date.id = dateLabel.htmlFor;
   date.name = date.id;
@@ -300,9 +320,11 @@ function createTimeDiv(value = null) {
   /* Create time field div element with the given value, if any. */
 
   let timeDiv = document.createElement('div');
+  timeDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
   let timeLabel = document.createElement('label');
+  timeLabel.classList.add('form-label');
   timeLabel.htmlFor = 'time';
 
   timeLabel.appendChild(document.createTextNode('Hora:'));
@@ -317,6 +339,7 @@ function createTimeDiv(value = null) {
 
   // Input
   let time = document.createElement('input');
+  time.classList.add('form-control');
   time.type = "time";
   time.id = timeLabel.htmlFor;
   time.name = time.id;
@@ -350,14 +373,17 @@ function createShortTitleDiv(value = null) {
   /* Create short title field div element with the given value, if any. */
 
   let shortTitleDiv = document.createElement('div');
+  shortTitleDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
   let shortTitleLabel = document.createElement('label');
+  shortTitleLabel.classList.add('form-label');
   shortTitleLabel.htmlFor = 'short-title';
   shortTitleLabel.textContent = 'Título breve: ';
 
   // Input
   let shortTitle = document.createElement('input');
+  shortTitle.classList.add('form-control');
   shortTitle.type = "text";
   shortTitle.id = shortTitleLabel.htmlFor;
   shortTitle.name = shortTitle.id;
@@ -390,14 +416,17 @@ function createDurationDiv(value = null) {
   /* Create duration field div element with the given value, if any. */
 
   let durationDiv = document.createElement('div');
+  durationDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
   let durationLabel = document.createElement('label');
+  durationLabel.classList.add('form-label');
   durationLabel.htmlFor = 'duration';
   durationLabel.textContent = 'Duración de la sesión (minutos): ';
 
   // Input
   let duration = document.createElement('input');
+  duration.classList.add('form-control');
   duration.type = "number";
   duration.id = durationLabel.htmlFor;
   duration.name = duration.id;
@@ -431,14 +460,17 @@ function createBodyweightDiv(value = null) {
   /* Create bodyweight field div element with the given value, if any. */
 
   let bodyweightDiv = document.createElement('div');
+  bodyweightDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
   let bodyweightLabel = document.createElement('label');
+  bodyweightLabel.classList.add('form-label');
   bodyweightLabel.htmlFor = 'bodyweight';
   bodyweightLabel.textContent = 'Peso corporal (kilogramos): ';
 
   // Input
   let bodyweight = document.createElement('input');
+  bodyweight.classList.add('form-control');
   bodyweight.type = "number";
   bodyweight.id = bodyweightLabel.htmlFor;
   bodyweight.name = bodyweight.id;
@@ -472,14 +504,17 @@ function createGeneralCommentsDiv(value = null) {
   /* Create general comments field div element with the given value, if any. */
 
   let commentsDiv = document.createElement('div');
+  commentsDiv.classList.add('mb-3', 'col', 'col-12');
 
   // Label
   let commentsLabel = document.createElement('label');
+  commentsLabel.classList.add('form-label');
   commentsLabel.htmlFor = 'comments';
   commentsLabel.textContent = 'Comentarios: ';
 
   // Input
   let comments = document.createElement('textarea');
+  comments.classList.add('form-control');
   comments.id = commentsLabel.htmlFor;
   comments.name = comments.id;
   comments.cols = 50;
@@ -515,7 +550,7 @@ function getSelectedRowNumber() {
   /* Get the currently selected row number if any, or return null. */
 
   let selected = document.querySelector(
-      '.exercises input[type="radio"][name="selection"]:checked');
+      '#exercises input[type="radio"][name="selection"]:checked');
 
   let rowNumber = selected ? Number(selected.dataset.rowNumber) : null;
 
@@ -526,7 +561,7 @@ function getSelectedRowNumber() {
 export function getRows() {
   /* Get all exercise item rows. */
 
-  return document.querySelectorAll('.exercises table tbody > tr.exercise-item');
+  return document.querySelectorAll('#exercises table tbody > tr.exercise-item');
 }
 
 
@@ -534,7 +569,7 @@ export function getRow(rowNumber) {
   /* Get the exercise item row with the given row number. */
 
   return document.querySelector(
-      '.exercises table tbody > tr.exercise-item[data-row-number="'
+      '#exercises table tbody > tr.exercise-item[data-row-number="'
       + rowNumber + '"]'
   );
 }
@@ -581,7 +616,7 @@ export function toggleActionButtons() {
 export function addExercise() {
   /* Add an empty exercise item after the currently selected item. */
 
-  let tbody = document.querySelector('.exercises table tbody');
+  let tbody = document.querySelector('#exercises table tbody');
   let rows = getRows();
 
   let selected = getSelectedRowNumber();
@@ -655,7 +690,7 @@ export function duplicateExercise() {
     let newRowNumber = selected + 1;
     let newExerciseItem = createEditableExerciseItemRow(newRowNumber, data);
 
-    let tbody = document.querySelector('.exercises table tbody');
+    let tbody = document.querySelector('#exercises table tbody');
     let rows = getRows();
 
     if (!rows.length || selected === rows.length) {
@@ -693,7 +728,7 @@ export function moveUpExercise() {
   if (selected && selected > 1 && selectedItem) {
     // If there is an exercise item selected and it's not the first one,
     // swap it with the one above it
-    let tbody = document.querySelector('.exercises table tbody');
+    let tbody = document.querySelector('#exercises table tbody');
     let rows = getRows();
 
     if (rows.length && rows.length >= selected) {
@@ -724,7 +759,7 @@ export function moveDownExercise() {
   if (selected && selectedItem) {
     // If there is an exercise item selected and it's not the first one,
     // swap it with the one below it (if any)
-    let tbody = document.querySelector('.exercises table tbody');
+    let tbody = document.querySelector('#exercises table tbody');
     let rows = getRows();
 
     if (rows.length && selected < rows.length) {
@@ -1038,6 +1073,7 @@ function createSelectionTd(rowNumber) {
   selectionTd.dataset.column = 'selection';
 
   let selection = document.createElement('input');
+  selection.classList.add('form-check-input');
   selection.type = 'radio';
   selection.name = 'selection';
   selection.id = selection.name + '-' + rowNumber;
@@ -1059,14 +1095,17 @@ function createExerciseTd(rowNumber, value) {
   optional value. */
 
   let exerciseTd = document.createElement('td');
+  exerciseTd.classList.add('form-floating');
   exerciseTd.dataset.column = 'exercise';
 
   let exercise = document.createElement('input');
+  exercise.classList.add('form-control', 'form-control-sm');
   exercise.type = "text";
   exercise.name = "exercise-" + rowNumber;
   exercise.id = exercise.name;
   exercise.dataset.rowNumber = rowNumber;
   exercise.maxLength = 50;
+  exercise.placeholder = ' ';
   exercise.required = true;
 
   if (value) {
@@ -1085,7 +1124,13 @@ function createExerciseTd(rowNumber, value) {
     }
   });
 
+  let exerciseLabel = document.createElement('label');
+  exerciseLabel.classList.add('form-label', 'small');
+  exerciseLabel.htmlFor = exercise.id;
+  exerciseLabel.textContent = 'Ejercicio';
+
   exerciseTd.appendChild(exercise);
+  exerciseTd.appendChild(exerciseLabel);
   exerciseTd.appendChild(utils.createInvalidFeedbackElement());
 
   return exerciseTd;
@@ -1097,9 +1142,11 @@ function createSetTypeTd(rowNumber, value) {
   optional value. */
 
   let setTypeTd = document.createElement('td');
+  setTypeTd.classList.add('form-floating');
   setTypeTd.dataset.column = 'setType';
 
   let setType = document.createElement('select');
+  setType.classList.add('form-select');
   setType.name = "set-type-" + rowNumber;
   setType.id = setType.name;
   setType.dataset.rowNumber = rowNumber;
@@ -1134,7 +1181,13 @@ function createSetTypeTd(rowNumber, value) {
     }
   });
 
+  let setTypeLabel = document.createElement('label');
+  setTypeLabel.classList.add('form-label', 'small');
+  setTypeLabel.htmlFor = setType.id;
+  setTypeLabel.textContent = 'Modalidad';
+
   setTypeTd.appendChild(setType);
+  setTypeTd.appendChild(setTypeLabel);
   setTypeTd.appendChild(utils.createInvalidFeedbackElement());
 
   return setTypeTd;
@@ -1146,15 +1199,18 @@ function createWeightTd(rowNumber, value) {
   optional value. */
 
   let weightTd = document.createElement('td');
+  weightTd.classList.add('form-floating');
   weightTd.dataset.column = 'weight';
 
   let weight = document.createElement('input');
+  weight.classList.add('form-control', 'form-control-sm');
   weight.type = "number";
   weight.name = "weight-" + rowNumber;
   weight.id = weight.name;
   weight.dataset.rowNumber = rowNumber;
   weight.min = 0;
   weight.step = 0.01;
+  weight.placeholder = 0;
 
   if (value !== null || value !== undefined) {
     weight.value = value;
@@ -1172,7 +1228,13 @@ function createWeightTd(rowNumber, value) {
     }
   });
 
+  let weightLabel = document.createElement('label');
+  weightLabel.classList.add('form-label', 'small');
+  weightLabel.htmlFor = weight.id;
+  weightLabel.textContent = 'Peso (kg)';
+
   weightTd.appendChild(weight);
+  weightTd.appendChild(weightLabel);
   weightTd.appendChild(utils.createInvalidFeedbackElement());
 
   return weightTd;
@@ -1184,9 +1246,11 @@ function createSetsTd(rowNumber, value) {
   optional value. */
 
   let setsTd = document.createElement('td');
+  setsTd.classList.add('form-floating');
   setsTd.dataset.column = 'sets';
 
   let sets = document.createElement('input');
+  sets.classList.add('form-control', 'form-control-sm');
   sets.type = "number";
   sets.name = "sets-" + rowNumber;
   sets.id = sets.name;
@@ -1194,6 +1258,7 @@ function createSetsTd(rowNumber, value) {
   sets.min = 0;
   sets.step = 1;
   sets.required = true;
+  sets.placeholder = 0;
 
   if (value !== null || value !== undefined) {
     sets.value = value;
@@ -1222,7 +1287,13 @@ function createSetsTd(rowNumber, value) {
     }
   });
 
+  let setsLabel = document.createElement('label');
+  setsLabel.classList.add('form-label', 'small');
+  setsLabel.htmlFor = sets.id;
+  setsLabel.textContent = 'Series';
+
   setsTd.appendChild(sets);
+  setsTd.appendChild(setsLabel);
   setsTd.appendChild(utils.createInvalidFeedbackElement());
 
   return setsTd;
@@ -1234,22 +1305,15 @@ function createRepsDiv(rowNumber, setNumber, value) {
   optional value. */
 
   let repsDiv = document.createElement('div');
-  repsDiv.classList.add('reps-item');
+  repsDiv.classList.add('reps-item', 'form-floating', 'mb-2');
 
   let repsLabel = document.createElement('label');
+  repsLabel.classList.add('form-label', 'small');
   repsLabel.htmlFor = "reps-" + rowNumber + '-' + setNumber;
-
-  let repsLabelText = document.createTextNode('Serie ' + setNumber + ':');
-
-  let requiredAsterisk = document.createElement('abbr');
-  requiredAsterisk.title = 'requerido';
-  requiredAsterisk.ariaLabel = 'requerido';
-  requiredAsterisk.textContent = '*';
-
-  repsLabel.appendChild(repsLabelText);
-  repsLabel.appendChild(requiredAsterisk);
+  repsLabel.textContent = 'Serie ' + setNumber;
 
   let reps = document.createElement('input');
+  reps.classList.add('form-control', 'form-control-sm');
   reps.type = "number";
   reps.name = repsLabel.htmlFor;
   reps.id = reps.name;
@@ -1257,6 +1321,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
   reps.dataset.setNumber = setNumber;
   reps.min = 1;
   reps.step = 1;
+  reps.placeholder = 1;
   reps.required = true;
 
   if (value !== null || value !== undefined) {
@@ -1275,8 +1340,8 @@ function createRepsDiv(rowNumber, setNumber, value) {
     }
   });
 
-  repsDiv.appendChild(repsLabel);
   repsDiv.appendChild(reps);
+  repsDiv.appendChild(repsLabel);
   repsDiv.appendChild(utils.createInvalidFeedbackElement());
 
   return repsDiv;
@@ -1288,9 +1353,11 @@ function createCommentsTd(rowNumber, value) {
   optional value. */
 
   let commentsTd = document.createElement('td');
+  commentsTd.classList.add('form-floating');
   commentsTd.dataset.column = 'comments';
 
   let comments = document.createElement('textarea');
+  comments.classList.add('form-control', 'form-control-sm');
   comments.name = "comments-" + rowNumber;
   comments.id = comments.name;
   comments.dataset.rowNumber = rowNumber;
@@ -1298,6 +1365,7 @@ function createCommentsTd(rowNumber, value) {
   comments.maxLength = 140;
   comments.cols = 20;
   comments.rows = 5;
+  comments.placeholder = '...';
 
   if (value) {
     comments.value = value;
@@ -1315,7 +1383,13 @@ function createCommentsTd(rowNumber, value) {
     }
   });
 
+  let commentsLabel = document.createElement('label');
+  commentsLabel.classList.add('form-label', 'small');
+  commentsLabel.htmlFor = comments.id;
+  commentsLabel.textContent = 'Comentarios';
+
   commentsTd.appendChild(comments);
+  commentsTd.appendChild(commentsLabel);
   commentsTd.appendChild(utils.createInvalidFeedbackElement());
 
   return commentsTd;
