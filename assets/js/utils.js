@@ -118,6 +118,7 @@ export function addStatusMessage(alertType, paragraphs) {
 
   let statusMessage = document.createElement('div');
   statusMessage.classList.add('alert', alertType);
+  statusMessage.setAttribute('role', 'alert');
 
   let closeButton = document.createElement('span');
   closeButton.innerHTML = '&#x2715;'
