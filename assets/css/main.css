@@ -348,7 +348,7 @@ header .account > span {
     color: #ffffff;
 }
 
-#delete-btn {
+#delete-btn, #remove-btn {
     background-color: var(--solarized-red) !important;
     color: #ffffff;
 }
