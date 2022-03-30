@@ -15,18 +15,11 @@ export function constructTrainingSessionForm(
 
   // Main title
   let mainTitle = mainContainer.querySelector('h1#main-title');
-  let fullTitle = utils.getTrainingSessionFullTitle(session);
   mainTitle.textContent = mainTitleText;
 
   // Remove #empty-text element
   let emptyText = mainContainer.querySelector('p#empty-text');
   mainContainer.removeChild(emptyText);
-
-  // Intro paragraph
-  let intro = document.createElement('p');
-  intro.textContent =
-      'Para cancelar la modificación, simplemente regrese a la página '
-      + 'anterior sin guardar los cambios.';
 
   // Form
   let form = document.createElement('form');
@@ -97,14 +90,15 @@ export function constructTrainingSessionForm(
 
   formButtonsSection.appendChild(submitButton);
 
-  // Add sections to form
+  // Put everything together
   form.appendChild(basicDataSection);
   form.appendChild(exercisesSection);
   form.appendChild(formButtonsSection);
 
-  // Add elements to main container
-  mainContainer.appendChild(intro);
   mainContainer.appendChild(form);
+
+  // Toggle action buttons
+  toggleActionButtons();
 }
 
 
