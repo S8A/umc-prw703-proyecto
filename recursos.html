@@ -7,40 +7,51 @@
     <title>Directorio de ejercicios &ndash; 8A Training</title>
 
     <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main-new.css">
 </head>
 <body>
     <header>
-        <nav>
-            <div class="container">
-                <a href="/" class="logo">
-                    <img src="/assets/img/8a-training-full-bg.svg" alt="Inicio">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-md">
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/img/8a-training-square-bg.svg" alt="Inicio" width="150" height="48">
                 </a>
-                <ul>
-                    <li><a href="/historial/">Historial</a></li>
-                    <li><a href="/recursos.html">Recursos</a></li>
-                    <li><a href="/iniciar-sesion.html">Iniciar sesión</a></li>
-                </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Mostrar/ocultar navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-md-0">
+                        <li class="nav-item"><a href="/historial/" class="nav-link">Historial</a></li>
+                        <li class="nav-item active"><a href="/recursos.html" class="nav-link">Recursos</a></li>
+                        <li class="nav-item"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
     <main>
         <div class="container knowledge-resources">
             <div id="status-messages"></div>
-            <h1 id="main-title">Recursos de información</h1>
-            <p>Los siguientes sitios web proveen información valiosa y confiable sobre ejercicios, rutinas de entrenamiento, nutrición, y demás que podrían ser de utilidad.</p>
-            <ul>
-                <li><a href="https://ss.fitness/">Simple Science Fitness</a>: Guía todo-en-uno con información accesible sobre nutrición y ejercicios, con enlaces a artículos y estudios científicos que la respaldan.</li>
-                <li><a href="https://exrx.net/">ExRx.net</a>: Sitio web con un extenso directorio de ejercicios categorizados y explicados, calculadoras, y artículos referenciales.</li>
-                <li><a href="https://thefitness.wiki/">The Fitness Wiki</a>: Wiki oficial de <a href="https://www.reddit.com/r/Fitness">r/Fitness</a> y <a href="https://www.reddit.com/r/weightroom">r/weightroom</a> en Reddit. Compila y resume información de diversas fuentes sobre nutrición, rutinas de entrenamiento, etc.</li>
-            </ul>
+            <div class="row">
+                <div class="col col-lg-10 col-xl-8 py-4 mx-auto">
+                    <h1 id="main-title" class="text-center">Recursos de información</h1>
+                    <p>Los siguientes sitios web proveen información valiosa y confiable sobre ejercicios, rutinas de entrenamiento, nutrición, y demás que podrían ser de utilidad.</p>
+                    <ul>
+                        <li><a href="https://ss.fitness/">Simple Science Fitness</a>: Guía todo-en-uno con información accesible sobre nutrición y ejercicios, con enlaces a artículos y estudios científicos que la respaldan.</li>
+                        <li><a href="https://exrx.net/">ExRx.net</a>: Sitio web con un extenso directorio de ejercicios categorizados y explicados, calculadoras, y artículos referenciales.</li>
+                        <li><a href="https://thefitness.wiki/">The Fitness Wiki</a>: Wiki oficial de <a href="https://www.reddit.com/r/Fitness">r/Fitness</a> y <a href="https://www.reddit.com/r/weightroom">r/weightroom</a> en Reddit. Compila y resume información de diversas fuentes sobre nutrición, rutinas de entrenamiento, etc.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </main>
-    <footer>
-        <div class="container">
-            <p>Samuel Ochoa · UMC PRW703 · 2022</p>
+    <footer class="container">
+        <div class="py-3 my-4">
+            <p class="text-center text-muted text-small"><small>Samuel Ochoa · UMC PRW703 · 2022</small></p>
         </div>
     </footer>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="/assets/js/knowledge-resources.js"></script>
 </body>
 </html>
