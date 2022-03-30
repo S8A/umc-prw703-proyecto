@@ -279,16 +279,13 @@ export function updateTrainingSession(id, data) {
   data object, or return null if the session does not exist, does not
   belong to the signed-in account, or if the given data is invalid. */
 
-  let account = getSignedInAccount();
-
-  if (account) {
-    // If signed-in, try to find training session by ID
     let session = getTrainingSession(id);
 
     if (session) {
-      // If the training session exists and belongs to the user,
-      // create a new one with its ID and the given data
-      let newSession = createTrainingSessionObject(id, account.email, data);
+    // If the training session exists and belongs to the user, create a
+    // new training session object with its ID and the given data
+    let newSession =
+        createTrainingSessionObject(id, session.accountEmail, data);
 
       if (newSession) {
         // If a valid training session object is successfully created
@@ -297,7 +294,7 @@ export function updateTrainingSession(id, data) {
         if (sessions.length) {
           let success = false;
 
-          for (let i of sessions) {
+        for (let i in sessions) {
             if (sessions[i].id === id) {
               sessions[i] = newSession;
               success = true;
@@ -314,7 +311,6 @@ export function updateTrainingSession(id, data) {
         }
       }
     }
-  }
 
   return null;
 }
