@@ -121,17 +121,13 @@ export function addStatusMessage(alertType, paragraphs) {
 
   let statusMessages = document.getElementById('status-messages');
 
+  // Status message alert
   let statusMessage = document.createElement('div');
-  statusMessage.classList.add('alert', alertType);
+  statusMessage.classList.add(
+      'alert', alertType, 'my-3', 'alert-dismissible', 'fade', 'show');
   statusMessage.setAttribute('role', 'alert');
 
-  let closeButton = document.createElement('span');
-  closeButton.innerHTML = '&#x2715;'
-  closeButton.classList.add('close');
-  closeButton.setAttribute('aria-label', 'Cerrar esta alerta');
-
-  statusMessage.appendChild(closeButton);
-
+  // Message paragraphs
   for (let text of paragraphs) {
     let paragraph = document.createElement('p');
     paragraph.textContent = text;
@@ -139,11 +135,20 @@ export function addStatusMessage(alertType, paragraphs) {
     statusMessage.appendChild(paragraph);
   }
 
-  statusMessages.prepend(statusMessage);
+  // Remove bottom margin of last paragraph
+  statusMessage.lastChild.classList.add('mb-0');
 
-  closeButton.addEventListener('click', function (event) {
-    this.parentElement.remove();
-  });
+  // Close button
+  let closeButton = document.createElement('button');
+  closeButton.type = 'button';
+  closeButton.classList.add('btn-close');
+  closeButton.dataset.bsDismiss = 'alert';
+  closeButton.ariaLabel = 'Cerrar';
+
+  statusMessage.appendChild(closeButton);
+
+  // Add alert to status area
+  statusMessages.prepend(statusMessage);
 }
 
 
