@@ -279,38 +279,38 @@ export function updateTrainingSession(id, data) {
   data object, or return null if the session does not exist, does not
   belong to the signed-in account, or if the given data is invalid. */
 
-    let session = getTrainingSession(id);
+  let session = getTrainingSession(id);
 
-    if (session) {
+  if (session) {
     // If the training session exists and belongs to the user, create a
     // new training session object with its ID and the given data
     let newSession =
         createTrainingSessionObject(id, session.accountEmail, data);
 
-      if (newSession) {
-        // If a valid training session object is successfully created
-        // with the given data, replace the session object in the list
-        let sessions = getAllTrainingSessions();
-        if (sessions.length) {
-          let success = false;
+    if (newSession) {
+      // If a valid training session object is successfully created
+      // with the given data, replace the session object in the list
+      let sessions = getAllTrainingSessions();
+      if (sessions.length) {
+        let success = false;
 
         for (let i in sessions) {
-            if (sessions[i].id === id) {
-              sessions[i] = newSession;
-              success = true;
-            }
+          if (sessions[i].id === id) {
+            sessions[i] = newSession;
+            success = true;
           }
+        }
 
-          if (success) {
-            // If the training session object is successfully replaced
-            // in the list, store it, and return the object
-            localStorage.setItem('trainingSessions', JSON.stringify(sessions));
+        if (success) {
+          // If the training session object is successfully replaced
+          // in the list, store it, and return the object
+          localStorage.setItem('trainingSessions', JSON.stringify(sessions));
 
-            return newSession;
-          }
+          return newSession;
         }
       }
     }
+  }
 
   return null;
 }
@@ -476,6 +476,30 @@ export function getTrainingSessionFullTitle(session) {
   }
 
   return title;
+}
+
+
+export function deleteTrainingSession(id) {
+  /* Delete the given training session with the given ID if it belongs
+  to the signed-in account and return whether the operation succeeded. */
+
+  let sessionToDelete = getTrainingSession(id);
+
+  if (sessionToDelete) {
+    // If the training session exists and belongs to the signed-in account,
+    // delete it from the list of training sessions
+    let sessions = getAllTrainingSessions();
+    let newSessions = sessions.filter(s => Number(s.id) !== Number(id));
+
+    if (newSessions.length < sessions.length) {
+      // If the training session was deleted from the list successfully,
+      // store the new list and return true
+      localStorage.setItem('trainingSessions', JSON.stringify(newSessions));
+      return true;
+    }
+  }
+
+  return false;
 }
 
 
