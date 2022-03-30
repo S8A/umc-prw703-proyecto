@@ -979,7 +979,7 @@ function extractExercisesData() {
 
 /* CREATE EDITABLE EXERCISE ITEM ROW ELEMENTS */
 
-export function createEditableExerciseItemRow(rowNumber, data) {
+export function createEditableExerciseItemRow(rowNumber, data = {}) {
   /* Create a new editable exercise item table row and set the fields'
   initial values based on the given data object, if given. */
 
@@ -991,27 +991,23 @@ export function createEditableExerciseItemRow(rowNumber, data) {
   let selectionTd = createSelectionTd(rowNumber);
 
   // Exercise*
-  let exercise = (data && data.exercise) ? data.exercise : '';
-  let exerciseTd = createExerciseTd(rowNumber, exercise);
+  let exerciseTd = createExerciseTd(rowNumber, data.exercise);
 
   // Set type*
-  let setType = (data && data.setType) ? data.setType : null;
-  let setTypeTd = createSetTypeTd(rowNumber, setType);
+  let setTypeTd = createSetTypeTd(rowNumber, data.setType);
 
   // Weight
-  let weight = (data && !Number.isNaN(data.weight)) ? data.weight : null;
-  let weightTd = createWeightTd(rowNumber, weight);
+  let weightTd = createWeightTd(rowNumber, data.weight);
 
   // Sets
-  let sets = (data && Number.isInteger(data.sets)) ? data.sets : null;
-  let setsTd = createSetsTd(rowNumber, sets);
+  let setsTd = createSetsTd(rowNumber, data.sets);
 
   // Reps
   let repsTd = document.createElement('td');
   repsTd.dataset.column = 'reps';
 
-  if (sets > 0) {
-    for (let i = 0; i < sets; i++) {
+  if (data.sets && Number.isInteger(Number(data.sets))) {
+    for (let i = 0; i < data.sets; i++) {
       let setNumber = i + 1;
       let reps = data.reps[i];
       let repsDiv = createRepsDiv(rowNumber, setNumber, reps);
@@ -1020,8 +1016,7 @@ export function createEditableExerciseItemRow(rowNumber, data) {
   }
 
   // Comments
-  let comments = (data && data.comments) ? data.comments : '';
-  let commentsTd = createCommentsTd(rowNumber, comments);
+  let commentsTd = createCommentsTd(rowNumber, data.comments);
 
   // Add table cells to row
   tr.appendChild(selectionTd);
