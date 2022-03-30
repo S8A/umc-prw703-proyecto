@@ -327,10 +327,10 @@ export function createTrainingSessionObject(id, accountEmail, data) {
     accountEmail: accountEmail,
     date: data.date,
     time: data.time,
-    shortTitle: data.shortTitle ? data.shortTitle : "",
+    shortTitle: data.shortTitle ? data.shortTitle : '',
     duration: null,
     bodyweight: null,
-    comments: data.comments ? data.comments : "",
+    comments: data.comments ? data.comments : '',
     exercises: [],
   };
 
