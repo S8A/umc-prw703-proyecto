@@ -797,6 +797,8 @@ export function showDurationError(duration) {
     feedback.textContent = 'Solo se permiten números enteros.';
   } else if (duration.validity.rangeUnderflow) {
     feedback.textContent = 'La duración no puede ser negativa.';
+  } else if (duration.validity.stepMismatch) {
+    feedback.textContent = 'Solo se permiten números enteros.';
   }
 }
 
@@ -810,6 +812,8 @@ export function showBodyweightError(bodyweight) {
     feedback.textContent = 'Solo se permiten números enteros.';
   } else if (bodyweight.validity.rangeUnderflow) {
     feedback.textContent = 'El peso corporal no puede ser negativo.';
+  } else if (bodyweight.validity.stepMismatch) {
+    feedback.textContent = 'Solo se permiten números enteros.';
   }
 }
 
@@ -879,6 +883,8 @@ function showSetsError(sets) {
     feedback.textContent = 'Solo se permiten números enteros.';
   } else if (sets.validity.rangeUnderflow) {
     feedback.textContent = 'El número de series no puede ser negativo.';
+  } else if (sets.validity.stepMismatch) {
+    feedback.textContent = 'Solo se permiten números enteros.';
   }
 }
 
@@ -894,6 +900,8 @@ function showRepsError(reps) {
     feedback.textContent = 'Solo se permiten números enteros.';
   } else if (reps.validity.rangeUnderflow) {
     feedback.textContent = 'El número de repeticiones debe ser mayor a cero.';
+  } else if (reps.validity.stepMismatch) {
+    feedback.textContent = 'Solo se permiten números enteros.';
   }
 }
 
