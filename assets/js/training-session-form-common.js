@@ -231,8 +231,9 @@ function createExercisesTable(exercises) {
     for (let i in exercises) {
       // For each exercise data object, create a new exercise item row
       // and append it to the table body
-      let rowNumber = i + 1;
-      let data = exercises[i];
+      let indexNumber = Number(i);
+      let rowNumber = indexNumber + 1;
+      let data = exercises[indexNumber];
       let row = createEditableExerciseItemRow(rowNumber, data);
       tbody.appendChild(row);
     }
