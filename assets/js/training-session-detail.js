@@ -58,7 +58,7 @@ function constructTrainingSessionDetailsPage(session) {
   exercisesTitle.textContent = 'Ejercicios';
 
   let exercisesDiv = document.createElement('div');
-  exercisesDiv.classList.add('exercises');
+  exercisesDiv.classList.add('table-responsive');
 
   let exercisesTable = createExercisesTable(session.exercises);
   exercisesDiv.appendChild(exercisesTable);
