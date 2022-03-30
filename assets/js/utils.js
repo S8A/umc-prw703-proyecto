@@ -78,34 +78,39 @@ export function getSignedInAccount() {
 /* SIGNED-IN HEADER */
 
 export function setUpSignedInHeader(account) {
-  /* Remove sign-in nav link in header, add div with the account's
-  name and a sign-out button. */
+  /* Modify header for the signed-in account. */
 
-  let headerNavContainer = document.querySelector('header nav .container');
+  let navbarCollapse = document.querySelector('header nav .navbar-collapse');
 
-  let navLinks = headerNavContainer.querySelectorAll('ul > li');
+  // Remove last nav link (sign-in link)
+  let navLinks = navbarCollapse.querySelectorAll('li.nav-item');
   navLinks[navLinks.length - 1].remove();
 
+  // Account name and sign-out link container
   let accountDiv = document.createElement('div');
-  accountDiv.classList.add('account');
+  accountDiv.classList.add('d-flex');
 
+  // Account name
   let fullName = document.createElement('span');
-  fullName.textContent = account.firstName + " " + account.lastName;
+  fullName.classList.add('navbar-text', 'me-2');
+  fullName.textContent = account.firstName + ' ' + account.lastName;
 
+  // Sign-out link
   let signOut = document.createElement('button');
   signOut.type = 'button';
-  signOut.id = 'sign-out-btn';
   signOut.textContent = 'Salir';
+  signOut.classList.add('btn', 'btn-outline-primary', 'btn-sm');
 
   signOut.addEventListener('click', function (event) {
     sessionStorage.clear();
     window.location.assign('/');
   });
 
+  // Add items to navbar
   accountDiv.appendChild(fullName);
   accountDiv.appendChild(signOut);
 
-  headerNavContainer.appendChild(accountDiv);
+  navbarCollapse.appendChild(accountDiv);
 }
 
 
