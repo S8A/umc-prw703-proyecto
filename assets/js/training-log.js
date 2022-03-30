@@ -125,7 +125,7 @@ function createTrainingSessionContainer(session) {
 
   // Exercises section
   let exercises = document.createElement('div');
-  exercises.classList.add('exercises');
+  exercises.classList.add('table-responsive');
 
   // Exercises table
   let table = document.createElement('table');
@@ -137,6 +137,7 @@ function createTrainingSessionContainer(session) {
 
   for (let header of headers) {
     let th = document.createElement('th');
+    th.classList.add('px-2');
     th.textContent = header;
     thead.appendChild(th);
   }
@@ -149,9 +150,11 @@ function createTrainingSessionContainer(session) {
       let tr = document.createElement('tr');
 
       let exercise = document.createElement('td');
+      exercise.classList.add('px-2');
       exercise.textContent = item.exercise;
 
       let weight = document.createElement('td');
+      weight.classList.add('px-2');
       weight.textContent = utils.NDASH;
 
       if (item.weight) {
@@ -159,9 +162,11 @@ function createTrainingSessionContainer(session) {
       }
 
       let sets = document.createElement('td');
+      sets.classList.add('px-2');
       sets.textContent = item.sets;
 
       let reps = document.createElement('td');
+      reps.classList.add('px-2');
       reps.textContent = item.reps.join(', ');
 
       tr.appendChild(exercise);
