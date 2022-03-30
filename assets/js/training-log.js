@@ -18,6 +18,67 @@ function createQuery(date, page) {
 }
 
 
+function constructTrainingLog(date, page) {
+  /* Construct training log page with the given date and page parameters. */
+
+  // Set page title with filter date and page number
+  setPageTitle(date, page);
+
+  // Get this account's training sessions, filtered by date if the
+  // parameter is set
+  let sessions = utils.getTrainingSessions(date);
+
+  // Computer total number of pages
+  let numPages = 1;
+  if (sessions.length) {
+    numPages = Math.ceil(sessions.length / utils.TRAINING_LOG_ITEMS_PER_PAGE);
+  }
+
+  // Redirect to first page if the page number is too high
+  if (page > numPages) {
+    utils.setQueryParams(createQuery(date, null));
+    return;
+  }
+
+  // Compute indexes of first and last items
+  let first = utils.TRAINING_LOG_ITEMS_PER_PAGE * (page - 1);
+  let last = first + utils.TRAINING_LOG_ITEMS_PER_PAGE;
+
+  // Keep only this page's training sessions
+  sessions = sessions.slice(first, last);
+
+  // Add sessions data to page
+  addTrainingSessions(sessions);
+
+  // Get date filter and field
+  let dateFilter = document.querySelector('form#date-filter');
+  let dateField =
+      dateFilter.querySelector('input[type="date"]#date-filter-input');
+
+  // Set date field value if date query param is set
+  if (date) {
+    dateField.value = date;
+  }
+
+  // Add event listener for date filter form submission
+  dateFilter.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    if (dateFilter.reportValidity()) {
+      // If form is valid, filter by the selected date
+      let filterDate = dateField.value;
+      utils.setQueryParams(createQuery(filterDate, null));
+    }
+  });
+
+  // Add pagination
+  addPagination(date, numPages, page);
+
+  // Add pending status message to page
+  utils.addPendingStatusMessage();
+}
+
+
 function addTrainingSessions(sessions) {
   /* Add the given training sessions to the page. */
 
@@ -186,78 +247,32 @@ window.addEventListener('load', function () {
     // Get query params
     const params = utils.getQueryParams();
 
-    // Get filter date from query parameter, if present
-    let date = params.date ? params.date : null;
-    let dateNumber = Date.parse(params.date);
+    // Get filter date from query parameter if given, or set to undefined
+    let date = params.date ? params.date : undefined;
+    let dateNumber = Date.parse(date);
 
-    // Get page number from query parameter
-    let page = params.page ? Number(params.page) : 1;
+    if (date && Number.isNaN(dateNumber)) {
+      // If the date was given (not undefined) and it's not a valid date
+      date = null;
+    }
 
-    // Handle invalid date and/or page number, if necessary
-    if ((date && isNaN(dateNumber)) || isNaN(page) || page <= 0) {
-      // Empty out invalid query parameters
-      date = isNaN(dateNumber) ? null : date;
-      page = (isNaN(page) || page <= 0) ? null : page;
+    // Get page number from query parameter if given, or set to 1
+    let page = params.page ? params.page : 1;
+    let pageNumber = Number(page);
 
-      // Redirect appropriately and end event handler execution
+    if (!Number.isInteger(pageNumber) || pageNumber < 1) {
+      // If the page number is not an integer or it's lower than one
+      page = null;
+    } else {
+      page = pageNumber;
+    }
+
+    if (date === null || page === null) {
+      // If either the date or page is null, redirect appropriately
       utils.setQueryParams(createQuery(date, page));
-      return;
+    } else {
+      // Otherwise, construct training log page
+      constructTrainingLog(date, page);
     }
-
-    // Set page title with filter date and page number
-    setPageTitle(date, page);
-
-    // Get this account's training sessions, filtered by date if the
-    // parameter is set
-    let sessions = utils.getTrainingSessions(date);
-
-    // Computer total number of pages
-    let numPages =
-        Math.ceil(sessions.length / utils.TRAINING_LOG_ITEMS_PER_PAGE);
-    if (numPages <= 0) {
-      numPages = 1;
-    }
-
-    // Redirect to first page if the page number is too high
-    if (page > numPages) {
-      utils.setQueryParams(createQuery(date, null));
-    }
-
-    // Add pagination
-    addPagination(date, numPages, page);
-
-    // Compute indexes of first and last items
-    let first = utils.TRAINING_LOG_ITEMS_PER_PAGE * (page - 1);
-    let last = first + utils.TRAINING_LOG_ITEMS_PER_PAGE;
-
-    // Keep only this page's training sessions
-    sessions = sessions.slice(first, last);
-
-    // Add sessions data to page
-    addTrainingSessions(sessions);
-
-    // Add pending status message to page
-    utils.addPendingStatusMessage();
-
-    // Get date filter and field
-    let dateFilter = document.querySelector('form#date-filter');
-    let dateField =
-        dateFilter.querySelector('input[type="date"]#date-filter-input');
-
-    // Set date field value if date query param is set
-    if (date) {
-      dateField.value = date;
-    }
-
-    // Add event listener for date filter form submission
-    dateFilter.addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      if (dateFilter.reportValidity()) {
-        // If form is valid, filter by the selected date
-        let filterDate = dateField.value;
-        utils.setQueryParams(createQuery(filterDate, null));
-      }
-    });
   }
 });
