@@ -70,7 +70,7 @@ header {
 }
 
 header a {
-    color: var(--solarized-base1) !important;
+    color: var(--solarized-base2) !important;
     text-decoration: none !important;
 }
 
@@ -145,6 +145,19 @@ form input[type="number"] {
     max-width: 5rem !important;
 }
 
+form input:invalid {
+    outline: 1px solid #ff0000;
+}
+
+form input:focus:invalid {
+    outline: none;
+}
+
+form .invalid-feedback {
+    color: #ff0000 !important;
+    font-size: 80% !important;
+}
+
 a.btn {
     text-decoration: none !important;
     cursor: pointer;
@@ -165,10 +178,59 @@ section {
 
 ul#pagination {
     list-style: none;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    column-gap: 1rem;
+    grid-template-columns: auto auto auto;
     padding: 0;
     margin: 1rem 0;
+    text-align: center;
+}
+
+#status-messages > .alert {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+#status-messages > .alert > .close {
+    float: right;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+#status-messages > .alert.info {
+    color: #ffffff !important;
+    background-color: var(--solarized-blue);
+}
+
+#status-messages > .alert.success {
+    color: #ffffff !important;
+    background-color: var(--solarized-green);
+}
+
+#status-messages > .alert.warning {
+    color: #ffffff !important;
+    background-color: var(--solarized-orange);
+}
+
+#status-messages > .alert.error {
+    color: #ffffff !important;
+    background-color: var(--solarized-red);
+}
+
+header .account {
+    padding: 0 0.5rem;
+}
+
+header .account > span {
+    margin-right: 0.5rem;
+}
+
+#sign-out-btn {
+    background: none;
+    border: 1px solid var(--solarized-magenta);
+    color: var(--solarized-magenta);
+    padding: 0.125rem 0.25rem;
+    cursor: pointer;
 }
 
 
@@ -179,7 +241,7 @@ ul#pagination {
     padding: 0;
 }
 
-.container.landing-page h1 {
+#landing-page-content h1 {
     font-size: 2.5rem;
     text-align: left;
 }
@@ -195,7 +257,7 @@ ul#pagination {
     padding: 2rem 1rem;
 }
 
-.container.signin, .container.signup {
+.container.signin, .container.signup, .container.delete-training-session {
     max-width: 32rem;
 }
 
@@ -244,17 +306,60 @@ ul#pagination {
     padding: 0 0.5rem;
 }
 
-.container.edit-training-session input {
+#action-buttons {
+    padding: 1rem 0;
+    text-align: center;
+}
+
+#action-buttons > button {
+    background-color: var(--solarized-base01);
+    border: none !important;
+    border-radius: 0.25rem !important;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem !important;
+    margin: 0 0 0.5rem;
+    width: 100% !important;
+}
+
+#action-buttons > button:disabled {
+    cursor: default !important;
+    opacity: 0.5 !important;
+}
+
+.create-training-session input,
+.edit-training-session input {
     width: auto !important;
 }
 
-.container.edit-training-session #form-buttons {
+.create-training-session #form-buttons,
+.edit-training-session #form-buttons {
     padding: 1rem 0;
 }
 
-.container.edit-training-session #form-buttons button {
+.create-training-session #form-buttons button,
+.edit-training-session #form-buttons button {
     margin: 0 auto;
     display: block;
+}
+
+#add-btn {
+    background-color: var(--solarized-blue) !important;
+    color: #ffffff;
+}
+
+#delete-btn, #remove-btn {
+    background-color: var(--solarized-red) !important;
+    color: #ffffff;
+}
+
+#duplicate-btn {
+    background-color: var(--solarized-cyan) !important;
+    color: #ffffff;
+}
+
+#confirm-delete-btn {
+    background-color: var(--solarized-red) !important;
 }
 
 
@@ -289,6 +394,11 @@ ul#pagination {
     #date-filter input {
         width: auto;
     }
+
+    #action-buttons > button {
+        width: auto !important;
+        margin: 0 0.5rem 0.5rem;
+    }
 }
 
 @media all and (min-width: 48rem) {
@@ -296,11 +406,11 @@ ul#pagination {
         padding: 2rem 1rem;
     }
 
-    .container.landing-page {
+    #landing-page-content {
         display: flex;
     }
 
-    .container.landing-page > div {
+    #landing-page-content > div {
         width: 50%;
     }
 

@@ -1,0 +1,910 @@
+[
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-08-15",
+        "time": "15:00",
+        "shortTitle": "",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 15, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 15], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-08-17",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 5], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-08-19",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "warmup", "weight": 10, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "warmup", "weight": 17.5, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-08-21",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 5, "reps": [5, 6, 5, 4, 3], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-08-24",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 16], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-08-26",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 44.5, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-08-28",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 16], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-09-06",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 47.5, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-09-08",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-09-10",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 20, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 53, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-09-12",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 20], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-09-14",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 20, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 57.5, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-09-16",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "Squat work cut short because Sergio had to leave.",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [5], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-09-19",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [6], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 23, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 45, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 63, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-09-28",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 13], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 12], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-10-03",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 7], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 23, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 63, "sets": 3, "reps": [5, 6, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-10-05",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 16], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 20], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-10-08",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 25, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 63, "sets": 3, "reps": [5, 5, 11], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-10-10",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 20], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-10-14",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 25, "sets": 3, "reps": [5, 5, 16], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 68, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-10-17",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 16], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 20], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-10-19",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 68, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-11",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 18], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-13",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 4, "reps": [6, 5, 6, 3], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 68, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-16",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 48, "sets": 3, "reps": [5, 5, 20], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-19",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 68, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-21",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [12, 12], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 50, "sets": 3, "reps": [5, 5, 15], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-23",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-25",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 50, "sets": 3, "reps": [5, 5, 18], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-28",
+        "time": "15:00",
+        "shortTitle": "RFBR-B*",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row*", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row*", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-11-30",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 53, "sets": 3, "reps": [5, 5, 15], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-04",
+        "time": "15:00",
+        "shortTitle": "RFBR-B*",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 10], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [8], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-06",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 55, "sets": 3, "reps": [5, 5, 15], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-08",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-12",
+        "time": "15:00",
+        "shortTitle": "RFBR-A*",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 1, "reps": [5], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-13",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 18], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 58, "sets": 3, "reps": [5, 5, 12], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-18",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-22",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 58, "sets": 3, "reps": [5, 5, 15], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-25",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-27",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 60, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2021-12-30",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 4, "reps": [5, 5, 11, 6], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2022-01-05",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 60, "sets": 3, "reps": [5, 5, 15], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2022-01-07",
+        "time": "15:00",
+        "shortTitle": "RFBR-B",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row*", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2022-01-09",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 48, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 48, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 60, "sets": 3, "reps": [5, 5, 18], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2022-02-22",
+        "time": "15:00",
+        "shortTitle": "Bodyweight only",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [8], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [8], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2022-02-26",
+        "time": "15:00",
+        "shortTitle": "RFBR-A",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 7], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
+            {"exercise": "Squat", "setType": "warmup", "weight": 45, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Squat", "setType": "work", "weight": 55, "sets": 3, "reps": [5, 5, 15], "comments": ""}
+        ]
+    },
+    {
+        "id": null,
+        "accountEmail": "samuel@example.com",
+        "date": "2022-03-03",
+        "time": "15:00",
+        "shortTitle": "Bodyweight only",
+        "duration": 90,
+        "bodyweight": 67,
+        "comments": "",
+        "exercises": [
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 2, "reps": [7, 4], "comments": ""}, 
+            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 20], "comments": "Form must be improved."}, 
+            {"exercise": "Pike pushup", "setType": "work", "weight": null, "sets": 1, "reps": [5], "comments": "Terrible form."}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [6], "comments": ""}
+        ]
+    }
+]
