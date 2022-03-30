@@ -4,10 +4,10 @@ import * as utils from '/assets/js/utils.js';
 export function constructDeleteConfirmationPage(session) {
   /* Construct delete confirmation page with the given training session data. */
 
-  let mainContainer = document.querySelector('main > .container');
+  let container = document.querySelector('#delete-confirmation');
 
   // Main title
-  let mainTitle = mainContainer.querySelector('h1#main-title');
+  let mainTitle = container.querySelector('h1#main-title');
   let fullTitle = utils.getTrainingSessionFullTitle(session);
   let mainTitleText = 'Eliminar sesión de entrenamiento: ' + fullTitle;
   mainTitle.textContent = mainTitleText;
@@ -16,8 +16,8 @@ export function constructDeleteConfirmationPage(session) {
   document.title = mainTitleText + ' ' + utils.NDASH + ' 8A Training';
 
   // Remove #empty-text element
-  let emptyText = mainContainer.querySelector('p#empty-text');
-  mainContainer.removeChild(emptyText);
+  let emptyText = container.querySelector('p#empty-text');
+  container.removeChild(emptyText);
 
   // Question paragraph
   let p = document.createElement('p');
@@ -27,9 +27,11 @@ export function constructDeleteConfirmationPage(session) {
 
   // Action buttons
   let actionButtons = document.createElement('div');
+  actionButtons.classList.add('text-center');
   actionButtons.id = 'action-buttons';
 
   let confirmButton = document.createElement('button');
+  confirmButton.classList.add('btn', 'btn-danger', 'me-2');
   confirmButton.type = 'button';
   confirmButton.id = 'confirm-delete-btn';
   confirmButton.textContent = 'Eliminar el registro';
@@ -42,16 +44,17 @@ export function constructDeleteConfirmationPage(session) {
       // If the training session is successfully deleted, set pending
       // success message and redirect to training log page
       let text = 'Sesión de entrenamiento eliminada exitosamente.';
-      utils.setPendingStatusMessage('success', [text]);
+      utils.setPendingStatusMessage('alert-success', [text]);
       window.location.assign('/historial/');
     } else {
       // If deletion was unsuccessful, add error status message
       let text = 'No se pudo eliminar la sesión de entrenamiento.';
-      utils.addStatusMessage('error', [text]);
+      utils.addStatusMessage('alert-danger', [text]);
     }
   });
 
   let cancelButton = document.createElement('button');
+  cancelButton.classList.add('btn', 'btn-secondary', 'me-2');
   cancelButton.type = 'button';
   cancelButton.id = 'cancel-delete-btn';
   cancelButton.textContent = 'Cancelar';
@@ -65,8 +68,8 @@ export function constructDeleteConfirmationPage(session) {
   actionButtons.appendChild(cancelButton);
 
   // Put everything together
-  mainContainer.appendChild(p);
-  mainContainer.appendChild(actionButtons);
+  container.appendChild(p);
+  container.appendChild(actionButtons);
 }
 
 
