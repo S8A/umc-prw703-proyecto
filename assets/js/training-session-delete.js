@@ -31,7 +31,7 @@ export function constructDeleteConfirmationPage(session) {
   actionButtons.id = 'action-buttons';
 
   let confirmButton = document.createElement('button');
-  confirmButton.classList.add('btn', 'btn-danger', 'me-2');
+  confirmButton.classList.add('btn', 'btn-danger', 'me-2', 'mb-2');
   confirmButton.type = 'button';
   confirmButton.id = 'confirm-delete-btn';
   confirmButton.textContent = 'Eliminar el registro';
@@ -54,7 +54,7 @@ export function constructDeleteConfirmationPage(session) {
   });
 
   let cancelButton = document.createElement('button');
-  cancelButton.classList.add('btn', 'btn-secondary', 'me-2');
+  cancelButton.classList.add('btn', 'btn-secondary', 'me-2', 'mb-2');
   cancelButton.type = 'button';
   cancelButton.id = 'cancel-delete-btn';
   cancelButton.textContent = 'Cancelar';
