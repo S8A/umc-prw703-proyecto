@@ -79,7 +79,7 @@ window.addEventListener('load', function () {
   if (!signedInAccount) {
     // If not signed-in, set pending info message and redirect to sign-in
     let text = 'Inicie sesión para gestionar sus sesiones de entrenamiento.';
-    utils.setPendingStatusMessage('info', [text]);
+    utils.setPendingStatusMessage('alert-info', [text]);
     window.location.assign('/iniciar-sesion.html?next=/historial/');
     return;
   } else {
@@ -106,7 +106,7 @@ window.addEventListener('load', function () {
       let text = 'La sesión de entrenamiento solicitada no existe o '
       + 'no pertenece a su cuenta.';
       utils.clearStatusMessages();
-      utils.addStatusMessage('error', [text]);
+      utils.addStatusMessage('alert-danger', [text]);
     } else {
       // If the training session was found, construct delete confirmation
       // page for the training session
