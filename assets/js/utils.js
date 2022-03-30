@@ -75,112 +75,6 @@ export function getSignedInAccount() {
 }
 
 
-/* SIGNED-IN HEADER */
-
-export function setUpSignedInHeader(account) {
-  /* Remove sign-in nav link in header, add div with the account's
-  name and a sign-out button. */
-
-  let headerNavContainer = document.querySelector('header nav .container');
-
-  let navLinks = headerNavContainer.querySelectorAll('ul > li');
-  navLinks[navLinks.length - 1].remove();
-
-  let accountDiv = document.createElement('div');
-  accountDiv.classList.add('account');
-
-  let fullName = document.createElement('span');
-  fullName.textContent = account.firstName + " " + account.lastName;
-
-  let signOut = document.createElement('button');
-  signOut.type = 'button';
-  signOut.id = 'sign-out-btn';
-  signOut.textContent = 'Salir';
-
-  signOut.addEventListener('click', function (event) {
-    sessionStorage.clear();
-    window.location.assign('/');
-  });
-
-  accountDiv.appendChild(fullName);
-  accountDiv.appendChild(signOut);
-
-  headerNavContainer.appendChild(accountDiv);
-}
-
-
-/* STATUS MESSAGES */
-
-export function addStatusMessage(alertType, paragraphs) {
-  /* Add status message to the top of the page. */
-
-  let statusMessages = document.getElementById('status-messages');
-
-  let statusMessage = document.createElement('div');
-  statusMessage.classList.add('alert', alertType);
-
-  let closeButton = document.createElement('span');
-  closeButton.innerHTML = '&#x2715;'
-  closeButton.classList.add('close');
-  closeButton.setAttribute('aria-label', 'Cerrar esta alerta');
-
-  statusMessage.appendChild(closeButton);
-
-  for (let text of paragraphs) {
-    let paragraph = document.createElement('p');
-    paragraph.textContent = text;
-
-    statusMessage.appendChild(paragraph);
-  }
-
-  statusMessages.prepend(statusMessage);
-
-  closeButton.addEventListener('click', function (event) {
-    this.parentElement.remove();
-  });
-}
-
-
-export function clearStatusMessages() {
-  /* Clear all status messages from the top of the page. */
-
-  let statusMessages = document.getElementById('status-messages');
-
-  while (statusMessages.firstChild) {
-    statusMessages.removeChild(statusMessages.firstChild);
-  }
-}
-
-
-export function addPendingStatusMessage() {
-  /* Add pending status message from sessionStorage then clear it. */
-
-  let statusMessage = JSON.parse(sessionStorage.getItem('pendingStatus'));
-
-  if (statusMessage) {
-    if (statusMessage.alertType && statusMessage.paragraphs) {
-      addStatusMessage(statusMessage.alertType, statusMessage.paragraphs);
-    }
-  }
-
-  sessionStorage.removeItem('pendingStatus');
-}
-
-
-export function setPendingStatusMessage(alertType, paragraphs) {
-  /* Set pending status message in sessionStorage. */
-
-  if (alertType && paragraphs && paragraphs.length > 0) {
-    let status = {
-      alertType: alertType,
-      paragraphs: paragraphs,
-    };
-
-    sessionStorage.setItem('pendingStatus', JSON.stringify(status));
-  }
-}
-
-
 /* TRAINING SESSIONS */
 
 export async function getTrainingSessionsJSON() {
@@ -326,10 +220,10 @@ export function createTrainingSessionObject(id, accountEmail, data) {
     accountEmail: accountEmail,
     date: data.date,
     time: data.time,
-    shortTitle: data.shortTitle ? data.shortTitle : "",
+    shortTitle: data.shortTitle ? data.shortTitle : '',
     duration: null,
     bodyweight: null,
-    comments: data.comments ? data.comments : "",
+    comments: data.comments ? data.comments : '',
     exercises: [],
   };
 
@@ -465,20 +359,6 @@ export function getTrainingSession(id) {
 }
 
 
-export function getTrainingSessionFullTitle(session) {
-  /* Get the full title of the given training session by combining its
-  date, time, and short title if present. */
-
-  let title = session.date + ' ' + session.time;
-
-  if (session.shortTitle) {
-    title += ' ' + NDASH + ' ' + session.shortTitle;
-  }
-
-  return title;
-}
-
-
 export function deleteTrainingSession(id) {
   /* Delete the given training session with the given ID if it belongs
   to the signed-in account and return whether the operation succeeded. */
@@ -500,6 +380,137 @@ export function deleteTrainingSession(id) {
   }
 
   return false;
+}
+
+
+export function getTrainingSessionFullTitle(session) {
+  /* Get the full title of the given training session by combining its
+  date, time, and short title if present. */
+
+  let title = session.date + NBSP + session.time;
+
+  if (session.shortTitle) {
+    title += ' ' + NDASH + ' ' + session.shortTitle;
+  }
+
+  return title;
+}
+
+
+/* SIGNED-IN HEADER */
+
+export function setUpSignedInHeader(account) {
+  /* Modify header for the signed-in account. */
+
+  let navbarCollapse = document.querySelector('header nav .navbar-collapse');
+
+  // Remove last nav link (sign-in link)
+  let navLinks = navbarCollapse.querySelectorAll('li.nav-item');
+  navLinks[navLinks.length - 1].remove();
+
+  // Account name and sign-out link container
+  let accountDiv = document.createElement('div');
+  accountDiv.classList.add('d-flex');
+
+  // Account name
+  let fullName = document.createElement('span');
+  fullName.classList.add('navbar-text', 'me-2');
+  fullName.textContent = account.firstName + ' ' + account.lastName;
+
+  // Sign-out link
+  let signOut = document.createElement('button');
+  signOut.type = 'button';
+  signOut.textContent = 'Salir';
+  signOut.classList.add('btn', 'btn-outline-primary', 'btn-sm');
+
+  signOut.addEventListener('click', function (event) {
+    sessionStorage.clear();
+    window.location.assign('/');
+  });
+
+  // Add items to navbar
+  accountDiv.appendChild(fullName);
+  accountDiv.appendChild(signOut);
+
+  navbarCollapse.appendChild(accountDiv);
+}
+
+
+/* STATUS MESSAGES */
+
+export function addStatusMessage(alertType, paragraphs) {
+  /* Add status message to the top of the page. */
+
+  let statusMessages = document.getElementById('status-messages');
+
+  // Status message alert
+  let statusMessage = document.createElement('div');
+  statusMessage.classList.add(
+      'alert', alertType, 'my-3', 'alert-dismissible', 'fade', 'show');
+  statusMessage.setAttribute('role', 'alert');
+
+  // Message paragraphs
+  for (let text of paragraphs) {
+    let paragraph = document.createElement('p');
+    paragraph.textContent = text;
+
+    statusMessage.appendChild(paragraph);
+  }
+
+  // Remove bottom margin of last paragraph
+  statusMessage.lastChild.classList.add('mb-0');
+
+  // Close button
+  let closeButton = document.createElement('button');
+  closeButton.type = 'button';
+  closeButton.classList.add('btn-close');
+  closeButton.dataset.bsDismiss = 'alert';
+  closeButton.ariaLabel = 'Cerrar';
+
+  statusMessage.appendChild(closeButton);
+
+  // Add alert to status area
+  statusMessages.prepend(statusMessage);
+}
+
+
+export function clearStatusMessages() {
+  /* Clear all status messages from the top of the page. */
+
+  let statusMessages = document.getElementById('status-messages');
+
+  while (statusMessages.firstChild) {
+    statusMessages.removeChild(statusMessages.firstChild);
+  }
+}
+
+
+export function setPendingStatusMessage(alertType, paragraphs) {
+  /* Set pending status message in sessionStorage. */
+
+  if (alertType && paragraphs && paragraphs.length > 0) {
+    let status = {
+      alertType: alertType,
+      paragraphs: paragraphs,
+    };
+
+    sessionStorage.setItem('pendingStatus', JSON.stringify(status));
+  }
+}
+
+
+export function addPendingStatusMessage() {
+  /* Add pending status message from sessionStorage then clear it. */
+
+  let statusMessage = JSON.parse(sessionStorage.getItem('pendingStatus'));
+
+  if (statusMessage) {
+    if (statusMessage.alertType && statusMessage.paragraphs) {
+      addStatusMessage(statusMessage.alertType, statusMessage.paragraphs);
+    }
+  }
+
+  sessionStorage.removeItem('pendingStatus');
 }
 
 

@@ -9,10 +9,10 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 15, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""},
+            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 15, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 15], "comments": ""}
         ]
     },
@@ -26,13 +26,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 5], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 5], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -46,14 +46,14 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "warmup", "weight": 10, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "warmup", "weight": 17.5, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "warmup", "weight": 10, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Bench press", "setType": "warmup", "weight": 17.5, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}
         ]
     },
@@ -67,13 +67,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 5, "reps": [5, 6, 5, 4, 3], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 5, "reps": [5, 6, 5, 4, 3], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -87,14 +87,14 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Bench press", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 16], "comments": ""}
         ]
     },
@@ -108,12 +108,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 44.5, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -127,12 +127,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 16], "comments": ""}
         ]
     },
@@ -146,13 +146,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 10, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 17.5, "sets": 3, "reps": [5, 5, 22], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 47.5, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -166,13 +166,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 17.5, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""}
         ]
     },
@@ -186,13 +186,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 20, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 20, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 53, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -206,13 +206,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 20], "comments": ""}
         ]
     },
@@ -226,13 +226,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 20, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 20, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 57.5, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -246,12 +246,12 @@
         "bodyweight": 67,
         "comments": "Squat work cut short because Sergio had to leave.",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [5], "comments": ""}
         ]
     },
@@ -265,13 +265,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [6], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 23, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 45, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [6], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 6], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 23, "sets": 3, "reps": [5, 5, 12], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 30, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 45, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 63, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -285,12 +285,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 13], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 13], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 12], "comments": ""}
         ]
     },
@@ -304,13 +304,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 7], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 23, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 7], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 23, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 63, "sets": 3, "reps": [5, 6, 10], "comments": ""}
         ]
     },
@@ -324,12 +324,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 16], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 16], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 35, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 35, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 20], "comments": ""}
         ]
     },
@@ -343,13 +343,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 25, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 25, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 63, "sets": 3, "reps": [5, 5, 11], "comments": ""}
         ]
     },
@@ -363,13 +363,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Pullup", "setType": "warmup", "weight": null, "sets": 1, "reps": [10], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 12], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 20], "comments": ""}
         ]
     },
@@ -383,13 +383,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 25, "sets": 3, "reps": [5, 5, 16], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 25, "sets": 3, "reps": [5, 5, 16], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 68, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -403,12 +403,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 16], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 16], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 20], "comments": ""}
         ]
     },
@@ -422,13 +422,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 68, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -442,12 +442,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 11], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 18], "comments": ""}
         ]
     },
@@ -461,13 +461,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 4, "reps": [6, 5, 6, 3], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 4, "reps": [6, 5, 6, 3], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 68, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -481,12 +481,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 38, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 38, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 48, "sets": 3, "reps": [5, 5, 20], "comments": ""}
         ]
     },
@@ -500,13 +500,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 28, "sets": 3, "reps": [5, 5, 11], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 68, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -520,12 +520,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [12, 12], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 11], "comments": ""},
+            {"exercise": "Pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [12, 12], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 50, "sets": 3, "reps": [5, 5, 15], "comments": ""}
         ]
     },
@@ -539,13 +539,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 8], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -559,12 +559,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 50, "sets": 3, "reps": [5, 5, 18], "comments": ""}
         ]
     },
@@ -578,13 +578,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row*", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row*", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row*", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row*", "setType": "work", "weight": 40, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 30, "sets": 3, "reps": [5, 5, 9], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -598,12 +598,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 12], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 53, "sets": 3, "reps": [5, 5, 15], "comments": ""}
         ]
     },
@@ -617,13 +617,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 10], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 33, "sets": 3, "reps": [5, 5, 5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 10], "comments": ""},
             {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [8], "comments": ""}
         ]
     },
@@ -637,12 +637,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 12], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 43, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 55, "sets": 3, "reps": [5, 5, 15], "comments": ""}
         ]
     },
@@ -656,12 +656,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -675,10 +675,10 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
             {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 1, "reps": [5], "comments": ""}
         ]
     },
@@ -692,12 +692,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 18], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 18], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 58, "sets": 3, "reps": [5, 5, 12], "comments": ""}
         ]
     },
@@ -711,12 +711,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 40, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -730,12 +730,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 20], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 11], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 20], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 58, "sets": 3, "reps": [5, 5, 15], "comments": ""}
         ]
     },
@@ -749,12 +749,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 9], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -768,12 +768,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 9], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 22], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 60, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -787,13 +787,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 4, "reps": [5, 5, 11, 6], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Hanging scapula retraction", "setType": "warmup", "weight": null, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 4, "reps": [5, 5, 11, 6], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 11], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -807,12 +807,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 22], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 22], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 60, "sets": 3, "reps": [5, 5, 15], "comments": ""}
         ]
     },
@@ -826,13 +826,13 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row*", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 11], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""}, 
-            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row*", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 11], "comments": ""},
+            {"exercise": "Overhead press", "setType": "warmup", "weight": 20, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Overhead press", "setType": "work", "weight": 31.4, "sets": 3, "reps": [5, 5, 12], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 50, "sets": 1, "reps": [5], "comments": ""},
+            {"exercise": "Deadlift", "setType": "warmup", "weight": 60, "sets": 1, "reps": [5], "comments": ""},
             {"exercise": "Deadlift", "setType": "work", "weight": 70, "sets": 3, "reps": [5, 5, 10], "comments": ""}
         ]
     },
@@ -846,12 +846,12 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 48, "sets": 3, "reps": [5, 5, 8], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 48, "sets": 3, "reps": [5, 5, 12], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 48, "sets": 3, "reps": [5, 5, 8], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 48, "sets": 3, "reps": [5, 5, 12], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 40, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 60, "sets": 3, "reps": [5, 5, 18], "comments": ""}
         ]
     },
@@ -865,7 +865,7 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [8], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [8], "comments": ""},
             {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [8], "comments": ""}
         ]
     },
@@ -879,14 +879,14 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 7], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 10], "comments": ""}, 
-            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""}, 
-            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 15], "comments": ""}, 
-            {"exercise": "Squat", "setType": "warmup", "weight": 45, "sets": 2, "reps": [5, 5], "comments": ""}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 3, "reps": [5, 5, 7], "comments": ""},
+            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Molding Mobility warmup", "setType": "warmup", "weight": null, "sets": 0, "reps": [], "comments": ""},
+            {"exercise": "Barbell row", "setType": "warmup", "weight": 30, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Barbell row", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 10], "comments": ""},
+            {"exercise": "Decline pushup", "setType": "warmup", "weight": null, "sets": 2, "reps": [10, 10], "comments": ""},
+            {"exercise": "Bench press", "setType": "work", "weight": 45, "sets": 3, "reps": [5, 5, 15], "comments": ""},
+            {"exercise": "Squat", "setType": "warmup", "weight": 45, "sets": 2, "reps": [5, 5], "comments": ""},
             {"exercise": "Squat", "setType": "work", "weight": 55, "sets": 3, "reps": [5, 5, 15], "comments": ""}
         ]
     },
@@ -900,10 +900,10 @@
         "bodyweight": 67,
         "comments": "",
         "exercises": [
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 2, "reps": [5, 5], "comments": ""}, 
-            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 2, "reps": [7, 4], "comments": ""}, 
-            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 20], "comments": "Form must be improved."}, 
-            {"exercise": "Pike pushup", "setType": "work", "weight": null, "sets": 1, "reps": [5], "comments": "Terrible form."}, 
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 2, "reps": [5, 5], "comments": ""},
+            {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 2, "reps": [7, 4], "comments": ""},
+            {"exercise": "Pushup", "setType": "work", "weight": null, "sets": 3, "reps": [10, 10, 20], "comments": "Form must be improved."},
+            {"exercise": "Pike pushup", "setType": "work", "weight": null, "sets": 1, "reps": [5], "comments": "Terrible form."},
             {"exercise": "Pullup", "setType": "work", "weight": null, "sets": 1, "reps": [6], "comments": ""}
         ]
     }

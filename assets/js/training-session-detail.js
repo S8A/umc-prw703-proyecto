@@ -4,10 +4,10 @@ import * as utils from '/assets/js/utils.js';
 function constructTrainingSessionDetailsPage(session) {
   /* Construct detail page with the given training session's data. */
 
-  let mainContainer = document.querySelector('main > .training-session');
+  let container = document.querySelector('#training-session-detail');
 
   // Title
-  let mainTitle = mainContainer.querySelector('h1#main-title');
+  let mainTitle = container.querySelector('h1#main-title');
   let fullTitle = utils.getTrainingSessionFullTitle(session);
   mainTitle.textContent = fullTitle;
 
@@ -17,22 +17,21 @@ function constructTrainingSessionDetailsPage(session) {
     + ' 8A Training';
 
   // Remove #empty-text element
-  let emptyText = mainContainer.querySelector('p#empty-text');
-  mainContainer.removeChild(emptyText);
+  let emptyText = container.querySelector('p#empty-text');
+  container.removeChild(emptyText);
 
   // Main buttons
   let mainButtons = document.createElement('div');
   mainButtons.id = 'main-buttons';
+  mainButtons.classList.add('py-3', 'text-center');
 
   let editButton = document.createElement('a');
-  editButton.classList.add('btn');
-  editButton.id = 'edit-btn';
+  editButton.classList.add('btn', 'btn-primary', 'mx-2');
   editButton.href = '/historial/modificar.html?id=' + session.id;
   editButton.textContent = 'Modificar sesión';
 
   let deleteButton = document.createElement('a');
-  deleteButton.classList.add('btn');
-  deleteButton.id = 'delete-btn'
+  deleteButton.classList.add('btn', 'btn-danger');
   deleteButton.href = '/historial/eliminar.html?id=' + session.id;
   deleteButton.textContent = 'Eliminar sesión';
 
@@ -59,7 +58,7 @@ function constructTrainingSessionDetailsPage(session) {
   exercisesTitle.textContent = 'Ejercicios';
 
   let exercisesDiv = document.createElement('div');
-  exercisesDiv.classList.add('exercises');
+  exercisesDiv.classList.add('table-responsive');
 
   let exercisesTable = createExercisesTable(session.exercises);
   exercisesDiv.appendChild(exercisesTable);
@@ -68,9 +67,9 @@ function constructTrainingSessionDetailsPage(session) {
   exercisesSection.appendChild(exercisesDiv);
 
   // Put everything together
-  mainContainer.appendChild(mainButtons);
-  mainContainer.appendChild(basicDataSection);
-  mainContainer.appendChild(exercisesSection);
+  container.appendChild(mainButtons);
+  container.appendChild(basicDataSection);
+  container.appendChild(exercisesSection);
 }
 
 
@@ -78,9 +77,11 @@ function createBasicDataList(session) {
   /* Create basic data list with the given training session data. */
 
   let basicDataList = document.createElement('ul');
+  basicDataList.classList.add('list-group', 'mb-5');
 
   // Date and time
   let datetimeListItem = document.createElement('li');
+  datetimeListItem.classList.add('list-group-item');
 
   let datetimeLabel = document.createElement('b');
   datetimeLabel.textContent = 'Fecha y hora:';
@@ -91,6 +92,7 @@ function createBasicDataList(session) {
 
   // Short title
   let shortTitleListItem = document.createElement('li');
+  shortTitleListItem.classList.add('list-group-item');
 
   let shortTitleLabel = document.createElement('b');
   shortTitleLabel.textContent = 'Título breve:';
@@ -101,6 +103,7 @@ function createBasicDataList(session) {
 
   // Duration
   let durationListItem = document.createElement('li');
+  durationListItem.classList.add('list-group-item');
 
   let durationLabel = document.createElement('b');
   durationLabel.textContent = 'Duración de la sesión:';
@@ -114,6 +117,7 @@ function createBasicDataList(session) {
 
   // Bodyweight
   let bodyweightListItem = document.createElement('li');
+  bodyweightListItem.classList.add('list-group-item');
 
   let bodyweightLabel = document.createElement('b');
   bodyweightLabel.textContent = 'Peso corporal:';
@@ -127,6 +131,7 @@ function createBasicDataList(session) {
 
   // Comments
   let commentsListItem = document.createElement('li');
+  commentsListItem.classList.add('list-group-item');
 
   let commentsLabel = document.createElement('b');
   commentsLabel.textContent = 'Comentarios:';
@@ -150,6 +155,7 @@ function createExercisesTable(exercises) {
   /* Create table with the given exercise items. */
 
   let table = document.createElement('table');
+  table.classList.add('table', 'table-striped', 'table-hover');
 
   // Table head
   let thead = document.createElement('thead');
@@ -164,6 +170,7 @@ function createExercisesTable(exercises) {
 
   for (let header of headers) {
     let th = document.createElement('th');
+    th.classList.add('px-2');
     th.textContent = header;
     thead.appendChild(th);
   }
@@ -176,9 +183,11 @@ function createExercisesTable(exercises) {
     let tr = document.createElement('tr');
 
     let exercise = document.createElement('td');
+    exercise.classList.add('px-2');
     exercise.textContent = item.exercise;
 
     let setType = document.createElement('td');
+    setType.classList.add('px-2');
     if (item.setType === 'work') {
       setType.textContent = 'Trabajo';
     } else if (item.setType === 'warmup') {
@@ -186,7 +195,7 @@ function createExercisesTable(exercises) {
     }
 
     let weight = document.createElement('td');
-    weight.classList.add('ta-center');
+    weight.classList.add('px-2');
     weight.textContent = utils.NDASH;
 
     if (item.weight) {
@@ -194,13 +203,15 @@ function createExercisesTable(exercises) {
     }
 
     let sets = document.createElement('td');
-    sets.classList.add('ta-center');
+    sets.classList.add('px-2');
     sets.textContent = item.sets;
 
     let reps = document.createElement('td');
+    reps.classList.add('px-2');
     reps.textContent = item.reps.join(', ');
 
     let comments = document.createElement('td');
+    comments.classList.add('px-2');
     comments.textContent = utils.NDASH;
 
     if (item.comments) {
@@ -230,7 +241,7 @@ window.addEventListener('load', function () {
   if (!signedInAccount) {
     // If not signed-in, set pending info message and redirect to sign-in
     let text = 'Inicie sesión para acceder a su historial de entrenamiento.';
-    utils.setPendingStatusMessage('info', [text]);
+    utils.setPendingStatusMessage('alert-info', [text]);
     window.location.assign('/iniciar-sesion.html?next=/historial/');
     return;
   } else {
@@ -257,7 +268,7 @@ window.addEventListener('load', function () {
       let text = 'La sesión de entrenamiento solicitada no existe o '
       + 'no pertenece a su cuenta.';
       utils.clearStatusMessages();
-      utils.addStatusMessage('error', [text]);
+      utils.addStatusMessage('alert-danger', [text]);
     } else {
       // If the training session was found, construct detail page
       constructTrainingSessionDetailsPage(session);

@@ -169,7 +169,7 @@ window.addEventListener( "load", function () {
     event.preventDefault();
 
     let statusText = '';
-    let statusType = 'error'
+    let statusType = 'alert-danger'
 
     if (form.checkValidity()) {
       // If form is valid, try to create account with the given data
@@ -178,7 +178,7 @@ window.addEventListener( "load", function () {
 
       if (accountCreated) {
         // If the account was created, create pending success message
-        statusType = 'success';
+        statusType = 'alert-success';
         statusText = 'Cuenta creada exitosamente. Puede iniciar sesión.';
         utils.setPendingStatusMessage(statusType, [statusText]);
 
@@ -195,6 +195,9 @@ window.addEventListener( "load", function () {
       // If the form is not valid
       statusText = 'Corrija los errores en los datos ingresados.';
     }
+
+    // Add .was-validated to form if it wasn't already
+    form.classList.add('was-validated');
 
     // Clear status area and add appropriate error message
     utils.clearStatusMessages();

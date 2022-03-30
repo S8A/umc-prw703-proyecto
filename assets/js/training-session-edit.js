@@ -8,7 +8,7 @@ window.addEventListener('load', function () {
   if (!signedInAccount) {
     // If not signed-in, set pending info message and redirect to sign-in
     let text = 'Inicie sesión para gestionar sus sesiones de entrenamiento.';
-    utils.setPendingStatusMessage('info', [text]);
+    utils.setPendingStatusMessage('alert-info', [text]);
     window.location.assign('/iniciar-sesion.html?next=/historial/');
     return;
   } else {
@@ -35,7 +35,7 @@ window.addEventListener('load', function () {
       let text = 'La sesión de entrenamiento solicitada no existe o '
       + 'no pertenece a su cuenta.';
       utils.clearStatusMessages();
-      utils.addStatusMessage('error', [text]);
+      utils.addStatusMessage('alert-danger', [text]);
     } else {
       // If the training session was found, construct edit form page with
       // the training session's data
@@ -56,9 +56,10 @@ window.addEventListener('load', function () {
 
       form.addEventListener('submit', function (event) {
         event.preventDefault();
+        event.stopPropagation();
 
         let statusText = '';
-        let statusType = 'error';
+        let statusType = 'alert-danger';
 
         if (form.checkValidity()) {
           // If form is valid, extract data from form fields and try to
@@ -68,7 +69,7 @@ window.addEventListener('load', function () {
 
           if (session) {
             // If the training session was updated, set pending success message
-            statusType = 'success';
+            statusType = 'alert-success';
             statusText = 'Sesión de entrenamiento modificada exitosamente.'
             utils.setPendingStatusMessage(statusType, [statusText]);
 
@@ -84,6 +85,9 @@ window.addEventListener('load', function () {
           // If the form is not valid
           statusText = 'Corrija los errores en los datos ingresados.';
         }
+
+        // Add .was-validated to form if it wasn't already
+        form.classList.add('was-validated');
 
         // Clear status area and add appropriate error message
         utils.clearStatusMessages();
