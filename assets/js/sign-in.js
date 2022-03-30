@@ -86,6 +86,7 @@ window.addEventListener( "load", function () {
   // Add event listener for form submission
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+    event.stopPropagation();
 
     let statusText = '';
 
@@ -130,8 +131,11 @@ window.addEventListener( "load", function () {
       statusText = 'Corrija los errores en los datos ingresados.';
     }
 
+    // Add .was-validated to form if it wasn't already
+    form.classList.add('was-validated');
+
     // Clear status area and add appropriate error message
     utils.clearStatusMessages();
-    utils.addStatusMessage('error', [statusText]);
+    utils.addStatusMessage('alert-danger', [statusText]);
   });
 });
