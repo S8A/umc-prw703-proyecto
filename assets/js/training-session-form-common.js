@@ -1156,7 +1156,7 @@ function createWeightTd(rowNumber, value) {
   weight.min = 0;
   weight.step = 0.01;
 
-  if (value) {
+  if (value !== null || value !== undefined) {
     weight.value = value;
   }
 
@@ -1195,7 +1195,7 @@ function createSetsTd(rowNumber, value) {
   sets.step = 1;
   sets.required = true;
 
-  if (value) {
+  if (value !== null || value !== undefined) {
     sets.value = value;
   }
 
@@ -1259,7 +1259,7 @@ function createRepsDiv(rowNumber, setNumber, value) {
   reps.step = 1;
   reps.required = true;
 
-  if (value) {
+  if (value !== null || value !== undefined) {
     reps.value = value;
   }
 
