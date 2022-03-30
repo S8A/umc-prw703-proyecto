@@ -219,8 +219,8 @@ function addPagination(date, numPages, currentPage) {
 
   // Pagination list
   let paginationList = document.querySelector('nav#pagination ul.pagination');
-  
-  // Previous page
+
+  // Previous page link
   if (previousPage) {
     let previous = document.createElement('li');
     previous.classList.add('page-item');
@@ -237,7 +237,7 @@ function addPagination(date, numPages, currentPage) {
     paginationList.appendChild(previous);
   }
 
-  // Page numbers
+  // Page numbers' links
   for (let page = 1; page <= numPages; page++) {
     let pageItem = document.createElement('li');
     pageItem.classList.add('page-item');
@@ -258,7 +258,7 @@ function addPagination(date, numPages, currentPage) {
     paginationList.appendChild(pageItem);
   }
 
-  // Next page
+  // Next page link
   if (nextPage) {
     let next = document.createElement('li');
     next.classList.add('page-item');
