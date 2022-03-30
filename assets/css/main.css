@@ -55,7 +55,7 @@ h3 {
 }
 
 h4 {
-    font-size: 1.25rem; 
+    font-size: 1.25rem;
 }
 
 a {
@@ -377,14 +377,14 @@ header .account > span {
         justify-content: space-between;
         flex-wrap: wrap;
     }
-    
+
     header nav ul {
         display: inline-block;
         list-style: none;
         margin: 0;
         padding: 0;
     }
-    
+
     header nav ul li {
         display: inline-block;
         margin: 0 0.5rem;
