@@ -1,7 +1,7 @@
 import * as utils from '/assets/js/utils.js';
 
 
-function populateTrainingSessionDetails(session) {
+function constructTrainingSessionDetailsPage(session) {
   /* Construct detail page with the given training session's data. */
 
   let mainContainer = document.querySelector('main > .training-session');
@@ -10,6 +10,8 @@ function populateTrainingSessionDetails(session) {
   let mainTitle = mainContainer.querySelector('h1#main-title');
   let fullTitle = utils.getTrainingSessionFullTitle(session);
   mainTitle.textContent = fullTitle;
+
+  // Page title
   document.title =
     'Sesión de entrenamiento: ' + fullTitle + ' ' + utils.NDASH
     + ' 8A Training';
@@ -24,16 +26,18 @@ function populateTrainingSessionDetails(session) {
 
   let editButton = document.createElement('a');
   editButton.classList.add('btn');
+  editButton.id = 'edit-btn';
   editButton.href = '/historial/modificar.html?id=' + session.id;
   editButton.textContent = 'Modificar sesión';
 
-  let removeButton = document.createElement('a');
-  removeButton.classList.add('btn');
-  removeButton.href = '/historial/eliminar.html?id=' + session.id;
-  removeButton.textContent = 'Eliminar sesión';
+  let deleteButton = document.createElement('a');
+  deleteButton.classList.add('btn');
+  deleteButton.id = 'delete-btn'
+  deleteButton.href = '/historial/eliminar.html?id=' + session.id;
+  deleteButton.textContent = 'Eliminar sesión';
 
   mainButtons.appendChild(editButton);
-  mainButtons.appendChild(removeButton);
+  mainButtons.appendChild(deleteButton);
 
   // Basic data
   let basicDataSection = document.createElement('section');
@@ -63,7 +67,7 @@ function populateTrainingSessionDetails(session) {
   exercisesSection.appendChild(exercisesTitle);
   exercisesSection.appendChild(exercisesDiv);
 
-  // Putting everything together
+  // Put everything together
   mainContainer.appendChild(mainButtons);
   mainContainer.appendChild(basicDataSection);
   mainContainer.appendChild(exercisesSection);
@@ -75,6 +79,7 @@ function createBasicDataList(session) {
 
   let basicDataList = document.createElement('ul');
 
+  // Date and time
   let datetimeListItem = document.createElement('li');
 
   let datetimeLabel = document.createElement('b');
@@ -84,6 +89,7 @@ function createBasicDataList(session) {
   let datetime = session.date + ' ' + session.time;
   datetimeListItem.appendChild(document.createTextNode(' ' + datetime));
 
+  // Short title
   let shortTitleListItem = document.createElement('li');
 
   let shortTitleLabel = document.createElement('b');
@@ -93,6 +99,7 @@ function createBasicDataList(session) {
   let shortTitle = session.shortTitle ? session.shortTitle : utils.NDASH;
   shortTitleListItem.appendChild(document.createTextNode(' ' + shortTitle));
 
+  // Duration
   let durationListItem = document.createElement('li');
 
   let durationLabel = document.createElement('b');
@@ -105,6 +112,7 @@ function createBasicDataList(session) {
   }
   durationListItem.appendChild(document.createTextNode(' ' + duration));
 
+  // Bodyweight
   let bodyweightListItem = document.createElement('li');
 
   let bodyweightLabel = document.createElement('b');
@@ -117,6 +125,7 @@ function createBasicDataList(session) {
   }
   bodyweightListItem.appendChild(document.createTextNode(' ' + bodyweight));
 
+  // Comments
   let commentsListItem = document.createElement('li');
 
   let commentsLabel = document.createElement('b');
@@ -126,6 +135,7 @@ function createBasicDataList(session) {
   let comments = session.comments ? session.comments : utils.NDASH;
   commentsListItem.appendChild(document.createTextNode(' ' + comments));
 
+  // Add to list
   basicDataList.appendChild(datetimeListItem);
   basicDataList.appendChild(shortTitleListItem);
   basicDataList.appendChild(durationListItem);
@@ -141,6 +151,7 @@ function createExercisesTable(exercises) {
 
   let table = document.createElement('table');
 
+  // Table head
   let thead = document.createElement('thead');
   let headers = [
     'Ejercicio',
@@ -157,9 +168,11 @@ function createExercisesTable(exercises) {
     thead.appendChild(th);
   }
 
+  // Table body
   let tbody = document.createElement('tbody');
 
   for (let item of exercises) {
+    // For each exercise item, create a table row and append it to table body
     let tr = document.createElement('tr');
 
     let exercise = document.createElement('td');
@@ -246,8 +259,8 @@ window.addEventListener('load', function () {
       utils.clearStatusMessages();
       utils.addStatusMessage('error', [text]);
     } else {
-      // If the training session was found, populate page with data
-      populateTrainingSessionDetails(session);
+      // If the training session was found, construct detail page
+      constructTrainingSessionDetailsPage(session);
     }
 
     // Add pending status message to page
