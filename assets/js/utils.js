@@ -146,7 +146,7 @@ export function createTrainingSession(data) {
       // append it to the list, store it, and return the object
       let sessions = getAllTrainingSessions();
 
-      if (sessions) {
+      if (sessions && sessions.length) {
         // If there are training sessions already stored, sort by ID
         // descending, take the first item's ID and increase it by one
         sessions.sort((a, b) => Number(b.id) - Number(a.id));
