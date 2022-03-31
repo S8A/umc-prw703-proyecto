@@ -10,9 +10,13 @@ import {
 
 import {
   getFirestore,
+  collection,
   doc,
+  getDocs,
   setDoc
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
+
+import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
 
 
 'use strict';
@@ -120,3 +124,71 @@ export async function signInUser(
   .then((userCredential) => successCallback(userCredential))
   .catch((error) => errorCallback(error));
 }
+
+
+/* TRAINING SESSIONS */
+
+/**
+ * Firestore data converter for the TrainingSession class.
+ */
+const trainingSessionConverter = {
+  toFirestore: (trainingSession) => {
+    return {
+      date: trainingSession.date,
+      time: trainingSession.time,
+      exercises: trainingSession.exercises,
+      shortTitle: trainingSession.shortTitle,
+      duration: trainingSession.duration,
+      bodyweight: trainingSession.bodyweight,
+      comments: trainingSession.comments,
+    };
+  },
+  fromFirestore: (snapshot, options) => {
+    const data = snapshot.data(options);
+    const exercisesSnapshot = await getDocs(
+        collection(data.ref, 'exercises').withConverter(exerciseItemConverter));
+
+    // TODO: Need to explicitly convert each item?
+    // const exercises = exercisesSnapshot.docs.map(documentSnapshot => {
+    //     return exerciseItemConverter.fromFirestore(documentSnapshot, options);
+    // });
+
+    return new TrainingSession(
+        data.date,
+        data.time,
+        exercisesSnapshot.docs,
+        data.shortTitle,
+        data.duration,
+        data.bodyweight,
+        data.comments
+    );
+  }
+}
+
+
+/**
+ * Firestore data converter for the ExerciseItem class.
+ */
+ const exerciseItemConverter = {
+  toFirestore: (exerciseItem) => {
+    return {
+      exercise: exerciseItem.exercise,
+      setType: exerciseItem.setType.name,
+      sets: exerciseItem.sets,
+      reps: exerciseItem.reps,
+      weight: exerciseItem.weight,
+      comments: exerciseItem.comments,
+    };
+  },
+  fromFirestore: (snapshot, options) => {
+    const data = snapshot.data(options);
+    return new ExerciseItem(
+      data.exercise,
+      data.setType,
+      data.reps,
+      data.weight,
+      data.coments
+    );
+  }
+}
+
