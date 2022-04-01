@@ -1,8 +1,11 @@
 import * as utils from '/assets/js/utils.js';
 
 
+/**
+ * Show feedback if the email field's input is invalid.
+ * @param {HTMLInputElement} email - input element.
+ */
 function showEmailError(email) {
-  /* Show feedback if the email field's input is invalid. */
 
   let feedback = utils.getInvalidFeedbackElement(email);
 
@@ -18,8 +21,11 @@ function showEmailError(email) {
 }
 
 
+/**
+ * Show feedback if the password field's input is invalid.
+ * @param {HTMLInputElement} password - input element.
+ */
 function showPasswordError(password) {
-  /* Show feedback if the password field's input is invalid. */
 
   let feedback = utils.getInvalidFeedbackElement(password);
 

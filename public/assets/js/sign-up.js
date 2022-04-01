@@ -2,8 +2,11 @@ import * as utils from './utils.js';
 import { auth, createUser } from './firebase.js';
 
 
+/**
+ * Show feedback if the email field's input is invalid.
+ * @param {HTMLInputElement} email - Email input element.
+ */
 function showEmailError(email) {
-  /* Show feedback if the email field's input is invalid. */
 
   let feedback = utils.getInvalidFeedbackElement(email);
 
@@ -19,8 +22,11 @@ function showEmailError(email) {
 }
 
 
+/**
+ * Show feedback if the first name field's input is invalid.
+ * @param {HTMLInputElement} firstName - First name input element.
+ */
 function showFirstNameError(firstName) {
-  /* Show feedback if the first name field's input is invalid. */
 
   let feedback = utils.getInvalidFeedbackElement(firstName);
 
@@ -36,8 +42,11 @@ function showFirstNameError(firstName) {
 }
 
 
+/**
+ * Show feedback if the last name field's input is invalid.
+ * @param {HTMLInputElement} lastName - Last name input element.
+ */
 function showLastNameError(lastName) {
-  /* Show feedback if the last name field's input is invalid. */
 
   let feedback = utils.getInvalidFeedbackElement(lastName);
 
@@ -53,8 +62,11 @@ function showLastNameError(lastName) {
 }
 
 
+/**
+ * Show feedback if the password field's input is invalid.
+ * @param {HTMLInputElement} password - Password input element.
+ */
 function showPasswordError(password) {
-  /* Show feedback if the password field's input is invalid. */
 
   let feedback = utils.getInvalidFeedbackElement(password);
 
@@ -72,9 +84,13 @@ function showPasswordError(password) {
 }
 
 
+/**
+ * Check that the confirm password field's input matches the password
+ * field's input, and update feedback accordingly.
+ * @param {HTMLInputElement} password - Password input element.
+ * @param {HTMLInputElement} confirm - Confirm password input element.
+ */
 function checkConfirmPassword(password, confirm) {
-  /* Check that the confirm password field's input matches the
-  password field's input, and updates feedback accordingly. */
 
   let feedback = utils.getInvalidFeedbackElement(confirm);
 
