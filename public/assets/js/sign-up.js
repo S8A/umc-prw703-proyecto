@@ -138,9 +138,7 @@ window.addEventListener( "load", function () {
       );
 
       // Set up header
-      utils.setUpSignedInHeader(user).then(() => {
-        console.log('set up');
-      });
+      utils.setUpSignedInHeader(user);
     }
   });
 
