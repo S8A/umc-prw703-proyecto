@@ -14,6 +14,7 @@ import {
   connectFirestoreEmulator,
   collection,
   doc,
+  getDoc,
   getDocs,
   QueryDocumentSnapshot,
   serverTimestamp,
@@ -91,6 +92,17 @@ export async function createUser(email, firstName, lastName, password) {
  */
 export async function signInUser(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
+}
+
+
+/**
+ * Gets the given user's data from their corresponding document in the
+ * users collection.
+ * @param {User} user - User whose data will be looked up.
+ * @returns {Promise} Promise of snapshot of the document's data.
+ */
+export async function getUserDoc(user) {
+  return getDoc(doc(db, 'users', user.uid));
 }
 
 
