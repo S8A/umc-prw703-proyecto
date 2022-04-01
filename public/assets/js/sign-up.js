@@ -106,25 +106,43 @@ function checkConfirmPassword(password, confirm) {
 
 
 window.addEventListener( "load", function () {
-  // Set up authentication state observer
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      // If user is signed in, redirect to home page
-      window.location.assign('/');
-    }
-  });
-
   // Add pending status message to page
   utils.addPendingStatusMessage();
 
-  // Get form and fields
-  let form = document.querySelector('form#signup-form');
+  // Get form, fields and submit button
+  const form = document.querySelector('form#signup-form');
 
-  let email = form.querySelector('input[type="email"]#email');
-  let firstName = form.querySelector('input[type="text"]#first-name');
-  let lastName = form.querySelector('input[type="text"]#last-name');
-  let password = form.querySelector('input[type="password"]#password');
-  let confirm = form.querySelector('input[type="password"]#confirm-password');
+  const email = form.querySelector('input[type="email"]#email');
+  const firstName = form.querySelector('input[type="text"]#first-name');
+  const lastName = form.querySelector('input[type="text"]#last-name');
+  const password = form.querySelector('input[type="password"]#password');
+  const confirm = form.querySelector('input[type="password"]#confirm-password');
+
+  const submit = form.querySelector('button[type="submit"]');
+
+  // Set up authentication state observer
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // If user is signed in, disable form fields and submit button
+      email.disabled = true;
+      firstName.disabled = true;
+      lastName.disabled = true;
+      password.disabled = true;
+      confirm.disabled = true;
+      submit.disabled = true;
+
+      // Add status message indicating that the user is already signed-up
+      utils.addStatusMessage(
+          'alert-info',
+          ['Usted ya se encuentra registrado.']
+      );
+
+      // Set up header
+      utils.setUpSignedInHeader(user).then(() => {
+        console.log('set up');
+      });
+    }
+  });
 
   // Add event listeners to form fields
   email.addEventListener('invalid', function (event) {
@@ -188,7 +206,7 @@ window.addEventListener( "load", function () {
     if (form.checkValidity()) {
       // If form is valid, try to create account with the given data
       createUser(email.value, firstName.value, lastName.value, password.value)
-      .then((userCredential) => {
+      .then(() => {
         // After the user is successfully created and signed in, and
         // the corresponding user document has been created, set
         // pending success message and redirect to home page
