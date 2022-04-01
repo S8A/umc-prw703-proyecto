@@ -23,13 +23,13 @@ export class TrainingSession {
    * Comments relevant to the training session in general.
    */
   constructor(
-    date,
-    time,
-    exercises,
-    shortTitle = '',
-    duration = null,
-    bodyweight = null,
-    comments = ''
+      date,
+      time,
+      exercises,
+      shortTitle = '',
+      duration = null,
+      bodyweight = null,
+      comments = ''
   ) {
     this.date = date;
     this.time = time;
