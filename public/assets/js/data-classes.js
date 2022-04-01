@@ -9,14 +9,19 @@ import { NBSP } from '/assets/js/utils.js';
 export class TrainingSession {
 
   /**
-  * @param {string} date - Date of the training session in YYYY-MM-DD format.
-  * @param {string} time - Time of the training session in HH:mm format.
-  * @param {ExerciseItem[]} exercises - List of exercises done in the training session, in the order they were done.
-  * @param {string} [shortTitle=''] - Short title for the training session.
-  * @param {?number} [duration=null] - Duration of the training session in minutes.
-  * @param {?number} [bodyweight=null] - Weight of the person at the time of the training session, in kilograms.
-  * @param {string} [comments=''] - Comments relevant to the training session in general.
-  */
+   * @param {string} date - Date of the training session in YYYY-MM-DD format.
+   * @param {string} time - Time of the training session in HH:mm format.
+   * @param {ExerciseItem[]} exercises
+   * List of exercises done in the training session, in the order they were
+   * done.
+   * @param {string} [shortTitle=''] - Short title for the training session.
+   * @param {?number} [duration=null]
+   * Duration of the training session in minutes.
+   * @param {?number} [bodyweight=null]
+   * Weight of the person at the time of the training session, in kilograms.
+   * @param {string} [comments='']
+   * Comments relevant to the training session in general.
+   */
   constructor(
     date,
     time,
@@ -122,13 +127,13 @@ export class TrainingSession {
 export class ExerciseItem {
 
   /**
-  * @param {string} exercise - Name of the exercise.
-  * @param {SetType} setType - Type of exercise sets: work or warmup.
-  * @param {number} sets - Number of sets done.
-  * @param {number[]} reps - List of reps done on each set, in the order they were done.
-  * @param {?number} [weight=null] - Weight used (if any) in kilograms.
-  * @param {string} [comments] - Comments relevant to the exercise sets.
-  */
+   * @param {string} exercise - Name of the exercise.
+   * @param {SetType} setType - Type of exercise sets: work or warmup.
+   * @param {number} sets - Number of sets done.
+   * @param {number[]} reps - List of reps done on each set, in order.
+   * @param {?number} [weight=null] - Weight used (if any) in kilograms.
+   * @param {string} [comments] - Comments relevant to the exercise sets.
+   */
   constructor(exercise, setType, sets, reps, weight = null, comments = '') {
     this.exercise = exercise;
     this.setType = setType;
