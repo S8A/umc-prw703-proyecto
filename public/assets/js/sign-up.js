@@ -1,4 +1,5 @@
-import * as utils from '/assets/js/utils.js';
+import * as utils from './utils.js';
+import { auth, createUser } from './firebase.js';
 
 
 function showEmailError(email) {
@@ -168,39 +169,50 @@ window.addEventListener( "load", function () {
   form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    let statusText = '';
-    let statusType = 'alert-danger'
-
     if (form.checkValidity()) {
       // If form is valid, try to create account with the given data
-      let accountCreated = utils.createAccount(
-          email.value, firstName.value, lastName.value, password.value);
+      createUser(email.value, firstName.value, lastName.value, password.value)
+      .then((userCredential) => {
+        // After the user is successfully created and signed in, and
+        // the corresponding user document has been created, set
+        // pending success message and redirect to home page
+        utils.setPendingStatusMessage(
+          'alert-success',
+          ['Usuario registrado exitosamente.']
+        );
+        window.location.assign('/');
+      })
+      .catch((error) => {
+        // If the user could not be created, show appropriate error message
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(`${errorCode}: ${errorMessage}`);
 
-      if (accountCreated) {
-        // If the account was created, create pending success message
-        statusType = 'alert-success';
-        statusText = 'Cuenta creada exitosamente. Puede iniciar sesión.';
-        utils.setPendingStatusMessage(statusType, [statusText]);
+        let statusText = '';
 
-        // Redirect to sign-in page and end event handler execution
-        window.location.assign('/iniciar-sesion.html');
-        return;
-      } else {
-        // If the account was not created, then email already belongs
-        // to an account
-        statusText =
-            'El correo electrónico ingresado ya está asociado a una cuenta.';
-      }
+        if (errorCode === 'auth/email-already-in-use') {
+          statusText =
+              'El correo electrónico ingresado ya está asociado a '
+              + 'una cuenta.';
+        } else if (errorCode === 'auth/wrong-password') {
+          statusText = 'La contraseña ingresada no es válida.'
+        } else {
+          statusText = `Error inesperado. Código: ${errorCode}`
+        }
+
+        utils.clearStatusMessages();
+        utils.addStatusMessage('alert-danger', [statusText]);
+      });
     } else {
-      // If the form is not valid
-      statusText = 'Corrija los errores en los datos ingresados.';
+      // If the form is not valid, show error message
+      utils.clearStatusMessages();
+      utils.addStatusMessage(
+          'alert-danger',
+          ['Corrija los errores en los datos ingresados.']
+      );
     }
 
     // Add .was-validated to form if it wasn't already
     form.classList.add('was-validated');
-
-    // Clear status area and add appropriate error message
-    utils.clearStatusMessages();
-    utils.addStatusMessage(statusType, [statusText]);
   });
 });
