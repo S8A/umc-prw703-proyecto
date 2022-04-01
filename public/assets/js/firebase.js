@@ -68,7 +68,7 @@ connectFirestoreEmulator(db, 'localhost', 8080);
  * @param {string} password - Password of the new user.
  * @returns {Promise} Promise returned by Firebase's createUserWithEmailAndPassword() method.
  */
-export async function createUser(email, firstName, lastName, password) {
+export function createUser(email, firstName, lastName, password) {
   return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in
@@ -90,7 +90,7 @@ export async function createUser(email, firstName, lastName, password) {
  * @param {string} password - Password of the user.
  * @returns {Promise} Promise returned by Firebase's signInWithEmailAndPassword() method.
  */
-export async function signInUser(email, password) {
+export function signInUser(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
@@ -101,7 +101,7 @@ export async function signInUser(email, password) {
  * @param {User} user - User whose data will be looked up.
  * @returns {Promise} Promise of snapshot of the document's data.
  */
-export async function getUserDoc(user) {
+export function getUserDoc(user) {
   return getDoc(doc(db, 'users', user.uid));
 }
 
@@ -170,19 +170,19 @@ const trainingSessionConverter = {
 /**
  * Firestore data converter for the ExerciseItem class.
  */
- const exerciseItemConverter = {
-   /**
-    * Converts the ExerciseItem to a data object that Firestore can store.
-    * @param {ExerciseItem} exerciseItem ExerciseItem to be converted.
-    * @returns {{
-    *   exercise: string,
-    *   setType: string,
-    *   sets: number,
-    *   reps: number[],
-    *   weight: ?number,
-    *   comments: string
-    * }} Data object with the ExerciseItem object's properties.
-    */
+const exerciseItemConverter = {
+  /**
+  * Converts the ExerciseItem to a data object that Firestore can store.
+  * @param {ExerciseItem} exerciseItem ExerciseItem to be converted.
+  * @returns {{
+  *   exercise: string,
+  *   setType: string,
+  *   sets: number,
+  *   reps: number[],
+  *   weight: ?number,
+  *   comments: string
+  * }} Data object with the ExerciseItem object's properties.
+  */
   toFirestore: (exerciseItem) => {
     return {
       exercise: exerciseItem.exercise,
@@ -211,4 +211,3 @@ const trainingSessionConverter = {
     );
   }
 }
-
