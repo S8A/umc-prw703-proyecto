@@ -22,6 +22,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
 import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
+import { toISODateOnly, toISOTimeOnly } from './utils.js';
 
 
 'use strict';
@@ -144,19 +145,9 @@ const trainingSessionConverter = {
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
 
-    // Get date as string in YYYY-MM-DD format
-    const date = [
-      data.dateTime.getFullYear(),
-      data.dateTime.getMonth(),
-      data.dateTime.getDate()
-    ].join('-');
-
-    // Get time as string in HH:mm format
-    const time = `${data.dateTime.getHours()}:${data.dateTime.getMinutes()}`;
-
     return new TrainingSession(
-        date,
-        time,
+        toISODateOnly(data.dateTime),
+        toISOTimeOnly(data.dateTime),
         [], // List of exercise items must be queried separately.
         data.shortTitle,
         data.duration,
