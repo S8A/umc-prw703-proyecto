@@ -37,22 +37,33 @@
             <div class="row">
                 <div class="col col-lg-10 col-xl-8 py-4 mx-auto">
                     <h1 id="main-title" class="text-center">Historial de entrenamiento</h1>
-                    <div id="main-buttons" class="text-center mb-5">
-                        <a href="/historial/crear.html" class="btn btn-success mx-auto">Registrar sesión</a>
+
+                    <div id="main-buttons" class="text-center mb-4">
+                        <a href="/historial/crear.html" id="create-training-session-btn" class="btn btn-success mx-auto">Registrar sesión</a>
                     </div>
-                    <form id="date-filter" class="row g-3 align-items-center mb-2 small" role="search" aria-labelledby="date-filter-label">
-                        <div class="col-auto">
-                            <label for="date" class="col-form-label" id="date-filter-label">Filtrar por fecha:</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="date" class="form-control form-control-sm" name="date" id="date-filter-input">
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+
+                    <form id="date-filter" class="border p-3 mb-4 small" role="search" aria-labelledby="date-filter-title">
+                        <h2 class="fs-6" id="date-filter-title">Filtrar por fecha</h2>
+                        <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="start-date" class="col-form-label">Desde:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" class="form-control form-control-sm" name="start" id="start-date">
+                            </div>
+                            <div class="col-auto">
+                                <label for="end-date" class="col-form-label">Hasta:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" class="form-control form-control-sm" name="end" id="end-date">
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                            </div>
                         </div>
                     </form>
+
                     <div id="training-sessions">
-                        <p id="empty-text">No se ha encontrado ninguna sesión de entrenamiento.</p>
                     </div>
 
                     <nav id="pagination" aria-label="Páginas">
