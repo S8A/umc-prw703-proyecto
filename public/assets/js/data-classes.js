@@ -201,6 +201,9 @@ export class ExerciseItem {
  * Type of exercise set: work or warmup.
  */
 export class SetType {
+  // Enum pattern inspired by Dr. Axel Rauschmayer:
+  // https://2ality.com/2020/01/enum-pattern.html
+
   static Work = new SetType('work');
   static WarmUp = new SetType('warmup');
 
@@ -216,8 +219,9 @@ export class SetType {
    * Get the set type with the given name, or null if not a valid set type name.
    * @param {string} name
    * @returns {?SetType} A SetType or null.
+   * @static
    */
-  enumValueOf(name) {
+  static enumValueOf(name) {
     if (name === 'work') {
       return SetType.Work;
     } else if (name === 'warmup') {
