@@ -60,6 +60,17 @@ export class TrainingSession {
   }
 
   /**
+   * Number of exercise items in the training session.
+   */
+  get exerciseItemsCount() {
+    if (this.exercises && this.exercises instanceof Array) {
+      return this.exercises.length;
+    } else {
+      return 0;
+    }
+  }
+
+  /**
    * Checks if all the required fields of the training session are set
    * and all fields are of the correct type.
    * @returns {boolean} True if the training session is valid, false otherwise.
@@ -73,8 +84,7 @@ export class TrainingSession {
 
     // Exercises must be a list of at least one element, and all
     // elements must be valid ExerciseItem objects
-    if (this.exercises && this.exercises instanceof Array
-        && this.exercises.length) {
+    if (this.exerciseItemsCount) {
       let allItemsValid = this.exercises.every(item => {
           return item instanceof ExerciseItem && item.isValid();
       });
