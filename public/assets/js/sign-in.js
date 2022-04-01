@@ -45,25 +45,38 @@ function showPasswordError(password) {
 
 
 window.addEventListener( "load", function () {
-  // Set up authentication state observer
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      // If user is signed in, redirect to home page
-      window.location.assign('/');
-    }
-  });
-
   // Add pending status message to page
   utils.addPendingStatusMessage();
 
   // Get query parameters
   const params = utils.getQueryParams();
 
-  // Get form and fields
-  let form = document.querySelector('form#signin-form');
+  // Get form, fields and submit button
+  const form = document.querySelector('form#signin-form');
 
-  let email = form.querySelector('input[type="email"]#email');
-  let password = form.querySelector('input[type="password"]#password');
+  const email = form.querySelector('input[type="email"]#email');
+  const password = form.querySelector('input[type="password"]#password');
+
+  const submit = form.querySelector('button[type="submit"]');
+
+  // Set up authentication state observer
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // If user is signed in, disable form fields and submit button
+      email.disabled = true;
+      password.disabled = true;
+      submit.disabled = true;
+
+      // Add status message indicating that the user is already signed-in
+      utils.addStatusMessage(
+          'alert-info',
+          ['Usted ya tiene su sesión iniciada.']
+      );
+
+      // Set up header
+      utils.setUpSignedInHeader(user);
+    }
+  });
 
   // Add event listeners to form fields
   email.addEventListener('invalid', function (event) {
@@ -98,7 +111,7 @@ window.addEventListener( "load", function () {
     if (form.checkValidity()) {
       // If form is valid, try to sign in account with the given data
       signInUser(email.value, password.value)
-      .then((userCredential) => {
+      .then(() => {
         // If the user is successfully signed in, set pending success
         // message and redirect to the destination set in the next
         // query parameter, or to the home page if next is unset or
