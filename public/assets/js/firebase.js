@@ -13,6 +13,8 @@ import {
   collection,
   doc,
   getDocs,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
   setDoc
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
@@ -84,7 +86,7 @@ export async function createUser(
 ) {
   return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
-    // Signed in 
+    // Signed in
     const user = userCredential.user;
 
     // Create user document to save the user's first and last name
@@ -136,31 +138,52 @@ export async function signInUser(
  * Firestore data converter for the TrainingSession class.
  */
 const trainingSessionConverter = {
+  /**
+   * Converts the TrainingSession to a data object that Firestore can store.
+   * @param {TrainingSession} trainingSession TrainingSession object to convert.
+   * @returns {{
+   *   dateTime: Date,
+   *   shortTitle: string,
+   *   duration: ?number,
+   *   bodyweight: ?number,
+   *   comments: string
+   * }} Data object with the TrainingSession object's properties, except its exercise items.
+   */
   toFirestore: (trainingSession) => {
     return {
-      date: trainingSession.date,
-      time: trainingSession.time,
-      exercises: trainingSession.exercises,
+      dateTime: trainingSession.dateTime,
+      // Exercise items must be added to the appropriate subcollection
+      // exercises: trainingSession.exercises,
       shortTitle: trainingSession.shortTitle,
       duration: trainingSession.duration,
       bodyweight: trainingSession.bodyweight,
       comments: trainingSession.comments,
     };
   },
+
+  /**
+   * Converts the data object returned by Firestore into a TrainingSession.
+   * @param {QueryDocumentSnapshot} snapshot  - Snapshot with data read from the training session's document in Firestore.
+   * @param {SnapshotOptions} options - Options that configure how data is retrieved from the snapshot.
+   * @returns {TrainingSession} TrainingSession object constructed with the data, not including its exercise items.
+   */
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
-    const exercisesSnapshot = await getDocs(
-        collection(data.ref, 'exercises').withConverter(exerciseItemConverter));
 
-    // TODO: Need to explicitly convert each item?
-    // const exercises = exercisesSnapshot.docs.map(documentSnapshot => {
-    //     return exerciseItemConverter.fromFirestore(documentSnapshot, options);
-    // });
+    // Get date as string in YYYY-MM-DD format
+    const date = [
+      data.dateTime.getFullYear(),
+      data.dateTime.getMonth(),
+      data.dateTime.getDate()
+    ].join('-');
+
+    // Get time as string in HH:mm format
+    const time = `${data.dateTime.getHours()}:${data.dateTime.getMinutes()}`;
 
     return new TrainingSession(
-        data.date,
-        data.time,
-        exercisesSnapshot.docs,
+        date,
+        time,
+        [], // List of exercise items must be queried separately.
         data.shortTitle,
         data.duration,
         data.bodyweight,
@@ -174,6 +197,18 @@ const trainingSessionConverter = {
  * Firestore data converter for the ExerciseItem class.
  */
  const exerciseItemConverter = {
+   /**
+    * Converts the ExerciseItem to a data object that Firestore can store.
+    * @param {ExerciseItem} exerciseItem ExerciseItem to be converted.
+    * @returns {{
+    *   exercise: string,
+    *   setType: string,
+    *   sets: number,
+    *   reps: number[],
+    *   weight: ?number,
+    *   comments: string
+    * }} Data object with the ExerciseItem object's properties.
+    */
   toFirestore: (exerciseItem) => {
     return {
       exercise: exerciseItem.exercise,
@@ -184,11 +219,18 @@ const trainingSessionConverter = {
       comments: exerciseItem.comments,
     };
   },
+
+  /**
+   * Converts the data object returned by Firestore into an ExerciseItem.
+   * @param {QueryDocumentSnapshot} snapshot - Snapshot with data read from the exercise item's document in Firestore.
+   * @param {SnapshotOptions} options - Options that configure how data is retrieved from the snapshot.
+   * @returns {ExerciseItem} ExerciseItem object constructed with the data.
+   */
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
     return new ExerciseItem(
       data.exercise,
-      data.setType,
+      SetType.enumValueOf(data.setType),
       data.reps,
       data.weight,
       data.coments
