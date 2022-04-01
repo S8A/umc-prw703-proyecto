@@ -4,7 +4,7 @@ import { auth, signInUser } from './firebase.js';
 
 /**
  * Show feedback if the email field's input is invalid.
- * @param {HTMLInputElement} email - input element.
+ * @param {HTMLInputElement} email - Email input element.
  */
 function showEmailError(email) {
 
@@ -24,7 +24,7 @@ function showEmailError(email) {
 
 /**
  * Show feedback if the password field's input is invalid.
- * @param {HTMLInputElement} password - input element.
+ * @param {HTMLInputElement} password - Password input element.
  */
 function showPasswordError(password) {
 
