@@ -496,30 +496,39 @@ export function setUpSignedInHeader(user) {
 
 /* STATUS MESSAGES */
 
-export function addStatusMessage(alertType, paragraphs) {
-  /* Add status message to the top of the page. */
-
-  let statusMessages = document.getElementById('status-messages');
+/**
+ * Add status message to the top of the page.
+ * @param {string} alertType - Bootstrap alert-* class.
+ * @param {string[]} text - List of paragraphs of the alert message.
+ */
+export function addStatusMessage(alertType, text) {
+  // Status messages' area
+  const statusMessages = document.getElementById('status-messages');
 
   // Status message alert
-  let statusMessage = document.createElement('div');
+  const statusMessage = document.createElement('div');
   statusMessage.classList.add(
       'alert', alertType, 'my-3', 'alert-dismissible', 'fade', 'show');
   statusMessage.setAttribute('role', 'alert');
 
   // Message paragraphs
-  for (let text of paragraphs) {
-    let paragraph = document.createElement('p');
-    paragraph.textContent = text;
+  if (!text || !(text instanceof Array) || !text.length) {
+    // If status message has no content, don't add anything
+    return;
+  }
 
-    statusMessage.appendChild(paragraph);
+  for (let paragraph of text) {
+    const p = document.createElement('p');
+    p.textContent = paragraph;
+
+    statusMessage.appendChild(p);
   }
 
   // Remove bottom margin of last paragraph
   statusMessage.lastChild.classList.add('mb-0');
 
   // Close button
-  let closeButton = document.createElement('button');
+  const closeButton = document.createElement('button');
   closeButton.type = 'button';
   closeButton.classList.add('btn-close');
   closeButton.dataset.bsDismiss = 'alert';
@@ -532,24 +541,30 @@ export function addStatusMessage(alertType, paragraphs) {
 }
 
 
+/**
+ * Clear all status messages from the top of the page.
+ */
 export function clearStatusMessages() {
-  /* Clear all status messages from the top of the page. */
-
-  let statusMessages = document.getElementById('status-messages');
+  // Status messages' area
+  const statusMessages = document.getElementById('status-messages');
 
   while (statusMessages.firstChild) {
+    // Remove first child node until the area is clear
     statusMessages.removeChild(statusMessages.firstChild);
   }
 }
 
 
-export function setPendingStatusMessage(alertType, paragraphs) {
-  /* Set pending status message in sessionStorage. */
-
-  if (alertType && paragraphs && paragraphs.length > 0) {
-    let status = {
+/**
+ * Set pending status message in sessionStorage.
+ * @param {string} alertType - Bootstrap alert-* class.
+ * @param {string[]} text - List of paragraphs of the alert message.
+ */
+export function setPendingStatusMessage(alertType, text) {
+  if (alertType && text && text instanceof Array && text.length) {
+    const status = {
       alertType: alertType,
-      paragraphs: paragraphs,
+      text: text,
     };
 
     sessionStorage.setItem('pendingStatus', JSON.stringify(status));
@@ -557,15 +572,16 @@ export function setPendingStatusMessage(alertType, paragraphs) {
 }
 
 
+/**
+ * Add pending status message from sessionStorage then clear it.
+ */
 export function addPendingStatusMessage() {
-  /* Add pending status message from sessionStorage then clear it. */
+  // Pending status messsage data
+  const data = JSON.parse(sessionStorage.getItem('pendingStatus'));
 
-  let statusMessage = JSON.parse(sessionStorage.getItem('pendingStatus'));
-
-  if (statusMessage) {
-    if (statusMessage.alertType && statusMessage.paragraphs) {
-      addStatusMessage(statusMessage.alertType, statusMessage.paragraphs);
-    }
+  if (data && data.alertType && data.text) {
+    // Add status message if the data is complete
+    addStatusMessage(data.alertType, data.text);
   }
 
   sessionStorage.removeItem('pendingStatus');
@@ -574,16 +590,21 @@ export function addPendingStatusMessage() {
 
 /* INVALID FEEDBACK ELEMENT */
 
+/**
+ * Get invalid feedback element adjacent to the given element.
+ * @param {HTMLElement} element
+ * @returns {HTMLDivElement}
+ */
 export function getInvalidFeedbackElement(element) {
-  /* Get invalid feedback element corresponding to the given element. */
-
-  return element.parentElement.querySelector('.invalid-feedback');
+  return element.parentElement.querySelector('div.invalid-feedback');
 }
 
 
+/**
+ * Create a generic invalid feedback container.
+ * @returns {HTMLDivElement}
+ */
 export function createInvalidFeedbackElement() {
-  /* Create a generic invalid feedback div. */
-
   let div = document.createElement('div');
   div.classList.add('invalid-feedback');
   div.ariaLive = 'polite';
