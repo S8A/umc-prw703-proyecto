@@ -1,4 +1,5 @@
-import * as utils from '/assets/js/utils.js';
+import * as utils from './utils.js';
+import { auth, signInUser } from './firebase.js';
 
 
 /**
@@ -44,13 +45,13 @@ function showPasswordError(password) {
 
 
 window.addEventListener( "load", function () {
-  let signedInAccount = utils.getSignedInAccount();
-
-  // If signed-in, redirect to home page and end event handler execution
-  if (signedInAccount) {
-    window.location.assign('/');
-    return;
-  }
+  // Set up authentication state observer
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // If user is signed in, redirect to home page
+      window.location.assign('/');
+    }
+  });
 
   // Add pending status message to page
   utils.addPendingStatusMessage();
@@ -94,54 +95,62 @@ window.addEventListener( "load", function () {
     event.preventDefault();
     event.stopPropagation();
 
-    let statusText = '';
-
     if (form.checkValidity()) {
-      // If form is valid, try to find account linked to email
-      let account = utils.getAccountByEmail(email.value);
+      // If form is valid, try to sign in account with the given data
+      signInUser(email.value, password.value)
+      .then((userCredential) => {
+        // If the user is successfully signed in, set pending success
+        // message and redirect to the destination set in the next
+        // query parameter, or to the home page if next is unset or
+        // not a valid destination
+        utils.setPendingStatusMessage(
+            'alert-success',
+            ['Sesión iniciada exitosamente.']
+        );
 
-      if (account) {
-        if (account.password === password.value) {
-          // If the account exists and password matches, save it for
-          // the current session
-          delete account.password;
-          sessionStorage.setItem('account', JSON.stringify(account));
+        const validRedirects = [
+          '/',
+          '/historial/',
+          '/historial/crear.html'
+        ];
 
-          // List of valid redirect destinations
-          const validRedirects = [
-            '/',
-            '/historial/',
-            '/historial/crear.html'
-          ];
-
-          // If the next query parameter is set to a valid destination,
-          // redirect to it. Otherwise redirect to home page.
-          if (validRedirects.includes(params.next)) {
-            window.location.assign(params.next);
-          } else {
-            window.location.assign('/');
-          }
-
-          // End event handler execution
-          return;
+        if (validRedirects.find(dest => dest === params.next)) {
+          window.location.assign(params.next);
         } else {
-          // If the account exists but the password does not match
-          statusText = 'Contraseña incorrecta.';
+          window.location.assign('/');
         }
-      } else {
-        // If the account does not exist
-        statusText = 'No existe ninguna cuenta con ese correo electrónico.';
-      }
+      })
+      .catch((error) => {
+        // If the sign-in failed, show the appropriate error message
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(`${errorCode}: ${errorMessage}`);
+
+        let statusText = '';
+
+        if (errorCode === 'auth/user-not-found') {
+          statusText =
+              'No existe ningún usuario registrado con el correo electrónico '
+              + 'ingresado.';
+        } else if (errorCode === 'auth/wrong-password') {
+          statusText = 'Contraseña incorrecta.'
+        } else {
+          statusText = `Error inesperado. Código: ${errorCode}`
+        }
+
+        utils.clearStatusMessages();
+        utils.addStatusMessage('alert-danger', [statusText]);
+      });
     } else {
-      // If the form is not valid
-      statusText = 'Corrija los errores en los datos ingresados.';
+      // If the form is not valid, show error message
+      utils.clearStatusMessages();
+      utils.addStatusMessage(
+          'alert-danger',
+          ['Corrija los errores en los datos ingresados.']
+      );
     }
 
     // Add .was-validated to form if it wasn't already
     form.classList.add('was-validated');
-
-    // Clear status area and add appropriate error message
-    utils.clearStatusMessages();
-    utils.addStatusMessage('alert-danger', [statusText]);
   });
 });
