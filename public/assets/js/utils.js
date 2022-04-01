@@ -408,11 +408,11 @@ export function getTrainingSessionFullTitle(session) {
  * @param {User} signedInUser - Signed-in user.
  */
 export function setUpSignedInHeader(user) {
-  return getUserDoc(user)
+  return getUserDoc(user.uid)
   .then((snapshot, options) => {
     // After getting the user's data document, extract its data
     const data = snapshot.data(options);
-    
+
     // Collapsible navbar items container
     const navbarCollapse =
         document.querySelector('header nav .navbar-collapse');
@@ -466,7 +466,7 @@ export function setUpSignedInHeader(user) {
     accountDiv.appendChild(signOut);
 
     navbarCollapse.appendChild(accountDiv);
-    
+
     // Return data object
     return data;
   })

@@ -99,11 +99,11 @@ export function signInUser(email, password) {
 /**
  * Gets the given user's data from their corresponding document in the
  * users collection.
- * @param {User} user - User whose data will be looked up.
+ * @param {string} uid - UID of the user whose data will be looked up.
  * @returns {Promise} Promise of snapshot of the document's data.
  */
-export function getUserDoc(user) {
-  return getDoc(doc(db, 'users', user.uid));
+export function getUserDoc(uid) {
+  return getDoc(doc(db, 'users', uid));
 }
 
 
