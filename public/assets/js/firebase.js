@@ -59,12 +59,14 @@ connectFirestoreEmulator(db, 'localhost', 8080);
  * Callback executed after successfully creating a new user.
  * @callback userCreatedCallback
  * @param {UserCredential} userCredential
+ * @returns {*}
  */
 
 /**
  * Callback executed after failing to create a new user.
  * @callback userCreationErrorCallback
  * @param {AuthError} error
+ * @returns {*}
  */
 
 /**
@@ -101,12 +103,14 @@ export async function createUser(
  * Callback executed after the user signs in successfully.
  * @callback userSignedInCallback
  * @param {UserCredential} userCredential
+ * @returns {*}
  */
 
 /**
  * Callback executed after the user's sign in attempt fails.
  * @callback userSignInErrorCallback
  * @param {AuthError} error
+ * @returns {*}
  */
 
 /**
