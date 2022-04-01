@@ -67,7 +67,8 @@ connectFirestoreEmulator(db, 'localhost', 8080);
  * @param {string} firstName - First name of the new user.
  * @param {string} lastName - Last name of the new user.
  * @param {string} password - Password of the new user.
- * @returns {Promise} Promise returned by Firebase's createUserWithEmailAndPassword() method.
+ * @returns {Promise}
+ * Promise returned by Firebase's createUserWithEmailAndPassword() method.
  */
 export function createUser(email, firstName, lastName, password) {
   return createUserWithEmailAndPassword(auth, email, password)
@@ -89,7 +90,8 @@ export function createUser(email, firstName, lastName, password) {
  * Sign in with the given user email and password.
  * @param {string} email - Email of the user.
  * @param {string} password - Password of the user.
- * @returns {Promise} Promise returned by Firebase's signInWithEmailAndPassword() method.
+ * @returns {Promise}
+ * Promise returned by Firebase's signInWithEmailAndPassword() method.
  */
 export function signInUser(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
