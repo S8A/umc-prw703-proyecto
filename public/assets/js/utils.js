@@ -1,3 +1,6 @@
+import { auth } from './firebase.js';
+
+
 /* CONSTANTS */
 
 export const TRAINING_LOG_ITEMS_PER_PAGE = 10;
@@ -399,14 +402,21 @@ export function getTrainingSessionFullTitle(session) {
 
 /* SIGNED-IN HEADER */
 
-export function setUpSignedInHeader(account) {
-  /* Modify header for the signed-in account. */
+/**
+ * Modify header for the signed-in user.
+ * @param {string} firstName - Signed-in user's first name.
+ * @param {string} lastName - Signed-in user's last name.
+ */
+export function setUpSignedInHeader(firstName, lastName) {
 
-  let navbarCollapse = document.querySelector('header nav .navbar-collapse');
+  const navbarCollapse = document.querySelector('header nav .navbar-collapse');
 
-  // Remove last nav link (sign-in link)
-  let navLinks = navbarCollapse.querySelectorAll('li.nav-item');
-  navLinks[navLinks.length - 1].remove();
+  // Remove sign-up and sign-in links
+  const signUpLink = navbarCollapse.querySelector('li.nav-item.sign-up');
+  signUpLink.remove();
+
+  const signInLink = navbarCollapse.querySelector('li.nav-item.sign-in');
+  signInLink.remove();
 
   // Account name and sign-out link container
   let accountDiv = document.createElement('div');
@@ -415,7 +425,7 @@ export function setUpSignedInHeader(account) {
   // Account name
   let fullName = document.createElement('span');
   fullName.classList.add('navbar-text', 'me-2');
-  fullName.textContent = account.firstName + ' ' + account.lastName;
+  fullName.textContent = firstName + ' ' + lastName;
 
   // Sign-out link
   let signOut = document.createElement('button');
@@ -424,8 +434,24 @@ export function setUpSignedInHeader(account) {
   signOut.classList.add('btn', 'btn-outline-primary', 'btn-sm');
 
   signOut.addEventListener('click', function (event) {
-    sessionStorage.clear();
-    window.location.assign('/');
+    auth.signOut()
+    .then(() => {
+      // If sign-out is successful, redirect to home page
+      window.location.assign('/');
+    })
+    .catch((error) => {
+      // If sign-out fails, show error message
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+
+      utils.clearStatusMessages();
+      utils.addStatusMessage(
+          'alert-danger',
+          ['Error inesperado al tratar de cerrar su sessión. Código: '
+           + errorCode]
+      );
+    });
   });
 
   // Add items to navbar
