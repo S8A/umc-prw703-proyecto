@@ -1,21 +1,23 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+import {
+  initializeApp,
+} from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
 
 import {
   getAuth,
+  connectAuthEmulator,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  UserCredential,
-  AuthError
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 
 import {
   getFirestore,
+  connectFirestoreEmulator,
   collection,
   doc,
   getDocs,
   QueryDocumentSnapshot,
-  SnapshotOptions,
-  setDoc
+  serverTimestamp,
+  setDoc,
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
 import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
@@ -36,7 +38,7 @@ const firebaseConfig = {
 
 
 // Initialize Firebase
-// export const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 
 // Initialize Firebase Authentication and get a reference to the service
@@ -58,77 +60,37 @@ connectFirestoreEmulator(db, 'localhost', 8080);
 /* USER ACCOUNTS */
 
 /**
- * Callback executed after successfully creating a new user.
- * @callback userCreatedCallback
- * @param {UserCredential} userCredential
- * @returns {*}
- */
-
-/**
- * Callback executed after failing to create a new user.
- * @callback userCreationErrorCallback
- * @param {AuthError} error
- * @returns {*}
- */
-
-/**
  * Create a new user with the given email and password.
  * @param {string} email - Email of the new user.
  * @param {string} firstName - First name of the new user.
  * @param {string} lastName - Last name of the new user.
  * @param {string} password - Password of the new user.
- * @param {userCreatedCallback} successCallback
- * @param {userCreationErrorCallback} errorCallback
- * @returns {Promise} Promise with result of success or error callback.
+ * @returns {Promise} Promise returned by Firebase's createUserWithEmailAndPassword() method.
  */
-export async function createUser(
-  email, firstName, lastName, password, successCallback, errorCallback
-) {
+export async function createUser(email, firstName, lastName, password) {
   return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in
     const user = userCredential.user;
 
-    // Create user document to save the user's first and last name
-    await setDoc(doc(db, 'users', user.uid), {
-      name: {first: firstName, last: lastName}
+    // Create user document to save the user's first and last name,
+    // as well as the creation timestamp
+    return setDoc(doc(db, 'users', user.uid), {
+      name: {first: firstName, last: lastName},
+      created: serverTimestamp(),
     });
-
-    // Execute callback function
-    return successCallback(userCredential);
-  })
-  .catch((error) => errorCallback(error));
+  });
 }
 
-
-/**
- * Callback executed after the user signs in successfully.
- * @callback userSignedInCallback
- * @param {UserCredential} userCredential
- * @returns {*}
- */
-
-/**
- * Callback executed after the user's sign in attempt fails.
- * @callback userSignInErrorCallback
- * @param {AuthError} error
- * @returns {*}
- */
 
 /**
  * Sign in with the given user email and password.
  * @param {string} email - Email of the user.
  * @param {string} password - Password of the user.
- * @param {userSignedInCallback} successCallback
- * @param {userSignInErrorCallback} errorCallback
- * @returns {Promise} Promise with result of success or error callback.
+ * @returns {Promise} Promise returned by Firebase's signInWithEmailAndPassword() method.
  */
-export async function signInUser(
-  email, password, successCallback, errorCallback
-) {
-  return signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => successCallback(userCredential))
-  .catch((error) => errorCallback(error));
+export async function signInUser(email, password) {
+  return signInWithEmailAndPassword(auth, email, password);
 }
 
 
