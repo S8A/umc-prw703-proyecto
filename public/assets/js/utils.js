@@ -1,4 +1,4 @@
-import { auth } from './firebase.js';
+import { auth, getUserDoc } from './firebase.js';
 
 
 /* CONSTANTS */
@@ -403,62 +403,94 @@ export function getTrainingSessionFullTitle(session) {
 /* SIGNED-IN HEADER */
 
 /**
- * Modify header for the signed-in user.
- * @param {string} firstName - Signed-in user's first name.
- * @param {string} lastName - Signed-in user's last name.
+ * Remove sign-up and sign-in links from header nav, and add the
+ * signed-in user's first name and a sign-out button.
+ * @param {User} signedInUser - Signed-in user.
  */
-export function setUpSignedInHeader(firstName, lastName) {
+export function setUpSignedInHeader(user) {
+  return getUserDoc(user)
+  .then((snapshot, options) => {
+    // After getting the user's data document, extract its data
+    const data = snapshot.data(options);
+    
+    // Collapsible navbar items container
+    const navbarCollapse =
+        document.querySelector('header nav .navbar-collapse');
 
-  const navbarCollapse = document.querySelector('header nav .navbar-collapse');
+    // Remove sign-up and sign-in links
+    const signUpLink = navbarCollapse.querySelector('li.nav-item.sign-up');
+    signUpLink.remove();
 
-  // Remove sign-up and sign-in links
-  const signUpLink = navbarCollapse.querySelector('li.nav-item.sign-up');
-  signUpLink.remove();
+    const signInLink = navbarCollapse.querySelector('li.nav-item.sign-in');
+    signInLink.remove();
 
-  const signInLink = navbarCollapse.querySelector('li.nav-item.sign-in');
-  signInLink.remove();
+    // User's full name and sign-out link container
+    const accountDiv = document.createElement('div');
+    accountDiv.classList.add('d-flex');
 
-  // Account name and sign-out link container
-  let accountDiv = document.createElement('div');
-  accountDiv.classList.add('d-flex');
+    // User's full name
+    const fullName = document.createElement('span');
+    fullName.classList.add('navbar-text', 'me-2');
+    fullName.textContent = data.name.first + ' ' + data.name.last;
 
-  // Account name
-  let fullName = document.createElement('span');
-  fullName.classList.add('navbar-text', 'me-2');
-  fullName.textContent = firstName + ' ' + lastName;
+    // Sign-out link
+    const signOut = document.createElement('button');
+    signOut.type = 'button';
+    signOut.textContent = 'Salir';
+    signOut.classList.add('btn', 'btn-outline-primary', 'btn-sm');
 
-  // Sign-out link
-  let signOut = document.createElement('button');
-  signOut.type = 'button';
-  signOut.textContent = 'Salir';
-  signOut.classList.add('btn', 'btn-outline-primary', 'btn-sm');
+    signOut.addEventListener('click', function (event) {
+      // Try to sign-out with Firebase Auth
+      auth.signOut()
+      .then(() => {
+        // If sign-out is successful, redirect to home page
+        window.location.assign('/');
+      })
+      .catch((error) => {
+        // If sign-out fails, show error message
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(`${errorCode}: ${errorMessage}`);
 
-  signOut.addEventListener('click', function (event) {
-    auth.signOut()
-    .then(() => {
-      // If sign-out is successful, redirect to home page
-      window.location.assign('/');
-    })
-    .catch((error) => {
-      // If sign-out fails, show error message
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(`${errorCode}: ${errorMessage}`);
+        let statusText =
+            'Error inesperado al tratar de cerrar su sessión. Código: '
+            + errorCode
 
-      utils.clearStatusMessages();
-      utils.addStatusMessage(
-          'alert-danger',
-          ['Error inesperado al tratar de cerrar su sessión. Código: '
-           + errorCode]
-      );
+        clearStatusMessages();
+        addStatusMessage('alert-danger', [statusText]);
+      });
     });
+
+    // Add items to navbar
+    accountDiv.appendChild(fullName);
+    accountDiv.appendChild(signOut);
+
+    navbarCollapse.appendChild(accountDiv);
+    
+    // Return data object
+    return data;
+  })
+  .catch((error) => {
+    // If the user's data document couldn't be found, show error message
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(`${errorCode}: ${errorMessage}`);
+
+    let statusText = '';
+
+    if (errorCode === 'auth/not-found') {
+      statusText =
+          'El usuario no tiene datos registrados en el sistema. '
+          + 'Comuníquese con el administrador: samuelochoap@gmail.com';
+    } else {
+      statusText =
+          'Error inesperado al tratar de consultar los datos del usuario. '
+          + `Código: ${errorCode}`;
+    }
+
+    clearStatusMessages();
+    addStatusMessage('alert-danger', [statusText]);
   });
-
-  // Add items to navbar
-  accountDiv.appendChild(fullName);
-  accountDiv.appendChild(signOut);
-
-  navbarCollapse.appendChild(accountDiv);
 }
 
 
