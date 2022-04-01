@@ -211,9 +211,9 @@ window.addEventListener( "load", function () {
               'El correo electrónico ingresado ya está asociado a '
               + 'una cuenta.';
         } else if (errorCode === 'auth/wrong-password') {
-          statusText = 'La contraseña ingresada no es válida.'
+          statusText = 'La contraseña ingresada no es válida.';
         } else {
-          statusText = `Error inesperado. Código: ${errorCode}`
+          statusText = `Error inesperado. Código: ${errorCode}`;
         }
 
         utils.clearStatusMessages();

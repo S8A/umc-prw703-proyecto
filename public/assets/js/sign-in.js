@@ -133,9 +133,9 @@ window.addEventListener( "load", function () {
               'No existe ningún usuario registrado con el correo electrónico '
               + 'ingresado.';
         } else if (errorCode === 'auth/wrong-password') {
-          statusText = 'Contraseña incorrecta.'
+          statusText = 'Contraseña incorrecta.';
         } else {
-          statusText = `Error inesperado. Código: ${errorCode}`
+          statusText = `Error inesperado. Código: ${errorCode}`;
         }
 
         utils.clearStatusMessages();
