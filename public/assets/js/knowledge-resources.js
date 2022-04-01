@@ -1,13 +1,15 @@
-import * as utils from '/assets/js/utils.js';
+import * as utils from './utils.js';
+import { auth } from './firebase.js';
 
 
 window.addEventListener('load', function () {
-  let signedInAccount = utils.getSignedInAccount();
-
-  // If signed-in, set up header
-  if (signedInAccount) {
-    utils.setUpSignedInHeader(signedInAccount);
-  }
+  // Set up authentication state observer
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // If user is signed in, set up signed-in header
+      utils.setUpSignedInHeader(user);
+    }
+  });
 
   // Add pending status message to page
   utils.addPendingStatusMessage();

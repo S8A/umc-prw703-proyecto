@@ -1,6 +1,5 @@
 import * as utils from './utils.js';
-import { auth, getUserDoc } from './firebase.js';
-
+import { auth } from './firebase.js';
 
 
 /**
@@ -36,35 +35,10 @@ window.addEventListener('load', function () {
   // Set up authentication state observer
   auth.onAuthStateChanged((user) => {
     if (user) {
-      // If user is signed in, get user data document
-      getUserDoc(user)
-      .then((snapshot, options) => {
-        // After getting the user's data document, set up header and
-        // customized action call
-        const data = snapshot.data(options);
-        utils.setUpSignedInHeader(data.name.first, data.name.last);
-        setUpSignedInActionCall(data.name.first);
-      })
-      .catch((error) => {
-        // If the user's data document couldn't be found, show error message
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(`${errorCode}: ${errorMessage}`);
-
-        let statusText = '';
-
-        if (errorCode === 'auth/not-found') {
-          statusText =
-              'El usuario no tiene datos registrados en el sistema. '
-              + 'Comuníquese con el administrador: samuelochoap@gmail.com';
-        } else {
-          statusText =
-              'Error inesperado al tratar de consultar los datos del usuario. '
-              + `Código: ${errorCode}`;
-        }
-
-        utils.clearStatusMessages();
-        utils.addStatusMessage('alert-danger', [statusText]);
+      // If user is signed in, set up signed-in header
+      utils.setUpSignedInHeader(user).then((userData) => {
+        // Then set up custom action call text with the user's first name
+        setUpSignedInActionCall(userData.name.first);
       });
     }
   });
