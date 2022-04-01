@@ -16,9 +16,14 @@ import {
   doc,
   getDoc,
   getDocs,
-  QueryDocumentSnapshot,
+  limit,
+  limitToLast,
+  orderBy,
+  query,
   serverTimestamp,
   setDoc,
+  startAfter,
+  where,
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
 import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
@@ -203,4 +208,73 @@ const exerciseItemConverter = {
       data.coments
     );
   }
+}
+
+
+/**
+ * Get the specified number of training sessions belonging to the user
+ * with the given UID, optionally filtering by start and/or end date.
+ * 
+ * @param {string} uid
+ * UID of the user whose training sessions will be queried.
+ * @param {number} queryLimit - Number of training sessions to retrieve.
+ * @param {?Date} [startDate=null]
+ * Start date by which to filter the training sessions, or null.
+ * @param {?Date} [endDate=null]
+ * End date by which to filter the training sessions, or null.
+ * @param {?string} [cursorAction=null]
+ * 'next' to get the next page (start after the cursor), 'prev' to get
+ * the previous page (end before cursor); otherwise, get the first page.
+ * @param {?DocumentSnapshot} [cursorDocumentSnapshot=null]
+ * Training session document snapshot to be used as query cursor.
+ * @returns {Promise}
+ * Promise of list of document snapshots returned by Firebase's getDocs()
+ * method.
+ */
+export function getTrainingSessions(
+    uid,
+    queryLimit,
+    startDate = null,
+    endDate = null,
+    cursorAction = null,
+    cursorDocumentSnapshot = null
+) {
+  // List of query constraints
+  const queryConstraints = [];
+
+  if (startDate) {
+    // If start date filter is set, query only training sessions that
+    // were done that day or after
+    queryConstraints.push(where('dateTime', '>=', startDate));
+  }
+
+  if (endDate) {
+    // If end date filter is set, query only training sessions that
+    // were done that day or before
+    queryConstraints.push(where('dateTime', '<=', endDate));
+  }
+
+  // Always order training sessions in reverse chronological order
+  queryConstraints.push(orderBy('dateTime', 'desc'));
+
+  if (cursorAction === 'next' && cursorDocumentSnapshot) {
+    // Get the next page of results, starting after the given document
+    queryConstraints.push(startAfter(cursorDocumentSnapshot));
+    queryConstraints.push(limit(queryLimit));
+  } else if (cursorAction === 'prev' && cursorDocumentSnapshot) {
+    // Get the previous page of results, ending before the given document
+    queryConstraints.push(endBefore(cursorDocumentSnapshot));
+    queryConstraints.push(limitToLast(queryLimit));
+  } else {
+    // Get the first page of results
+    queryConstraints.push(limit(queryLimit));
+  }
+
+  // Query
+  const trainingSessionsRef = collection('users', uid, 'trainingSessions')
+      .withConverter(trainingSessionConverter);
+  const q = query(trainingSessionsRef, queryConstraints);
+
+  // Return training sessions' document snapshots
+  return getDocs(q);
 }
