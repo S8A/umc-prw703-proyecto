@@ -42,6 +42,7 @@ export class TrainingSession {
 
   /**
    * Date object constructed with the training session's date and time.
+   * @type {Date}
    */
   get dateTime() {
     return new Date(this.date + 'T' + this.time);
@@ -50,6 +51,7 @@ export class TrainingSession {
   /**
    * Full title combining the date, time and (optional) short title of
    * the training session.
+   * @type {string}
    */
   get fullTitle() {
     if (this.shortTitle) {
@@ -61,6 +63,7 @@ export class TrainingSession {
 
   /**
    * Number of exercise items in the training session.
+   * @type {number}
    */
   get exerciseItemsCount() {
     if (this.exercises && this.exercises instanceof Array) {
