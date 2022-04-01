@@ -1,106 +1,129 @@
-import * as utils from '/assets/js/utils.js';
+import * as utils from './utils.js';
+import { auth, getTrainingSessions } from './firebase.js';
+import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
 
 
-function createQuery(date, page) {
-  /* Create query parameters object with the given date and page. */
-
+/**
+ * Create training log query parameters object with the given data.
+ * @param {?Date} startDate
+ * @param {?Date} endDate
+ * @returns {Object} Data object with the query parameters specified by the function's parameters.
+ */
+function createQuery(startDate, endDate) {
   let query = {};
 
-  if (date) {
-    query.date = date;
+  if (startDate) {
+    query.startDate = utils.toISODateOnly(startDate);
   }
 
-  if (page) {
-    query.page = page;
+  if (endDate) {
+    query.endDate = utils.toISODateOnly(endDate);
   }
 
   return query;
 }
 
 
-function constructTrainingLog(date, page) {
-  /* Construct training log page with the given date and page parameters. */
+/**
+ * Construct training log page with the given parameters.
+ * @param {HTMLDivElement} container - Container div for the training sessions.
+ * @param {string} uid - UID of the signed-in user.
+ * @param {?Date} [startDate=null]
+ * Start date by which to filter the training sessions, or null.
+ * @param {?Date} [endDate=null]
+ * End date by which to filter the training sessions, or null.
+ */
+async function constructTrainingLog(
+    container, uid, startDate = null, endDate = null
+) {
+  try {
+    // Get first page of training session objects
+    const trainingSessions = await getTrainingSessions(
+        uid,
+        utils.TRAINING_LOG_ITEMS_PER_PAGE,
+        startDate,
+        endDate
+    );
 
-  // Set page title with filter date and page number
-  setPageTitle(date, page);
+    // Set page title with date filters, if any
+    setPageTitle(startDate, endDate);
 
-  // Get this account's training sessions, filtered by date if the
-  // parameter is set
-  let sessions = utils.getTrainingSessions(date);
+    // Add training sessions to page
+    addTrainingSessions(container, trainingSessions);
 
-  // Computer total number of pages
-  let numPages = 1;
-  if (sessions.length) {
-    numPages = Math.ceil(sessions.length / utils.TRAINING_LOG_ITEMS_PER_PAGE);
-  }
+    // Add pagination buttons
+    addPagination(trainingSessions, startDate, endDate);
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(`${errorCode}: ${errorMessage}`);
 
-  // Redirect to first page if the page number is too high
-  if (page > numPages) {
-    utils.setQueryParams(createQuery(date, null));
-    return;
-  }
+    let statusText = '';
 
-  // Compute indexes of first and last items
-  let first = utils.TRAINING_LOG_ITEMS_PER_PAGE * (page - 1);
-  let last = first + utils.TRAINING_LOG_ITEMS_PER_PAGE;
-
-  // Keep only this page's training sessions
-  sessions = sessions.slice(first, last);
-
-  // Add sessions data to page
-  addTrainingSessions(sessions);
-
-  // Get date filter and field
-  let dateFilter = document.querySelector('form#date-filter');
-  let dateField =
-      dateFilter.querySelector('input[type="date"]#date-filter-input');
-
-  // Set date field value if date query param is set
-  if (date) {
-    dateField.value = date;
-  }
-
-  // Add event listener for date filter form submission
-  dateFilter.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    if (dateFilter.reportValidity()) {
-      // If form is valid, filter by the selected date
-      let filterDate = dateField.value;
-      utils.setQueryParams(createQuery(filterDate, null));
+    if (errorCode === 'deadline-exceeded') {
+      statusText = 'El tiempo de consulta expiró. Intente de nuevo más tarde.';
+    } else if (errorCode === 'not-found') {
+      statusText = 'Sesiones de entrenamiento no encontradas.';
+    } else if (errorCode === 'unavailable') {
+      statusText =
+          'Servicio temporalmente no disponible. Intente de nuevo más tarde';
+    } else {
+      statusText = `Error inesperado. Código: ${errorCode}`;
     }
-  });
 
-  // Add pagination
-  addPagination(date, numPages, page);
-
-  // Add pending status message to page
-  utils.addPendingStatusMessage();
-}
-
-
-function addTrainingSessions(sessions) {
-  /* Add the given training sessions to the page. */
-
-  if (sessions && sessions.length) {
-    let trainingSessions = document.querySelector('#training-sessions');
-
-    let emptyText = trainingSessions.querySelector('#empty-text');
-    trainingSessions.removeChild(emptyText);
-
-    for (let session of sessions) {
-      trainingSessions.append(createTrainingSessionContainer(session));
-    }
+    utils.addStatusMessage('alert-danger', [statusText]);
   }
 }
 
 
-function createTrainingSessionContainer(session) {
-  /* Create div with preview data from the given session data. */
+/**
+ * Add the given training sessions to the container, or add a message
+ * indicating that no training sessions were found.
+ * @param {HTMLDivElement} container
+ * @param {TrainingSession[]} trainingSessions 
+ */
+function addTrainingSessions(container, trainingSessions) {
+  if (trainingSessions && trainingSessions.length) {
+    // If there are training sessions to add, clear out container
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
 
+    // For each training session, construct its corresponding container
+    // element and append it to the container
+    for (let item of trainingSessions) {
+      container.append(createTrainingSessionContainer(item));
+    }
+  } else {
+    // If there are no training sessions, add empty results text
+    addEmptyResultsText(container);
+  }
+}
+
+
+/**
+ * Add empty results text to the given container.
+ * @param {HTMLDivElement} container
+ * Div container to which the text will be added.
+ */
+function addEmptyResultsText(container) {
+  const emptyResults = document.createElement('p');
+  emptyResults.textContent = 'No se encontraron sesiones de entrenamiento.';
+  container.appendChild(emptyResults);
+}
+
+
+/**
+ * Create a div container with representative data of the given
+ * training session.
+ * @param {TrainingSession} trainingSession
+ * The training session to represent.
+ * @returns {HTMLDivElement}
+ */
+function createTrainingSessionContainer(trainingSession) {
   // Training session card
-  let trainingSession = document.createElement('div');
-  trainingSession.classList.add(
+  let container = document.createElement('div');
+  container.classList.add(
       'training-session', 'card', 'mb-5', 'shadow');
 
   // Card body
@@ -112,8 +135,8 @@ function createTrainingSessionContainer(session) {
   h2.classList.add('card-title')
 
   let a = document.createElement('a');
-  a.href = '/historial/detalle.html?id=' + session.id;
-  a.textContent = utils.getTrainingSessionFullTitle(session);
+  a.href = '/historial/detalle.html?id=' + trainingSession.id;
+  a.textContent = trainingSession.fullTitle;
 
   h2.appendChild(a);
 
@@ -121,204 +144,166 @@ function createTrainingSessionContainer(session) {
   let p = document.createElement('p');
   p.classList.add('card-subtitle', 'mb-2', 'text-muted');
   p.textContent =
-      'Previsualización de ejercicios realizados (solo series de trabajo):'
+      'Número de ejercicios realizados: ' + trainingSession.exercisesItemCount;
 
-  // Exercises section
-  let exercises = document.createElement('div');
-  exercises.classList.add('table-responsive');
-
-  // Exercises table
-  let table = document.createElement('table');
-  table.classList.add('table', 'table-striped', 'table-hover', 'table-sm');
-
-  // Table head
-  let thead = document.createElement('thead');
-  let headers = ['Ejercicio', 'Peso', 'Series', 'Repeticiones'];
-
-  for (let header of headers) {
-    let th = document.createElement('th');
-    th.classList.add('px-2');
-    th.textContent = header;
-    thead.appendChild(th);
-  }
-
-  // Table body
-  let tbody = document.createElement('tbody');
-
-  for (let item of session.exercises) {
-    if (item.setType === 'work') {
-      let tr = document.createElement('tr');
-
-      let exercise = document.createElement('td');
-      exercise.classList.add('px-2');
-      exercise.textContent = item.exercise;
-
-      let weight = document.createElement('td');
-      weight.classList.add('px-2');
-      weight.textContent = utils.NDASH;
-
-      if (item.weight) {
-        weight.textContent = item.weight + utils.NBSP + 'kg'
-      }
-
-      let sets = document.createElement('td');
-      sets.classList.add('px-2');
-      sets.textContent = item.sets;
-
-      let reps = document.createElement('td');
-      reps.classList.add('px-2');
-      reps.textContent = item.reps.join(', ');
-
-      tr.appendChild(exercise);
-      tr.appendChild(weight);
-      tr.appendChild(sets);
-      tr.appendChild(reps);
-
-      tbody.appendChild(tr);
-    }
-  }
-
-  table.appendChild(thead);
-  table.appendChild(tbody);
-
-  exercises.appendChild(table);
 
   // Add everything to card
   cardBody.appendChild(h2);
   cardBody.appendChild(p);
-  cardBody.appendChild(exercises);
 
-  trainingSession.appendChild(cardBody);
+  container.appendChild(cardBody);
 
-  return trainingSession;
+  return container;
 }
 
 
-function setPageTitle(date, page) {
-  /* Add filter date (if any) and page number to title. */
+/**
+ * Adds date filter parameters' information to the title.
+ * @param {?Date} [startDate=null]
+ * Start date by which the training sessions are filtered.
+ * @param {?Date} [endDate=null]
+ * End date by which the training sessions are filtered.
+ */
+function setPageTitle(startDate = null, endDate = null) {
+  const title = ['Historial de entrenamiento'];
 
-  let title = ['Historial de entrenamiento'];
-  if (date) {
-    title[0] += ': ' + date;
+  if (startDate) {
+    title.push(`Desde: ${utils.toISODateOnly(startDate)}`);
   }
 
-  title.push('Página ' + page);
+  if (endDate) {
+    title.push(`Hasta: ${utils.toISODateOnly(endDate)}`);
+  }
+
   title.push('8A Training');
 
   document.title = title.join(utils.NDASH);
 }
 
 
-function addPagination(date, numPages, currentPage) {
-  /* Add pagination links based on the given parameters. */
-
-  // Pagination parameters
-  let pathname = window.location.pathname;
-  let previousPage = (currentPage === 1) ? null : currentPage - 1;
-  let nextPage = (currentPage >= numPages) ? null : currentPage + 1;
-
-  // Pagination list
-  let paginationList = document.querySelector('nav#pagination ul.pagination');
-
-  // Previous page link
-  if (previousPage) {
-    let previous = document.createElement('li');
-    previous.classList.add('page-item');
-
-    let queryParams = new URLSearchParams(createQuery(date, previousPage));
-
-    let a = document.createElement('a');
-    a.classList.add('page-link');
-    a.href = pathname + '?' + queryParams;
-    a.rel = 'prev';
-    a.textContent = 'Anterior';
-
-    previous.appendChild(a);
-    paginationList.appendChild(previous);
-  }
-
-  // Page numbers' links
-  for (let page = 1; page <= numPages; page++) {
-    let pageItem = document.createElement('li');
-    pageItem.classList.add('page-item');
-
-    let a = document.createElement('a');
-    a.textContent = page;
-    a.classList.add('page-link');
-
-    if (page === currentPage) {
-      pageItem.classList.add('active');
-      a.href = '#';
-    } else {
-      let queryParams = new URLSearchParams(createQuery(date, page));
-      a.href = pathname + '?' + queryParams;
-    }
-
-    pageItem.appendChild(a);
-    paginationList.appendChild(pageItem);
-  }
-
-  // Next page link
-  if (nextPage) {
-    let next = document.createElement('li');
-    next.classList.add('page-item');
-
-    let queryParams = new URLSearchParams(createQuery(date, nextPage));
-
-    let a = document.createElement('a');
-    a.classList.add('page-link');
-    a.href = pathname + '?' + queryParams;
-    a.rel = 'next';
-    a.textContent = 'Siguiente';
-
-    next.appendChild(a);
-    paginationList.append(next);
-  }
-}
-
-
 window.addEventListener('load', function () {
-  let signedInAccount = utils.getSignedInAccount();
+  // Add pending status message to page
+  utils.addPendingStatusMessage();
 
-  if (!signedInAccount) {
-    // If not signed-in, set pending info message and redirect to sign-in
-    let text = 'Inicie sesión para acceder a su historial de entrenamiento.';
-    utils.setPendingStatusMessage('alert-info', [text]);
-    window.location.assign('/iniciar-sesion.html?next=/historial/');
-    return;
+  // Get query parameters
+  const params = utils.getQueryParams();
+
+  // Get start date filter from query parameter if given, or set to undefined
+  let startDate = params.start ? new Date(params.start) : undefined;
+
+  if (startDate.toString() === 'Invalid Date') {
+    // If start date is invalid, set to null
+    startDate = null;
   } else {
-    // If signed-in, set up signed-in header
-    utils.setUpSignedInHeader(signedInAccount);
-
-    // Get query params
-    const params = utils.getQueryParams();
-
-    // Get filter date from query parameter if given, or set to undefined
-    let date = params.date ? params.date : undefined;
-    let dateNumber = Date.parse(date);
-
-    if (date && Number.isNaN(dateNumber)) {
-      // If the date was given (not undefined) and it's not a valid date
-      date = null;
-    }
-
-    // Get page number from query parameter if given, or set to 1
-    let page = params.page ? params.page : 1;
-    let pageNumber = Number(page);
-
-    if (!Number.isInteger(pageNumber) || pageNumber < 1) {
-      // If the page number is not an integer or it's lower than one
-      page = null;
-    } else {
-      page = pageNumber;
-    }
-
-    if (date === null || page === null) {
-      // If either the date or page is null, redirect appropriately
-      utils.setQueryParams(createQuery(date, page));
-    } else {
-      // Otherwise, construct training log page
-      constructTrainingLog(date, page);
-    }
+    // Otherwise, set the Date object's time to 00:00:00 so that the
+    // Firestore query includes the whole start day
+    startDate.setHours(0, 0, 0);
   }
+
+  // Get end date filter from query parameters if given, or set to undefined
+  let endDate = params.end ? new Date(params.end) : undefined;
+
+  if (endDate.toString() === 'Invalid Date') {
+    // If end date is invalid, set to null
+    endDate = null;
+  } else {
+    // Otherwise, set the Date object's time to 23:59:59 so that the
+    // Firestore query includes the whole end day
+    endDate.setHours(23, 59, 59);
+  }
+
+  if (startDate === null || endDate === null) {
+    // If either date filter parameter is null, redirect appropriately
+    // and end event handler execution.
+    utils.setQueryParams(createQuery(startDate, endDate));
+    return;
+  }
+
+  // Add pending status message to page
+  utils.addPendingStatusMessage();
+
+  // Get fixed page elements
+  const createButton = document.querySelector('#create-training-session-btn');
+
+  const dateFilter = document.querySelector('form#date-filter');
+  const dateFilterStart =
+      dateFilter.querySelector('input[type="date"]#start-date');
+  const dateFilterEnd = dateFilter.querySelector('input[type="date"]#end-date');
+  const dateFilterButton = dateFilter.querySelector('button[type="submit"]');
+
+  const trainingSessionsContainer = document.querySelector('#training-sessions');
+
+  const paginationNav = document.querySelector('nav#pagination');
+
+  // Set up authentication state observer
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // If user is signed in, set up header
+      utils.setUpSignedInHeader(user);
+
+      // Enable create button
+      createButton.href = '/historial/crear.html';
+      createButton.classList.remove(disabled);
+      createButton.ariaDisabled = false;
+      
+      // Enable date filter fields and submit button
+      dateFilterStart.disabled = false;
+      dateFilterEnd.disabled = false;
+      dateFilterButton.disabled = false;
+
+      // Construct training log page
+      constructTrainingLog(
+        trainingSessionsContainer,
+        user.uid,
+        startDate,
+        endDate
+      );
+
+      // Set date filter inputs' values
+      if (startDate) {
+        dateFilterStart.value = utils.toISODateOnly(startDate);
+      }
+
+      if (endDate) {
+        dateFilterStart.value = utils.toISODateOnly(endDate);
+      }
+
+      // Add event listener for date filter form submission
+      dateFilter.addEventListener('submit', function (event) {
+        event.preventDefault();
+      
+        if (dateFilter.reportValidity()) {
+          // If form is valid, filter by the selected dates
+          utils.setQueryParams(
+              createQuery(dateFilterStart.value, dateFilterEnd.value));
+        }
+      });
+    } else {
+      // If the user is signed-out, add info message indicating the
+      // user to sign in
+      utils.addStatusMessage(
+          'alert-info',
+          ['Inicie sesión para gestionar su historial de entrenamiento.']
+      );
+
+      // Disable create button
+      createButton.href = '';
+      createButton.classList.add(disabled);
+      createButton.ariaDisabled = true;
+
+      // Disable date filter fields and submit button
+      dateFilterStart.disabled = true;
+      dateFilterEnd.disabled = true;
+      dateFilterButton.disabled = true;
+
+      // Clear out training sessions
+      while (trainingSessionsContainer.firstChild) {
+        trainingSessionsContainer.removeChild(
+            trainingSessionsContainer.firstChild);
+      }
+
+      // Add empty results text
+      addEmptyResultsText(trainingSessionsContainer);
+    }
+  });
 });
