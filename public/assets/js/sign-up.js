@@ -106,13 +106,13 @@ function checkConfirmPassword(password, confirm) {
 
 
 window.addEventListener( "load", function () {
-  let signedInAccount = utils.getSignedInAccount();
-
-  // If signed-in, redirect to home page and end event handler execution
-  if (signedInAccount) {
-    window.location.assign('/');
-    return;
-  }
+  // Set up authentication state observer
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // If user is signed in, redirect to home page
+      window.location.assign('/');
+    }
+  });
 
   // Add pending status message to page
   utils.addPendingStatusMessage();
