@@ -138,6 +138,7 @@ const trainingSessionConverter = {
       dateTime: trainingSession.dateTime,
       // Exercise items must be added to the appropriate subcollection
       // exercises: trainingSession.exercises,
+      exerciseItemsCount: trainingSession.exerciseItemsCount,
       shortTitle: trainingSession.shortTitle,
       duration: trainingSession.duration,
       bodyweight: trainingSession.bodyweight,
