@@ -52,7 +52,7 @@ window.addEventListener('load', function () {
       document.title = mainTitleText + ' ' + utils.NDASH + ' 8A Training';
 
       // Get form element and add event listener for submission
-      let form = document.getElementById(formId);
+      const form = document.getElementById(formId);
 
       form.addEventListener('submit', function (event) {
         event.preventDefault();

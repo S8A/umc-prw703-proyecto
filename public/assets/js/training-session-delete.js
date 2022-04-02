@@ -4,10 +4,10 @@ import * as utils from '/assets/js/utils.js';
 export function constructDeleteConfirmationPage(session) {
   /* Construct delete confirmation page with the given training session data. */
 
-  let container = document.querySelector('#delete-confirmation');
+  const container = document.querySelector('#delete-confirmation');
 
   // Main title
-  let mainTitle = container.querySelector('h1#main-title');
+  const mainTitle = container.querySelector('h1#main-title');
   let fullTitle = utils.getTrainingSessionFullTitle(session);
   let mainTitleText = 'Eliminar sesión de entrenamiento: ' + fullTitle;
   mainTitle.textContent = mainTitleText;
@@ -16,21 +16,21 @@ export function constructDeleteConfirmationPage(session) {
   document.title = mainTitleText + ' ' + utils.NDASH + ' 8A Training';
 
   // Remove #empty-text element
-  let emptyText = container.querySelector('p#empty-text');
+  const emptyText = container.querySelector('p#empty-text');
   container.removeChild(emptyText);
 
   // Question paragraph
-  let p = document.createElement('p');
+  const p = document.createElement('p');
   p.textContent =
       '¿Está seguro de que desea eliminar el registro de esta sesión de '
       + 'entrenamiento? Esta acción es irreversible.';
 
   // Action buttons
-  let actionButtons = document.createElement('div');
+  const actionButtons = document.createElement('div');
   actionButtons.classList.add('text-center');
   actionButtons.id = 'action-buttons';
 
-  let confirmButton = document.createElement('button');
+  const confirmButton = document.createElement('button');
   confirmButton.classList.add('btn', 'btn-danger', 'me-2', 'mb-2');
   confirmButton.type = 'button';
   confirmButton.id = 'confirm-delete-btn';
@@ -53,7 +53,7 @@ export function constructDeleteConfirmationPage(session) {
     }
   });
 
-  let cancelButton = document.createElement('button');
+  const cancelButton = document.createElement('button');
   cancelButton.classList.add('btn', 'btn-secondary', 'me-2', 'mb-2');
   cancelButton.type = 'button';
   cancelButton.id = 'cancel-delete-btn';

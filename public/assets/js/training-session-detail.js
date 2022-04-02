@@ -4,10 +4,10 @@ import * as utils from '/assets/js/utils.js';
 function constructTrainingSessionDetailsPage(session) {
   /* Construct detail page with the given training session's data. */
 
-  let container = document.querySelector('#training-session-detail');
+  const container = document.querySelector('#training-session-detail');
 
   // Title
-  let mainTitle = container.querySelector('h1#main-title');
+  const mainTitle = container.querySelector('h1#main-title');
   let fullTitle = utils.getTrainingSessionFullTitle(session);
   mainTitle.textContent = fullTitle;
 
@@ -17,20 +17,20 @@ function constructTrainingSessionDetailsPage(session) {
     + ' 8A Training';
 
   // Remove #empty-text element
-  let emptyText = container.querySelector('p#empty-text');
+  const emptyText = container.querySelector('p#empty-text');
   container.removeChild(emptyText);
 
   // Main buttons
-  let mainButtons = document.createElement('div');
+  const mainButtons = document.createElement('div');
   mainButtons.id = 'main-buttons';
   mainButtons.classList.add('py-3', 'text-center');
 
-  let editButton = document.createElement('a');
+  const editButton = document.createElement('a');
   editButton.classList.add('btn', 'btn-primary', 'mx-2');
   editButton.href = '/historial/modificar.html?id=' + session.id;
   editButton.textContent = 'Modificar sesión';
 
-  let deleteButton = document.createElement('a');
+  const deleteButton = document.createElement('a');
   deleteButton.classList.add('btn', 'btn-danger');
   deleteButton.href = '/historial/eliminar.html?id=' + session.id;
   deleteButton.textContent = 'Eliminar sesión';
@@ -39,10 +39,10 @@ function constructTrainingSessionDetailsPage(session) {
   mainButtons.appendChild(deleteButton);
 
   // Basic data
-  let basicDataSection = document.createElement('section');
+  const basicDataSection = document.createElement('section');
   basicDataSection.id = 'basic-data';
 
-  let basicDataTitle = document.createElement('h2');
+  const basicDataTitle = document.createElement('h2');
   basicDataTitle.textContent = 'Datos generales';
 
   let basicDataList = createBasicDataList(session)
@@ -51,13 +51,13 @@ function constructTrainingSessionDetailsPage(session) {
   basicDataSection.appendChild(basicDataList);
 
   // Exercises
-  let exercisesSection = document.createElement('section');
+  const exercisesSection = document.createElement('section');
   exercisesSection.id = 'exercises';
 
-  let exercisesTitle = document.createElement('h2');
+  const exercisesTitle = document.createElement('h2');
   exercisesTitle.textContent = 'Ejercicios';
 
-  let exercisesDiv = document.createElement('div');
+  const exercisesDiv = document.createElement('div');
   exercisesDiv.classList.add('table-responsive');
 
   let exercisesTable = createExercisesTable(session.exercises);
@@ -76,14 +76,14 @@ function constructTrainingSessionDetailsPage(session) {
 function createBasicDataList(session) {
   /* Create basic data list with the given training session data. */
 
-  let basicDataList = document.createElement('ul');
+  const basicDataList = document.createElement('ul');
   basicDataList.classList.add('list-group', 'mb-5');
 
   // Date and time
-  let datetimeListItem = document.createElement('li');
+  const datetimeListItem = document.createElement('li');
   datetimeListItem.classList.add('list-group-item');
 
-  let datetimeLabel = document.createElement('b');
+  const datetimeLabel = document.createElement('b');
   datetimeLabel.textContent = 'Fecha y hora:';
   datetimeListItem.appendChild(datetimeLabel);
 
@@ -91,10 +91,10 @@ function createBasicDataList(session) {
   datetimeListItem.appendChild(document.createTextNode(' ' + datetime));
 
   // Short title
-  let shortTitleListItem = document.createElement('li');
+  const shortTitleListItem = document.createElement('li');
   shortTitleListItem.classList.add('list-group-item');
 
-  let shortTitleLabel = document.createElement('b');
+  const shortTitleLabel = document.createElement('b');
   shortTitleLabel.textContent = 'Título breve:';
   shortTitleListItem.appendChild(shortTitleLabel);
 
@@ -102,10 +102,10 @@ function createBasicDataList(session) {
   shortTitleListItem.appendChild(document.createTextNode(' ' + shortTitle));
 
   // Duration
-  let durationListItem = document.createElement('li');
+  const durationListItem = document.createElement('li');
   durationListItem.classList.add('list-group-item');
 
-  let durationLabel = document.createElement('b');
+  const durationLabel = document.createElement('b');
   durationLabel.textContent = 'Duración de la sesión:';
   durationListItem.appendChild(durationLabel);
 
@@ -116,10 +116,10 @@ function createBasicDataList(session) {
   durationListItem.appendChild(document.createTextNode(' ' + duration));
 
   // Bodyweight
-  let bodyweightListItem = document.createElement('li');
+  const bodyweightListItem = document.createElement('li');
   bodyweightListItem.classList.add('list-group-item');
 
-  let bodyweightLabel = document.createElement('b');
+  const bodyweightLabel = document.createElement('b');
   bodyweightLabel.textContent = 'Peso corporal:';
   bodyweightListItem.appendChild(bodyweightLabel);
 
@@ -130,10 +130,10 @@ function createBasicDataList(session) {
   bodyweightListItem.appendChild(document.createTextNode(' ' + bodyweight));
 
   // Comments
-  let commentsListItem = document.createElement('li');
+  const commentsListItem = document.createElement('li');
   commentsListItem.classList.add('list-group-item');
 
-  let commentsLabel = document.createElement('b');
+  const commentsLabel = document.createElement('b');
   commentsLabel.textContent = 'Comentarios:';
   commentsListItem.appendChild(commentsLabel);
 
@@ -154,11 +154,11 @@ function createBasicDataList(session) {
 function createExercisesTable(exercises) {
   /* Create table with the given exercise items. */
 
-  let table = document.createElement('table');
+  const table = document.createElement('table');
   table.classList.add('table', 'table-striped', 'table-hover');
 
   // Table head
-  let thead = document.createElement('thead');
+  const thead = document.createElement('thead');
   let headers = [
     'Ejercicio',
     'Modalidad',
@@ -169,24 +169,24 @@ function createExercisesTable(exercises) {
   ];
 
   for (let header of headers) {
-    let th = document.createElement('th');
+    const th = document.createElement('th');
     th.classList.add('px-2');
     th.textContent = header;
     thead.appendChild(th);
   }
 
   // Table body
-  let tbody = document.createElement('tbody');
+  const tbody = document.createElement('tbody');
 
   for (let item of exercises) {
     // For each exercise item, create a table row and append it to table body
-    let tr = document.createElement('tr');
+    const tr = document.createElement('tr');
 
-    let exercise = document.createElement('td');
+    const exercise = document.createElement('td');
     exercise.classList.add('px-2');
     exercise.textContent = item.exercise;
 
-    let setType = document.createElement('td');
+    const setType = document.createElement('td');
     setType.classList.add('px-2');
     if (item.setType === 'work') {
       setType.textContent = 'Trabajo';
@@ -194,7 +194,7 @@ function createExercisesTable(exercises) {
       setType.textContent = 'Calentamiento';
     }
 
-    let weight = document.createElement('td');
+    const weight = document.createElement('td');
     weight.classList.add('px-2');
     weight.textContent = utils.NDASH;
 
@@ -202,15 +202,15 @@ function createExercisesTable(exercises) {
       weight.textContent = item.weight + utils.NBSP + 'kg'
     }
 
-    let sets = document.createElement('td');
+    const sets = document.createElement('td');
     sets.classList.add('px-2');
     sets.textContent = item.sets;
 
-    let reps = document.createElement('td');
+    const reps = document.createElement('td');
     reps.classList.add('px-2');
     reps.textContent = item.reps.join(', ');
 
-    let comments = document.createElement('td');
+    const comments = document.createElement('td');
     comments.classList.add('px-2');
     comments.textContent = utils.NDASH;
 
