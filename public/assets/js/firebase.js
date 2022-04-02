@@ -255,40 +255,39 @@ export function getTrainingSessions(
     cursor = null
 ) {
   // List of query constraints
-  const queryConstraints = [];
+  const constraints = [];
 
   if (startDate) {
     // If start date filter is set, query only training sessions that
     // were done that day or after
-    queryConstraints.push(where('dateTime', '>=', startDate));
+    constraints.push(where('dateTime', '>=', startDate));
   }
 
   if (endDate) {
     // If end date filter is set, query only training sessions that
     // were done that day or before
-    queryConstraints.push(where('dateTime', '<=', endDate));
+    constraints.push(where('dateTime', '<=', endDate));
   }
 
   // Always order training sessions in reverse chronological order
-  queryConstraints.push(orderBy('dateTime', 'desc'));
+  constraints.push(orderBy('dateTime', 'desc'));
 
   if (cursorAction === 'next' && cursor) {
     // Get the next page of results, starting after the given document
-    queryConstraints.push(startAfter(cursor));
-    queryConstraints.push(limit(queryLimit));
+    constraints.push(startAfter(cursor));
+    constraints.push(limit(queryLimit));
   } else if (cursorAction === 'prev' && cursor) {
     // Get the previous page of results, ending before the given document
-    queryConstraints.push(endBefore(cursor));
-    queryConstraints.push(limitToLast(queryLimit));
+    constraints.push(endBefore(cursor));
+    constraints.push(limitToLast(queryLimit));
   } else {
     // Get the first page of results
-    queryConstraints.push(limit(queryLimit));
+    constraints.push(limit(queryLimit));
   }
 
   // Query
-  const trainingSessionsRef = collection('users', uid, 'trainingSessions')
-      .withConverter(trainingSessionConverter);
-  const q = query(trainingSessionsRef, queryConstraints);
+  const ref = collection(db, 'users', uid, 'trainingSessions');
+  const q = query(ref.withConverter(trainingSessionConverter), constraints);
 
   // Return training sessions' document snapshots
   return getDocs(q);
