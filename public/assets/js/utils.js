@@ -405,6 +405,7 @@ export function getTrainingSessionFullTitle(session) {
 /**
  * Remove sign-up and sign-in links from header nav, and add the
  * signed-in user's first name and a sign-out button.
+ *
  * @param {User} signedInUser - Signed-in user.
  */
 export function setUpSignedInHeader(user) {
@@ -498,6 +499,7 @@ export function setUpSignedInHeader(user) {
 
 /**
  * Add status message to the top of the page.
+ *
  * @param {string} alertType - Bootstrap alert-* class.
  * @param {string[]} text - List of paragraphs of the alert message.
  */
@@ -552,6 +554,7 @@ export function clearStatusMessages() {
 
 /**
  * Set pending status message in sessionStorage.
+ *
  * @param {string} alertType - Bootstrap alert-* class.
  * @param {string[]} text - List of paragraphs of the alert message.
  */
@@ -568,7 +571,7 @@ export function setPendingStatusMessage(alertType, text) {
 
 
 /**
- * Add pending status message from sessionStorage then clear it.
+ * Add pending status message from sessionStorage, then clear it.
  */
 export function addPendingStatusMessage() {
   // Pending status messsage data
@@ -587,6 +590,7 @@ export function addPendingStatusMessage() {
 
 /**
  * Get invalid feedback element adjacent to the given element.
+ *
  * @param {HTMLElement} element
  * @returns {HTMLDivElement}
  */
@@ -597,10 +601,11 @@ export function getInvalidFeedbackElement(element) {
 
 /**
  * Create a generic invalid feedback container.
+ *
  * @returns {HTMLDivElement}
  */
 export function createInvalidFeedbackElement() {
-  let div = document.createElement('div');
+  const div = document.createElement('div');
   div.classList.add('invalid-feedback');
   div.ariaLive = 'polite';
   return div;
@@ -611,7 +616,8 @@ export function createInvalidFeedbackElement() {
 
 /**
  * Convert the given Date object into a string in a date-only form of
- * the ISO 8601 format (YYYY-MM-DD)
+ * the ISO 8601 format (YYYY-MM-DD).
+ *
  * @param {Date} date - Date object to convert.
  * @returns {string}
  * String representation of the Date object's date in YYYY-MM-DD format.
@@ -623,7 +629,8 @@ export function toISODateOnly(date) {
 
 /**
  * Convert the given Date object into a string in a time-only form of
- * the ISO 8601 format (HH:mm)
+ * the ISO 8601 format (HH:mm).
+ *
  * @param {Date} date - Date object to convert.
  * @returns {string}
  * String representation of the Date object's time in HH:mm format.
@@ -637,6 +644,7 @@ export function toISODateOnly(date) {
 
 /**
  * Remove all child nodes from the given HTML element/node.
+ *
  * @param {HTMLElement} element - HTML element/node to clear out.
  */
 export function clearOutChildNodes(element) {

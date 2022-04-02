@@ -68,6 +68,7 @@ connectFirestoreEmulator(db, 'localhost', 8080);
 
 /**
  * Create a new user with the given email and password.
+ *
  * @param {string} email - Email of the new user.
  * @param {string} firstName - First name of the new user.
  * @param {string} lastName - Last name of the new user.
@@ -93,6 +94,7 @@ export function createUser(email, firstName, lastName, password) {
 
 /**
  * Sign in with the given user email and password.
+ *
  * @param {string} email - Email of the user.
  * @param {string} password - Password of the user.
  * @returns {Promise}
@@ -106,6 +108,7 @@ export function signInUser(email, password) {
 /**
  * Gets the given user's data from their corresponding document in the
  * users collection.
+ *
  * @param {string} uid - UID of the user whose data will be looked up.
  * @returns {Promise} Promise of snapshot of the document's data.
  */
@@ -122,6 +125,7 @@ export function getUserDoc(uid) {
 const trainingSessionConverter = {
   /**
    * Converts the TrainingSession to a data object that Firestore can store.
+   *
    * @param {TrainingSession} trainingSession TrainingSession object to convert.
    * @returns {{
    *   dateTime: Date,
@@ -178,6 +182,7 @@ const trainingSessionConverter = {
 const exerciseItemConverter = {
   /**
   * Converts the ExerciseItem to a data object that Firestore can store.
+  *
   * @param {ExerciseItem} exerciseItem ExerciseItem to be converted.
   * @returns {{
   *   exercise: string,
@@ -201,6 +206,7 @@ const exerciseItemConverter = {
 
   /**
    * Converts the data object returned by Firestore into an ExerciseItem.
+   *
    * @param {QueryDocumentSnapshot} snapshot
    * Snapshot with data read from the exercise item's document in Firestore.
    * @param {SnapshotOptions} options
@@ -223,7 +229,7 @@ const exerciseItemConverter = {
 /**
  * Get the specified number of training sessions belonging to the user
  * with the given UID, optionally filtering by start and/or end date.
- * 
+ *
  * @param {string} uid
  * UID of the user whose training sessions will be queried.
  * @param {number} queryLimit - Number of training sessions to retrieve.

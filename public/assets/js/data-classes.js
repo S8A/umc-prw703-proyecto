@@ -76,6 +76,7 @@ export class TrainingSession {
   /**
    * Checks if all the required fields of the training session are set
    * and all fields are of the correct type.
+   *
    * @returns {boolean} True if the training session is valid, false otherwise.
    */
   isValid() {
@@ -159,6 +160,7 @@ export class ExerciseItem {
   /**
    * Checks if all the required fields of the exercise item are set and
    * all fields are of the correct type.
+   *
    * @returns {boolean} True if the exercise item is valid, false otherwise.
    */
   isValid() {
@@ -234,7 +236,9 @@ export class SetType {
   }
 
   /**
-   * Get the set type with the given name, or null if not a valid set type name.
+   * Get the set type with the given name, or null if it's not a valid
+   * set type name.
+   *
    * @param {string} name
    * @returns {?SetType} A SetType or null.
    * @static

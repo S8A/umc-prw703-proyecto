@@ -4,6 +4,7 @@ import { auth, createUser } from './firebase.js';
 
 /**
  * Show feedback if the email field's input is invalid.
+ *
  * @param {HTMLInputElement} email - Email input element.
  */
 function showEmailError(email) {
@@ -24,6 +25,7 @@ function showEmailError(email) {
 
 /**
  * Show feedback if the first name field's input is invalid.
+ *
  * @param {HTMLInputElement} firstName - First name input element.
  */
 function showFirstNameError(firstName) {
@@ -44,6 +46,7 @@ function showFirstNameError(firstName) {
 
 /**
  * Show feedback if the last name field's input is invalid.
+ *
  * @param {HTMLInputElement} lastName - Last name input element.
  */
 function showLastNameError(lastName) {
@@ -64,6 +67,7 @@ function showLastNameError(lastName) {
 
 /**
  * Show feedback if the password field's input is invalid.
+ *
  * @param {HTMLInputElement} password - Password input element.
  */
 function showPasswordError(password) {
@@ -87,6 +91,7 @@ function showPasswordError(password) {
 /**
  * Check that the confirm password field's input matches the password
  * field's input, and update feedback accordingly.
+ *
  * @param {HTMLInputElement} password - Password input element.
  * @param {HTMLInputElement} confirm - Confirm password input element.
  */

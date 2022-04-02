@@ -5,6 +5,7 @@ import { auth } from './firebase.js';
 /**
  * Replace action call paragraph with customized text for the signed-in
  * user.
+ *
  * @param {string} firstName - First name of the user.
  */
 function setUpSignedInActionCall(firstName) {
