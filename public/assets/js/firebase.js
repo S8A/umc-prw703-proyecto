@@ -240,7 +240,7 @@ const exerciseItemConverter = {
  * @param {?string} [cursorAction=null]
  * 'next' to get the next page (start after the cursor), 'prev' to get
  * the previous page (end before cursor); otherwise, get the first page.
- * @param {?DocumentSnapshot} [cursorDocumentSnapshot=null]
+ * @param {?QueryDocumentSnapshot} [cursor=null]
  * Training session document snapshot to be used as query cursor.
  * @returns {Promise}
  * Promise of list of document snapshots returned by Firebase's getDocs()
@@ -252,7 +252,7 @@ export function getTrainingSessions(
     startDate = null,
     endDate = null,
     cursorAction = null,
-    cursorDocumentSnapshot = null
+    cursor = null
 ) {
   // List of query constraints
   const queryConstraints = [];
@@ -272,13 +272,13 @@ export function getTrainingSessions(
   // Always order training sessions in reverse chronological order
   queryConstraints.push(orderBy('dateTime', 'desc'));
 
-  if (cursorAction === 'next' && cursorDocumentSnapshot) {
+  if (cursorAction === 'next' && cursor) {
     // Get the next page of results, starting after the given document
-    queryConstraints.push(startAfter(cursorDocumentSnapshot));
+    queryConstraints.push(startAfter(cursor));
     queryConstraints.push(limit(queryLimit));
-  } else if (cursorAction === 'prev' && cursorDocumentSnapshot) {
+  } else if (cursorAction === 'prev' && cursor) {
     // Get the previous page of results, ending before the given document
-    queryConstraints.push(endBefore(cursorDocumentSnapshot));
+    queryConstraints.push(endBefore(cursor));
     queryConstraints.push(limitToLast(queryLimit));
   } else {
     // Get the first page of results
