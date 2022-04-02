@@ -292,3 +292,18 @@ export function getTrainingSessions(
   // Return training sessions' document snapshots
   return getDocs(q);
 }
+
+
+/**
+ * Record a new training session in the user's trainingSessions
+ * subcollection, using the data from the given TrainingSession object.
+ *
+ * @param {string} uid - UID of the user creating the training session.
+ * @param {TrainingSession} trainingSession - TrainingSession object.
+ * @returns {Promise}
+ * Promise of new document reference returned by Firestore's addDoc method.
+ */
+export function createTrainingSession(uid, trainingSession) {
+  const ref = doc(db, 'users', uid, 'trainingSessions');
+  return addDoc(ref.withConverter(trainingSessionConverter), trainingSession);
+}
