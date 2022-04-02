@@ -116,9 +116,10 @@ function addTrainingSessionCards(querySnapshot) {
  * @param {HTMLElement} container - Container to which the text will be added.
  */
 function addEmptyResultsText(container) {
-  const emptyResults = document.createElement('p');
-  emptyResults.textContent = 'No se encontraron sesiones de entrenamiento.';
-  container.appendChild(emptyResults);
+  const emptyText = document.createElement('p');
+  emptyText.id = 'empty-text';
+  emptyText.textContent = 'No se encontraron sesiones de entrenamiento.';
+  container.appendChild(emptyText);
 }
 
 
