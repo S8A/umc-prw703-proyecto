@@ -1,4 +1,4 @@
-import { TrainingSession, ExerciseItem, SetType } from './data-classes';
+import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
 import * as utils from './utils.js';
 
 
@@ -74,7 +74,7 @@ export function constructTrainingSessionForm(
   const exercisesDiv = document.createElement('div');
   exercisesDiv.classList.add('table-responsive');
 
-  const exercisesTable = createExercisesTable(session.exercises);
+  const exercisesTable = createExercisesTable(trainingSession);
   exercisesDiv.appendChild(exercisesTable);
 
   exercisesSection.appendChild(exercisesTitle);
@@ -236,13 +236,15 @@ function createActionButtons() {
 
 
 /**
- * Create table of editable exercise items.
+ * Create table of editable exercise items, optionally using the data
+ * of the exercise items of the given TrainingSession.
  *
- * @param {ExerciseItem[]} exerciseItems
- * List of ExerciseItem objects to add to the table as initial rows.
+ * @param {?TrainingSession} trainingSession
+ * TrainingSession from which to extract the ExerciseItem objects to
+ * add to the table as initial rows.
  * @returns {HTMLTableElement} Editable exercise items table.
  */
-function createExercisesTable(exerciseItems = null) {
+function createExercisesTable(trainingSession = null) {
   // Table
   const table = document.createElement('table');
   table.classList.add('table', 'table-striped', 'table-hover')
@@ -280,8 +282,10 @@ function createExercisesTable(exerciseItems = null) {
   // Table body
   const tbody = document.createElement('tbody');
 
-  if (exerciseItems && exerciseItems.length) {
-    for (let i in exerciseItems) {
+  if (trainingSession && trainingSession instanceof TrainingSession
+      && trainingSession.exerciseItemsCount) {
+    // If a training session was given and it has at least one ExerciseItem
+    for (let i in trainingSession.exercises) {
       // For each ExerciseItem object, create a new exercise item row
       // and append it to the table body
       const indexNumber = Number(i);
@@ -1083,8 +1087,6 @@ function showExerciseCommentsError(comments) {
  * TrainingSession object created with the extracted data.
  */
 export function extractTrainingSessionData() {
-  const data = {}
-
   // Basic data fields
   const date = document.querySelector('input[type="date"]#date');
   const time = document.querySelector('input[type="time"]#time');
