@@ -8,8 +8,7 @@ import { auth, createUser } from './firebase.js';
  * @param {HTMLInputElement} email - Email input element.
  */
 function showEmailError(email) {
-
-  let feedback = utils.getInvalidFeedbackElement(email);
+  const feedback = utils.getInvalidFeedbackElement(email);
 
   if (email.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar una dirección de correo electrónico.';
@@ -29,8 +28,7 @@ function showEmailError(email) {
  * @param {HTMLInputElement} firstName - First name input element.
  */
 function showFirstNameError(firstName) {
-
-  let feedback = utils.getInvalidFeedbackElement(firstName);
+  const feedback = utils.getInvalidFeedbackElement(firstName);
 
   if (firstName.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar su nombre.'
@@ -50,8 +48,7 @@ function showFirstNameError(firstName) {
  * @param {HTMLInputElement} lastName - Last name input element.
  */
 function showLastNameError(lastName) {
-
-  let feedback = utils.getInvalidFeedbackElement(lastName);
+  const feedback = utils.getInvalidFeedbackElement(lastName);
 
   if (lastName.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar su apellido.'
@@ -71,8 +68,7 @@ function showLastNameError(lastName) {
  * @param {HTMLInputElement} password - Password input element.
  */
 function showPasswordError(password) {
-
-  let feedback = utils.getInvalidFeedbackElement(password);
+  const feedback = utils.getInvalidFeedbackElement(password);
 
   if (password.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar una contraseña.';
@@ -96,8 +92,7 @@ function showPasswordError(password) {
  * @param {HTMLInputElement} confirm - Confirm password input element.
  */
 function checkConfirmPassword(password, confirm) {
-
-  let feedback = utils.getInvalidFeedbackElement(confirm);
+  const feedback = utils.getInvalidFeedbackElement(confirm);
 
   if (password.value !== confirm.value) {
     let text = 'El texto ingresado no coincide con la contraseña.';

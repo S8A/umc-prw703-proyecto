@@ -10,11 +10,11 @@ import { auth } from './firebase.js';
  */
 function setUpSignedInActionCall(firstName) {
 
-  let actionCall = document.querySelector('#action-call');
+  const actionCall = document.querySelector('#action-call');
   actionCall.textContent =
       'Le damos la bienvenida, ' + firstName + '. Puede revisar su ';
 
-  let trainingLogLink = document.createElement('a');
+  const trainingLogLink = document.createElement('a');
   trainingLogLink.href = '/historial/';
   trainingLogLink.textContent = 'historial de entrenamiento';
 
@@ -22,7 +22,7 @@ function setUpSignedInActionCall(firstName) {
 
   actionCall.appendChild(document.createTextNode(' o '));
 
-  let createTrainingSessionLink = document.createElement('a');
+  const createTrainingSessionLink = document.createElement('a');
   createTrainingSessionLink.href = '/historial/crear.html';
   createTrainingSessionLink.textContent =
       'registrar una nueva sesión de entrenamiento';

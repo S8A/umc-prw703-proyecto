@@ -89,7 +89,7 @@ export class TrainingSession {
     // Exercises must be a list of at least one element, and all
     // elements must be valid ExerciseItem objects
     if (this.exerciseItemsCount) {
-      let allItemsValid = this.exercises.every(item => {
+      const allItemsValid = this.exercises.every(item => {
           return item instanceof ExerciseItem && item.isValid();
       });
 
@@ -185,8 +185,8 @@ export class ExerciseItem {
     // sets, and all elements must be integers greater than zero
     if (this.reps && this.reps instanceof Array
         && this.reps.length === this.sets) {
-      let allItemsValid = this.reps.every(item => {
-          let repNumber = Number(item);
+      const allItemsValid = this.reps.every(item => {
+          const repNumber = Number(item);
           return Number.isInteger(repNumber) && repNumber > 0;
       });
 

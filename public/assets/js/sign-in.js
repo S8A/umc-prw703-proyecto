@@ -8,8 +8,7 @@ import { auth, signInUser } from './firebase.js';
  * @param {HTMLInputElement} email - Email input element.
  */
 function showEmailError(email) {
-
-  let feedback = utils.getInvalidFeedbackElement(email);
+  const feedback = utils.getInvalidFeedbackElement(email);
 
   if (email.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar su dirección de correo electrónico.';
@@ -29,8 +28,7 @@ function showEmailError(email) {
  * @param {HTMLInputElement} password - Password input element.
  */
 function showPasswordError(password) {
-
-  let feedback = utils.getInvalidFeedbackElement(password);
+  const feedback = utils.getInvalidFeedbackElement(password);
 
   if (password.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar su contraseña.';
