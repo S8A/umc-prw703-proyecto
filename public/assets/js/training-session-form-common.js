@@ -1,79 +1,80 @@
-import * as utils from '/assets/js/utils.js';
+import { TrainingSession, ExerciseItem, SetType } from './data-classes';
+import * as utils from './utils.js';
 
 
 /* CONSTRUCT FORM PAGE */
 
-
+/**
+ * Construct form page for creating a new training session or editing
+ * an existing one.
+ *
+ * @param {string} mainTitleText - Text for the main title heading.
+ * @param {string} formId - ID of the main form element.
+ * @param {string} formLabel - ARIA label for the form.
+ * @param {string} submitButtonText - Text for the form's submit button.
+ * @param {?TrainingSession} [trainingSession=null]
+ * TrainingSession object with the data of the training session to edit,
+ * or null to create a new training session.
+ */
 export function constructTrainingSessionForm(
-  mainTitleText, formId, formLabel, submitButtonText, session = {}
+    mainTitleText, formId, formLabel, submitButtonText, trainingSession = null
 ) {
-  /* Construct create/edit form page with the given main title text,
-  form ID, form label, submit button text, and optional training session
-  data to populate the fields. */
-
-  let container = document.querySelector('#training-session-form-container');
+  const container = document.querySelector('#training-session-form-container');
 
   // Main title
-  let mainTitle = container.querySelector('h1#main-title');
+  const mainTitle = container.querySelector('h1#main-title');
   mainTitle.textContent = mainTitleText;
 
   // Remove #empty-text element
-  let emptyText = container.querySelector('p#empty-text');
+  const emptyText = container.querySelector('p#empty-text');
   container.removeChild(emptyText);
 
   // Form
-  let form = document.createElement('form');
+  const form = document.createElement('form');
   form.classList.add('needs-validation');
   form.id = formId;
   form.ariaLabel = formLabel;
   form.noValidate = true;
 
   // Basic data
-  let basicDataSection = document.createElement('section');
+  const basicDataSection = document.createElement('section');
   basicDataSection.id = 'basic-data';
 
-  let basicDataTitle = document.createElement('h2');
+  const basicDataTitle = document.createElement('h2');
   basicDataTitle.textContent = 'Datos generales';
 
-  let basicDataRequired = document.createElement('p');
+  const basicDataRequired = document.createElement('p');
   basicDataRequired.appendChild(
       document.createTextNode('Los campos requeridos son indicados por '));
 
-  let requiredAsterisk = document.createElement('abbr');
+  const requiredAsterisk = document.createElement('abbr');
   requiredAsterisk.textContent = '*';
   requiredAsterisk.title = 'requerido';
 
   basicDataRequired.appendChild(requiredAsterisk);
   basicDataRequired.appendChild(document.createTextNode('.'));
 
-  let basicDataFormFields = createBasicDataFormFields(
-    session.date,
-    session.time,
-    session.shortTitle,
-    session.duration,
-    session.bodyweight,
-    session.comments
-  );
+  const basicDataFormFields = createBasicDataFormFields(trainingSession);
 
   basicDataSection.appendChild(basicDataTitle);
   basicDataSection.appendChild(basicDataRequired);
   basicDataSection.appendChild(basicDataFormFields);
 
   // Exercises
-  let exercisesSection = document.createElement('section');
+  const exercisesSection = document.createElement('section');
   exercisesSection.id = 'exercises';
 
-  let exercisesTitle = document.createElement('h2');
+  const exercisesTitle = document.createElement('h2');
   exercisesTitle.textContent = 'Ejercicios';
 
-  let exercisesRequired = basicDataRequired.cloneNode(true);
+  const exercisesRequired = basicDataRequired.cloneNode(true);
 
-  let actionButtons = createActionButtons();
+  const actionButtons = createActionButtons();
 
-  let exercisesDiv = document.createElement('div');
+  const exercisesDiv = document.createElement('div');
   exercisesDiv.classList.add('table-responsive');
 
-  let exercisesTable = createExercisesTable(session.exercises);
+  const exercisesTable = createExercisesTable(session.exercises);
   exercisesDiv.appendChild(exercisesTable);
 
   exercisesSection.appendChild(exercisesTitle);
@@ -82,11 +83,11 @@ export function constructTrainingSessionForm(
   exercisesSection.appendChild(exercisesDiv);
 
   // Form buttons
-  let formButtonsSection = document.createElement('section');
+  const formButtonsSection = document.createElement('section');
   formButtonsSection.classList.add('text-center');
   formButtonsSection.id = 'form-buttons';
 
-  let submitButton = document.createElement('button');
+  const submitButton = document.createElement('button');
   submitButton.classList.add('btn', 'btn-primary');
   submitButton.type = 'submit';
   submitButton.textContent = submitButtonText;
@@ -105,14 +106,39 @@ export function constructTrainingSessionForm(
 }
 
 
-function createBasicDataFormFields(
-  date, time, shortTitle, duration, bodyweight, comments
-) {
-  /* Create basic data form fields with the data of the given session. */
-
-  let container = document.createElement('div');
+/**
+ * Create basic data form fields with the data of the given training session.
+ *
+ * @param {?TrainingSession} [trainingSession=null]
+ * TrainingSession object from which to extract the fields' initial
+ * values, or null to leave them empty.
+ * @returns {HTMLDivElement}
+ * Div containing the basic data form fields and their labels.
+ */
+function createBasicDataFormFields(trainingSession = null) {
+  // Div container for the form fields
+  const container = document.createElement('div');
   container.classList.add('row');
 
+  // Fields' initial values
+  let date = undefined;
+  let time = undefined;
+  let shortTitle = undefined;
+  let duration = undefined;
+  let bodyweight = undefined;
+  let comments = undefined;
+
+  if (trainingSession && trainingSession instanceof TrainingSession) {
+    // If given a training session, use its data for the initial values
+    date = trainingSession.date;
+    time = trainingSession.time;
+    shortTitle = trainingSession.shortTitle;
+    duration = trainingSession.duration;
+    bodyweight = trainingSession.bodyweight;
+    comments = trainingSession.comments;
+  }
+
+  // Create form fields and add them to the container
   container.appendChild(createDateDiv(date));
   container.appendChild(createTimeDiv(time));
   container.appendChild(createShortTitleDiv(shortTitle));
@@ -124,18 +150,22 @@ function createBasicDataFormFields(
 }
 
 
+/**
+ * Create action buttons for manipulating exercise items.
+ *
+ * @returns {HTMLDivElement} Div containing the action buttons.
+ */
 function createActionButtons() {
-  /* Create action buttons for manipulating exercise items. */
-
-  let container = document.createElement('div');
+  // Div container for the action buttons
+  const container = document.createElement('div');
   container.classList.add(
       'd-grid', 'gap-2', 'd-sm-block', 'mb-3', 'text-center');
   container.id = 'action-buttons';
   container.ariaLabel = 'Acciones';
   container.setAttribute('role', 'toolbar');
 
-  // Add
-  let addButton = document.createElement('button');
+  // Add button
+  const addButton = document.createElement('button');
   addButton.classList.add(
       'btn', 'btn-success', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   addButton.type = 'button';
@@ -143,11 +173,11 @@ function createActionButtons() {
   addButton.textContent = 'Agregar ejercicio';
 
   addButton.addEventListener('click', function (event) {
-    addExercise();
+    addExerciseItemRow();
   });
 
-  // Remove
-  let removeButton = document.createElement('button');
+  // Remove button
+  const removeButton = document.createElement('button');
   removeButton.classList.add(
       'btn', 'btn-danger', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   removeButton.type = 'button';
@@ -155,11 +185,11 @@ function createActionButtons() {
   removeButton.textContent = 'Eliminar seleccionado';
 
   removeButton.addEventListener('click', function (event) {
-    removeExercise();
+    removeExerciseItemRow();
   });
 
-  // Duplicate
-  let duplicateButton = document.createElement('button');
+  // Duplicate button
+  const duplicateButton = document.createElement('button');
   duplicateButton.classList.add(
       'btn', 'btn-secondary', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   duplicateButton.type = 'button';
@@ -167,11 +197,11 @@ function createActionButtons() {
   duplicateButton.textContent = 'Duplicar seleccionado';
 
   duplicateButton.addEventListener('click', function (event) {
-    duplicateExercise();
+    duplicateExerciseItemRow();
   });
 
-  // Move up
-  let moveUpButton = document.createElement('button');
+  // Move up button
+  const moveUpButton = document.createElement('button');
   moveUpButton.classList.add(
       'btn', 'btn-secondary', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   moveUpButton.type = 'button';
@@ -179,11 +209,11 @@ function createActionButtons() {
   moveUpButton.textContent = 'Subir seleccionado';
 
   moveUpButton.addEventListener('click', function (event) {
-    moveUpExercise();
+    moveUpExerciseItemRow();
   });
 
-  // Move down
-  let moveDownButton = document.createElement('button');
+  // Move down button
+  const moveDownButton = document.createElement('button');
   moveDownButton.classList.add(
       'btn', 'btn-secondary', 'btn-sm', 'me-sm-2', 'mb-sm-2');
   moveDownButton.type = 'button';
@@ -191,10 +221,10 @@ function createActionButtons() {
   moveDownButton.textContent = 'Bajar seleccionado';
 
   moveDownButton.addEventListener('click', function (event) {
-    moveDownExercise();
+    moveDownExerciseItemRow();
   });
 
-  // Add to div
+  // Add buttons to container
   container.appendChild(addButton);
   container.appendChild(removeButton);
   container.appendChild(duplicateButton);
@@ -205,14 +235,20 @@ function createActionButtons() {
 }
 
 
-function createExercisesTable(exercises) {
-  /* Create table with the given editable exercise items. */
-
-  let table = document.createElement('table');
+/**
+ * Create table of editable exercise items.
+ *
+ * @param {ExerciseItem[]} exerciseItems
+ * List of ExerciseItem objects to add to the table as initial rows.
+ * @returns {HTMLTableElement} Editable exercise items table.
+ */
+function createExercisesTable(exerciseItems = null) {
+  // Table
+  const table = document.createElement('table');
   table.classList.add('table', 'table-striped', 'table-hover')
 
   // Table head
-  let thead = document.createElement('thead');
+  const thead = document.createElement('thead');
   let headers = [
     {id: 'selection-th', text: '', required: false},
     {id: 'exercise-th', text: 'Ejercicio', required: true},
@@ -224,13 +260,13 @@ function createExercisesTable(exercises) {
   ];
 
   for (let header of headers) {
-    let th = document.createElement('th');
+    const th = document.createElement('th');
     th.classList.add('px-2');
     th.id = header.id;
     th.appendChild(document.createTextNode(header.text));
 
     if (header.required) {
-      let requiredAsterisk = document.createElement('abbr');
+      const requiredAsterisk = document.createElement('abbr');
       requiredAsterisk.textContent = '*';
       requiredAsterisk.title = 'requerido';
       requiredAsterisk.ariaLabel = 'requerido';
@@ -242,16 +278,16 @@ function createExercisesTable(exercises) {
   }
 
   // Table body
-  let tbody = document.createElement('tbody');
+  const tbody = document.createElement('tbody');
 
-  if (exercises && exercises.length) {
-    for (let i in exercises) {
-      // For each exercise data object, create a new exercise item row
+  if (exerciseItems && exerciseItems.length) {
+    for (let i in exerciseItems) {
+      // For each ExerciseItem object, create a new exercise item row
       // and append it to the table body
-      let indexNumber = Number(i);
-      let rowNumber = indexNumber + 1;
-      let data = exercises[indexNumber];
-      let row = createEditableExerciseItemRow(rowNumber, data);
+      const indexNumber = Number(i);
+      const rowNumber = indexNumber + 1;
+      const exerciseItem = exerciseItems[indexNumber];
+      const row = createEditableExerciseItemRow(rowNumber, exerciseItem);
       tbody.appendChild(row);
     }
   }
@@ -263,20 +299,25 @@ function createExercisesTable(exercises) {
 }
 
 
+/**
+ * Create date field div element with the given value, if any.
+ *
+ * @param {?any} [value=null] - Initial value for the field.
+ * @returns {HTMLDivElement} Div containing the field and its label.
+ */
 function createDateDiv(value = null) {
-  /* Create date field div element with the given value, if any. */
-
-  let dateDiv = document.createElement('div');
+  // Div container
+  const dateDiv = document.createElement('div');
   dateDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
-  let dateLabel = document.createElement('label');
+  const dateLabel = document.createElement('label');
   dateLabel.classList.add('form-label');
   dateLabel.htmlFor = 'date';
 
   dateLabel.appendChild(document.createTextNode('Fecha:'));
 
-  let requiredAsterisk = document.createElement('abbr');
+  const requiredAsterisk = document.createElement('abbr');
   requiredAsterisk.textContent = '*';
   requiredAsterisk.title = 'requerido';
   requiredAsterisk.ariaLabel = 'requerido';
@@ -285,9 +326,9 @@ function createDateDiv(value = null) {
   dateLabel.appendChild(document.createTextNode(' '));
 
   // Input
-  let date = document.createElement('input');
+  const date = document.createElement('input');
   date.classList.add('form-control');
-  date.type = "date";
+  date.type = 'date';
   date.id = dateLabel.htmlFor;
   date.name = date.id;
   date.pattern = '\d{4}-\d{2}-\d{2}';
@@ -316,20 +357,25 @@ function createDateDiv(value = null) {
 }
 
 
+/**
+ * Create time field div element with the given value, if any.
+ *
+ * @param {?any} [value=null] - Initial value for the field.
+ * @returns {HTMLDivElement} Div containing the field and its label.
+ */
 function createTimeDiv(value = null) {
-  /* Create time field div element with the given value, if any. */
-
-  let timeDiv = document.createElement('div');
+  // Div container
+  const timeDiv = document.createElement('div');
   timeDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
-  let timeLabel = document.createElement('label');
+  const timeLabel = document.createElement('label');
   timeLabel.classList.add('form-label');
   timeLabel.htmlFor = 'time';
 
   timeLabel.appendChild(document.createTextNode('Hora:'));
 
-  let requiredAsterisk = document.createElement('abbr');
+  const requiredAsterisk = document.createElement('abbr');
   requiredAsterisk.textContent = '*';
   requiredAsterisk.title = 'requerido';
   requiredAsterisk.ariaLabel = 'requerido';
@@ -338,9 +384,9 @@ function createTimeDiv(value = null) {
   timeLabel.appendChild(document.createTextNode(' '));
 
   // Input
-  let time = document.createElement('input');
+  const time = document.createElement('input');
   time.classList.add('form-control');
-  time.type = "time";
+  time.type = 'time';
   time.id = timeLabel.htmlFor;
   time.name = time.id;
   time.pattern = '\d{2}:\d{2}';
@@ -369,22 +415,27 @@ function createTimeDiv(value = null) {
 }
 
 
+/**
+ * Create short title field div element with the given value, if any.
+ *
+ * @param {?any} [value=null] - Initial value for the field.
+ * @returns {HTMLDivElement} Div containing the field and its label.
+ */
 function createShortTitleDiv(value = null) {
-  /* Create short title field div element with the given value, if any. */
-
-  let shortTitleDiv = document.createElement('div');
+  // Div container
+  const shortTitleDiv = document.createElement('div');
   shortTitleDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
-  let shortTitleLabel = document.createElement('label');
+  const shortTitleLabel = document.createElement('label');
   shortTitleLabel.classList.add('form-label');
   shortTitleLabel.htmlFor = 'short-title';
   shortTitleLabel.textContent = 'Título breve: ';
 
   // Input
-  let shortTitle = document.createElement('input');
+  const shortTitle = document.createElement('input');
   shortTitle.classList.add('form-control');
-  shortTitle.type = "text";
+  shortTitle.type = 'text';
   shortTitle.id = shortTitleLabel.htmlFor;
   shortTitle.name = shortTitle.id;
   shortTitle.maxLength = 50;
@@ -412,22 +463,27 @@ function createShortTitleDiv(value = null) {
 }
 
 
+/**
+ * Create duration field div element with the given value, if any.
+ *
+ * @param {?any} [value=null] - Initial value for the field.
+ * @returns {HTMLDivElement} Div containing the field and its label.
+ */
 function createDurationDiv(value = null) {
-  /* Create duration field div element with the given value, if any. */
-
-  let durationDiv = document.createElement('div');
+  // Div container
+  const durationDiv = document.createElement('div');
   durationDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
-  let durationLabel = document.createElement('label');
+  const durationLabel = document.createElement('label');
   durationLabel.classList.add('form-label');
   durationLabel.htmlFor = 'duration';
   durationLabel.textContent = 'Duración de la sesión (minutos): ';
 
   // Input
-  let duration = document.createElement('input');
+  const duration = document.createElement('input');
   duration.classList.add('form-control');
-  duration.type = "number";
+  duration.type = 'number';
   duration.id = durationLabel.htmlFor;
   duration.name = duration.id;
   duration.min = 0;
@@ -456,22 +512,27 @@ function createDurationDiv(value = null) {
 }
 
 
+/**
+ * Create bodyweight field div element with the given value, if any.
+ *
+ * @param {?any} [value=null] - Initial value for the field.
+ * @returns {HTMLDivElement} Div containing the field and its label.
+ */
 function createBodyweightDiv(value = null) {
-  /* Create bodyweight field div element with the given value, if any. */
-
-  let bodyweightDiv = document.createElement('div');
+  // Div container
+  const bodyweightDiv = document.createElement('div');
   bodyweightDiv.classList.add('mb-3', 'col', 'col-12', 'col-sm-6', 'col-lg-4');
 
   // Label
-  let bodyweightLabel = document.createElement('label');
+  const bodyweightLabel = document.createElement('label');
   bodyweightLabel.classList.add('form-label');
   bodyweightLabel.htmlFor = 'bodyweight';
   bodyweightLabel.textContent = 'Peso corporal (kilogramos): ';
 
   // Input
-  let bodyweight = document.createElement('input');
+  const bodyweight = document.createElement('input');
   bodyweight.classList.add('form-control');
-  bodyweight.type = "number";
+  bodyweight.type = 'number';
   bodyweight.id = bodyweightLabel.htmlFor;
   bodyweight.name = bodyweight.id;
   bodyweight.min = 0;
@@ -500,20 +561,25 @@ function createBodyweightDiv(value = null) {
 }
 
 
+/**
+ * Create general comments field div element with the given value, if any.
+ *
+ * @param {?any} [value=null] - Initial value for the field.
+ * @returns {HTMLDivElement} Div containing the field and its label.
+ */
 function createGeneralCommentsDiv(value = null) {
-  /* Create general comments field div element with the given value, if any. */
-
-  let commentsDiv = document.createElement('div');
+  // Div container
+  const commentsDiv = document.createElement('div');
   commentsDiv.classList.add('mb-3', 'col', 'col-12');
 
   // Label
-  let commentsLabel = document.createElement('label');
+  const commentsLabel = document.createElement('label');
   commentsLabel.classList.add('form-label');
   commentsLabel.htmlFor = 'comments';
   commentsLabel.textContent = 'Comentarios: ';
 
   // Input
-  let comments = document.createElement('textarea');
+  const comments = document.createElement('textarea');
   comments.classList.add('form-control');
   comments.id = commentsLabel.htmlFor;
   comments.name = comments.id;
@@ -546,28 +612,40 @@ function createGeneralCommentsDiv(value = null) {
 
 /* GENERAL HELPERS */
 
+/**
+ * Get the currently selected row number.
+ *
+ * @returns {?number} Currently selected row number, or null if none selected.
+ */
 function getSelectedRowNumber() {
-  /* Get the currently selected row number if any, or return null. */
-
-  let selected = document.querySelector(
+  const selected = document.querySelector(
       '#exercises input[type="radio"][name="selection"]:checked');
 
-  let rowNumber = selected ? Number(selected.dataset.rowNumber) : null;
+  const rowNumber = selected ? Number(selected.dataset.rowNumber) : null;
 
-  return Number.isInteger(rowNumber) ? rowNumber : null;
+  return (Number.isInteger(rowNumber) && rowNumber > 0) ? rowNumber : null;
 }
 
 
+/**
+ * Get all exercise item rows.
+ *
+ * @returns {NodeListOf<HTMLTableRowElement>}
+ * List of exercise item rows in the table.
+ */
 export function getRows() {
-  /* Get all exercise item rows. */
-
   return document.querySelectorAll('#exercises table tbody > tr.exercise-item');
 }
 
 
+/**
+ * Get the exercise item row with the given row number.
+ *
+ * @param {number} rowNumber - Row number.
+ * @returns {?HTMLTableRowElement}
+ * Exercise item row with the given row number, or null if not found.
+ */
 export function getRow(rowNumber) {
-  /* Get the exercise item row with the given row number. */
-
   return document.querySelector(
       '#exercises table tbody > tr.exercise-item[data-row-number="'
       + rowNumber + '"]'
@@ -577,26 +655,26 @@ export function getRow(rowNumber) {
 
 /* ACTION BUTTON FUNCTIONS */
 
+/**
+ * Enable/disable action buttons based on the currently selected row
+ * number, if any.
+ */
 export function toggleActionButtons() {
-  /* Enable/disable action buttons based on the currently selected row
-  number, if any. */
-
-  let selected = getSelectedRowNumber();
-  let rowCount = getRows().length;
+  const selected = getSelectedRowNumber();
+  const rowCount = getRows().length;
 
   // Add button not here because it is always enabled
-  let removeButton = document.querySelector('button#remove-btn');
-  let duplicateButton = document.querySelector('button#duplicate-btn');
-  let moveUpButton = document.querySelector('button#move-up-btn');
-  let moveDownButton = document.querySelector('button#move-down-btn');
+  const removeButton = document.querySelector('button#remove-btn');
+  const duplicateButton = document.querySelector('button#duplicate-btn');
+  const moveUpButton = document.querySelector('button#move-up-btn');
+  const moveDownButton = document.querySelector('button#move-down-btn');
 
   if (Number.isInteger(selected)) {
     // If an item is selected, enable duplicate button
     duplicateButton.disabled = false;
 
-    // Disable remove button if there is only one item (or less, which
-    // is impossible)
-    removeButton.disabled = rowCount <= 1;
+    // Disable remove button if there is only one item
+    removeButton.disabled = rowCount === 1;
 
     // Disable move up button if the selected item is the first
     moveUpButton.disabled = selected === 1;
@@ -613,26 +691,27 @@ export function toggleActionButtons() {
 }
 
 
-export function addExercise() {
-  /* Add an empty exercise item after the currently selected item. */
+/**
+ * Add an empty exercise item row after the currently selected one.
+ */
+export function addExerciseItemRow() {
+  const tbody = document.querySelector('#exercises table tbody');
+  const rows = getRows();
 
-  let tbody = document.querySelector('#exercises table tbody');
-  let rows = getRows();
+  const selected = getSelectedRowNumber();
 
-  let selected = getSelectedRowNumber();
-
-  let newRowNumber = selected ? selected + 1 : rows.length + 1;
-  let newExerciseItem = createEditableExerciseItemRow(newRowNumber);
+  const newRowNumber = selected ? selected + 1 : rows.length + 1;
+  const newRow = createEditableExerciseItemRow(newRowNumber);
 
   if (!rows.length || !selected || selected === rows.length) {
     // If the there are no rows, or no row is selected, or the last row
     // is selected, append the new item to the end of the table
-    tbody.appendChild(newExerciseItem);
+    tbody.appendChild(newRow);
   } else {
     // Otherwise, all rows after the selected one must have
     // their row number increased by one
     for (let row of rows) {
-      let rowNumber = Number(row.dataset.rowNumber);
+      const rowNumber = Number(row.dataset.rowNumber);
       if (rowNumber > selected) {
         replaceExerciseItemRowNumber(row, rowNumber + 1);
       }
@@ -640,7 +719,7 @@ export function addExercise() {
 
     // Finally, insert new row before the one following the selected one
     // Reminder: selected is 1-index, rows is 0-index
-    tbody.insertBefore(newExerciseItem, rows[selected]);
+    tbody.insertBefore(newRow, rows[selected]);
   }
 
   // Row count changed, toggle action buttons
@@ -648,20 +727,20 @@ export function addExercise() {
 }
 
 
-export function removeExercise() {
-  /* Remove selected exercise item, if any and unless it's the only
-  exercise item in the table. */
-
-  let selected = getSelectedRowNumber();
+/**
+ * Remove selected exercise item row, unless it's the only row in the table.
+ */
+export function removeExerciseItemRow() {
+  const selected = getSelectedRowNumber();
 
   if (selected) {
     // If there is an exercise item selected, look for it, remove it,
     // and reduce by one the row number of all subsequent rows (if any)
-    let rows = getRows();
+    const rows = getRows();
 
-    if (rows.length && rows.length > 1) {
+    if (rows.length) {
       for (let row of rows) {
-        let rowNumber = Number(row.dataset.rowNumber);
+        const rowNumber = Number(row.dataset.rowNumber);
         if (rowNumber === selected) {
           row.remove();
         } else if (rowNumber > selected) {
@@ -676,32 +755,33 @@ export function removeExercise() {
 }
 
 
-export function duplicateExercise() {
-  /* Duplicate selected exercise item, if any. */
+/**
+ * Duplicate selected exercise item row.
+ */
+export function duplicateExerciseItemRow() {
+  const selected = getSelectedRowNumber();
+  const selectedRow = selected ? getRow(selected) : null;
 
-  let selected = getSelectedRowNumber();
-  let selectedItem = selected ? getRow(selected) : null;
+  if (selected && selectedRow) {
+    // If there is an exercise item row selected, extract its data, create
+    // a new exercise item row with the same data, and place it below the
+    // selected row
+    const data = extractExerciseItemRowData(selectedRow);
+    const newRowNumber = selected + 1;
+    const newRow = createEditableExerciseItemRow(newRowNumber, data);
 
-  if (selected && selectedItem) {
-    // If there is an exercise item selected, extract its data, create
-    // a new exercise item with the same data, and place it below the
-    // selected item
-    let data = extractExerciseItemData(selectedItem);
-    let newRowNumber = selected + 1;
-    let newExerciseItem = createEditableExerciseItemRow(newRowNumber, data);
-
-    let tbody = document.querySelector('#exercises table tbody');
-    let rows = getRows();
+    const tbody = document.querySelector('#exercises table tbody');
+    const rows = getRows();
 
     if (!rows.length || selected === rows.length) {
       // If the there are no rows (impossible) or the last row is
       // selected, append the new item to the end of the table
-      tbody.appendChild(newExerciseItem);
+      tbody.appendChild(newRow);
     } else {
       // Otherwise, all rows after the selected one must have
       // their row number increased by one
       for (let row of rows) {
-        let rowNumber = Number(row.dataset.rowNumber);
+        const rowNumber = Number(row.dataset.rowNumber);
         if (rowNumber > selected) {
           replaceExerciseItemRowNumber(row, rowNumber + 1);
         }
@@ -709,7 +789,7 @@ export function duplicateExercise() {
 
       // Finally, insert new row before the one following the selected one
       // Reminder: selected is 1-index, rows is 0-index
-      tbody.insertBefore(newExerciseItem, rows[selected]);
+      tbody.insertBefore(newRow, rows[selected]);
     }
 
     // Row count changed, toggle action buttons
@@ -718,29 +798,29 @@ export function duplicateExercise() {
 }
 
 
-export function moveUpExercise() {
-  /* Move selected exercise item (if any) one position up, unless it's
-  the first item. */
+/**
+ * Move selected exercise item row one position up, unless it's the first one.
+ */
+export function moveUpExerciseItemRow() {
+  const selected = getSelectedRowNumber();
+  const selectedRow = selected ? getRow(selected) : null;
 
-  let selected = getSelectedRowNumber();
-  let selectedItem = selected ? getRow(selected) : null;
-
-  if (selected && selected > 1 && selectedItem) {
-    // If there is an exercise item selected and it's not the first one,
-    // swap it with the one above it
-    let tbody = document.querySelector('#exercises table tbody');
-    let rows = getRows();
+  if (selected && selected > 1 && selectedRow) {
+    // If there is an exercise item row selected and it's not the first
+    // one, swap it with the one above it
+    const tbody = document.querySelector('#exercises table tbody');
+    const rows = getRows();
 
     if (rows.length && rows.length >= selected) {
       // Reminder: selected is 1-index, rows is 0-index
-      let itemAbove = rows[selected - 2];
+      const itemAbove = rows[selected - 2];
 
       // Swap row numbers
-      replaceExerciseItemRowNumber(selectedItem, selected - 1);
+      replaceExerciseItemRowNumber(selectedRow, selected - 1);
       replaceExerciseItemRowNumber(itemAbove, selected);
 
       // Re-insert selected item before the one above it
-      tbody.insertBefore(selectedItem, itemAbove);
+      tbody.insertBefore(selectedRow, itemAbove);
 
       // Selection changed, toggle action buttons
       toggleActionButtons();
@@ -749,29 +829,29 @@ export function moveUpExercise() {
 }
 
 
-export function moveDownExercise() {
-  /* Move selected exercise item (if any) one position down, unless it's
-  the last item. */
+/**
+ * Move selected exercise item row one position down, unless it's the last one.
+ */
+export function moveDownExerciseItemRow() {
+  const selected = getSelectedRowNumber();
+  const selectedRow = selected ? getRow(selected) : null;
 
-  let selected = getSelectedRowNumber();
-  let selectedItem = selected ? getRow(selected) : null;
-
-  if (selected && selectedItem) {
-    // If there is an exercise item selected and it's not the first one,
-    // swap it with the one below it (if any)
-    let tbody = document.querySelector('#exercises table tbody');
-    let rows = getRows();
+  if (selected && selectedRow) {
+    // If there is an exercise item row selected and it's not the first
+    // one, swap it with the one below it (if any)
+    const tbody = document.querySelector('#exercises table tbody');
+    const rows = getRows();
 
     if (rows.length && selected < rows.length) {
       // Reminder: selected is 1-index, rows is 0-index
-      let itemBelow = rows[selected];
+      const itemBelow = rows[selected];
 
       // Swap row numbers
       replaceExerciseItemRowNumber(itemBelow, selected);
-      replaceExerciseItemRowNumber(selectedItem, selected + 1);
+      replaceExerciseItemRowNumber(selectedRow, selected + 1);
 
       // Re-insert bottom item before the selected one
-      tbody.insertBefore(itemBelow, selectedItem);
+      tbody.insertBefore(itemBelow, selectedRow);
 
       // Selection changed, toggle action buttons
       toggleActionButtons();
@@ -782,10 +862,13 @@ export function moveDownExercise() {
 
 /* FORM FIELD ERRORS */
 
+/**
+ * Show feedback if the date field's input is invalid.
+ *
+ * @param {HTMLInputElement} date - Date input element.
+ */
 export function showDateError(date) {
-  /* Show feedback if the date field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(date);
+  const feedback = utils.getInvalidFeedbackElement(date);
 
   if (date.validity.valueMissing) {
     feedback.textContent =
@@ -797,10 +880,13 @@ export function showDateError(date) {
 }
 
 
+/**
+ * Show feedback if the time field's input is invalid.
+ *
+ * @param {HTMLInputElement} time - Time input element.
+ */
 export function showTimeError(time) {
-  /* Show feedback if the time field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(time);
+  const feedback = utils.getInvalidFeedbackElement(time);
 
   if (time.validity.valueMissing) {
     feedback.textContent =
@@ -811,10 +897,13 @@ export function showTimeError(time) {
 }
 
 
+/**
+ * Show feedback if the short title field's input is invalid.
+ *
+ * @param {HTMLInputElement} shortTitle - Short title input element.
+ */
 export function showShortTitleError(shortTitle) {
-  /* Show feedback if the short title field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(shortTitle);
+  const feedback = utils.getInvalidFeedbackElement(shortTitle);
 
   if (shortTitle.validity.tooLong) {
     feedback.textContent =
@@ -823,10 +912,13 @@ export function showShortTitleError(shortTitle) {
 }
 
 
+/**
+ * Show feedback if the duration field's input is invalid.
+ *
+ * @param {HTMLInputElement} duration - Duration input element.
+ */
 export function showDurationError(duration) {
-  /* Show feedback if the duration field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(duration);
+  const feedback = utils.getInvalidFeedbackElement(duration);
 
   if (duration.validity.badInput) {
     feedback.textContent = 'Solo se permiten números enteros.';
@@ -838,10 +930,13 @@ export function showDurationError(duration) {
 }
 
 
+/**
+ * Show feedback if the bodyweight field's input is invalid.
+ *
+ * @param {HTMLInputElement} bodyweight - Bodyweight input element.
+ */
 export function showBodyweightError(bodyweight) {
-  /* Show feedback if the bodyweight field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(bodyweight);
+  const feedback = utils.getInvalidFeedbackElement(bodyweight);
 
   if (bodyweight.validity.badInput) {
     feedback.textContent = 'Solo se permiten números enteros.';
@@ -853,10 +948,13 @@ export function showBodyweightError(bodyweight) {
 }
 
 
+/**
+ * Show feedback if the comments field's input is invalid.
+ *
+ * @param {HTMLTextAreaElement} comments - Comments text area element.
+ */
 export function showCommentsError(comments) {
-  /* Show feedback if the comments field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(comments);
+  const feedback = utils.getInvalidFeedbackElement(comments);
 
   if (comments.validity.tooLong) {
     feedback.textContent =
@@ -865,10 +963,13 @@ export function showCommentsError(comments) {
 }
 
 
+/**
+ * Show feedback if the exercise field's input is invalid.
+ *
+ * @param {HTMLInputElement} exercise - Exercise input element.
+ */
 function showExerciseError(exercise) {
-  /* Show feedback if the exercise field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(exercise);
+  const feedback = utils.getInvalidFeedbackElement(exercise);
 
   if (exercise.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar el ejercicio realizado.';
@@ -879,10 +980,13 @@ function showExerciseError(exercise) {
 }
 
 
+/**
+ * Show feedback if the set type field's input is invalid.
+ *
+ * @param {HTMLSelectElement} setType - Set type select element.
+ */
 function showSetTypeError(setType) {
-  /* Show feedback if the set type field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(setType);
+  const feedback = utils.getInvalidFeedbackElement(setType);
 
   if (setType.validity.valueMissing) {
     feedback.textContent =
@@ -891,10 +995,13 @@ function showSetTypeError(setType) {
 }
 
 
+/**
+ * Show feedback if the weight field's input is invalid.
+ *
+ * @param {HTMLInputElement} weight - Weight input element.
+ */
 function showWeightError(weight) {
-  /* Show feedback if the weight field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(weight);
+  const feedback = utils.getInvalidFeedbackElement(weight);
 
   if (weight.validity.badInput) {
     feedback.textContent = 'Solo se permiten números.';
@@ -906,10 +1013,13 @@ function showWeightError(weight) {
 }
 
 
+/**
+ * Show feedback if the sets field's input is invalid.
+ *
+ * @param {HTMLInputElement} sets - Sets input element.
+ */
 function showSetsError(sets) {
-  /* Show feedback if the sets field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(sets);
+  const feedback = utils.getInvalidFeedbackElement(sets);
 
   if (sets.validity.valueMissing) {
     feedback.textContent =
@@ -924,10 +1034,13 @@ function showSetsError(sets) {
 }
 
 
+/**
+ * Show feedback if the reps field's input is invalid.
+ *
+ * @param {HTMLInputElement} reps - Reps input element.
+ */
 function showRepsError(reps) {
-  /* Show feedback if the reps field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(reps);
+  const feedback = utils.getInvalidFeedbackElement(reps);
 
   if (reps.validity.valueMissing) {
     feedback.textContent = 'Debe ingresar el número de repeticiones.';
@@ -941,10 +1054,13 @@ function showRepsError(reps) {
 }
 
 
+/**
+ * Show feedback if the exercise comments field's input is invalid.
+ *
+ * @param {HTMLTextAreaElement} comments - Exercise comments text area element.
+ */
 function showExerciseCommentsError(comments) {
-  /* Show feedback if the exercise comments field's input is invalid. */
-
-  let feedback = utils.getInvalidFeedbackElement(comments);
+  const feedback = utils.getInvalidFeedbackElement(comments);
 
   if (comments.validity.tooLong) {
     feedback.textContent =
@@ -959,52 +1075,63 @@ function showExerciseCommentsError(comments) {
 
 /* FORM DATA PROCESSING */
 
-export function extractFormData(form) {
-  /* Extract training session data from the given form element. */
-
-  let data = {}
+/**
+ * Extract training session data from the form's fields and use it to
+ * create a TrainingSession object.
+ *
+ * @returns {TrainingSession}
+ * TrainingSession object created with the extracted data.
+ */
+export function extractTrainingSessionData() {
+  const data = {}
 
   // Basic data fields
-  let date = form.querySelector('input[type="date"]#date');
-  data.date = date ? date.value : null;
+  const date = document.querySelector('input[type="date"]#date');
+  const time = document.querySelector('input[type="time"]#time');
+  const shortTitle = document.querySelector('input[type="text"]#short-title');
+  const duration = document.querySelector('input[type="number"]#duration');
+  const bodyweight = document.querySelector('input[type="number"]#bodyweight');
+  const comments = document.querySelector('textarea#comments');
 
-  let time = form.querySelector('input[type="time"]#time');
-  data.time = time ? time.value : null;
+  // Exercise items created from the table's data
+  const exercises = extractExerciseItemsData();
 
-  let shortTitle = form.querySelector('input[type="text"]#short-title');
-  data.shortTitle = shortTitle ? shortTitle.value : null;
-
-  let duration = form.querySelector('input[type="number"]#duration');
-  data.duration = duration ? duration.value : null;
-
-  let bodyweight = form.querySelector('input[type="number"]#bodyweight');
-  data.bodyweight = bodyweight ? bodyweight.value : null;
-
-  let comments = form.querySelector('textarea#comments');
-  data.comments = comments ? comments.value : null;
-
-  // Exercises' data
-  data.exercises = extractExercisesData();
-
-  return data;
+  return new TrainingSession(
+      date ? date.value : null,
+      time ? time.value : null,
+      exercises,
+      shortTitle ? shortTitle.value : '',
+      duration ? duration.value : null,
+      bodyweight ? bodyweight.value : null,
+      comments ? comments.value : ''
+  );
 }
 
 
-function extractExercisesData() {
-  /* Return a list of exercise objects created with the corresponding
-  form fields' data. */
+/**
+ * Extract data from the table's rows' form fields and use it to create
+ * a list of ExerciseItem objects.
+ *
+ * @returns {ExerciseItem[]}
+ * List of ExerciseItem objects created with the extracted data.
+ */
+function extractExerciseItemsData() {
+  const exercises = [];
+  const rows = getRows();
 
-  let exercises = [];
-
-  let rows = getRows();
   if (rows) {
     for (let row of rows) {
-      let data = extractExerciseItemData(row);
-      let exercise = utils.createTrainingSessionExerciseItem(data);
+      const data = extractExerciseItemRowData(row);
+      const exercise = new ExerciseItem(
+          data.exercise,
+          SetType.enumValueOf(data.setType),
+          data.sets,
+          data.reps,
+          data.weight,
+          data.comments
+      );
 
-      if (exercise) {
-        exercises.push(exercise);
-      }
+      exercises.push(exercise);
     }
   }
 
@@ -1014,44 +1141,52 @@ function extractExercisesData() {
 
 /* CREATE EDITABLE EXERCISE ITEM ROW ELEMENTS */
 
+/**
+ * Create a new editable exercise item table row and set the fields'
+ * initial values based on the given data object, if given.
+ *
+ * @param {number} rowNumber - Row number of the new exercise item row.
+ * @param {Object} [data]
+ * Data object from which to get the values for the exercise item row's
+ * fields.
+ * @returns {HTMLTableRowElement} Editable exercise item table row.
+ */
 export function createEditableExerciseItemRow(rowNumber, data = {}) {
-  /* Create a new editable exercise item table row and set the fields'
-  initial values based on the given data object, if given. */
-
-  let tr = document.createElement('tr');
+  // Table row
+  const tr = document.createElement('tr');
   tr.classList.add('exercise-item');
   tr.dataset.rowNumber = rowNumber;
 
   // Selection
-  let selectionTd = createSelectionTd(rowNumber);
+  const selectionTd = createSelectionTd(rowNumber);
 
   // Exercise*
-  let exerciseTd = createExerciseTd(rowNumber, data.exercise);
+  const exerciseTd = createExerciseTd(rowNumber, data.exercise);
 
   // Set type*
-  let setTypeTd = createSetTypeTd(rowNumber, data.setType);
+  const setTypeTd = createSetTypeTd(rowNumber, data.setType);
 
   // Weight
-  let weightTd = createWeightTd(rowNumber, data.weight);
+  const weightTd = createWeightTd(rowNumber, data.weight);
 
   // Sets
-  let setsTd = createSetsTd(rowNumber, data.sets);
+  const setsTd = createSetsTd(rowNumber, data.sets);
 
   // Reps
-  let repsTd = document.createElement('td');
+  const repsTd = document.createElement('td');
   repsTd.dataset.column = 'reps';
 
   if (data.sets && Number.isInteger(Number(data.sets))) {
     for (let i = 0; i < data.sets; i++) {
-      let setNumber = i + 1;
-      let reps = data.reps[i];
-      let repsDiv = createRepsDiv(rowNumber, setNumber, reps);
+      const setNumber = i + 1;
+      const reps = data.reps[i];
+      const repsDiv = createRepsDiv(rowNumber, setNumber, reps);
       repsTd.appendChild(repsDiv);
     }
   }
 
   // Comments
-  let commentsTd = createCommentsTd(rowNumber, data.comments);
+  const commentsTd = createCommentsTd(rowNumber, data.comments);
 
   // Add table cells to row
   tr.appendChild(selectionTd);
@@ -1066,13 +1201,21 @@ export function createEditableExerciseItemRow(rowNumber, data = {}) {
 }
 
 
+/**
+ * Create radio selection table cell with the given row number.
+ *
+ * @param {number} rowNumber
+ * Row number of the exercise item row to which this table cell will belong.
+ * @returns {HTMLTableCellElement}
+ * Table cell containing the radio selection input.
+ */
 function createSelectionTd(rowNumber) {
-  /* Create radio selection table cell with the given row number. */
-
-  let selectionTd = document.createElement('td');
+  // Table cell
+  const selectionTd = document.createElement('td');
   selectionTd.dataset.column = 'selection';
 
-  let selection = document.createElement('input');
+  // Selection radio input
+  const selection = document.createElement('input');
   selection.classList.add('form-check-input');
   selection.type = 'radio';
   selection.name = 'selection';
@@ -1080,28 +1223,39 @@ function createSelectionTd(rowNumber) {
   selection.dataset.rowNumber = rowNumber;
   selection.ariaLabel = 'Seleccionar ítem ' + rowNumber;
 
+  // Add event listener
   selection.addEventListener('click', function (event) {
     toggleActionButtons();
   });
 
+  // Add to table cell
   selectionTd.appendChild(selection);
 
   return selectionTd;
 }
 
 
+/**
+ * Create exercise field table cell with the given row number and
+ * optional value.
+ *
+ * @param {number} rowNumber
+ * Row number of the exercise item row to which this table cell will belong.
+ * @param {?any} value - Value to set for the field.
+ * @returns {HTMLTableCellElement}
+ * Table cell containing the exercise field and its label.
+ */
 function createExerciseTd(rowNumber, value) {
-  /* Create exercise field table cell with the given row number and
-  optional value. */
-
-  let exerciseTd = document.createElement('td');
+  // Table cell
+  const exerciseTd = document.createElement('td');
   exerciseTd.classList.add('form-floating');
   exerciseTd.dataset.column = 'exercise';
 
-  let exercise = document.createElement('input');
+  // Exercise input
+  const exercise = document.createElement('input');
   exercise.classList.add('form-control', 'form-control-sm');
-  exercise.type = "text";
-  exercise.name = "exercise-" + rowNumber;
+  exercise.type = 'text';
+  exercise.name = 'exercise-' + rowNumber;
   exercise.id = exercise.name;
   exercise.dataset.rowNumber = rowNumber;
   exercise.maxLength = 50;
@@ -1109,9 +1263,11 @@ function createExerciseTd(rowNumber, value) {
   exercise.required = true;
 
   if (value) {
+    // If given, set initial value
     exercise.value = value;
   }
 
+  // Add event listeners
   exercise.addEventListener('invalid', function (event) {
     showExerciseError(exercise);
   });
@@ -1124,11 +1280,13 @@ function createExerciseTd(rowNumber, value) {
     }
   });
 
-  let exerciseLabel = document.createElement('label');
+  // Label
+  const exerciseLabel = document.createElement('label');
   exerciseLabel.classList.add('form-label', 'small');
   exerciseLabel.htmlFor = exercise.id;
   exerciseLabel.textContent = 'Ejercicio';
 
+  // Add to table cell
   exerciseTd.appendChild(exercise);
   exerciseTd.appendChild(exerciseLabel);
   exerciseTd.appendChild(utils.createInvalidFeedbackElement());
@@ -1137,38 +1295,52 @@ function createExerciseTd(rowNumber, value) {
 }
 
 
+/**
+ * Create set type field table cell with the given row number and
+ * optional value.
+ *
+ * @param {number} rowNumber
+ * Row number of the exercise item row to which this table cell will belong.
+ * @param {?any} value - Value to set for the field.
+ * @returns {HTMLTableCellElement}
+ * Table cell containing the set type select field and its label.
+ */
 function createSetTypeTd(rowNumber, value) {
-  /* Create set type field table cell with the given row number and
-  optional value. */
-
-  let setTypeTd = document.createElement('td');
+  // Table cell
+  const setTypeTd = document.createElement('td');
   setTypeTd.classList.add('form-floating');
   setTypeTd.dataset.column = 'setType';
 
-  let setType = document.createElement('select');
+  // Set type select
+  const setType = document.createElement('select');
   setType.classList.add('form-select');
-  setType.name = "set-type-" + rowNumber;
+  setType.name = 'set-type-' + rowNumber;
   setType.id = setType.name;
   setType.dataset.rowNumber = rowNumber;
   setType.required = true;
 
-  let warmupOption = document.createElement('option');
-  warmupOption.value = "warmup";
+  // Options
+  const warmupOption = document.createElement('option');
+  warmupOption.value = 'warmup';
   warmupOption.textContent = 'Calentamiento';
 
-  let workOption = document.createElement('option');
-  workOption.value = "work";
+  const workOption = document.createElement('option');
+  workOption.value = 'work';
   workOption.textContent = 'Trabajo';
 
-  if (value === 'warmup') {
-    warmupOption.selected = true;
-  } else if (value === 'work') {
-    workOption.selected = true;
+  if (value) {
+    // Set initial value if given and valid
+    if (SetType.enumValueOf(value) === SetType.WarmUp) {
+      warmupOption.selected = true;
+    } else if (SetType.enumValueOf(value) === SetType.Work) {
+      workOption.selected = true;
+    }
   }
 
   setType.appendChild(workOption);
   setType.appendChild(warmupOption);
 
+  // Add event listeners
   setType.addEventListener('invalid', function (event) {
     showSetTypeError(setType);
   });
@@ -1181,11 +1353,13 @@ function createSetTypeTd(rowNumber, value) {
     }
   });
 
-  let setTypeLabel = document.createElement('label');
+  // Label
+  const setTypeLabel = document.createElement('label');
   setTypeLabel.classList.add('form-label', 'small');
   setTypeLabel.htmlFor = setType.id;
   setTypeLabel.textContent = 'Modalidad';
 
+  // Add to table cell
   setTypeTd.appendChild(setType);
   setTypeTd.appendChild(setTypeLabel);
   setTypeTd.appendChild(utils.createInvalidFeedbackElement());
@@ -1194,18 +1368,27 @@ function createSetTypeTd(rowNumber, value) {
 }
 
 
+/**
+ * Create weight field table cell with the given row number and
+ * optional value.
+ *
+ * @param {number} rowNumber
+ * Row number of the exercise item row to which this table cell will belong.
+ * @param {?any} value - Value to set for the field.
+ * @returns {HTMLTableCellElement}
+ * Table cell containing the weight field and its label.
+ */
 function createWeightTd(rowNumber, value) {
-  /* Create weight field table cell with the given row number and
-  optional value. */
-
-  let weightTd = document.createElement('td');
+  // Table cell
+  const weightTd = document.createElement('td');
   weightTd.classList.add('form-floating');
   weightTd.dataset.column = 'weight';
 
-  let weight = document.createElement('input');
+  // Weight input
+  const weight = document.createElement('input');
   weight.classList.add('form-control', 'form-control-sm');
-  weight.type = "number";
-  weight.name = "weight-" + rowNumber;
+  weight.type = 'number';
+  weight.name = 'weight-' + rowNumber;
   weight.id = weight.name;
   weight.dataset.rowNumber = rowNumber;
   weight.min = 0;
@@ -1213,9 +1396,11 @@ function createWeightTd(rowNumber, value) {
   weight.placeholder = 0;
 
   if (value !== null || value !== undefined) {
+    // Set value if it's not null or undefined (explicit check to allow zero)
     weight.value = value;
   }
 
+  // Add event listeners
   weight.addEventListener('invalid', function (event) {
     showWeightError(weight);
   });
@@ -1228,11 +1413,13 @@ function createWeightTd(rowNumber, value) {
     }
   });
 
-  let weightLabel = document.createElement('label');
+  // Label
+  const weightLabel = document.createElement('label');
   weightLabel.classList.add('form-label', 'small');
   weightLabel.htmlFor = weight.id;
   weightLabel.textContent = 'Peso (kg)';
 
+  // Add to table cell
   weightTd.appendChild(weight);
   weightTd.appendChild(weightLabel);
   weightTd.appendChild(utils.createInvalidFeedbackElement());
@@ -1241,18 +1428,27 @@ function createWeightTd(rowNumber, value) {
 }
 
 
+/**
+ * Create sets field table cell with the given row number and
+ * optional value.
+ *
+ * @param {number} rowNumber
+ * Row number of the exercise item row to which this table cell will belong.
+ * @param {?any} value - Value to set for the field.
+ * @returns {HTMLTableCellElement}
+ * Table cell containing the sets field and its label.
+ */
 function createSetsTd(rowNumber, value) {
-  /* Create sets field table cell with the given row number and
-  optional value. */
-
-  let setsTd = document.createElement('td');
+  // Table cell
+  const setsTd = document.createElement('td');
   setsTd.classList.add('form-floating');
   setsTd.dataset.column = 'sets';
 
-  let sets = document.createElement('input');
+  // Sets input
+  const sets = document.createElement('input');
   sets.classList.add('form-control', 'form-control-sm');
-  sets.type = "number";
-  sets.name = "sets-" + rowNumber;
+  sets.type = 'number';
+  sets.name = 'sets-' + rowNumber;
   sets.id = sets.name;
   sets.dataset.rowNumber = rowNumber;
   sets.min = 0;
@@ -1261,9 +1457,11 @@ function createSetsTd(rowNumber, value) {
   sets.placeholder = 0;
 
   if (value !== null || value !== undefined) {
+    // Set value if it's not null or undefined (explicit check to allow zero)
     sets.value = value;
   }
 
+  // Add event listeners
   sets.addEventListener('invalid', function (event) {
     showSetsError(sets);
   });
@@ -1287,11 +1485,13 @@ function createSetsTd(rowNumber, value) {
     }
   });
 
-  let setsLabel = document.createElement('label');
+  // Label
+  const setsLabel = document.createElement('label');
   setsLabel.classList.add('form-label', 'small');
   setsLabel.htmlFor = sets.id;
   setsLabel.textContent = 'Series';
 
+  // Add to table cell
   setsTd.appendChild(sets);
   setsTd.appendChild(setsLabel);
   setsTd.appendChild(utils.createInvalidFeedbackElement());
@@ -1300,22 +1500,29 @@ function createSetsTd(rowNumber, value) {
 }
 
 
+/**
+ * Create reps div with the given row number, set number, and
+ * optional value.
+ *
+ * @param {number} rowNumber
+ * Row number of the exercise item row to which this div will belong.
+ * @param {number} setNumber
+ * The field will hold the number of reps done for the set number
+ * indicated by this parameter.
+ * @param {?any} value - Value to set for the field.
+ * @returns {HTMLDivElement}
+ * Div containing the reps field and its label.
+ */
 function createRepsDiv(rowNumber, setNumber, value) {
-  /* Create reps div with the given row number, set number, and
-  optional value. */
-
-  let repsDiv = document.createElement('div');
+  // Div container
+  const repsDiv = document.createElement('div');
   repsDiv.classList.add('reps-item', 'form-floating', 'mb-2');
 
-  let repsLabel = document.createElement('label');
-  repsLabel.classList.add('form-label', 'small');
-  repsLabel.htmlFor = "reps-" + rowNumber + '-' + setNumber;
-  repsLabel.textContent = 'Serie ' + setNumber;
-
-  let reps = document.createElement('input');
+  // Reps input
+  const reps = document.createElement('input');
   reps.classList.add('form-control', 'form-control-sm');
-  reps.type = "number";
-  reps.name = repsLabel.htmlFor;
+  reps.type = 'number';
+  reps.name = 'reps-' + rowNumber + '-' + setNumber;
   reps.id = reps.name;
   reps.dataset.rowNumber = rowNumber;
   reps.dataset.setNumber = setNumber;
@@ -1325,9 +1532,11 @@ function createRepsDiv(rowNumber, setNumber, value) {
   reps.required = true;
 
   if (value !== null || value !== undefined) {
+    // Set value if it's not null or undefined (explicit check to allow zero)
     reps.value = value;
   }
 
+  // Add event listeners
   reps.addEventListener('invalid', function (event) {
     showRepsError(reps);
   });
@@ -1340,6 +1549,13 @@ function createRepsDiv(rowNumber, setNumber, value) {
     }
   });
 
+  // Reps label
+  const repsLabel = document.createElement('label');
+  repsLabel.classList.add('form-label', 'small');
+  repsLabel.htmlFor = reps.id;
+  repsLabel.textContent = 'Serie ' + setNumber;
+
+  // Add to div
   repsDiv.appendChild(reps);
   repsDiv.appendChild(repsLabel);
   repsDiv.appendChild(utils.createInvalidFeedbackElement());
@@ -1348,17 +1564,26 @@ function createRepsDiv(rowNumber, setNumber, value) {
 }
 
 
+/**
+ * Create comments field table cell with the given row number and
+ * optional value.
+ *
+ * @param {number} rowNumber
+ * Row number of the exercise item row to which this table cell will belong.
+ * @param {?any} value - Value to set for the field.
+ * @returns {HTMLTableCellElement}
+ * Table cell containing the comments field and its label.
+ */
 function createCommentsTd(rowNumber, value) {
-  /* Create comments field table cell with the given row number and
-  optional value. */
-
-  let commentsTd = document.createElement('td');
+  // Table cell
+  const commentsTd = document.createElement('td');
   commentsTd.classList.add('form-floating');
   commentsTd.dataset.column = 'comments';
 
-  let comments = document.createElement('textarea');
+  // Comments text area
+  const comments = document.createElement('textarea');
   comments.classList.add('form-control', 'form-control-sm');
-  comments.name = "comments-" + rowNumber;
+  comments.name = 'comments-' + rowNumber;
   comments.id = comments.name;
   comments.dataset.rowNumber = rowNumber;
   comments.pattern = '[0-9A-Za-z &\'\\-\\+\\.]*';
@@ -1368,9 +1593,11 @@ function createCommentsTd(rowNumber, value) {
   comments.placeholder = '...';
 
   if (value) {
+    // If given, set value
     comments.value = value;
   }
 
+  // Add event listeners
   comments.addEventListener('invalid', function (event) {
     showExerciseCommentsError(comments);
   });
@@ -1383,11 +1610,13 @@ function createCommentsTd(rowNumber, value) {
     }
   });
 
-  let commentsLabel = document.createElement('label');
+  // Label
+  const commentsLabel = document.createElement('label');
   commentsLabel.classList.add('form-label', 'small');
   commentsLabel.htmlFor = comments.id;
   commentsLabel.textContent = 'Comentarios';
 
+  // Add to table cell
   commentsTd.appendChild(comments);
   commentsTd.appendChild(commentsLabel);
   commentsTd.appendChild(utils.createInvalidFeedbackElement());
@@ -1398,40 +1627,52 @@ function createCommentsTd(rowNumber, value) {
 
 /* MANIPULATE EXERCISE ITEM ROW ELEMENTS */
 
+/**
+ * Replace the row number in all components of the given exercise item row.
+ *
+ * @param {HTMLTableRowElement} row
+ * Exercise item row which will have its row number replaced.
+ * @param {number} newRowNumber - New row number.
+ */
 function replaceExerciseItemRowNumber(row, newRowNumber) {
-  /* Replace the row number in all components of the given row. */
-
+  // Set row number for the row itself
   row.dataset.rowNumber = newRowNumber;
 
-  let selection = row.querySelector('input[type="radio"][name="selection"]');
+  // Selection
+  const selection = row.querySelector('input[type="radio"][name="selection"]');
   selection.id = selection.name + '-' + newRowNumber;
   selection.dataset.rowNumber = newRowNumber;
   selection.ariaLabel = 'Seleccionar ítem ' + newRowNumber;
 
-  let exercise = row.querySelector('input[type="text"][id^="exercise-"]');
-  exercise.name = "exercise-" + newRowNumber;
+  // Exercise
+  const exercise = row.querySelector('input[type="text"][id^="exercise-"]');
+  exercise.name = 'exercise-' + newRowNumber;
   exercise.id = exercise.name;
   exercise.dataset.rowNumber = newRowNumber;
 
-  let setType = row.querySelector('select[id^="set-type-"]');
-  setType.name = "set-type-" + newRowNumber;
+  // Set type
+  const setType = row.querySelector('select[id^="set-type-"]');
+  setType.name = 'set-type-' + newRowNumber;
   setType.id = setType.name;
   setType.dataset.rowNumber = newRowNumber;
 
-  let weight = row.querySelector('input[type="number"][id^="weight-"]');
-  weight.name = "weight-" + newRowNumber;
+  // Weight
+  const weight = row.querySelector('input[type="number"][id^="weight-"]');
+  weight.name = 'weight-' + newRowNumber;
   weight.id = weight.name;
   weight.dataset.rowNumber = newRowNumber;
 
-  let sets = row.querySelector('input[type="number"][id^="sets-"]');
-  sets.name = "sets-" + newRowNumber;
+  // Sets
+  const sets = row.querySelector('input[type="number"][id^="sets-"]');
+  sets.name = 'sets-' + newRowNumber;
   sets.id = sets.name;
   sets.dataset.rowNumber = newRowNumber;
 
+  // Reps
   const repsRegexp = /reps-\d+-(\d+)/;
   const repsRegexpReplacement = 'reps-' + newRowNumber + '-$1'
 
-  let repsLabels = row.querySelectorAll('label[for^="reps-"]');
+  const repsLabels = row.querySelectorAll('label[for^="reps-"]');
   if (repsLabels) {
     for (let repsLabel of repsLabels) {
       repsLabel.htmlFor =
@@ -1439,7 +1680,7 @@ function replaceExerciseItemRowNumber(row, newRowNumber) {
     }
   }
 
-  let reps = row.querySelectorAll('input[type="number"][id^="reps-"]');
+  const reps = row.querySelectorAll('input[type="number"][id^="reps-"]');
   if (reps) {
     for (let repsItem of reps) {
       repsItem.name = repsItem.name.replace(repsRegexp, repsRegexpReplacement);
@@ -1448,61 +1689,81 @@ function replaceExerciseItemRowNumber(row, newRowNumber) {
     }
   }
 
-  let comments = row.querySelector('textarea[id^="comments-"]');
-  comments.name = "comments-" + newRowNumber;
+  // Comments
+  const comments = row.querySelector('textarea[id^="comments-"]');
+  comments.name = 'comments-' + newRowNumber;
   comments.id = comments.name;
   comments.dataset.rowNumber = newRowNumber;
 }
 
 
-function extractExerciseItemData(row) {
-  /* Create object with the given exercise item's data, valid or not. */
+/**
+ * Create data object with the given exercise item row's data, valid or not.
+ *
+ * @param {HTMLTableRowElement} row
+ * Exercise item row from which the data will be extracted.
+ * @returns {{
+ *   exercise: string,
+ *   setType: string,
+ *   weight: ?number,
+ *   sets: number,
+ *   reps: number[],
+ *   comments: string,
+ * }}
+ * Data object with values extracted from the exercise item row's form fields.
+ */
+function extractExerciseItemRowData(row) {
+  const data = {};
 
-  let data = {};
+  const exercise = row.querySelector('input[type="text"][id^="exercise-"]');
+  data.exercise = exercise ? exercise.value : '';
 
-  let exercise = row.querySelector('input[type="text"][id^="exercise-"]');
-  data.exercise = exercise.value;
+  const setType = row.querySelector('select[id^="set-type-"]');
+  data.setType = setType ? setType.value : '';
 
-  let setType = row.querySelector('select[id^="set-type-"]');
-  data.setType = setType.value;
+  const weight = row.querySelector('input[type="number"][id^="weight-"]');
+  data.weight = (weight && weight.value) ? Number(weight.value) : null;
 
-  let weight = row.querySelector('input[type="number"][id^="weight-"]');
-  data.weight = weight.value ? Number(weight.value) : null;
+  const sets = row.querySelector('input[type="number"][id^="sets-"]');
+  data.sets = sets ? Number(sets.value) : 0;
 
-  let sets = row.querySelector('input[type="number"][id^="sets-"]');
-  data.sets = Number(sets.value);
-
-  let reps = row.querySelectorAll('input[type="number"][id^="reps-"]');
+  const reps = row.querySelectorAll('input[type="number"][id^="reps-"]');
   data.reps = [];
   if (reps) {
     for (let i = 0; i < data.sets; i++) {
-      data.reps.push(reps[i] ? reps[i].value : null);
+      data.reps.push(reps[i] ? Number(reps[i].value) : 0);
     }
   }
 
-  let comments = row.querySelector('textarea[id^="comments-"]');
+  const comments = row.querySelector('textarea[id^="comments-"]');
   data.comments = comments.value;
 
   return data;
 }
 
 
+/**
+ * Create or remove reps divs to match the requested number of sets.
+ *
+ * @param {number} rowNumber - Row number of the reps table cell to update.
+ * @param {number} setsCount - Number of sets requested.
+ */
 async function updateRepsTd(rowNumber, setsCount) {
-  /* Create or remove reps divs to match the given number of sets. */
-
-  let row = getRow(rowNumber);
-  let repsTd = row ? row.querySelector('td[data-column="reps"]') : null;
+  const row = getRow(rowNumber);
+  const repsTd = row ? row.querySelector('td[data-column="reps"]') : null;
 
   if (repsTd && Number.isInteger(setsCount) && setsCount >= 0) {
-    let repsDivs = repsTd ? repsTd.querySelectorAll('div.reps-item') : [];
-    let repsDivsCount = Number(repsDivs.length);
+    // The reps table cell exists and setsCount is a positive integer,
+    // get all reps items currently in the table cell and count them
+    const repsDivs = repsTd ? repsTd.querySelectorAll('div.reps-item') : [];
+    const repsDivsCount = Number(repsDivs.length);
 
     if (setsCount > repsDivsCount) {
       // If the number of sets is greater than the current number of
       // reps divs, create as many new ones as needed to reach the
       // required number, and append them to the td element
       for (let set = repsDivsCount + 1; set <= setsCount; set++) {
-        let newRepsDiv = createRepsDiv(rowNumber, set);
+        const newRepsDiv = createRepsDiv(rowNumber, set);
         repsTd.appendChild(newRepsDiv);
       }
     } else if (setsCount < repsDivsCount) {
