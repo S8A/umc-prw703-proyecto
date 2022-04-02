@@ -545,13 +545,8 @@ export function addStatusMessage(alertType, text) {
  * Clear all status messages from the top of the page.
  */
 export function clearStatusMessages() {
-  // Status messages' area
   const statusMessages = document.getElementById('status-messages');
-
-  while (statusMessages.firstChild) {
-    // Remove first child node until the area is clear
-    statusMessages.removeChild(statusMessages.firstChild);
-  }
+  clearOutChildNodes(statusMessages);
 }
 
 
@@ -633,4 +628,17 @@ export function toISODateOnly(date) {
  */
  export function toISOTimeOnly(date) {
   return `${date.getHours()}:${date.getMinutes()}`;
+}
+
+
+/* HTML ELEMENTS/NODES */
+
+/**
+ * Remove all child nodes from the given HTML element/node.
+ * @param {HTMLElement} element - HTML element/node to clear out.
+ */
+export function clearOutChildNodes(element) {
+  while (element.firstChild) {
+    element.removeChild(element.lastChild);
+  }
 }
