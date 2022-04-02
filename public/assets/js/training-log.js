@@ -6,11 +6,13 @@ import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
 /**
  * Create training log query parameters object with the given data.
  * @param {?Date} startDate
+ * Start date by which to filter the training sessions, or null.
  * @param {?Date} endDate
- * @returns {Object} Data object with the query parameters specified by the function's parameters.
+ * End date by which to filter the training sessions, or null.
+ * @returns {Object} Data object with the requested query parameters' values.
  */
 function createQuery(startDate, endDate) {
-  let query = {};
+  const query = {};
 
   if (startDate) {
     query.startDate = utils.toISODateOnly(startDate);
@@ -25,35 +27,42 @@ function createQuery(startDate, endDate) {
 
 
 /**
- * Construct training log page with the given parameters.
- * @param {HTMLDivElement} container - Container div for the training sessions.
+ * Construct training log with the given parameters.
+ *
  * @param {string} uid - UID of the signed-in user.
+ * @param {number} queryLimit - Number of training sessions to retrieve.
  * @param {?Date} [startDate=null]
  * Start date by which to filter the training sessions, or null.
  * @param {?Date} [endDate=null]
  * End date by which to filter the training sessions, or null.
+ * @param {?string} [cursorAction=null]
+ * 'next' to get the next page (start after the cursor), 'prev' to get
+ * the previous page (end before cursor); otherwise, get the first page.
+ * @param {?QueryDocumentSnapshot} [cursor=null]
+ * Training session document snapshot to be used as query cursor.
+ * @param {number} [page=1] - Current page number.
  */
-async function constructTrainingLog(
-    container, uid, startDate = null, endDate = null
+function constructTrainingLog(
+    uid,
+    queryLimit,
+    startDate = null,
+    endDate = null,
+    cursorAction = null,
+    cursor = null,
+    page = 1
 ) {
-  try {
-    // Get first page of training session objects
-    const trainingSessions = await getTrainingSessions(
-        uid,
-        utils.TRAINING_LOG_ITEMS_PER_PAGE,
-        startDate,
-        endDate
-    );
-
-    // Set page title with date filters, if any
-    setPageTitle(startDate, endDate);
-
-    // Add training sessions to page
-    addTrainingSessions(container, trainingSessions);
+  // Get training sessions from Firestore
+  getTrainingSessions(
+      uid, queryLimit, startDate, endDate, cursorAction, cursor)
+  .then((querySnapshot) => {
+    // If the query is successful, use the results' snapshot to add
+    // training session cards to the container
+    addTrainingSessionCards(querySnapshot);
 
     // Add pagination buttons
-    addPagination(trainingSessions, startDate, endDate);
-  } catch (error) {
+    addPagination(uid, querySnapshot, queryLimit, startDate, endDate, page);
+  })
+  .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(`${errorCode}: ${errorMessage}`);
@@ -72,39 +81,39 @@ async function constructTrainingLog(
     }
 
     utils.addStatusMessage('alert-danger', [statusText]);
-  }
+  });
 }
 
 
 /**
- * Add the given training sessions to the container, or add a message
- * indicating that no training sessions were found.
- * @param {HTMLDivElement} container
- * @param {TrainingSession[]} trainingSessions 
+ * Create training session cards from the data in the given query
+ * snapshot and add them to the container, or add empty results text
+ * if no training sessions were found.
+ *
+ * @param {QuerySnapshot} querySnapshot
+ * Query snapshot with the results data to be used to create the cards.
  */
-function addTrainingSessions(container, trainingSessions) {
-  if (trainingSessions && trainingSessions.length) {
-    // If there are training sessions to add, clear out container
-    while (container.firstChild) {
-      container.removeChild(container.firstChild);
-    }
+function addTrainingSessionCards(querySnapshot) {
+  // Container for the training sessions
+  const container = document.querySelector('#training-sessions');
 
-    // For each training session, construct its corresponding container
-    // element and append it to the container
-    for (let item of trainingSessions) {
-      container.append(createTrainingSessionContainer(item));
-    }
-  } else {
-    // If there are no training sessions, add empty results text
+  // Clear out container
+  utils.clearOutChildNodes(container);
+
+  if (querySnapshot.empty) {
+    // If no training sessions were found, add empty results text.
     addEmptyResultsText(container);
+  } else {
+    // If training sessions were found, create a summary card for each
+    // one and add them to the container
+    querySnapshot.forEach(createTrainingSessionCard);
   }
 }
 
 
 /**
  * Add empty results text to the given container.
- * @param {HTMLDivElement} container
- * Div container to which the text will be added.
+ * @param {HTMLElement} container - Container to which the text will be added.
  */
 function addEmptyResultsText(container) {
   const emptyResults = document.createElement('p');
@@ -114,46 +123,167 @@ function addEmptyResultsText(container) {
 
 
 /**
- * Create a div container with representative data of the given
- * training session.
- * @param {TrainingSession} trainingSession
- * The training session to represent.
- * @returns {HTMLDivElement}
+ * Create a summary card for the given training session, using its 
+ * basic data and number of exercise items.
+ * @param {QueryDocumentSnapshot} snapshot
+ * Document snapshot of the training session to be summarized.
+ * @returns {HTMLDivElement} - Resulting summary card div.
  */
-function createTrainingSessionContainer(trainingSession) {
-  // Training session card
-  let container = document.createElement('div');
-  container.classList.add(
-      'training-session', 'card', 'mb-5', 'shadow');
+function createTrainingSessionCard(snapshot) {
+  /**
+   * Training session object constructed from Firestore data.
+   * @type {TrainingSession}
+   */
+  const trainingSession = snapshot.data();
 
-  // Card body
-  let cardBody = document.createElement('div');
-  cardBody.classList.add('card-body');
+  // Training session card
+  const container = document.createElement('div');
+  container.classList.add('training-session', 'card', 'mb-4', 'shadow');
+
+  // Card body 1
+  const cardBody1 = document.createElement('div');
+  cardBody1.classList.add('card-body');
 
   // Card title
-  let h2 = document.createElement('h2');
+  const h2 = document.createElement('h2');
   h2.classList.add('card-title')
+  h2.textContent = trainingSession.fullTitle;
 
-  let a = document.createElement('a');
-  a.href = '/historial/detalle.html?id=' + trainingSession.id;
-  a.textContent = trainingSession.fullTitle;
+  // Summary data list
+  const summaryList = document.createElement('ul');
+  summaryList.classList.add('list-group', 'list-group-flush');
 
-  h2.appendChild(a);
+  // Duration
+  const durationListItem = document.createElement('li');
+  durationListItem.classList.add('list-group-item');
 
-  // Subtitle
-  let p = document.createElement('p');
-  p.classList.add('card-subtitle', 'mb-2', 'text-muted');
-  p.textContent =
-      'Número de ejercicios realizados: ' + trainingSession.exercisesItemCount;
+  const durationLabel = document.createElement('b');
+  durationLabel.textContent = 'Duración de la sesión:';
+  durationListItem.appendChild(durationLabel);
 
+  let duration = utils.NDASH;
+  if (trainingSession.duration) {
+    duration = trainingSession.duration + utils.NBSP + 'min';
+  }
+  durationListItem.appendChild(document.createTextNode(' ' + duration));
+
+  // Exercise items count
+  const exerciseCountListItem = document.createElement('li');
+  exerciseCountListItem.classList.add('list-group-item');
+
+  const exerciseCountLabel = document.createElement('p');
+  exerciseCountLabel.textContent = 'Número de ejercicios registrados:';
+  exerciseCountListItem.appendChild(exerciseCountLabel);
+
+  exerciseCountListItem.appendChild(
+      document.createTextNode(' ' + trainingSession.exerciseItemsCount));
+
+  // Card body 2
+  const cardBody2 = document.createElement('div');
+  cardBody2.classList.add('card-body');
+
+  // Detail link button
+  const detailLink = document.createElement('a');
+  detailLink.classList.add('card-link', 'btn', 'btn-primary');
+  detailLink.href = '/historial/detalle.html?id=' + snapshot.id;
+  detailLink.textContent = 'Ver detalles';
+
+  // Edit link button
+  const editLink = document.createElement('a');
+  editLink.classList.add('card-link', 'btn', 'btn-secondary-outline');
+  editLink.href = '/historial/modificar.html?id=' + snapshot.id;
+  editLink.textContent = 'Modificar';
+
+  // Delete link button
+  const deleteLink = document.createElement('a');
+  deleteLink.classList.add('card-link', 'btn', 'btn-danger-outline');
+  deleteLink.href = '/historial/eliminar.html?id=' + snapshot.id;
+  deleteLink.textContent = 'Eliminar';
 
   // Add everything to card
-  cardBody.appendChild(h2);
-  cardBody.appendChild(p);
+  cardBody1.appendChild(h2);
 
-  container.appendChild(cardBody);
+  summaryList.appendChild(durationListItem);
+  summaryList.appendChild(exerciseCountListItem);
+
+  cardBody2.appendChild(detailLink);
+  cardBody2.appendChild(editLink);
+  cardBody2.appendChild(deleteLink);
+
+  container.appendChild(cardBody1);
+  container.appendChild(summaryList);
+  container.appendChild(cardBody2);
 
   return container;
+}
+
+
+/**
+ * Add previous and next buttons to the page navigation container.
+ *
+ * @param {string} uid - UID of the signed-in user.
+ * @param {QuerySnapshot} querySnapshot
+ * Query snapshot from which to get the pagination cursors.
+ * @param {number} queryLimit - Number of training sessions per page.
+ * @param {?Date} startDate
+ * Start date by which to filter the training sessions, or null.
+ * @param {?Date} endDate
+ * End date by which to filter the training sessions, or null.
+ * @param {number} page - Current page number.
+ */
+function addPagination(
+    uid, querySnapshot, queryLimit, startDate, endDate, page
+) {
+  // Pagination nav
+  const pagination = document.querySelector('nav#pagination');
+
+  // Previous button
+  const previous = document.createElement('button');
+  previous.classList.add('btn', 'btn-primary-outline');
+  previous.textContent = 'Página anterior';
+
+  // Disable previous button if this is the first page (or lower, but
+  // that should not be possible)
+  previous.disabled = page <= 1;
+
+  // Current page indicator
+  const currentPage = document.createElement('div');
+  currentPage.id = '#current-page-number';
+  currentPage.textContent = 'Página ' + page;
+
+  // Next button
+  const next = document.createElement('button');
+  next.classList.add('btn', 'btn-primary-outline');
+  next.textContent = 'Página siguiente';
+
+  if (querySnapshot.empty) {
+    // If no training sessions were found, disable next button if the
+    // current page number is greater than 1
+    next.disabled = page > 1;
+  } else {
+    // If training sessions were found, disable next button if the
+    // number of documents in the query results is lower than the
+    // query limit
+    const resultsCount = querySnapshot.docs.length;
+    next.disabled = resultsCount < queryLimit;
+
+    // Add event listeners
+    previous.addEventListener('click', function (event) {
+      // Set query cursor to the first document snapshot in the query results
+      const cursor = querySnapshot.docs[0];
+
+      // Construct training log for the previous page
+      constructTrainingLog(uid, queryLimit, startDate, endDate, 'prev', cursor);
+    });
+  
+    next.addEventListener('click', function (event) {
+      // Set query cursor to the last document snapshot in the query results
+      const cursor = querySnapshot.docs[resultsCount - 1];
+
+      // Construct training log for the next page
+      constructTrainingLog(uid, queryLimit, startDate, endDate, 'next', cursor);
+    });
+  }
 }
 
 
@@ -191,7 +321,7 @@ window.addEventListener('load', function () {
   // Get start date filter from query parameter if given, or set to undefined
   let startDate = params.start ? new Date(params.start) : undefined;
 
-  if (startDate.toString() === 'Invalid Date') {
+  if (startDate && startDate.toString() === 'Invalid Date') {
     // If start date is invalid, set to null
     startDate = null;
   } else {
@@ -203,7 +333,7 @@ window.addEventListener('load', function () {
   // Get end date filter from query parameters if given, or set to undefined
   let endDate = params.end ? new Date(params.end) : undefined;
 
-  if (endDate.toString() === 'Invalid Date') {
+  if (endDate && endDate.toString() === 'Invalid Date') {
     // If end date is invalid, set to null
     endDate = null;
   } else {
@@ -219,6 +349,9 @@ window.addEventListener('load', function () {
     return;
   }
 
+  // Set page title
+  setPageTitle(startDate, endDate);
+
   // Add pending status message to page
   utils.addPendingStatusMessage();
 
@@ -231,9 +364,16 @@ window.addEventListener('load', function () {
   const dateFilterEnd = dateFilter.querySelector('input[type="date"]#end-date');
   const dateFilterButton = dateFilter.querySelector('button[type="submit"]');
 
-  const trainingSessionsContainer = document.querySelector('#training-sessions');
-
-  const paginationNav = document.querySelector('nav#pagination');
+  // Add event listener for date filter form submission
+  dateFilter.addEventListener('submit', function (event) {
+    event.preventDefault();
+  
+    if (dateFilter.reportValidity()) {
+      // If form is valid, filter by the selected dates
+      utils.setQueryParams(
+          createQuery(dateFilterStart.value, dateFilterEnd.value));
+    }
+  });
 
   // Set up authentication state observer
   auth.onAuthStateChanged((user) => {
@@ -251,13 +391,9 @@ window.addEventListener('load', function () {
       dateFilterEnd.disabled = false;
       dateFilterButton.disabled = false;
 
-      // Construct training log page
+      // Construct training log first page
       constructTrainingLog(
-        trainingSessionsContainer,
-        user.uid,
-        startDate,
-        endDate
-      );
+          user.uid, utils.TRAINING_LOG_ITEMS_PER_PAGE, startDate, endDate);
 
       // Set date filter inputs' values
       if (startDate) {
@@ -267,17 +403,6 @@ window.addEventListener('load', function () {
       if (endDate) {
         dateFilterStart.value = utils.toISODateOnly(endDate);
       }
-
-      // Add event listener for date filter form submission
-      dateFilter.addEventListener('submit', function (event) {
-        event.preventDefault();
-      
-        if (dateFilter.reportValidity()) {
-          // If form is valid, filter by the selected dates
-          utils.setQueryParams(
-              createQuery(dateFilterStart.value, dateFilterEnd.value));
-        }
-      });
     } else {
       // If the user is signed-out, add info message indicating the
       // user to sign in
@@ -296,14 +421,14 @@ window.addEventListener('load', function () {
       dateFilterEnd.disabled = true;
       dateFilterButton.disabled = true;
 
-      // Clear out training sessions
-      while (trainingSessionsContainer.firstChild) {
-        trainingSessionsContainer.removeChild(
-            trainingSessionsContainer.firstChild);
-      }
+      // Clear out training log and add empty results text
+      const trainingLogContainer = document.querySelector('#training-sessions');
+      utils.clearOutChildNodes(trainingLogContainer);
+      addEmptyResultsText(trainingLogContainer);
 
-      // Add empty results text
-      addEmptyResultsText(trainingSessionsContainer);
+      // Clear out pagination nav
+      const paginationNav = document.querySelector('nav#pagination');
+      utils.clearOutChildNodes(paginationNav);
     }
   });
 });
