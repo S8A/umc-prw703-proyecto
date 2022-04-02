@@ -613,7 +613,8 @@ export function createInvalidFeedbackElement() {
  * Convert the given Date object into a string in a date-only form of
  * the ISO 8601 format (YYYY-MM-DD)
  * @param {Date} date - Date object to convert.
- * @returns {string} String representation of the Date object's date in YYYY-MM-DD format.
+ * @returns {string}
+ * String representation of the Date object's date in YYYY-MM-DD format.
  */
 export function toISODateOnly(date) {
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
@@ -624,7 +625,8 @@ export function toISODateOnly(date) {
  * Convert the given Date object into a string in a time-only form of
  * the ISO 8601 format (HH:mm)
  * @param {Date} date - Date object to convert.
- * @returns {string} String representation of the Date object's time in HH:mm format.
+ * @returns {string}
+ * String representation of the Date object's time in HH:mm format.
  */
  export function toISOTimeOnly(date) {
   return `${date.getHours()}:${date.getMinutes()}`;

@@ -129,7 +129,9 @@ const trainingSessionConverter = {
    *   duration: ?number,
    *   bodyweight: ?number,
    *   comments: string
-   * }} Data object with the TrainingSession object's properties, except its exercise items.
+   * }}
+   * Data object with all the TrainingSession object's properties,
+   * except its exercise items.
    */
   toFirestore: (trainingSession) => {
     return {
@@ -145,9 +147,13 @@ const trainingSessionConverter = {
 
   /**
    * Converts the data object returned by Firestore into a TrainingSession.
-   * @param {QueryDocumentSnapshot} snapshot  - Snapshot with data read from the training session's document in Firestore.
-   * @param {SnapshotOptions} options - Options that configure how data is retrieved from the snapshot.
-   * @returns {TrainingSession} TrainingSession object constructed with the data, not including its exercise items.
+   * @param {QueryDocumentSnapshot} snapshot
+   * Snapshot with data read from the training session's document in Firestore.
+   * @param {SnapshotOptions} options
+   * Options that configure how data is retrieved from the snapshot.
+   * @returns {TrainingSession}
+   * TrainingSession object constructed with the data, not including
+   * its exercise items.
    */
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
@@ -194,8 +200,10 @@ const exerciseItemConverter = {
 
   /**
    * Converts the data object returned by Firestore into an ExerciseItem.
-   * @param {QueryDocumentSnapshot} snapshot - Snapshot with data read from the exercise item's document in Firestore.
-   * @param {SnapshotOptions} options - Options that configure how data is retrieved from the snapshot.
+   * @param {QueryDocumentSnapshot} snapshot
+   * Snapshot with data read from the exercise item's document in Firestore.
+   * @param {SnapshotOptions} options
+   * Options that configure how data is retrieved from the snapshot.
    * @returns {ExerciseItem} ExerciseItem object constructed with the data.
    */
   fromFirestore: (snapshot, options) => {
