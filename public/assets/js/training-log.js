@@ -16,11 +16,11 @@ function createQuery(startDate, endDate) {
   const query = {};
 
   if (startDate) {
-    query.startDate = utils.toISODateOnly(startDate);
+    query.start = utils.toISODateOnly(startDate);
   }
 
   if (endDate) {
-    query.endDate = utils.toISODateOnly(endDate);
+    query.end = utils.toISODateOnly(endDate);
   }
 
   return query;
@@ -324,27 +324,19 @@ window.addEventListener('load', function () {
   const params = utils.getQueryParams();
 
   // Get start date filter from query parameter if given, or set to undefined
-  let startDate = params.start ? new Date(params.start) : undefined;
+  let startDate = params.start ? new Date(params.start + 'T00:00:00') : undefined;
 
   if (startDate && startDate.toString() === 'Invalid Date') {
     // If start date is invalid, set to null
     startDate = null;
-  } else if (startDate) {
-    // Otherwise, set the Date object's time to 00:00:00 so that the
-    // Firestore query includes the whole start day
-    startDate.setHours(0, 0, 0);
   }
 
   // Get end date filter from query parameters if given, or set to undefined
-  let endDate = params.end ? new Date(params.end) : undefined;
+  let endDate = params.end ? new Date(params.end + 'T23:59:59') : undefined;
 
   if (endDate && endDate.toString() === 'Invalid Date') {
     // If end date is invalid, set to null
     endDate = null;
-  } else if (startDate) {
-    // Otherwise, set the Date object's time to 23:59:59 so that the
-    // Firestore query includes the whole end day
-    endDate.setHours(23, 59, 59);
   }
 
   if (startDate === null || endDate === null) {
@@ -375,8 +367,17 @@ window.addEventListener('load', function () {
 
     if (dateFilter.reportValidity()) {
       // If form is valid, filter by the selected dates
-      utils.setQueryParams(
-          createQuery(dateFilterStart.value, dateFilterEnd.value));
+      let start = null;
+      if (dateFilterStart.value) {
+        start = new Date(dateFilterStart.value + 'T00:00:00');
+      }
+
+      let end = null;
+      if (dateFilterEnd.value) {
+        end = new Date(dateFilterEnd.value + 'T23:59:59');
+        }
+
+      utils.setQueryParams(createQuery(start, end));
     }
   });
 
@@ -406,7 +407,7 @@ window.addEventListener('load', function () {
       }
 
       if (endDate) {
-        dateFilterStart.value = utils.toISODateOnly(endDate);
+        dateFilterEnd.value = utils.toISODateOnly(endDate);
       }
     } else {
       // If the user is signed-out, add info message indicating the
