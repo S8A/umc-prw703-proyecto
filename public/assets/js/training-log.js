@@ -63,21 +63,19 @@ function constructTrainingLog(
     addPagination(uid, querySnapshot, queryLimit, startDate, endDate, page);
   })
   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(`${errorCode}: ${errorMessage}`);
+    console.log(error);
 
     let statusText = '';
 
-    if (errorCode === 'deadline-exceeded') {
+    if (error === 'deadline-exceeded') {
       statusText = 'El tiempo de consulta expiró. Intente de nuevo más tarde.';
-    } else if (errorCode === 'not-found') {
+    } else if (error === 'not-found') {
       statusText = 'Sesiones de entrenamiento no encontradas.';
-    } else if (errorCode === 'unavailable') {
+    } else if (error === 'unavailable') {
       statusText =
           'Servicio temporalmente no disponible. Intente de nuevo más tarde';
     } else {
-      statusText = `Error inesperado. Código: ${errorCode}`;
+      statusText = `Error inesperado. Código: ${error}`;
     }
 
     utils.addStatusMessage('alert-danger', [statusText]);
@@ -325,7 +323,7 @@ window.addEventListener('load', function () {
   if (startDate && startDate.toString() === 'Invalid Date') {
     // If start date is invalid, set to null
     startDate = null;
-  } else {
+  } else if (startDate) {
     // Otherwise, set the Date object's time to 00:00:00 so that the
     // Firestore query includes the whole start day
     startDate.setHours(0, 0, 0);
@@ -337,7 +335,7 @@ window.addEventListener('load', function () {
   if (endDate && endDate.toString() === 'Invalid Date') {
     // If end date is invalid, set to null
     endDate = null;
-  } else {
+  } else if (startDate) {
     // Otherwise, set the Date object's time to 23:59:59 so that the
     // Firestore query includes the whole end day
     endDate.setHours(23, 59, 59);
@@ -384,7 +382,7 @@ window.addEventListener('load', function () {
 
       // Enable create button
       createButton.href = '/historial/crear.html';
-      createButton.classList.remove(disabled);
+      createButton.classList.remove('disabled');
       createButton.ariaDisabled = false;
       
       // Enable date filter fields and submit button
@@ -414,7 +412,7 @@ window.addEventListener('load', function () {
 
       // Disable create button
       createButton.href = '';
-      createButton.classList.add(disabled);
+      createButton.classList.add('disabled');
       createButton.ariaDisabled = true;
 
       // Disable date filter fields and submit button
