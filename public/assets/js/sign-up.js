@@ -216,20 +216,22 @@ window.addEventListener( "load", function () {
       })
       .catch((error) => {
         // If the user could not be created, show appropriate error message
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(`${errorCode}: ${errorMessage}`);
-
         let statusText = '';
 
-        if (errorCode === 'auth/email-already-in-use') {
+        if (utils.isString(error)) {
+          // User created, setDoc failed
+          statusText =
+              'Error registrando sus datos. Comuníquese con el administrador: '
+              + 'samuelochoap@gmail.com';
+        } else if (error.code === 'auth/email-already-in-use') {
           statusText =
               'El correo electrónico ingresado ya está asociado a '
               + 'una cuenta.';
-        } else if (errorCode === 'auth/wrong-password') {
+        } else if (error.code === 'auth/wrong-password') {
           statusText = 'La contraseña ingresada no es válida.';
         } else {
-          statusText = `Error inesperado. Código: ${errorCode}`;
+          console.log(`${error.code}: ${error.message}`);
+          statusText = `Error inesperado. Código: ${error.code}`;
         }
 
         utils.clearStatusMessages();
