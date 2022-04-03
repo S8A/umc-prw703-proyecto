@@ -1,19 +1,25 @@
-import * as utils from '/assets/js/utils.js';
+import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
+import { auth, getTrainingSession } from './firebase.js';
+import * as utils from './utils.js';
 
 
-function constructTrainingSessionDetailsPage(session) {
-  /* Construct detail page with the given training session's data. */
-
+/**
+ * Construct detail page with the given training session's data.
+ *
+ * @param {string} id - ID of the training session's document in Firestore.
+ * @param {TrainingSession} trainingSession - TrainingSession object.
+ */
+function constructTrainingSessionDetailsPage(id, trainingSession) {
+  // Training session details container
   const container = document.querySelector('#training-session-detail');
 
   // Title
   const mainTitle = container.querySelector('h1#main-title');
-  let fullTitle = utils.getTrainingSessionFullTitle(session);
-  mainTitle.textContent = fullTitle;
+  mainTitle.textContent = trainingSession.fullTitle;
 
   // Page title
   document.title =
-    'Sesión de entrenamiento: ' + fullTitle + ' ' + utils.NDASH
+    'Sesión de entrenamiento: ' + trainingSession.fullTitle + ' ' + utils.NDASH
     + ' 8A Training';
 
   // Remove #empty-text element
@@ -27,12 +33,12 @@ function constructTrainingSessionDetailsPage(session) {
 
   const editButton = document.createElement('a');
   editButton.classList.add('btn', 'btn-primary', 'mx-2');
-  editButton.href = '/historial/modificar.html?id=' + session.id;
+  editButton.href = '/historial/modificar.html?id=' + id;
   editButton.textContent = 'Modificar sesión';
 
   const deleteButton = document.createElement('a');
   deleteButton.classList.add('btn', 'btn-danger');
-  deleteButton.href = '/historial/eliminar.html?id=' + session.id;
+  deleteButton.href = '/historial/eliminar.html?id=' + id;
   deleteButton.textContent = 'Eliminar sesión';
 
   mainButtons.appendChild(editButton);
@@ -45,7 +51,7 @@ function constructTrainingSessionDetailsPage(session) {
   const basicDataTitle = document.createElement('h2');
   basicDataTitle.textContent = 'Datos generales';
 
-  let basicDataList = createBasicDataList(session)
+  const basicDataList = createBasicDataList(trainingSession);
 
   basicDataSection.appendChild(basicDataTitle);
   basicDataSection.appendChild(basicDataList);
@@ -60,7 +66,7 @@ function constructTrainingSessionDetailsPage(session) {
   const exercisesDiv = document.createElement('div');
   exercisesDiv.classList.add('table-responsive');
 
-  let exercisesTable = createExercisesTable(session.exercises);
+  const exercisesTable = createExercisesTable(trainingSession);
   exercisesDiv.appendChild(exercisesTable);
 
   exercisesSection.appendChild(exercisesTitle);
@@ -73,7 +79,7 @@ function constructTrainingSessionDetailsPage(session) {
 }
 
 
-function createBasicDataList(session) {
+function createBasicDataList(trainingSession) {
   /* Create basic data list with the given training session data. */
 
   const basicDataList = document.createElement('ul');
@@ -87,7 +93,7 @@ function createBasicDataList(session) {
   datetimeLabel.textContent = 'Fecha y hora:';
   datetimeListItem.appendChild(datetimeLabel);
 
-  let datetime = session.date + ' ' + session.time;
+  const datetime = trainingSession.date + ' ' + trainingSession.time;
   datetimeListItem.appendChild(document.createTextNode(' ' + datetime));
 
   // Short title
@@ -98,7 +104,10 @@ function createBasicDataList(session) {
   shortTitleLabel.textContent = 'Título breve:';
   shortTitleListItem.appendChild(shortTitleLabel);
 
-  let shortTitle = session.shortTitle ? session.shortTitle : utils.NDASH;
+  let shortTitle = utils.NDASH;
+  if (trainingSession.shortTitle) {
+    shortTitle = trainingSession.shortTitle;
+  }
   shortTitleListItem.appendChild(document.createTextNode(' ' + shortTitle));
 
   // Duration
@@ -110,8 +119,8 @@ function createBasicDataList(session) {
   durationListItem.appendChild(durationLabel);
 
   let duration = utils.NDASH;
-  if (session.duration) {
-    duration = session.duration + utils.NBSP + 'min';
+  if (trainingSession.duration) {
+    duration = trainingSession.duration + utils.NBSP + 'min';
   }
   durationListItem.appendChild(document.createTextNode(' ' + duration));
 
@@ -124,8 +133,8 @@ function createBasicDataList(session) {
   bodyweightListItem.appendChild(bodyweightLabel);
 
   let bodyweight = utils.NDASH;
-  if (session.bodyweight) {
-    bodyweight = session.bodyweight + utils.NBSP + 'kg';
+  if (trainingSession.bodyweight) {
+    bodyweight = trainingSession.bodyweight + utils.NBSP + 'kg';
   }
   bodyweightListItem.appendChild(document.createTextNode(' ' + bodyweight));
 
@@ -137,7 +146,10 @@ function createBasicDataList(session) {
   commentsLabel.textContent = 'Comentarios:';
   commentsListItem.appendChild(commentsLabel);
 
-  let comments = session.comments ? session.comments : utils.NDASH;
+  let comments = utils.NDASH;
+  if (trainingSession.comments) {
+    comments = trainingSession.comments;
+  }
   commentsListItem.appendChild(document.createTextNode(' ' + comments));
 
   // Add to list
@@ -151,15 +163,22 @@ function createBasicDataList(session) {
 }
 
 
-function createExercisesTable(exercises) {
-  /* Create table with the given exercise items. */
-
+/**
+ * Create table with the given training session's exercise items.
+ *
+ * @param {TrainingSession} trainingSession
+ * TrainingSession from which to extract the ExerciseItem objects to
+ * add to the table as rows.
+ * @returns {HTMLTableElement} Exercise items table.
+ */
+function createExercisesTable(trainingSession) {
+  // Table
   const table = document.createElement('table');
   table.classList.add('table', 'table-striped', 'table-hover');
 
   // Table head
   const thead = document.createElement('thead');
-  let headers = [
+  const headers = [
     'Ejercicio',
     'Modalidad',
     'Peso',
@@ -168,7 +187,7 @@ function createExercisesTable(exercises) {
     'Comentarios',
   ];
 
-  for (let header of headers) {
+  for (const header of headers) {
     const th = document.createElement('th');
     th.classList.add('px-2');
     th.textContent = header;
@@ -178,54 +197,56 @@ function createExercisesTable(exercises) {
   // Table body
   const tbody = document.createElement('tbody');
 
-  for (let item of exercises) {
-    // For each exercise item, create a table row and append it to table body
-    const tr = document.createElement('tr');
+  if (trainingSession.exerciseItemsCount) {
+    for (const item of trainingSession.exercises) {
+      // For each exercise item, create a table row and append it to table body
+      const tr = document.createElement('tr');
 
-    const exercise = document.createElement('td');
-    exercise.classList.add('px-2');
-    exercise.textContent = item.exercise;
+      const exercise = document.createElement('td');
+      exercise.classList.add('px-2');
+      exercise.textContent = item.exercise;
 
-    const setType = document.createElement('td');
-    setType.classList.add('px-2');
-    if (item.setType === 'work') {
-      setType.textContent = 'Trabajo';
-    } else if (item.setType === 'warmup') {
-      setType.textContent = 'Calentamiento';
+      const setType = document.createElement('td');
+      setType.classList.add('px-2');
+      if (item.setType === SetType.Work) {
+        setType.textContent = 'Trabajo';
+      } else if (item.setType === SetType.WarmUp) {
+        setType.textContent = 'Calentamiento';
+      }
+
+      const weight = document.createElement('td');
+      weight.classList.add('px-2');
+      weight.textContent = utils.NDASH;
+
+      if (item.weight) {
+        weight.textContent = item.weight + utils.NBSP + 'kg'
+      }
+
+      const sets = document.createElement('td');
+      sets.classList.add('px-2');
+      sets.textContent = item.sets;
+
+      const reps = document.createElement('td');
+      reps.classList.add('px-2');
+      reps.textContent = item.reps.join(', ');
+
+      const comments = document.createElement('td');
+      comments.classList.add('px-2');
+      comments.textContent = utils.NDASH;
+
+      if (item.comments) {
+        comments.textContent = item.comments;
+      }
+
+      tr.appendChild(exercise);
+      tr.appendChild(setType);
+      tr.appendChild(weight);
+      tr.appendChild(sets);
+      tr.appendChild(reps);
+      tr.appendChild(comments);
+
+      tbody.appendChild(tr);
     }
-
-    const weight = document.createElement('td');
-    weight.classList.add('px-2');
-    weight.textContent = utils.NDASH;
-
-    if (item.weight) {
-      weight.textContent = item.weight + utils.NBSP + 'kg'
-    }
-
-    const sets = document.createElement('td');
-    sets.classList.add('px-2');
-    sets.textContent = item.sets;
-
-    const reps = document.createElement('td');
-    reps.classList.add('px-2');
-    reps.textContent = item.reps.join(', ');
-
-    const comments = document.createElement('td');
-    comments.classList.add('px-2');
-    comments.textContent = utils.NDASH;
-
-    if (item.comments) {
-      comments.textContent = item.comments;
-    }
-
-    tr.appendChild(exercise);
-    tr.appendChild(setType);
-    tr.appendChild(weight);
-    tr.appendChild(sets);
-    tr.appendChild(reps);
-    tr.appendChild(comments);
-
-    tbody.appendChild(tr);
   }
 
   table.appendChild(thead);
@@ -235,46 +256,115 @@ function createExercisesTable(exercises) {
 }
 
 
+
+/**
+ * Add empty page text to the given container.
+ * @param {HTMLElement} container - Container to which the text will be added.
+ */
+ function addEmptyPageText(container) {
+  const emptyText = document.createElement('p');
+  emptyText.id = 'empty-text';
+  emptyText.textContent =
+      'No se ha podido cargar la información de la sesión de '
+      + 'entrenamiento solicitada.';
+  container.appendChild(emptyText);
+}
+
+
 window.addEventListener('load', function () {
-  let signedInAccount = utils.getSignedInAccount();
+  // Add pending status message to page
+  utils.addPendingStatusMessage();
 
-  if (!signedInAccount) {
-    // If not signed-in, set pending info message and redirect to sign-in
-    let text = 'Inicie sesión para acceder a su historial de entrenamiento.';
-    utils.setPendingStatusMessage('alert-info', [text]);
-    window.location.assign('/iniciar-sesion.html?next=/historial/');
+  // Get query parameters
+  const params = utils.getQueryParams();
+
+  // Training session ID
+  const id = params.id;
+
+  if (!id) {
+    // If ID parameter is not set, redirect to training log page
+    window.location.assign('/historial/');
     return;
-  } else {
-    // If signed-in, set up signed-in header
-    utils.setUpSignedInHeader(signedInAccount);
-
-    // Get query params
-    const params = utils.getQueryParams();
-
-    // Training session ID
-    const id = Number(params.id);
-
-    // If no valid ID parameter set, redirect to training log page
-    if (!Number.isInteger(id) || id <= 0) {
-      window.location.assign('/historial/');
-      return;
-    }
-
-    // Try to get training session with the given ID
-    let session = utils.getTrainingSession(id);
-
-    if (!session) {
-      // If the training session was not found, add error status message
-      let text = 'La sesión de entrenamiento solicitada no existe o '
-      + 'no pertenece a su cuenta.';
-      utils.clearStatusMessages();
-      utils.addStatusMessage('alert-danger', [text]);
-    } else {
-      // If the training session was found, construct detail page
-      constructTrainingSessionDetailsPage(session);
-    }
-
-    // Add pending status message to page
-    utils.addPendingStatusMessage();
   }
+
+  // Set up authentication state observer
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // If user is signed in, set up signed-in header
+      utils.setUpSignedInHeader(user);
+
+      // Try to get the user's requested training session
+      getTrainingSession(user.uid, id)
+      .then((trainingSession) => {
+        // Construct the returned training session's detail page
+        constructTrainingSessionDetailsPage(id, trainingSession);
+      })
+      .catch((error) => {
+        // Show appropriate error message
+        let statusText = '';
+
+        if (error === 'training-session-not-found') {
+          statusText =
+              'La sesión de entrenamiento solicitada no fue encontrada en su '
+              + 'historial de entrenamiento.';
+        } else if (error === 'exercise-items-not-found') {
+          statusText =
+              'La sesión de entrenamiento solicitada no contiene ejercicios. '
+              + 'Intente de nuevo, o elimine la sesión de entrenamiento desde '
+              + 'el historial y regístrela de nuevo si el problema persiste.';
+        } else if (error === 'exercise-items-count-does-not-match') {
+          statusText =
+              'Los datos de uno o varios ejercicios de la sesión de '
+              + 'entrenamiento no pudieron ser encontrados. Intente de nuevo, '
+              + 'o elimine la sesión de entrenamiento desde el historial y '
+              + 'regístrela de nuevo si el problema persiste.';
+        } else if (error === 'invalid-training-session') {
+          statusText = 'La sesión de entrenamiento contiene datos inválidos.';
+        } else if (error === 'deadline-exceeded') {
+          statusText =
+              'El tiempo de respuesta de la solicitud expiró. '
+              + 'Intente de nuevo más tarde.';
+        } else if (error === 'permission-denied') {
+          statusText = 'No tiene permiso de realizar la operación de consulta.';
+        } else if (error === 'unavailable') {
+          statusText =
+              'Servicio temporalmente no disponible. '
+              + 'Intente de nuevo más tarde';
+        } else {
+          statusText = `Error inesperado. Código: ${error}`;
+        }
+
+        utils.clearStatusMessages();
+        utils.addStatusMessage('alert-danger', [statusText]);
+      });
+    } else {
+      // If the user is signed-out, add info message indicating the
+      // user to sign in
+      utils.addStatusMessage(
+        'alert-info',
+        ['Inicie sesión para gestionar sus sesiones de entrenamiento.']
+      );
+
+      // Remove main buttons and detail page sections
+      const container = document.querySelector('#training-session-detail');
+
+      const mainButtons = container.querySelector('#main-buttons');
+      mainButtons.remove();
+
+      const sections = container.querySelector('section');
+      sections.remove();
+
+      // Reset main title
+      const mainTitle = container.querySelector('h1#main-title');
+      mainTitle.textContent = 'Sesión de entrenamiento';
+
+      // Add empty page text if it isn't present
+      if (!document.querySelector('p#empty-text')) {
+        addEmptyPageText(container);
+      }
+    }
+  });
+
+  // Add pending status message to page
+  utils.addPendingStatusMessage();
 });
