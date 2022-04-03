@@ -70,6 +70,16 @@ export function constructTrainingSessionForm(
 
   const exercisesRequired = basicDataRequired.cloneNode(true);
 
+  const exerciseLimitWarning = document.createElement('div');
+  exerciseLimitWarning.classList.add('alert', 'alert-warning');
+
+  const exerciseLimitText = document.createElement('p');
+  exerciseLimitText.classList.add('mb-0');
+  exerciseLimitText.textContent =
+      'Puede registrar un máximo de 50 ejercicios por sesión de entrenamiento.';
+
+  exerciseLimitWarning.appendChild(exerciseLimitText);
+
   const actionButtons = createActionButtons();
 
   const exercisesDiv = document.createElement('div');
@@ -80,6 +90,7 @@ export function constructTrainingSessionForm(
 
   exercisesSection.appendChild(exercisesTitle);
   exercisesSection.appendChild(exercisesRequired);
+  exercisesSection.appendChild(exerciseLimitWarning);
   exercisesSection.appendChild(actionButtons);
   exercisesSection.appendChild(exercisesDiv);
 
@@ -668,11 +679,15 @@ export function toggleActionButtons() {
   const selected = getSelectedRowNumber();
   const rowCount = getRows().length;
 
-  // Add button not here because it is always enabled
+  const addButton = document.querySelector('button#add-btn');
   const removeButton = document.querySelector('button#remove-btn');
   const duplicateButton = document.querySelector('button#duplicate-btn');
   const moveUpButton = document.querySelector('button#move-up-btn');
   const moveDownButton = document.querySelector('button#move-down-btn');
+
+  // Disable add button if there are 50 exercise items or more (not possible),
+  // regardless of selection state
+  addButton.disabled = rowCount >= 50;
 
   if (Number.isInteger(selected)) {
     // If an item is selected, enable duplicate button

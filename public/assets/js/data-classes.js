@@ -82,9 +82,9 @@ export class TrainingSession {
       return false;
     }
 
-    // Exercises must be a list of at least one element, and all
-    // elements must be valid ExerciseItem objects
-    if (this.exerciseItemsCount) {
+    // Exercises must be a list of at least one element and at most 50
+    // elements, and all elements must be valid ExerciseItem objects
+    if (this.exerciseItemsCount && this.exerciseItemsCount <= 50) {
       const allItemsValid = this.exercises.every(item => {
           return item instanceof ExerciseItem && item.isValid();
       });
