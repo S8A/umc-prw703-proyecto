@@ -358,6 +358,9 @@ window.addEventListener('load', function () {
       const mainTitle = container.querySelector('h1#main-title');
       mainTitle.textContent = 'Sesión de entrenamiento';
 
+      // Reset page title
+      document.title = 'Sesión de entrenamiento ' + utils.NBSP + ' 8A Training';
+
       // Add empty page text if it isn't present
       if (!document.querySelector('p#empty-text')) {
         addEmptyPageText(container);
