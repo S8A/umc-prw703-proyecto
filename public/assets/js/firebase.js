@@ -582,3 +582,91 @@ export async function createTrainingSession(uid, trainingSession) {
   // Commit the batch
   return await batch.commit();
 }
+
+
+/**
+ * Load the example training sessions from the JSON file in the data folder.
+ *
+ * @param {string} uid - UID of the user loading the example training sessions.
+ * @returns {number}
+ * Number of training sessions loaded to Firestore successfully.
+ */
+export async function loadExampleTrainingSessionsJSON(uid) {
+  // JSON file URL and request object
+  const requestURL = '/data/training-sessions.json';
+  const request = new Request(requestURL);
+
+  // Fetch file and awit response
+  const response = await fetch(request);
+
+  if (response.ok) {
+    // If request is successful, get data as JSON
+    const data = await response.json();
+
+    // List of TrainingSession objects constructed from the data
+    const trainingSessions = [];
+
+    if (data instanceof Array && data.length) {
+      // If the data object is a non-empty array, go through each item
+      for (const item of data) {
+        const exerciseItems = [];
+
+        if (item.exercises instanceof Array && item.exercises.length) {
+          // If the item's exercises property is a non-empty array,
+          // go through each exerciseItem
+          for (const exerciseItem of item.exercises) {
+            // Create a new ExerciseItem object from the exercise item's data
+            // and push it to the exerciseItems list
+            exerciseItems.push(new ExerciseItem(
+              exerciseItem.exercise,
+              SetType.enumValueOf(exerciseItem.setType),
+              exerciseItem.sets,
+              exerciseItem.reps,
+              exerciseItem.weight,
+              exerciseItem.comments
+            ));
+          }
+
+          // Create a new TrainingSession object from the item's data
+          // and push it to the trainingSessions list
+          trainingSessions.push(new TrainingSession(
+            item.date,
+            item.time,
+            exerciseItems,
+            item.shortTitle,
+            item.duration,
+            item.bodyweight,
+            item.comments
+          ))
+        }
+      }
+    }
+
+    // Filter out invalid training sessions
+    const validItems = trainingSessions.filter(item => item.isValid());
+
+    let createdCount = 0;
+
+    if (validItems.length) {
+      // If there are valid TrainingSession objects, go through each
+      // one and create them as documents in the user's
+      // trainingSessions collection
+      for (const i in validItems) {
+        console.log(validItems[i]);
+        try {
+          // Try to create training session document and increment counter
+          await createTrainingSession(uid, validItems[i]);
+          createdCount++;
+        } catch (error) {
+          console.log(
+              `Error creating training session at index ${i}:\t${error}`);
+        }
+      }
+    }
+
+    // Return count of created training session documents
+    return createdCount;
+  }
+
+  return 0;
+}
