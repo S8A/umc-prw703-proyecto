@@ -71,6 +71,7 @@ connectFirestoreEmulator(db, 'localhost', 8080);
 /**
  * Create a new user with the given email and password.
  *
+ * @async
  * @param {string} email - Email of the new user.
  * @param {string} firstName - First name of the new user.
  * @param {string} lastName - Last name of the new user.
@@ -78,19 +79,21 @@ connectFirestoreEmulator(db, 'localhost', 8080);
  * @returns {Promise<void>}
  * Promise of void return value from Firestore's setDoc() method.
  */
-export function createUser(email, firstName, lastName, password) {
-  return createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-
+export async function createUser(email, firstName, lastName, password) {
+  try {
+    // Create user and get credential
+    const userCredential = await createUserWithEmailAndPassword(
+        auth, email, password);
+    
     // Create user document to save the user's first and last name,
     // as well as the creation timestamp
-    return setDoc(doc(db, 'users', user.uid), {
+    return await setDoc(doc(db, 'users', userCredential.user.uid), {
       name: {first: firstName, last: lastName},
       created: serverTimestamp(),
     });
-  });
+  } catch (error) {
+    return Promise.reject(error);
+  }
 }
 
 
