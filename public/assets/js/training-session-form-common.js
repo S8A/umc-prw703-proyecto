@@ -283,7 +283,7 @@ function createExercisesTable(trainingSession = null) {
   // Table body
   const tbody = document.createElement('tbody');
 
-  if (trainingSession && trainingSession instanceof TrainingSession
+  if (trainingSession instanceof TrainingSession
       && trainingSession.exerciseItemsCount) {
     // If a training session was given and it has at least one ExerciseItem
     for (const i in trainingSession.exercises) {
@@ -291,7 +291,7 @@ function createExercisesTable(trainingSession = null) {
       // and append it to the table body
       const indexNumber = Number(i);
       const rowNumber = indexNumber + 1;
-      const exerciseItem = exerciseItems[indexNumber];
+      const exerciseItem = trainingSession.exercises[indexNumber];
       const row = createEditableExerciseItemRow(rowNumber, exerciseItem);
       tbody.appendChild(row);
     }
@@ -1127,7 +1127,7 @@ function extractExerciseItemsData() {
       const data = extractExerciseItemRowData(row);
       const exercise = new ExerciseItem(
           data.exercise,
-          SetType.enumValueOf(data.setType),
+          data.setType,
           data.sets,
           data.reps,
           data.weight,
@@ -1154,7 +1154,7 @@ function extractExerciseItemsData() {
  * fields.
  * @returns {HTMLTableRowElement} Editable exercise item table row.
  */
-export function createEditableExerciseItemRow(rowNumber, data = {}) {
+function createEditableExerciseItemRow(rowNumber, data = {}) {
   // Table row
   const tr = document.createElement('tr');
   tr.classList.add('exercise-item');
@@ -1333,9 +1333,9 @@ function createSetTypeTd(rowNumber, value) {
 
   if (value) {
     // Set initial value if given and valid
-    if (SetType.enumValueOf(value) === SetType.WarmUp) {
+    if (value === SetType.WarmUp) {
       warmupOption.selected = true;
-    } else if (SetType.enumValueOf(value) === SetType.Work) {
+    } else if (value === SetType.Work) {
       workOption.selected = true;
     }
   }
@@ -1707,7 +1707,7 @@ function replaceExerciseItemRowNumber(row, newRowNumber) {
  * Exercise item row from which the data will be extracted.
  * @returns {{
  *   exercise: string,
- *   setType: string,
+ *   setType: SetType,
  *   weight: ?number,
  *   sets: number,
  *   reps: number[],
@@ -1722,7 +1722,7 @@ function extractExerciseItemRowData(row) {
   data.exercise = exercise ? exercise.value : '';
 
   const setType = row.querySelector('select[id^="set-type-"]');
-  data.setType = setType ? setType.value : '';
+  data.setType = setType ? SetType.enumValueOf(setType.value) : SetType.Work;
 
   const weight = row.querySelector('input[type="number"][id^="weight-"]');
   data.weight = (weight && weight.value) ? Number(weight.value) : null;
