@@ -652,3 +652,18 @@ export function clearOutChildNodes(element) {
     element.removeChild(element.lastChild);
   }
 }
+
+
+/* TYPE CHECKING */
+
+/**
+ * Checks if the given variable is a string.
+ *
+ * @param {any} x - Variable to check.
+ * @returns
+ * True if the variable is a string literal or a String instace,
+ * false otherwise.
+ */
+export function isString(x) {
+  return typeof x === 'string' || x instanceof String;
+}
