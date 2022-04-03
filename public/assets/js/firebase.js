@@ -243,8 +243,8 @@ const exerciseItemConverter = {
  * @param {?QueryDocumentSnapshot} [cursor=null]
  * Training session document snapshot to be used as query cursor.
  * @returns {Promise}
- * Promise of list of document snapshots returned by Firebase's getDocs()
- * method.
+ * Promise of list of training session document snapshots returned by
+ * Firebase's getDocs() method.
  */
 export function getTrainingSessions(
     uid,
@@ -254,42 +254,41 @@ export function getTrainingSessions(
     cursorAction = null,
     cursor = null
 ) {
-  // List of query constraints
-  const constraints = [];
+  // Reference to the user's trainingSessions subcollection
+  const ref = collection(db, 'users', uid, 'trainingSessions');
+
+  // Query without constraints
+  let q = query(ref.withConverter(trainingSessionConverter));
 
   if (startDate) {
-    // If start date filter is set, query only training sessions that
-    // were done that day or after
-    constraints.push(where('dateTime', '>=', startDate));
+    // If start date filter is set, contrain query to training sessions
+    // done at the given start date or after
+    q = query(q, where('dateTime', '>=', startDate));
   }
 
   if (endDate) {
-    // If end date filter is set, query only training sessions that
-    // were done that day or before
-    constraints.push(where('dateTime', '<=', endDate));
+    // If end date filter is set, contrain query to training sessions
+    // done at the given end date or before
+    q = query(q, where('dateTime', '<=', endDate));
   }
 
   // Always order training sessions in reverse chronological order
-  constraints.push(orderBy('dateTime', 'desc'));
+  q = query(q, orderBy('dateTime', 'desc'));
 
   if (cursorAction === 'next' && cursor) {
-    // Get the next page of results, starting after the given document
-    constraints.push(startAfter(cursor));
-    constraints.push(limit(queryLimit));
+    // Get the next page of results, starting after the given cursor document
+    q = query(q, startAfter(cursor));
+    q = query(q, limit(queryLimit));
   } else if (cursorAction === 'prev' && cursor) {
-    // Get the previous page of results, ending before the given document
-    constraints.push(endBefore(cursor));
-    constraints.push(limitToLast(queryLimit));
+    // Get the previous page of results, ending before the given cursor document
+    q = query(q, endBefore(cursor));
+    q = query(q, limitToLast(queryLimit));
   } else {
     // Get the first page of results
-    constraints.push(limit(queryLimit));
+    q = query(q, limit(queryLimit));
   }
 
-  // Query
-  const ref = collection(db, 'users', uid, 'trainingSessions');
-  const q = query(ref.withConverter(trainingSessionConverter), constraints);
-
-  // Return training sessions' document snapshots
+  // Return training session document snapshots, or error
   return getDocs(q);
 }
 
