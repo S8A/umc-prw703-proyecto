@@ -163,10 +163,23 @@ const trainingSessionConverter = {
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
 
+    // Convert dateTime to Date object
+    const dateTime = data.dateTime.toDate();
+
+    // List of exercises must be queried separately from the
+    // corresponding exercises subcollection; instead, create a list
+    // of the same length as the number of exercises filled with null
+    // so that the TrainingSession's exerciseItemsCount property
+    // returns the correct count
+    const exercises = [];
+    for (let i = 0; i < data.exerciseItemsCount; i++) {
+      exercises.push(null);
+    }
+
     return new TrainingSession(
-        toISODateOnly(data.dateTime),
-        toISOTimeOnly(data.dateTime),
-        [], // List of exercise items must be queried separately.
+        toISODateOnly(dateTime),
+        toISOTimeOnly(dateTime),
+        exercises,
         data.shortTitle,
         data.duration,
         data.bodyweight,
