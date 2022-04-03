@@ -104,7 +104,9 @@ function addTrainingSessionCards(querySnapshot) {
   } else {
     // If training sessions were found, create a summary card for each
     // one and add them to the container
-    querySnapshot.forEach(createTrainingSessionCard);
+    querySnapshot.forEach(function (snapshot) {
+      container.appendChild(createTrainingSessionCard(snapshot));
+    });
   }
 }
 
@@ -170,7 +172,7 @@ function createTrainingSessionCard(snapshot) {
   const exerciseCountListItem = document.createElement('li');
   exerciseCountListItem.classList.add('list-group-item');
 
-  const exerciseCountLabel = document.createElement('p');
+  const exerciseCountLabel = document.createElement('b');
   exerciseCountLabel.textContent = 'Número de ejercicios registrados:';
   exerciseCountListItem.appendChild(exerciseCountLabel);
 
@@ -189,13 +191,13 @@ function createTrainingSessionCard(snapshot) {
 
   // Edit link button
   const editLink = document.createElement('a');
-  editLink.classList.add('card-link', 'btn', 'btn-secondary-outline');
+  editLink.classList.add('card-link', 'btn', 'btn-outline-secondary');
   editLink.href = '/historial/modificar.html?id=' + snapshot.id;
   editLink.textContent = 'Modificar';
 
   // Delete link button
   const deleteLink = document.createElement('a');
-  deleteLink.classList.add('card-link', 'btn', 'btn-danger-outline');
+  deleteLink.classList.add('card-link', 'btn', 'btn-outline-danger');
   deleteLink.href = '/historial/eliminar.html?id=' + snapshot.id;
   deleteLink.textContent = 'Eliminar';
 
@@ -238,7 +240,7 @@ function addPagination(
 
   // Previous button
   const previous = document.createElement('button');
-  previous.classList.add('btn', 'btn-primary-outline');
+  previous.classList.add('btn', 'btn-outline-primary');
   previous.textContent = 'Página anterior';
 
   // Disable previous button if this is the first page (or lower, but
@@ -252,7 +254,7 @@ function addPagination(
 
   // Next button
   const next = document.createElement('button');
-  next.classList.add('btn', 'btn-primary-outline');
+  next.classList.add('btn', 'btn-outline-primary');
   next.textContent = 'Página siguiente';
 
   if (querySnapshot.empty) {
