@@ -10,18 +10,25 @@ export const NDASH = '\u2013';
 
 /* QUERY PARAMETERS */
 
+/**
+ * Get the current page's query parameters.
+ *
+ * @returns {URLSearchParams} Query parameters object.
+ */
 export function getQueryParams() {
-  /* Get the current page's query parameters. */
-
   return new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
 }
 
 
+/**
+ * Set the current page's query parameters.
+ *
+ * @param {Object} data
+ * Data object with the values to set for the query parameters.
+ */
 export function setQueryParams(data) {
-  /* Set the current page's query parameters. */
-
   const params = new URLSearchParams(data);
   window.location.search = params.toString();
 }
