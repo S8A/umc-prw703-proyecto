@@ -52,19 +52,19 @@ export const app = initializeApp(firebaseConfig);
 
 
 // Initialize Firebase Authentication and get a reference to the service
-// export const auth = getAuth(app);
+export const auth = getAuth(app);
 
 // Connect Firebase Authentication with local emulator
-export const auth = getAuth();
-connectAuthEmulator(auth, "http://localhost:9099");
+// export const auth = getAuth();
+// connectAuthEmulator(auth, "http://localhost:9099");
 
 
 // Initialize Cloud Firestore and get a reference to the service
-// export const db = getFirestore(app);
+export const db = getFirestore(app);
 
 // Connect Firestore with local emulator
-export const db = getFirestore();
-connectFirestoreEmulator(db, 'localhost', 8080);
+// export const db = getFirestore();
+// connectFirestoreEmulator(db, 'localhost', 8080);
 
 
 /* USER ACCOUNTS */
