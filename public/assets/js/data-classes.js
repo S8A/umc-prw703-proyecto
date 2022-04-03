@@ -81,7 +81,7 @@ export class TrainingSession {
    */
   isValid() {
     // Date and time are required and must be valid
-    if (!(this.date & this.time)
+    if (!(this.date && this.time)
         || this.dateTime.toString() === 'Invalid Date') {
       return false;
     }
