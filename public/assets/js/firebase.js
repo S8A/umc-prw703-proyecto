@@ -237,7 +237,7 @@ const exerciseItemConverter = {
       data.sets,
       data.reps,
       data.weight,
-      data.coments
+      data.comments
     );
   }
 }
