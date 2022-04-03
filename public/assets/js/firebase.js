@@ -456,7 +456,7 @@ export async function createTrainingSession(uid, trainingSession) {
  * TrainingSession object.
  *
  * @async
- * @param {string} uid - UID of the user creating the training session.
+ * @param {string} uid - UID of the user updating the training session.
  * @param {string} id - ID of the training session's document.
  * @param {TrainingSession} trainingSession - TrainingSession object.
  * @returns {Promise<void>} Promise of void return value if successful.
@@ -465,7 +465,7 @@ export async function createTrainingSession(uid, trainingSession) {
   if (!(trainingSession instanceof TrainingSession)
       || !trainingSession.isValid()) {
     // If the training session is not given or invalid, do not try to
-    // record it and return error
+    // update it and return error
     return Promise.reject('invalid-training-session');
   }
 
