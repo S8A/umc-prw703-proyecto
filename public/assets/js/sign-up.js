@@ -95,7 +95,7 @@ function checkConfirmPassword(password, confirm) {
   const feedback = utils.getInvalidFeedbackElement(confirm);
 
   if (password.value !== confirm.value) {
-    let text = 'El texto ingresado no coincide con la contraseña.';
+    const text = 'El texto ingresado no coincide con la contraseña.';
     confirm.setCustomValidity(text);
     feedback.textContent = text;
   } else {

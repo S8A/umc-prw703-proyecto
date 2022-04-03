@@ -19,6 +19,7 @@ import * as utils from './utils.js';
 export function constructTrainingSessionForm(
     mainTitleText, formId, formLabel, submitButtonText, trainingSession = null
 ) {
+  // Training session form container
   const container = document.querySelector('#training-session-form-container');
 
   // Main title
@@ -251,7 +252,7 @@ function createExercisesTable(trainingSession = null) {
 
   // Table head
   const thead = document.createElement('thead');
-  let headers = [
+  const headers = [
     {id: 'selection-th', text: '', required: false},
     {id: 'exercise-th', text: 'Ejercicio', required: true},
     {id: 'set-type-th', text: 'Modalidad', required: true},
@@ -261,7 +262,7 @@ function createExercisesTable(trainingSession = null) {
     {id: 'comments-th', text: 'Comentarios', required: false},
   ];
 
-  for (let header of headers) {
+  for (const header of headers) {
     const th = document.createElement('th');
     th.classList.add('px-2');
     th.id = header.id;
@@ -285,7 +286,7 @@ function createExercisesTable(trainingSession = null) {
   if (trainingSession && trainingSession instanceof TrainingSession
       && trainingSession.exerciseItemsCount) {
     // If a training session was given and it has at least one ExerciseItem
-    for (let i in trainingSession.exercises) {
+    for (const i in trainingSession.exercises) {
       // For each ExerciseItem object, create a new exercise item row
       // and append it to the table body
       const indexNumber = Number(i);
@@ -714,7 +715,7 @@ export function addExerciseItemRow() {
   } else {
     // Otherwise, all rows after the selected one must have
     // their row number increased by one
-    for (let row of rows) {
+    for (const row of rows) {
       const rowNumber = Number(row.dataset.rowNumber);
       if (rowNumber > selected) {
         replaceExerciseItemRowNumber(row, rowNumber + 1);
@@ -743,7 +744,7 @@ export function removeExerciseItemRow() {
     const rows = getRows();
 
     if (rows.length) {
-      for (let row of rows) {
+      for (const row of rows) {
         const rowNumber = Number(row.dataset.rowNumber);
         if (rowNumber === selected) {
           row.remove();
@@ -784,7 +785,7 @@ export function duplicateExerciseItemRow() {
     } else {
       // Otherwise, all rows after the selected one must have
       // their row number increased by one
-      for (let row of rows) {
+      for (const row of rows) {
         const rowNumber = Number(row.dataset.rowNumber);
         if (rowNumber > selected) {
           replaceExerciseItemRowNumber(row, rowNumber + 1);
@@ -1122,7 +1123,7 @@ function extractExerciseItemsData() {
   const rows = getRows();
 
   if (rows) {
-    for (let row of rows) {
+    for (const row of rows) {
       const data = extractExerciseItemRowData(row);
       const exercise = new ExerciseItem(
           data.exercise,
@@ -1475,8 +1476,8 @@ function createSetsTd(rowNumber, value) {
 
       utils.getInvalidFeedbackElement(sets).textContent = '';
 
-      let currentRowNumber = Number(sets.dataset.rowNumber);
-      let setsCount = Number(sets.value);
+      const currentRowNumber = Number(sets.dataset.rowNumber);
+      const setsCount = Number(sets.value);
 
       // Update reps td accordingly and then enable field again
       updateRepsTd(currentRowNumber, setsCount).then(() => {
@@ -1676,7 +1677,7 @@ function replaceExerciseItemRowNumber(row, newRowNumber) {
 
   const repsLabels = row.querySelectorAll('label[for^="reps-"]');
   if (repsLabels) {
-    for (let repsLabel of repsLabels) {
+    for (const repsLabel of repsLabels) {
       repsLabel.htmlFor =
           repsLabel.htmlFor.replace(repsRegexp, repsRegexpReplacement);
     }
@@ -1684,7 +1685,7 @@ function replaceExerciseItemRowNumber(row, newRowNumber) {
 
   const reps = row.querySelectorAll('input[type="number"][id^="reps-"]');
   if (reps) {
-    for (let repsItem of reps) {
+    for (const repsItem of reps) {
       repsItem.name = repsItem.name.replace(repsRegexp, repsRegexpReplacement);
       repsItem.id = repsItem.name;
       repsItem.dataset.rowNumber = newRowNumber;

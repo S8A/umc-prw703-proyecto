@@ -22,7 +22,7 @@ export function getQueryParams() {
 export function setQueryParams(data) {
   /* Set the current page's query parameters. */
 
-  let params = new URLSearchParams(data);
+  const params = new URLSearchParams(data);
   window.location.search = params.toString();
 }
 
@@ -453,7 +453,7 @@ export function setUpSignedInHeader(user) {
         const errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
 
-        let statusText =
+        const statusText =
             'Error inesperado al tratar de cerrar su sessión. Código: '
             + errorCode
 
@@ -519,7 +519,7 @@ export function addStatusMessage(alertType, text) {
     return;
   }
 
-  for (let paragraph of text) {
+  for (const paragraph of text) {
     const p = document.createElement('p');
     p.textContent = paragraph;
 
