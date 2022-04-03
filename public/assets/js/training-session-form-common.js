@@ -1103,8 +1103,8 @@ export function extractTrainingSessionData() {
       time ? time.value : null,
       exercises,
       shortTitle ? shortTitle.value : '',
-      duration ? duration.value : null,
-      bodyweight ? bodyweight.value : null,
+      duration ? Number(duration.value) : null,
+      bodyweight ? Number(bodyweight.value) : null,
       comments ? comments.value : ''
   );
 }
