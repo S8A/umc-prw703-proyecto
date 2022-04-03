@@ -74,8 +74,8 @@ connectFirestoreEmulator(db, 'localhost', 8080);
  * @param {string} firstName - First name of the new user.
  * @param {string} lastName - Last name of the new user.
  * @param {string} password - Password of the new user.
- * @returns {Promise}
- * Promise returned by Firebase's createUserWithEmailAndPassword() method.
+ * @returns {Promise<void>}
+ * Promise of void return value from Firestore's setDoc() method.
  */
 export function createUser(email, firstName, lastName, password) {
   return createUserWithEmailAndPassword(auth, email, password)
@@ -98,8 +98,9 @@ export function createUser(email, firstName, lastName, password) {
  *
  * @param {string} email - Email of the user.
  * @param {string} password - Password of the user.
- * @returns {Promise}
- * Promise returned by Firebase's signInWithEmailAndPassword() method.
+ * @returns {Promise<UserCredential>}
+ * Promise of UserCredential returned by Firebase's
+ * signInWithEmailAndPassword() method.
  */
 export function signInUser(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
@@ -111,7 +112,8 @@ export function signInUser(email, password) {
  * users collection.
  *
  * @param {string} uid - UID of the user whose data will be looked up.
- * @returns {Promise} Promise of snapshot of the document's data.
+ * @returns {Promise<DocumentSnapshot>}
+ * Promise of user document snapshot returned by Firestore's getDoc() method.
  */
 export function getUserDoc(uid) {
   return getDoc(doc(db, 'users', uid));
@@ -256,9 +258,8 @@ const exerciseItemConverter = {
  * the previous page (end before cursor); otherwise, get the first page.
  * @param {?QueryDocumentSnapshot} [cursor=null]
  * Training session document snapshot to be used as query cursor.
- * @returns {Promise}
- * Promise of list of training session document snapshots returned by
- * Firebase's getDocs() method.
+ * @returns {Promise<QuerySnapshot>}
+ * Promise of query results snapshot returned by Firebase's getDocs() method.
  */
 export function getTrainingSessions(
     uid,
@@ -314,8 +315,8 @@ export function getTrainingSessions(
  * @async
  * @param {string} uid - UID of the user creating the training session.
  * @param {TrainingSession} trainingSession - TrainingSession object.
- * @returns {Promise}
- * Promise of new training session document reference, or an error.
+ * @returns {Promise<DocumentReference>}
+ * Promise of the new training session's document reference.
  */
 export async function createTrainingSession(uid, trainingSession) {
   if (!(trainingSession instanceof TrainingSession)
