@@ -623,7 +623,10 @@ export function createInvalidFeedbackElement() {
  * String representation of the Date object's date in YYYY-MM-DD format.
  */
 export function toISODateOnly(date) {
-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+  const year = date.getFullYear();
+  const month = String(date.getMonth()).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 
@@ -636,7 +639,9 @@ export function toISODateOnly(date) {
  * String representation of the Date object's time in HH:mm format.
  */
  export function toISOTimeOnly(date) {
-  return `${date.getHours()}:${date.getMinutes()}`;
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes}`;
 }
 
 
