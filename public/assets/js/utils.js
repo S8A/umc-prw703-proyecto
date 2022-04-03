@@ -33,13 +33,18 @@ export function setQueryParams(data) {
  * Remove sign-up and sign-in links from header nav, and add the
  * signed-in user's first name and a sign-out button.
  *
+ * @async
  * @param {User} signedInUser - Signed-in user.
+ * @returns {Promise<Object>}
+ * Promise of data object with content extracted from the user's document.
  */
-export function setUpSignedInHeader(user) {
-  return getUserDoc(user.uid)
-  .then((snapshot, options) => {
+export async function setUpSignedInHeader(user) {
+  try {
+    // Get snapshot of user's data document
+    const snapshot = await getUserDoc(user.uid);
+
     // After getting the user's data document, extract its data
-    const data = snapshot.data(options);
+    const data = snapshot.data();
 
     // Collapsible navbar items container
     const navbarCollapse =
@@ -97,8 +102,7 @@ export function setUpSignedInHeader(user) {
 
     // Return data object
     return data;
-  })
-  .catch((error) => {
+  } catch (error) {
     // If the user's data document couldn't be found, show error message
     const errorCode = error.code;
     const errorMessage = error.message;
@@ -118,7 +122,7 @@ export function setUpSignedInHeader(user) {
 
     clearStatusMessages();
     addStatusMessage('alert-danger', [statusText]);
-  });
+  }
 }
 
 
