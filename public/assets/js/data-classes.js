@@ -121,7 +121,7 @@ export class TrainingSession {
     // Comments, if set, must be a string and its length must not
     // exceed 280 characters
     if (this.comments) {
-      if (!isString(this.comments) || this.comments.length > 50) {
+      if (!isString(this.comments) || this.comments.length > 280) {
         return false;
       }
     }

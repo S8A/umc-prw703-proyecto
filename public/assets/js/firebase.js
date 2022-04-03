@@ -318,7 +318,7 @@ export function getTrainingSessions(
  * Promise of new training session document reference, or an error.
  */
 export async function createTrainingSession(uid, trainingSession) {
-  if (trainingSession instanceof TrainingSession
+  if (!(trainingSession instanceof TrainingSession)
       || !trainingSession.isValid()) {
     // If the training session is not given or invalid, do not try to
     // record it and return error
