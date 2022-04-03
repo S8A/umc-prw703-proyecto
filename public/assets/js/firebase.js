@@ -84,7 +84,7 @@ export async function createUser(email, firstName, lastName, password) {
     // Create user and get credential
     const userCredential = await createUserWithEmailAndPassword(
         auth, email, password);
-    
+
     // Create user document to save the user's first and last name,
     // as well as the creation timestamp
     return await setDoc(doc(db, 'users', userCredential.user.uid), {

@@ -190,7 +190,7 @@ window.addEventListener('load', function () {
       if (form) {
         form.remove();
       }
-      
+
       // Reset main title
       const mainTitle = document.querySelector('h1#main-title');
       mainTitle.textContent = 'Modificar sesión de entrenamiento';
