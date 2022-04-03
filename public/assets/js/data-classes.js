@@ -1,4 +1,4 @@
-import { NBSP } from '/assets/js/utils.js';
+import { NBSP, isString } from './utils.js';
 'use strict';
 
 
@@ -103,7 +103,7 @@ export class TrainingSession {
     // Short title, if set, must be a string and its length must not
     // exceed 50 characters
     if (this.shortTitle) {
-      if (!(this.shortTitle instanceof String) || this.shortTitle.length > 50) {
+      if (!isString(this.shortTitle) || this.shortTitle.length > 50) {
         return false;
       }
     }
@@ -125,7 +125,7 @@ export class TrainingSession {
     // Comments, if set, must be a string and its length must not
     // exceed 280 characters
     if (this.comments) {
-      if (!this.comments instanceof String || this.comments.length > 50) {
+      if (!isString(this.comments) || this.comments.length > 50) {
         return false;
       }
     }
@@ -166,7 +166,7 @@ export class ExerciseItem {
   isValid() {
     // Exercise name is required, must be a string, and its length must
     // not exceed 50 characters
-    if (!this.exercise || !(this.exercise instanceof String)
+    if (!this.exercise || !isString(this.exercise)
         || this.exercise.length > 50) {
       return false;
     }
@@ -207,7 +207,7 @@ export class ExerciseItem {
     // Comments, if set, must be a string and its length must not
     // exceed 140 characters
     if (this.comments) {
-      if (!(this.comments instanceof String) || this.comments.length > 140) {
+      if (!isString(this.comments) || this.comments.length > 140) {
         return false;
       }
     }
