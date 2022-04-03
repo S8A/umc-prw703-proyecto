@@ -1,5 +1,5 @@
-import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
 import * as utils from './utils.js';
+import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
 
 
 /* CONSTRUCT FORM PAGE */

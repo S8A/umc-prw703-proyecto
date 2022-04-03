@@ -1,6 +1,6 @@
 import * as utils from './utils.js';
+import { TrainingSession } from './data-classes.js';
 import { auth, getTrainingSessions } from './firebase.js';
-import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
 
 
 /**

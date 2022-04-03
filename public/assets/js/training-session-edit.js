@@ -1,5 +1,5 @@
-import * as common from './training-session-form-common.js';
 import * as utils from './utils.js';
+import * as common from './training-session-form-common.js';
 import { auth, getTrainingSession, updateTrainingSession } from './firebase.js';
 
 
