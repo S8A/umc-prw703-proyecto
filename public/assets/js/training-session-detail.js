@@ -272,8 +272,8 @@ function createExercisesTable(trainingSession) {
 
 
 window.addEventListener('load', function () {
-  // Add pending status message to page
-  utils.addPendingStatusMessage();
+  // Add pending alert message to page
+  utils.addPendingAlertMessage();
 
   // Get query parameters
   const params = utils.getQueryParams();
@@ -301,46 +301,46 @@ window.addEventListener('load', function () {
       })
       .catch((error) => {
         // Show appropriate error message
-        let statusText = '';
+        let alertText = '';
 
         if (error === 'training-session-not-found') {
-          statusText =
+          alertText =
               'La sesión de entrenamiento solicitada no fue encontrada en su '
               + 'historial de entrenamiento.';
         } else if (error === 'exercise-items-not-found') {
-          statusText =
+          alertText =
               'La sesión de entrenamiento solicitada no contiene ejercicios. '
               + 'Intente de nuevo, o elimine la sesión de entrenamiento desde '
               + 'el historial y regístrela de nuevo si el problema persiste.';
         } else if (error === 'exercise-items-count-does-not-match') {
-          statusText =
+          alertText =
               'Los datos de uno o varios ejercicios de la sesión de '
               + 'entrenamiento no pudieron ser encontrados. Intente de nuevo, '
               + 'o elimine la sesión de entrenamiento desde el historial y '
               + 'regístrela de nuevo si el problema persiste.';
         } else if (error === 'invalid-training-session') {
-          statusText = 'La sesión de entrenamiento contiene datos inválidos.';
+          alertText = 'La sesión de entrenamiento contiene datos inválidos.';
         } else if (error === 'deadline-exceeded') {
-          statusText =
+          alertText =
               'El tiempo de respuesta de la solicitud expiró. '
               + 'Intente de nuevo más tarde.';
         } else if (error === 'permission-denied') {
-          statusText = 'No tiene permiso de realizar la operación de consulta.';
+          alertText = 'No tiene permiso de realizar la operación de consulta.';
         } else if (error === 'unavailable') {
-          statusText =
+          alertText =
               'Servicio temporalmente no disponible. '
               + 'Intente de nuevo más tarde';
         } else {
-          statusText = `Error inesperado. Código: ${error}`;
+          alertText = `Error inesperado. Código: ${error}`;
         }
 
-        utils.clearStatusMessages();
-        utils.addStatusMessage('alert-danger', [statusText]);
+        utils.clearAlertMessages();
+        utils.addAlertMessage('alert-danger', [alertText]);
       });
     } else {
       // If the user is signed-out, add info message indicating the
       // user to sign in
-      utils.addStatusMessage(
+      utils.addAlertMessage(
         'alert-info',
         ['Inicie sesión para gestionar sus sesiones de entrenamiento.']
       );
@@ -368,6 +368,6 @@ window.addEventListener('load', function () {
     }
   });
 
-  // Add pending status message to page
-  utils.addPendingStatusMessage();
+  // Add pending alert message to page
+  utils.addPendingAlertMessage();
 });

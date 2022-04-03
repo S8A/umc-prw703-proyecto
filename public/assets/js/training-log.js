@@ -65,20 +65,20 @@ function constructTrainingLog(
   .catch((error) => {
     console.log(error);
 
-    let statusText = '';
+    let alertText = '';
 
     if (error === 'deadline-exceeded') {
-      statusText = 'El tiempo de consulta expiró. Intente de nuevo más tarde.';
+      alertText = 'El tiempo de consulta expiró. Intente de nuevo más tarde.';
     } else if (error === 'not-found') {
-      statusText = 'Sesiones de entrenamiento no encontradas.';
+      alertText = 'Sesiones de entrenamiento no encontradas.';
     } else if (error === 'unavailable') {
-      statusText =
+      alertText =
           'Servicio temporalmente no disponible. Intente de nuevo más tarde';
     } else {
-      statusText = `Error inesperado. Código: ${error}`;
+      alertText = `Error inesperado. Código: ${error}`;
     }
 
-    utils.addStatusMessage('alert-danger', [statusText]);
+    utils.addAlertMessage('alert-danger', [alertText]);
   });
 }
 
@@ -313,8 +313,8 @@ function setPageTitle(startDate = null, endDate = null) {
 
 
 window.addEventListener('load', function () {
-  // Add pending status message to page
-  utils.addPendingStatusMessage();
+  // Add pending alert message to page
+  utils.addPendingAlertMessage();
 
   // Get query parameters
   const params = utils.getQueryParams();
@@ -353,8 +353,8 @@ window.addEventListener('load', function () {
   // Set page title
   setPageTitle(startDate, endDate);
 
-  // Add pending status message to page
-  utils.addPendingStatusMessage();
+  // Add pending alert message to page
+  utils.addPendingAlertMessage();
 
   // Get fixed page elements
   const createButton = document.querySelector('#create-training-session-btn');
@@ -407,7 +407,7 @@ window.addEventListener('load', function () {
     } else {
       // If the user is signed-out, add info message indicating the
       // user to sign in
-      utils.addStatusMessage(
+      utils.addAlertMessage(
           'alert-info',
           ['Inicie sesión para gestionar su historial de entrenamiento.']
       );

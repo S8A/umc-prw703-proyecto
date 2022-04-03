@@ -11,6 +11,6 @@ window.addEventListener('load', function () {
     }
   });
 
-  // Add pending status message to page
-  utils.addPendingStatusMessage();
+  // Add pending alert message to page
+  utils.addPendingAlertMessage();
 });

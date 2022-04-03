@@ -106,8 +106,8 @@ function checkConfirmPassword(password, confirm) {
 
 
 window.addEventListener( "load", function () {
-  // Add pending status message to page
-  utils.addPendingStatusMessage();
+  // Add pending alert message to page
+  utils.addPendingAlertMessage();
 
   // Get form, fields and submit button
   const form = document.querySelector('form#signup-form');
@@ -131,8 +131,8 @@ window.addEventListener( "load", function () {
       confirm.disabled = true;
       submit.disabled = true;
 
-      // Add status message indicating that the user is already signed-up
-      utils.addStatusMessage(
+      // Add alert message indicating that the user is already signed-up
+      utils.addAlertMessage(
           'alert-info',
           ['Usted ya se encuentra registrado.']
       );
@@ -208,7 +208,7 @@ window.addEventListener( "load", function () {
         // After the user is successfully created and signed in, and
         // the corresponding user document has been created, set
         // pending success message and redirect to home page
-        utils.setPendingStatusMessage(
+        utils.setPendingAlertMessage(
           'alert-success',
           ['Usuario registrado exitosamente.']
         );
@@ -216,31 +216,31 @@ window.addEventListener( "load", function () {
       })
       .catch((error) => {
         // If the user could not be created, show appropriate error message
-        let statusText = '';
+        let alertText = '';
 
         if (utils.isString(error)) {
           // User created, setDoc failed
-          statusText =
+          alertText =
               'Error registrando sus datos. Comuníquese con el administrador: '
               + 'samuelochoap@gmail.com';
         } else if (error.code === 'auth/email-already-in-use') {
-          statusText =
+          alertText =
               'El correo electrónico ingresado ya está asociado a '
               + 'una cuenta.';
         } else if (error.code === 'auth/wrong-password') {
-          statusText = 'La contraseña ingresada no es válida.';
+          alertText = 'La contraseña ingresada no es válida.';
         } else {
           console.log(`${error.code}: ${error.message}`);
-          statusText = `Error inesperado. Código: ${error.code}`;
+          alertText = `Error inesperado. Código: ${error.code}`;
         }
 
-        utils.clearStatusMessages();
-        utils.addStatusMessage('alert-danger', [statusText]);
+        utils.clearAlertMessages();
+        utils.addAlertMessage('alert-danger', [alertText]);
       });
     } else {
       // If the form is not valid, show error message
-      utils.clearStatusMessages();
-      utils.addStatusMessage(
+      utils.clearAlertMessages();
+      utils.addAlertMessage(
           'alert-danger',
           ['Corrija los errores en los datos ingresados.']
       );

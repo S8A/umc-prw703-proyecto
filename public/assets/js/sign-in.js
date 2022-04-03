@@ -45,8 +45,8 @@ function showPasswordError(password) {
 
 
 window.addEventListener( "load", function () {
-  // Add pending status message to page
-  utils.addPendingStatusMessage();
+  // Add pending alert message to page
+  utils.addPendingAlertMessage();
 
   // Get query parameters
   const params = utils.getQueryParams();
@@ -67,8 +67,8 @@ window.addEventListener( "load", function () {
       password.disabled = true;
       submit.disabled = true;
 
-      // Add status message indicating that the user is already signed-in
-      utils.addStatusMessage(
+      // Add alert message indicating that the user is already signed-in
+      utils.addAlertMessage(
           'alert-info',
           ['Usted ya tiene su sesión iniciada.']
       );
@@ -116,7 +116,7 @@ window.addEventListener( "load", function () {
         // message and redirect to the destination set in the next
         // query parameter, or to the home page if next is unset or
         // not a valid destination
-        utils.setPendingStatusMessage(
+        utils.setPendingAlertMessage(
             'alert-success',
             ['Sesión iniciada exitosamente.']
         );
@@ -139,25 +139,25 @@ window.addEventListener( "load", function () {
         const errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
 
-        let statusText = '';
+        let alertText = '';
 
         if (errorCode === 'auth/user-not-found') {
-          statusText =
+          alertText =
               'No existe ningún usuario registrado con el correo electrónico '
               + 'ingresado.';
         } else if (errorCode === 'auth/wrong-password') {
-          statusText = 'Contraseña incorrecta.';
+          alertText = 'Contraseña incorrecta.';
         } else {
-          statusText = `Error inesperado. Código: ${errorCode}`;
+          alertText = `Error inesperado. Código: ${errorCode}`;
         }
 
-        utils.clearStatusMessages();
-        utils.addStatusMessage('alert-danger', [statusText]);
+        utils.clearAlertMessages();
+        utils.addAlertMessage('alert-danger', [alertText]);
       });
     } else {
       // If the form is not valid, show error message
-      utils.clearStatusMessages();
-      utils.addStatusMessage(
+      utils.clearAlertMessages();
+      utils.addAlertMessage(
           'alert-danger',
           ['Corrija los errores en los datos ingresados.']
       );

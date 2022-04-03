@@ -85,12 +85,12 @@ export async function setUpSignedInHeader(user) {
         const errorMessage = error.message;
         console.log(`${errorCode}: ${errorMessage}`);
 
-        const statusText =
+        const alertText =
             'Error inesperado al tratar de cerrar su sessión. Código: '
             + errorCode
 
-        clearStatusMessages();
-        addStatusMessage('alert-danger', [statusText]);
+        clearAlertMessages();
+        addAlertMessage('alert-danger', [alertText]);
       });
     });
 
@@ -108,45 +108,45 @@ export async function setUpSignedInHeader(user) {
     const errorMessage = error.message;
     console.log(`${errorCode}: ${errorMessage}`);
 
-    let statusText = '';
+    let alertText = '';
 
     if (errorCode === 'auth/not-found') {
-      statusText =
+      alertText =
           'El usuario no tiene datos registrados en el sistema. '
           + 'Comuníquese con el administrador: samuelochoap@gmail.com';
     } else {
-      statusText =
+      alertText =
           'Error inesperado al tratar de consultar los datos del usuario. '
           + `Código: ${errorCode}`;
     }
 
-    clearStatusMessages();
-    addStatusMessage('alert-danger', [statusText]);
+    clearAlertMessages();
+    addAlertMessage('alert-danger', [alertText]);
   }
 }
 
 
-/* STATUS MESSAGES */
+/* ALERT MESSAGES */
 
 /**
- * Add status message to the top of the page.
+ * Add alert message to the top of the page.
  *
  * @param {string} alertType - Bootstrap alert-* class.
  * @param {string[]} text - List of paragraphs of the alert message.
  */
-export function addStatusMessage(alertType, text) {
-  // Status messages' area
-  const statusMessages = document.getElementById('status-messages');
+export function addAlertMessage(alertType, text) {
+  // Alert messages' area
+  const alertMessages = document.getElementById('alert-messages');
 
-  // Status message alert
-  const statusMessage = document.createElement('div');
-  statusMessage.classList.add(
+  // Alert message
+  const alertMessage = document.createElement('div');
+  alertMessage.classList.add(
       'alert', alertType, 'my-3', 'alert-dismissible', 'fade', 'show');
-  statusMessage.setAttribute('role', 'alert');
+  alertMessage.setAttribute('role', 'alert');
 
   // Message paragraphs
   if (!text || !(text instanceof Array) || !text.length) {
-    // If status message has no content, don't add anything
+    // If alert message has no content, don't add anything
     return;
   }
 
@@ -154,11 +154,11 @@ export function addStatusMessage(alertType, text) {
     const p = document.createElement('p');
     p.textContent = paragraph;
 
-    statusMessage.appendChild(p);
+    alertMessage.appendChild(p);
   }
 
   // Remove bottom margin of last paragraph
-  statusMessage.lastChild.classList.add('mb-0');
+  alertMessage.lastChild.classList.add('mb-0');
 
   // Close button
   const closeButton = document.createElement('button');
@@ -167,53 +167,53 @@ export function addStatusMessage(alertType, text) {
   closeButton.dataset.bsDismiss = 'alert';
   closeButton.ariaLabel = 'Cerrar';
 
-  statusMessage.appendChild(closeButton);
+  alertMessage.appendChild(closeButton);
 
-  // Add alert to status area
-  statusMessages.prepend(statusMessage);
+  // Add alert message
+  alertMessages.prepend(alertMessage);
 }
 
 
 /**
- * Clear all status messages from the top of the page.
+ * Clear all alert messages from the top of the page.
  */
-export function clearStatusMessages() {
-  const statusMessages = document.getElementById('status-messages');
-  clearOutChildNodes(statusMessages);
+export function clearAlertMessages() {
+  const alertMessages = document.getElementById('alert-messages');
+  clearOutChildNodes(alertMessages);
 }
 
 
 /**
- * Set pending status message in sessionStorage.
+ * Set pending alert message in sessionStorage.
  *
  * @param {string} alertType - Bootstrap alert-* class.
  * @param {string[]} text - List of paragraphs of the alert message.
  */
-export function setPendingStatusMessage(alertType, text) {
+export function setPendingAlertMessage(alertType, text) {
   if (alertType && text && text instanceof Array && text.length) {
-    const status = {
+    const data = {
       alertType: alertType,
       text: text,
     };
 
-    sessionStorage.setItem('pendingStatus', JSON.stringify(status));
+    sessionStorage.setItem('pendingAlert', JSON.stringify(data));
   }
 }
 
 
 /**
- * Add pending status message from sessionStorage, then clear it.
+ * Add pending alert message from sessionStorage, then clear it.
  */
-export function addPendingStatusMessage() {
-  // Pending status messsage data
-  const data = JSON.parse(sessionStorage.getItem('pendingStatus'));
+export function addPendingAlertMessage() {
+  // Pending alert messsage data
+  const data = JSON.parse(sessionStorage.getItem('pendingAlert'));
 
   if (data && data.alertType && data.text) {
-    // Add status message if the data is complete
-    addStatusMessage(data.alertType, data.text);
+    // Add alert message if the data is complete
+    addAlertMessage(data.alertType, data.text);
   }
 
-  sessionStorage.removeItem('pendingStatus');
+  sessionStorage.removeItem('pendingAlert');
 }
 
 
