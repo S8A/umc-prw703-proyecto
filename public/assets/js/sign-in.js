@@ -73,6 +73,9 @@ window.addEventListener( "load", function () {
           ['Usted ya tiene su sesión iniciada.']
       );
 
+      // Scroll to the top of the page
+      window.scrollTo({top: 0, behavior: 'smooth'});
+
       // Set up header
       utils.setUpSignedInHeader(user);
     }
@@ -153,6 +156,9 @@ window.addEventListener( "load", function () {
 
         utils.clearAlertMessages();
         utils.addAlertMessage('alert-danger', [alertText]);
+
+        // Scroll to the top of the page
+        window.scrollTo({top: 0, behavior: 'smooth'});
       });
     } else {
       // If the form is not valid, show error message
@@ -161,6 +167,9 @@ window.addEventListener( "load", function () {
           'alert-danger',
           ['Corrija los errores en los datos ingresados.']
       );
+
+      // Scroll to the top of the page
+      window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     // Add .was-validated to form if it wasn't already

@@ -124,6 +124,9 @@ window.addEventListener('load', function () {
         ['Inicie sesión para registrar una nueva sesión de entrenamiento.']
       );
 
+      // Scroll to the top of the page
+      window.scrollTo({top: 0, behavior: 'smooth'});
+
       // Remove form if present
       const form = document.getElementById(formId);
       if (form) {

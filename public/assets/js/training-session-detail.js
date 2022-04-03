@@ -336,6 +336,9 @@ window.addEventListener('load', function () {
 
         utils.clearAlertMessages();
         utils.addAlertMessage('alert-danger', [alertText]);
+
+        // Scroll to the top of the page
+        window.scrollTo({top: 0, behavior: 'smooth'});
       });
     } else {
       // If the user is signed-out, add info message indicating the
@@ -344,6 +347,9 @@ window.addEventListener('load', function () {
         'alert-info',
         ['Inicie sesión para gestionar sus sesiones de entrenamiento.']
       );
+
+      // Scroll to the top of the page
+      window.scrollTo({top: 0, behavior: 'smooth'});
 
       // Remove main buttons and detail page sections
       const container = document.querySelector('#training-session-detail');

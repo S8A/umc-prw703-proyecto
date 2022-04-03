@@ -98,6 +98,9 @@ export async function setUpSignedInHeader(user) {
 
         clearAlertMessages();
         addAlertMessage('alert-danger', [alertText]);
+
+        // Scroll to the top of the page
+        window.scrollTo({top: 0, behavior: 'smooth'});
       });
     });
 
@@ -129,6 +132,9 @@ export async function setUpSignedInHeader(user) {
 
     clearAlertMessages();
     addAlertMessage('alert-danger', [alertText]);
+
+    // Scroll to the top of the page
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
 }
 

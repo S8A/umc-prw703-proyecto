@@ -79,6 +79,9 @@ function constructTrainingLog(
     }
 
     utils.addAlertMessage('alert-danger', [alertText]);
+
+    // Scroll to the top of the page
+    window.scrollTo({top: 0, behavior: 'smooth'});
   });
 }
 
@@ -411,6 +414,9 @@ window.addEventListener('load', function () {
           'alert-info',
           ['Inicie sesión para gestionar su historial de entrenamiento.']
       );
+
+      // Scroll to the top of the page
+      window.scrollTo({top: 0, behavior: 'smooth'});
 
       // Disable create button
       createButton.href = '';
