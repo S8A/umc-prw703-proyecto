@@ -1,5 +1,6 @@
 import * as utils from './utils.js';
 import { auth, createUser } from './firebase.js';
+'use strict';
 
 
 /**

@@ -1,4 +1,5 @@
 import { auth, getUserDoc } from './firebase.js';
+'use strict';
 
 
 /* CONSTANTS */

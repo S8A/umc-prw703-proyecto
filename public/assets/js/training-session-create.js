@@ -1,6 +1,7 @@
 import * as utils from './utils.js';
 import * as common from './training-session-form-common.js';
 import { auth, createTrainingSession } from './firebase.js';
+'use strict';
 
 
 /**

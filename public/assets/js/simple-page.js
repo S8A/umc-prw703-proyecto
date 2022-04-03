@@ -1,5 +1,6 @@
 import * as utils from './utils.js';
 import { auth } from './firebase.js';
+'use strict';
 
 
 window.addEventListener('load', function () {

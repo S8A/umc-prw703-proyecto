@@ -1,5 +1,6 @@
 import * as utils from './utils.js';
 import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
+'use strict';
 
 
 /* CONSTRUCT FORM PAGE */
