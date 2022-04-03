@@ -124,7 +124,7 @@ function addEmptyResultsText(container) {
 
 
 /**
- * Create a summary card for the given training session, using its 
+ * Create a summary card for the given training session, using its
  * basic data and number of exercise items.
  * @param {QueryDocumentSnapshot} snapshot
  * Document snapshot of the training session to be summarized.
@@ -276,7 +276,7 @@ function addPagination(
       // Construct training log for the previous page
       constructTrainingLog(uid, queryLimit, startDate, endDate, 'prev', cursor);
     });
-  
+
     next.addEventListener('click', function (event) {
       // Set query cursor to the last document snapshot in the query results
       const cursor = querySnapshot.docs[resultsCount - 1];
@@ -368,7 +368,7 @@ window.addEventListener('load', function () {
   // Add event listener for date filter form submission
   dateFilter.addEventListener('submit', function (event) {
     event.preventDefault();
-  
+
     if (dateFilter.reportValidity()) {
       // If form is valid, filter by the selected dates
       utils.setQueryParams(
@@ -386,7 +386,7 @@ window.addEventListener('load', function () {
       createButton.href = '/historial/crear.html';
       createButton.classList.remove('disabled');
       createButton.ariaDisabled = false;
-      
+
       // Enable date filter fields and submit button
       dateFilterStart.disabled = false;
       dateFilterEnd.disabled = false;
