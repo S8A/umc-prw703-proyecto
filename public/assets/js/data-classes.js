@@ -66,11 +66,7 @@ export class TrainingSession {
    * @type {number}
    */
   get exerciseItemsCount() {
-    if (this.exercises && this.exercises instanceof Array) {
-      return this.exercises.length;
-    } else {
-      return 0;
-    }
+    return (this.exercises instanceof Array) ? this.exercises.length : 0;
   }
 
   /**
@@ -172,7 +168,7 @@ export class ExerciseItem {
     }
 
     // Set type is required and must be a SetType instance
-    if (!this.setType || !(this.setType instanceof SetType)) {
+    if (!(this.setType instanceof SetType)) {
       return false;
     }
 
@@ -183,10 +179,8 @@ export class ExerciseItem {
 
     // Reps list must be an array with a length equal to the number of
     // sets, and all elements must be integers greater than zero
-    if (this.reps && this.reps instanceof Array
-        && this.reps.length === this.sets) {
-      const allItemsValid = this.reps.every(item => {
-          const repNumber = Number(item);
+    if (this.reps instanceof Array && this.reps.length === this.sets) {
+      const allItemsValid = this.reps.every(repNumber => {
           return Number.isInteger(repNumber) && repNumber > 0;
       });
 
