@@ -234,6 +234,7 @@ const exerciseItemConverter = {
     return new ExerciseItem(
       data.exercise,
       SetType.enumValueOf(data.setType),
+      data.sets,
       data.reps,
       data.weight,
       data.coments
