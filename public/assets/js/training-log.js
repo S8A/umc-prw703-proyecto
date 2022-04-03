@@ -348,6 +348,7 @@ function setPageTitle(startDate = null, endDate = null) {
 function createLoadDataButton(uid) {
   const button = document.createElement('button');
   button.classList.add('btn', 'btn-warning');
+  button.id = 'load-data-btn';
   button.textContent = 'Cargar sesiones desde JSON';
 
   button.addEventListener('click', function (event) {
@@ -492,6 +493,12 @@ window.addEventListener('load', function () {
       createButton.href = '';
       createButton.classList.add('disabled');
       createButton.ariaDisabled = true;
+
+      // Remove button to load example data, if present
+      const loadDataButton = document.querySelector('#load-data-btn');
+      if (loadDataButton) {
+        loadDataButton.remove();
+      }
 
       // Disable date filter fields and submit button
       dateFilterStart.disabled = true;
