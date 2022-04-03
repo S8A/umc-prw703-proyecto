@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión &ndash; 8A Training</title>
+    <title>Eliminar sesión de entrenamiento &ndash; 8A Training</title>
 
     <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -24,34 +24,20 @@
                     <ul class="navbar-nav me-auto mb-md-0">
                         <li class="nav-item"><a href="/historial/" class="nav-link">Historial</a></li>
                         <li class="nav-item"><a href="/recursos.html" class="nav-link">Recursos</a></li>
-                        <li class="nav-item active" aria-current="page"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
+                        <li class="nav-item sign-up"><a href="/registro.html" class="nav-link">Registro</a></li>
+                        <li class="nav-item sign-in"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <main>
-        <div class="container py-sm-3 sign-in">
-            <div id="status-messages"></div>
+        <div class="container delete-training-session">
+            <div id="alert-messages"></div>
             <div class="row">
-                <div class="col col-md-8 col-lg-6 col-xl-4 mx-auto my-5 p-4 rounded-3 border shadow-lg">
-                    <h1 id="main-title" class="text-center">Iniciar sesión</h1>
-                    <form id="signin-form" class="needs-validation" aria-labelledby="main-title" novalidate>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo electrónico:</label>
-                            <input type="email" class="form-control" name="email" id="email" maxlength="50" required>
-                            <div class="invalid-feedback" aria-live="polite"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña:</label>
-                            <input type="password" class="form-control" name="password" id="password" minlength="8" maxlength="50" required>
-                            <div class="invalid-feedback" aria-live="polite"></div>
-                        </div>
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-                        </div>
-                    </form>
-                    <p class="small">¿No tienes cuenta? <a href="/registro.html">Regístrate gratis</a></p>
+                <div id="delete-confirmation" class="col col-md-10 col-lg-8 col-xl-6 mx-auto my-5 p-4 rounded-3 border shadow-lg">
+                    <h1 id="main-title" class="text-center">Eliminar sesión de entrenamiento</h1>
+                    <p id="empty-text">No se ha podido cargar la información de la sesión de entrenamiento solicitada.</p>
                 </div>
             </div>
         </div>
@@ -62,6 +48,6 @@
         </div>
     </footer>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/assets/js/sign-in.js"></script>
+    <script type="module" src="/assets/js/training-session-delete.js"></script>
 </body>
 </html>

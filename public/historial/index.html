@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de entrenamiento &ndash; 8A Training</title>
+
+    <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-md">
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/img/8a-training-square-bg.svg" alt="Inicio" width="150" height="48">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Mostrar/ocultar navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-md-0">
+                        <li class="nav-item"><a href="/historial/" class="nav-link active">Historial</a></li>
+                        <li class="nav-item"><a href="/recursos.html" class="nav-link">Recursos</a></li>
+                        <li class="nav-item sign-up"><a href="/registro.html" class="nav-link">Registro</a></li>
+                        <li class="nav-item sign-in"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container training-log">
+            <div id="alert-messages"></div>
+            <div class="row">
+                <div class="col col-lg-10 col-xl-8 py-4 mx-auto">
+                    <h1 id="main-title" class="text-center">Historial de entrenamiento</h1>
+
+                    <div id="main-buttons" class="text-center mb-4">
+                        <a href="/historial/crear.html" id="create-training-session-btn" class="btn btn-success mx-auto">Registrar sesión</a>
+                    </div>
+
+                    <form id="date-filter" class="border p-3 mb-4 small" role="search" aria-labelledby="date-filter-title">
+                        <h2 class="fs-6" id="date-filter-title">Filtrar por fecha</h2>
+                        <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="start-date" class="col-form-label">Desde:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" class="form-control form-control-sm" name="start" id="start-date">
+                            </div>
+                            <div class="col-auto">
+                                <label for="end-date" class="col-form-label">Hasta:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" class="form-control form-control-sm" name="end" id="end-date">
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="training-sessions">
+                    </div>
+
+                    <nav id="pagination" class="d-flex justify-content-between" aria-label="Páginas del historial de sesions de entrenamiento">
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="container">
+        <div class="py-3 my-4">
+            <p class="text-center text-muted text-small"><small>Samuel Ochoa · UMC PRW703 · 2022</small></p>
+        </div>
+    </footer>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/assets/js/training-log.js"></script>
+</body>
+</html>

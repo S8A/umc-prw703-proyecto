@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de entrenamiento &ndash; 8A Training</title>
+    <title>Iniciar sesión &ndash; 8A Training</title>
 
     <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -22,41 +22,37 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="navbar-nav me-auto mb-md-0">
-                        <li class="nav-item"><a href="/historial/" class="nav-link active">Historial</a></li>
+                        <li class="nav-item"><a href="/historial/" class="nav-link">Historial</a></li>
                         <li class="nav-item"><a href="/recursos.html" class="nav-link">Recursos</a></li>
-                        <li class="nav-item"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
+                        <li class="nav-item sign-up"><a href="/registro.html" class="nav-link">Registro</a></li>
+                        <li class="nav-item sign-in" aria-current="page"><a href="/iniciar-sesion.html" class="nav-link active">Iniciar sesión</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <main>
-        <div class="container training-log">
-            <div id="status-messages"></div>
+        <div class="container py-sm-3 sign-in">
+            <div id="alert-messages"></div>
             <div class="row">
-                <div class="col col-lg-10 col-xl-8 py-4 mx-auto">
-                    <h1 id="main-title" class="text-center">Historial de entrenamiento</h1>
-                    <div id="main-buttons" class="text-center mb-5">
-                        <a href="/historial/crear.html" class="btn btn-success mx-auto">Registrar sesión</a>
-                    </div>
-                    <form id="date-filter" class="row g-3 align-items-center mb-2 small" role="search" aria-labelledby="date-filter-label">
-                        <div class="col-auto">
-                            <label for="date" class="col-form-label" id="date-filter-label">Filtrar por fecha:</label>
+                <div class="col col-md-8 col-lg-6 col-xl-4 mx-auto my-5 p-4 rounded-3 border shadow-lg">
+                    <h1 id="main-title" class="text-center">Iniciar sesión</h1>
+                    <form id="signin-form" class="needs-validation" aria-labelledby="main-title" novalidate>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo electrónico:</label>
+                            <input type="email" class="form-control" name="email" id="email" maxlength="50" required>
+                            <div class="invalid-feedback" aria-live="polite"></div>
                         </div>
-                        <div class="col-auto">
-                            <input type="date" class="form-control form-control-sm" name="date" id="date-filter-input">
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" name="password" id="password" minlength="8" maxlength="50" required>
+                            <div class="invalid-feedback" aria-live="polite"></div>
                         </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
                         </div>
                     </form>
-                    <div id="training-sessions">
-                        <p id="empty-text">No se ha encontrado ninguna sesión de entrenamiento.</p>
-                    </div>
-
-                    <nav id="pagination" aria-label="Páginas">
-                        <ul class="pagination pagination-sm justify-content-center"></ul>
-                    </nav>
+                    <p class="small">¿No tienes cuenta? <a href="/registro.html">Regístrate gratis</a></p>
                 </div>
             </div>
         </div>
@@ -67,6 +63,6 @@
         </div>
     </footer>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/assets/js/training-log.js"></script>
+    <script type="module" src="/assets/js/sign-in.js"></script>
 </body>
 </html>

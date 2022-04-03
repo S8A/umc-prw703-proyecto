@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesión de entrenamiento &ndash; 8A Training</title>
+    <title>8A Training</title>
 
     <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -24,19 +24,26 @@
                     <ul class="navbar-nav me-auto mb-md-0">
                         <li class="nav-item"><a href="/historial/" class="nav-link">Historial</a></li>
                         <li class="nav-item"><a href="/recursos.html" class="nav-link">Recursos</a></li>
-                        <li class="nav-item"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
+                        <li class="nav-item sign-up"><a href="/registro.html" class="nav-link">Registro</a></li>
+                        <li class="nav-item sign-in"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <main>
-        <div class="container training-session">
-            <div id="status-messages"></div>
+        <div class="container landing-page">
+            <div id="alert-messages"></div>
             <div class="row">
-                <div id="training-session-detail" class="col col-lg-10 col-xl-8 py-4 mx-auto">
-                    <h1 id="main-title" class="text-center">Sesión de entrenamiento</h1>
-                    <p id="empty-text">No se ha podido cargar la información de la sesión de entrenamiento solicitada.</p>
+                <div class="col col-xl-10  mx-auto my-sm-3">
+                    <div class="row row-cols-1 row-cols-md-2 rounded-3 border shadow-lg">
+                        <div id="landing-image" class="col"></div>
+                        <div id="landing-text" class="col p-3 p-sm-4 py-md-5 p-lg-5">
+                            <h1 id="main-title" class="display-5 fw-bold lh-1 mb-3">Registra tus sesiones de entrenamiento</h1>
+                            <p class="lead">8A Training es una aplicación web simple que te permite llevar un historial de tus sesiones de entrenamiento, registrando los ejercicios realizados en cada sesión, las series y repeticiones efectuadas, comentarios adicionales, etc.</p>
+                            <p id="action-call" class="lead"><a href="/registro.html">Regístrate gratis</a> e <a href="/iniciar-sesion.html">inicia sesión</a> para empezar a utilizar esta aplicación.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,6 +54,6 @@
         </div>
     </footer>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/assets/js/training-session-detail.js"></script>
+    <script type="module" src="/assets/js/home.js"></script>
 </body>
 </html>

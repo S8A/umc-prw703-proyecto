@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar nueva sesión de entrenamiento &ndash; 8A Training</title>
+    <title>Sesión de entrenamiento &ndash; 8A Training</title>
 
     <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -24,19 +24,20 @@
                     <ul class="navbar-nav me-auto mb-md-0">
                         <li class="nav-item"><a href="/historial/" class="nav-link">Historial</a></li>
                         <li class="nav-item"><a href="/recursos.html" class="nav-link">Recursos</a></li>
-                        <li class="nav-item"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
+                        <li class="nav-item sign-up"><a href="/registro.html" class="nav-link">Registro</a></li>
+                        <li class="nav-item sign-in"><a href="/iniciar-sesion.html" class="nav-link">Iniciar sesión</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <main>
-        <div class="container create-training-session">
-            <div id="status-messages"></div>
+        <div class="container training-session">
+            <div id="alert-messages"></div>
             <div class="row">
-                <div id="training-session-form-container" class="col col-lg-10 col-xl-8 py-4 mx-auto">
-                    <h1 id="main-title" class="text-center">Registrar nueva sesión de entrenamiento</h1>
-                    <p id="empty-text">No se ha podido cargar el formulario para crear un nuevo registro.</p>
+                <div id="training-session-detail" class="col col-lg-10 col-xl-8 py-4 mx-auto">
+                    <h1 id="main-title" class="text-center">Sesión de entrenamiento</h1>
+                    <p id="empty-text">No se ha podido cargar la información de la sesión de entrenamiento solicitada.</p>
                 </div>
             </div>
         </div>
@@ -47,6 +48,6 @@
         </div>
     </footer>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/assets/js/training-session-create.js"></script>
+    <script type="module" src="/assets/js/training-session-detail.js"></script>
 </body>
 </html>
