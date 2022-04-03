@@ -25,6 +25,7 @@ import {
   setDoc,
   startAfter,
   where,
+  writeBatch,
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
 import { TrainingSession, ExerciseItem, SetType } from './data-classes.js';
@@ -535,4 +536,41 @@ export async function createTrainingSession(uid, trainingSession) {
     // Return any error caught trying to execute the transaction
     return Promise.reject(error);
   }
+}
+
+
+/**
+ * Delete the specified training session in the user's
+ * trainingSessions, if it exists, as well as the documents of its
+ * exercise items.
+ *
+ * @async
+ * @param {string} uid - UID of the user deleting the training session.
+ * @param {string} id - ID of the training session's document.
+ * @param {number} exerciseItemsCount
+ * Number of exercise items in the training session's exercises subcollection.
+ * @returns {Promise<void>} Promise of void return value if successful.
+ */
+ export async function deleteTrainingSession(uid, id, exerciseItemsCount) {
+  // Get a new write batch
+  const batch = writeBatch(db);
+
+  // Reference to the training session in the user's trainingSessions
+  // subcollection
+  const trainingSessionRef = doc(db, 'users', uid, 'trainingSessions', id);
+
+  // Reference to the training session's exercises subcollection
+  const exercisesRef = collection(trainingSessionRef, 'exercises');
+
+  // Delete all exercise items belonging to the training session
+  for (let i = 0; i < exerciseItemsCount; i++) {
+    const exerciseItemRef = doc(exercisesRef, String(i));
+    batch.delete(exerciseItemRef);
+  }
+
+  // Delete the training session document
+  batch.delete(trainingSessionRef);
+
+  // Commit the batch
+  return await batch.commit();
 }
