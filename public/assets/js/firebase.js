@@ -20,6 +20,7 @@ import {
   limitToLast,
   orderBy,
   query,
+  runTransaction,
   serverTimestamp,
   setDoc,
   startAfter,
@@ -310,12 +311,67 @@ export function getTrainingSessions(
  * Record a new training session in the user's trainingSessions
  * subcollection, using the data from the given TrainingSession object.
  *
+ * @async
  * @param {string} uid - UID of the user creating the training session.
  * @param {TrainingSession} trainingSession - TrainingSession object.
  * @returns {Promise}
- * Promise of new document reference returned by Firestore's addDoc method.
+ * Promise of new training session document reference, or an error.
  */
-export function createTrainingSession(uid, trainingSession) {
-  const ref = doc(db, 'users', uid, 'trainingSessions');
-  return addDoc(ref.withConverter(trainingSessionConverter), trainingSession);
+export async function createTrainingSession(uid, trainingSession) {
+  if (trainingSession instanceof TrainingSession
+      || !trainingSession.isValid()) {
+    // If the training session is not given or invalid, do not try to
+    // record it and return error
+    return Promise.reject('invalid-training-session');
+  }
+
+  try {
+    // Try to create documents for the training session and its
+    // exercise items in a single atomic transaction, and return the
+    // reference to the newly created training session document if
+    // the transaction succeeds
+    return await runTransaction(db, async (transaction) => {
+      // Try to get user document
+      const userDoc = await transaction.get(doc(db, 'users', uid));
+
+      if (!userDoc.exists()) {
+        // Throw error if the user document doesn't exist
+        throw 'user-doc-does-not-exist';
+      }
+
+      // Reference to the user's trainingSessions subcollection
+      const trainingSessionsRef = collection(userDoc.ref, 'trainingSessions');
+
+      // Create training session document reference with random ID
+      const trainingSessionRef = doc(trainingSessionsRef);
+
+      // Try to set training session document with the TrainingSession's data
+      transaction.set(
+          trainingSessionRef.withConverter(trainingSessionConverter),
+          trainingSession
+      );
+
+      // Reference to the user's training session's exercises subcollection
+      const exercisesRef = collection(trainingSessionRef, 'exercises');
+
+      // Try to add exercise items documents to the subcollection
+      for (let i = 0; i < trainingSession.exerciseItemsCount; i++) {
+        // Exercise item document reference with ID set to its ordinal
+        // position in the exercises list
+        const exerciseItemRef = doc(exercisesRef, String(i));
+
+        // Try to set the exercise item document
+        transaction.set(
+            exerciseItemRef.withConverter(exerciseItemConverter),
+            trainingSession.exercises[i]
+        );
+      }
+
+      // If transaction succeeds, return training session document reference
+      return trainingSessionRef;
+    });
+  } catch (error) {
+    // Return any error caught trying to execute the transaction
+    return Promise.reject(error);
+  }
 }
