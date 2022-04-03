@@ -1,6 +1,10 @@
 import * as utils from './utils.js';
 import { TrainingSession } from './data-classes.js';
-import { auth, getTrainingSessions } from './firebase.js';
+import {
+  auth,
+  getTrainingSessions,
+  loadExampleTrainingSessionsJSON,
+} from './firebase.js';
 'use strict';
 
 
@@ -335,6 +339,45 @@ function setPageTitle(startDate = null, endDate = null) {
 }
 
 
+/**
+ * Create a button to load example training sessions data from JSON file.
+ *
+ * @param {string} uid - UID of the signed-in user-
+ * @returns {HTMLButtonElement} - Button to load example data.
+ */
+function createLoadDataButton(uid) {
+  const button = document.createElement('button');
+  button.classList.add('btn', 'btn-warning');
+  button.textContent = 'Cargar sesiones desde JSON';
+
+  button.addEventListener('click', function (event) {
+    loadExampleTrainingSessionsJSON(uid).then((createdCount) => {
+      if (createdCount) {
+        // If at least one training session was loaded,
+        // show success alert message
+        utils.clearAlertMessages();
+        utils.addAlertMessage(
+          'alert-success',
+          [`${createdCount} sesiones de entrenamiento cargadas exitosamente.`]
+        );
+      } else {
+        // Otherwise, show error message
+        utils.clearAlertMessages();
+        utils.addAlertMessage(
+          'alert-danger',
+          ['No se pudo cargar ninguna sesión de entrenamiento.']
+        );
+      }
+
+      // Scroll to the top of the page
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+
+  return button;
+}
+
+
 window.addEventListener('load', function () {
   // Add pending alert message to page
   utils.addPendingAlertMessage();
@@ -410,6 +453,12 @@ window.addEventListener('load', function () {
       createButton.href = '/historial/crear.html';
       createButton.classList.remove('disabled');
       createButton.ariaDisabled = false;
+
+      if (params.test && Number(params.test) === 1) {
+        // If test query parameter is set to 1, create button to load
+        // example training sessions data
+        createButton.parentElement.appendChild(createLoadDataButton(user.uid));
+      }
 
       // Enable date filter fields and submit button
       dateFilterStart.disabled = false;
