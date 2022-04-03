@@ -38,7 +38,8 @@ function createQuery(startDate, endDate) {
  * End date by which to filter the training sessions, or null.
  * @param {?string} [cursorAction=null]
  * 'next' to get the next page (start after the cursor), 'prev' to get
- * the previous page (end before cursor); otherwise, get the first page.
+ * the previous page (end before cursor), 'last' to get the last page;
+ * otherwise, get the first page.
  * @param {?QueryDocumentSnapshot} [cursor=null]
  * Training session document snapshot to be used as query cursor.
  * @param {number} [page=1] - Current page number.
@@ -261,7 +262,9 @@ function addPagination(
   next.classList.add('btn', 'btn-outline-primary');
   next.textContent = 'Página siguiente';
 
-  if (querySnapshot.empty) {
+  const resultsCount = querySnapshot.docs.length;
+
+  if (!resultsCount) {
     // If no training sessions were found, disable next button if the
     // current page number is greater than 1
     next.disabled = page > 1;
@@ -269,26 +272,42 @@ function addPagination(
     // If training sessions were found, disable next button if the
     // number of documents in the query results is lower than the
     // query limit
-    const resultsCount = querySnapshot.docs.length;
     next.disabled = resultsCount < queryLimit;
-
-    // Add event listeners
-    previous.addEventListener('click', function (event) {
-      // Set query cursor to the first document snapshot in the query results
-      const cursor = querySnapshot.docs[0];
-
-      // Construct training log for the previous page
-      constructTrainingLog(uid, queryLimit, startDate, endDate, 'prev', cursor);
-    });
-
-    next.addEventListener('click', function (event) {
-      // Set query cursor to the last document snapshot in the query results
-      const cursor = querySnapshot.docs[resultsCount - 1];
-
-      // Construct training log for the next page
-      constructTrainingLog(uid, queryLimit, startDate, endDate, 'next', cursor);
-    });
   }
+
+  // Add event listeners
+  previous.addEventListener('click', function (event) {
+    // Set query cursor to the first document snapshot in the query results
+    const cursor = querySnapshot.docs[0];
+
+    if (cursor) {
+      // Construct training log for the previous page
+      constructTrainingLog(
+          uid, queryLimit, startDate, endDate, 'prev', cursor, page - 1);
+    } else {
+      // In case the current page has no results, and thus no cursor,
+      // go back to the last full page
+      constructTrainingLog(
+          uid, queryLimit, startDate, endDate, 'last', null, page - 1);
+    }
+  });
+
+  next.addEventListener('click', function (event) {
+    // Set query cursor to the last document snapshot in the query results
+    const cursor = querySnapshot.docs[resultsCount - 1];
+
+    // Construct training log for the next page
+    constructTrainingLog(
+        uid, queryLimit, startDate, endDate, 'next', cursor, page + 1);
+  });
+
+  // Clear out pagination nav
+  utils.clearOutChildNodes(pagination);
+
+  // Add elements to pagination nav
+  pagination.appendChild(previous);
+  pagination.appendChild(currentPage);
+  pagination.appendChild(next);
 }
 
 

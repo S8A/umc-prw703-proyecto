@@ -14,6 +14,7 @@ import {
   connectFirestoreEmulator,
   collection,
   doc,
+  endAt,
   getDoc,
   getDocs,
   limit,
@@ -260,7 +261,8 @@ const exerciseItemConverter = {
  * End date by which to filter the training sessions, or null.
  * @param {?string} [cursorAction=null]
  * 'next' to get the next page (start after the cursor), 'prev' to get
- * the previous page (end before cursor); otherwise, get the first page.
+ * the previous page (end before cursor), 'last' to get the last page;
+ * otherwise, get the first page.
  * @param {?QueryDocumentSnapshot} [cursor=null]
  * Training session document snapshot to be used as query cursor.
  * @returns {Promise<QuerySnapshot>}
@@ -301,7 +303,10 @@ export function getTrainingSessions(
     q = query(q, limit(queryLimit));
   } else if (cursorAction === 'prev' && cursor) {
     // Get the previous page of results, ending before the given cursor document
-    q = query(q, endBefore(cursor));
+    q = query(q, endAt(cursor));
+    q = query(q, limitToLast(queryLimit));
+  } else if (cursorAction === 'last') {
+    // Get the last page of results
     q = query(q, limitToLast(queryLimit));
   } else {
     // Get the first page of results
