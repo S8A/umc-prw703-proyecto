@@ -310,6 +310,77 @@ export function getTrainingSessions(
 
 
 /**
+ * Get the training session of the given ID from the user's
+ * trainingSessions subcollection.
+ *
+ * @param {string} uid - UID of the user who is requesting the training session.
+ * @param {string} id - ID of the training session document in Firestore.
+ * @returns {Promise<TrainingSession>}
+ * Promise of TrainingSession constructed from Firestore's data.
+ */
+export async function getTrainingSession(uid, id) {
+  try {
+    // Try to get the requested training session's document snapshot
+    // from the user's trainingSessions subcollection
+    const trainingSessionRef = doc(db, 'users', uid, 'trainingSessions', id);
+    const trainingSessionDocSnapshot = await getDoc(
+        trainingSessionRef.withConverter(trainingSessionConverter));
+
+    if (!trainingSessionDocSnapshot.exists()) {
+      // If the document doesn't exist, throw error
+      throw 'training-session-not-found';
+    }
+
+    // Reference to the training session document's exercises subcollection
+    const exercisesRef = collection(trainingSessionRef, 'exercises');
+
+    // Create a query to get all the exercise items of the training session,
+    // ordered by ID ascending
+    const q = query(exercisesRef.withConverter(exerciseItemConverter));
+
+    // Get the training session's exercise items' query results snapshot
+    const exerciseItemsQuerySnapshot = await getDocs(q);
+
+    if (exerciseItemsQuerySnapshot.empty) {
+      // If no exercise items were found, throw error
+      throw 'exercise-items-not-found';
+    }
+
+    // Construct TrainingSession object with the document snapshot's data
+    const trainingSession = trainingSessionDocSnapshot.data();
+
+    const exerciseItemsCount = exerciseItemsQuerySnapshot.docs.length;
+    if (exerciseItemsCount !== trainingSession.exerciseItemsCount) {
+      // If the number of exercise items in the query snapshot somehow
+      // doesn't match the number indicated in the training session's
+      // document, throw error
+      throw 'exercise-items-count-does-not-match';
+    }
+
+    // Replace null exercise items of the TrainingSession object with
+    // the ExerciseItem objects from the query snapshot
+    trainingSession.exercises = [];
+    exerciseItemsQuerySnapshot.forEach((snapshot) => {
+      const exerciseItem = snapshot.data();
+      trainingSession.exercises.push(exerciseItem);
+    });
+
+    console.log(trainingSession);
+    if (trainingSession.isValid()) {
+      // If valid, return Training session object
+      return trainingSession;
+    } else {
+      // Otherwise, throw error
+      throw 'invalid-training-session';
+    }
+  } catch (error) {
+    // Return any error caught trying to get the training session's data
+    return Promise.reject(error);
+  }
+}
+
+
+/**
  * Record a new training session in the user's trainingSessions
  * subcollection, using the data from the given TrainingSession object.
  *
