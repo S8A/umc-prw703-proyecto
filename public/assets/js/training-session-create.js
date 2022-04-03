@@ -52,57 +52,55 @@ window.addEventListener('load', function () {
           // If form is valid, extract form data and create TrainingSession
           const trainingSession = common.extractTrainingSessionData();
 
-          if (trainingSession.isValid()) {
-            // If the training session is valid, try to add it as a document
-            // to the user's trainingSessions subcollection
-            createTrainingSession(user.uid, trainingSession)
-            .then((ref) => {
-              // If the training session is created successfully, set
-              // pending success message
-              utils.setPendingStatusMessage(
-                  'success',
-                  ['Sesión de entrenamiento registrada exitosamente.']
-              );
-
-              // Redirect to detail page of the newly created training session
-              window.location.assign('/historial/detalle.html?id=' + ref.id);
-            })
-            .catch((error) => {
-              // If the training session could not be created, show
-              // appropriate error message
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              console.log(`${errorCode}: ${errorMessage}`);
-
-              let statusText = '';
-
-              if (errorCode === 'deadline-exceeded') {
-                statusText =
-                    'El tiempo de respuesta de la solicitud expiró. '
-                    + 'Intente de nuevo más tarde.';
-              } else if (errorCode === 'permission-denied') {
-                statusText = 'No tiene permiso de realizar la operación.';
-              } else if (errorCode === 'unavailable') {
-                statusText =
-                    'Servicio temporalmente no disponible. '
-                    + 'Intente de nuevo más tarde';
-              } else {
-                statusText = `Error inesperado. Código: ${errorCode}`;
-              }
-
-              utils.clearStatusMessages();
-              utils.addStatusMessage('alert-danger', [statusText]);
-            });
-          } else {
-            // If the training session is invalid, then some field must
-            // have an invalid value somehow
-            utils.clearStatusMessages();
-            utils.addStatusMessage(
-                'alert-danger',
-                ['Uno o varios campos contienen datos inválidos. '
-                + 'Verifique e intente de nuevo.']
+          // Try to add the training session as a document to the
+          // user's trainingSessions subcollection
+          createTrainingSession(user.uid, trainingSession)
+          .then((ref) => {
+            // If the training session is created successfully, set
+            // pending success message
+            utils.setPendingStatusMessage(
+                'alert-success',
+                ['Sesión de entrenamiento registrada exitosamente.']
             );
-          }
+
+            // Redirect to detail page of the newly created training session
+            window.location.assign('/historial/detalle.html?id=' + ref.id);
+          })
+          .catch((error) => {
+            // If the training session could not be created, show
+            // appropriate error message
+            console.log(error);
+
+            let statusText = '';
+
+            if (error === 'user-doc-does-not-exist') {
+              statusText =
+                  'El usuario no tiene datos registrados en la base de datos.'
+                  + 'Comuníquese con el administrador: samuelochoap@gmail.com';
+            } else if (error === 'invalid-training-session') {
+              statusText =
+                  'La sesión de entrenamiento contiene datos inválidos. '
+                  + 'Verifique los datos ingresados.';
+            } else if (error === 'deadline-exceeded') {
+              statusText =
+                  'El tiempo de respuesta de la solicitud expiró. '
+                  + 'Intente de nuevo más tarde.';
+            } else if (error === 'permission-denied') {
+              statusText = 'No tiene permiso de realizar la operación.';
+            } else if (error === 'unavailable') {
+              statusText =
+                  'Servicio temporalmente no disponible. '
+                  + 'Intente de nuevo más tarde';
+            } else {
+              statusText = `Error inesperado. Código: ${error}`;
+            }
+
+            utils.clearStatusMessages();
+            utils.addStatusMessage('alert-danger', [statusText]);
+
+            // Scroll to the top of the page
+            window.scrollTo({top: 0, behavior: 'smooth'});
+          });
         } else {
           // If the form is not valid, show error message
           utils.clearStatusMessages();
@@ -110,6 +108,9 @@ window.addEventListener('load', function () {
               'alert-danger',
               ['Corrija los errores en los datos ingresados.']
           );
+
+          // Scroll to the top of the page
+          window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         // Add .was-validated to form if it wasn't already
