@@ -131,6 +131,7 @@ window.addEventListener( "load", function () {
       submit.disabled = true;
 
       // Add alert message indicating that the user is already signed-up
+      utils.clearAlertMessages();
       utils.addAlertMessage(
           'alert-info',
           ['Usted ya se encuentra registrado.']
