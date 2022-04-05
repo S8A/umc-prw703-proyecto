@@ -6,6 +6,8 @@ import { auth, getUserDoc } from './firebase.js';
 
 export const TRAINING_LOG_ITEMS_PER_PAGE = 10;
 export const NBSP = '\u00a0';
+export const LAQUO = '\u00ab';
+export const RAQUO = '\u00bb';
 export const NDASH = '\u2013';
 
 
