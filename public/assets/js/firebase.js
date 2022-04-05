@@ -328,63 +328,57 @@ export function getTrainingSessions(
  * Promise of TrainingSession constructed from Firestore's data.
  */
 export async function getTrainingSession(uid, id) {
-  try {
-    // Try to get the requested training session's document snapshot
-    // from the user's trainingSessions subcollection
-    const trainingSessionRef = doc(db, 'users', uid, 'trainingSessions', id);
-    const trainingSessionDocSnapshot = await getDoc(
-        trainingSessionRef.withConverter(trainingSessionConverter));
+  // Try to get the requested training session's document snapshot
+  // from the user's trainingSessions subcollection
+  const trainingSessionRef = doc(db, 'users', uid, 'trainingSessions', id);
+  const trainingSessionDocSnapshot = await getDoc(
+      trainingSessionRef.withConverter(trainingSessionConverter));
 
-    if (!trainingSessionDocSnapshot.exists()) {
-      // If the document doesn't exist, throw error
-      throw 'training-session-not-found';
-    }
+  if (!trainingSessionDocSnapshot.exists()) {
+    // If the document doesn't exist, throw error
+    throw 'training-session-not-found';
+  }
 
-    // Reference to the training session document's exercises subcollection
-    const exercisesRef = collection(trainingSessionRef, 'exercises');
+  // Reference to the training session document's exercises subcollection
+  const exercisesRef = collection(trainingSessionRef, 'exercises');
 
-    // Create a query to get all the exercise items of the training session,
-    // ordered by ID ascending
-    const q = query(exercisesRef.withConverter(exerciseItemConverter));
+  // Create a query to get all the exercise items of the training session,
+  // ordered by ID ascending
+  const q = query(exercisesRef.withConverter(exerciseItemConverter));
 
-    // Get the training session's exercise items' query results snapshot
-    const exerciseItemsQuerySnapshot = await getDocs(q);
+  // Get the training session's exercise items' query results snapshot
+  const exerciseItemsQuerySnapshot = await getDocs(q);
 
-    if (exerciseItemsQuerySnapshot.empty) {
-      // If no exercise items were found, throw error
-      throw 'exercise-items-not-found';
-    }
+  if (exerciseItemsQuerySnapshot.empty) {
+    // If no exercise items were found, throw error
+    throw 'exercise-items-not-found';
+  }
 
-    // Construct TrainingSession object with the document snapshot's data
-    const trainingSession = trainingSessionDocSnapshot.data();
+  // Construct TrainingSession object with the document snapshot's data
+  const trainingSession = trainingSessionDocSnapshot.data();
 
-    const exerciseItemsCount = exerciseItemsQuerySnapshot.docs.length;
-    if (exerciseItemsCount !== trainingSession.exerciseItemsCount) {
-      // If the number of exercise items in the query snapshot somehow
-      // doesn't match the number indicated in the training session's
-      // document, throw error
-      throw 'exercise-items-count-does-not-match';
-    }
+  const exerciseItemsCount = exerciseItemsQuerySnapshot.docs.length;
+  if (exerciseItemsCount !== trainingSession.exerciseItemsCount) {
+    // If the number of exercise items in the query snapshot somehow
+    // doesn't match the number indicated in the training session's
+    // document, throw error
+    throw 'exercise-items-count-does-not-match';
+  }
 
-    // Replace null exercise items of the TrainingSession object with
-    // the ExerciseItem objects from the query snapshot
-    trainingSession.exercises = [];
-    exerciseItemsQuerySnapshot.forEach((snapshot) => {
-      const exerciseItem = snapshot.data();
-      trainingSession.exercises.push(exerciseItem);
-    });
+  // Replace null exercise items of the TrainingSession object with
+  // the ExerciseItem objects from the query snapshot
+  trainingSession.exercises = [];
+  exerciseItemsQuerySnapshot.forEach((snapshot) => {
+    const exerciseItem = snapshot.data();
+    trainingSession.exercises.push(exerciseItem);
+  });
 
-    console.log(trainingSession);
-    if (trainingSession.isValid()) {
-      // If valid, return Training session object
-      return trainingSession;
-    } else {
-      // Otherwise, throw error
-      throw 'invalid-training-session';
-    }
-  } catch (error) {
-    // Return any error caught trying to get the training session's data
-    return Promise.reject(error);
+  if (trainingSession.isValid()) {
+    // If valid, return Training session object
+    return trainingSession;
+  } else {
+    // Otherwise, throw error
+    throw 'invalid-training-session';
   }
 }
 
@@ -403,59 +397,54 @@ export async function createTrainingSession(uid, trainingSession) {
   if (!(trainingSession instanceof TrainingSession)
       || !trainingSession.isValid()) {
     // If the training session is not given or invalid, do not try to
-    // record it and return error
-    return Promise.reject('invalid-training-session');
+    // record it and throw error
+    throw 'invalid-training-session';
   }
 
-  try {
-    // Try to create documents for the training session and its
-    // exercise items in a single atomic transaction, and return the
-    // reference to the newly created training session document if
-    // the transaction succeeds
-    return await runTransaction(db, async (transaction) => {
-      // Try to get user document
-      const userDoc = await transaction.get(doc(db, 'users', uid));
+  // Try to create documents for the training session and its exercise
+  // items in a single atomic transaction, and return the reference to
+  // the newly created training session document if the transaction
+  // succeeds
+  return await runTransaction(db, async (transaction) => {
+    // Try to get user document
+    const userDoc = await transaction.get(doc(db, 'users', uid));
 
-      if (!userDoc.exists()) {
-        // Throw error if the user document doesn't exist
-        throw 'user-doc-does-not-exist';
-      }
+    if (!userDoc.exists()) {
+      // Throw error if the user document doesn't exist
+      throw 'user-doc-does-not-exist';
+    }
 
-      // Reference to the user's trainingSessions subcollection
-      const trainingSessionsRef = collection(userDoc.ref, 'trainingSessions');
+    // Reference to the user's trainingSessions subcollection
+    const trainingSessionsRef = collection(userDoc.ref, 'trainingSessions');
 
-      // Create training session document reference with random ID
-      const trainingSessionRef = doc(trainingSessionsRef);
+    // Create training session document reference with random ID
+    const trainingSessionRef = doc(trainingSessionsRef);
 
-      // Try to set training session document with the TrainingSession's data
+    // Try to set training session document with the TrainingSession's data
+    transaction.set(
+        trainingSessionRef.withConverter(trainingSessionConverter),
+        trainingSession
+    );
+
+    // Reference to the user's training session's exercises subcollection
+    const exercisesRef = collection(trainingSessionRef, 'exercises');
+
+    // Try to add exercise items documents to the subcollection
+    for (let i = 0; i < trainingSession.exerciseItemsCount; i++) {
+      // Exercise item document reference with ID set to its ordinal
+      // position in the exercises list
+      const exerciseItemRef = doc(exercisesRef, String(i));
+
+      // Try to set the exercise item document
       transaction.set(
-          trainingSessionRef.withConverter(trainingSessionConverter),
-          trainingSession
+          exerciseItemRef.withConverter(exerciseItemConverter),
+          trainingSession.exercises[i]
       );
+    }
 
-      // Reference to the user's training session's exercises subcollection
-      const exercisesRef = collection(trainingSessionRef, 'exercises');
-
-      // Try to add exercise items documents to the subcollection
-      for (let i = 0; i < trainingSession.exerciseItemsCount; i++) {
-        // Exercise item document reference with ID set to its ordinal
-        // position in the exercises list
-        const exerciseItemRef = doc(exercisesRef, String(i));
-
-        // Try to set the exercise item document
-        transaction.set(
-            exerciseItemRef.withConverter(exerciseItemConverter),
-            trainingSession.exercises[i]
-        );
-      }
-
-      // If transaction succeeds, return training session document reference
-      return trainingSessionRef;
-    });
-  } catch (error) {
-    // Return any error caught trying to execute the transaction
-    return Promise.reject(error);
-  }
+    // If transaction succeeds, return training session document reference
+    return trainingSessionRef;
+  });
 }
 
 
@@ -474,76 +463,71 @@ export async function createTrainingSession(uid, trainingSession) {
   if (!(trainingSession instanceof TrainingSession)
       || !trainingSession.isValid()) {
     // If the training session is not given or invalid, do not try to
-    // update it and return error
-    return Promise.reject('invalid-training-session');
+    // update it and throw error
+    throw 'invalid-training-session';
   }
 
-  try {
-    // Try to update documents for the training session and its
-    // exercise items in a single atomic transaction
-    return await runTransaction(db, async (transaction) => {
-      // Try to get user document
-      const userDoc = await transaction.get(doc(db, 'users', uid));
+  // Try to update documents for the training session and its
+  // exercise items in a single atomic transaction
+  return await runTransaction(db, async (transaction) => {
+    // Try to get user document
+    const userDoc = await transaction.get(doc(db, 'users', uid));
 
-      if (!userDoc.exists()) {
-        // Throw error if the user document doesn't exist
-        throw 'user-doc-does-not-exist';
-      }
+    if (!userDoc.exists()) {
+      // Throw error if the user document doesn't exist
+      throw 'user-doc-does-not-exist';
+    }
 
-      // Reference to the training session in the user's
-      // trainingSessions subcollection
-      const trainingSessionRef = doc(userDoc.ref, 'trainingSessions', id);
+    // Reference to the training session in the user's
+    // trainingSessions subcollection
+    const trainingSessionRef = doc(userDoc.ref, 'trainingSessions', id);
 
-      // Get training session document snapshot before update
-      const trainingSessionDoc = await transaction.get(
-          trainingSessionRef.withConverter(trainingSessionConverter));
+    // Get training session document snapshot before update
+    const trainingSessionDoc = await transaction.get(
+        trainingSessionRef.withConverter(trainingSessionConverter));
 
-      if (!trainingSessionDoc.exists()) {
-        // Throw error if the training session document doesn't exist
-        throw 'training-session-not-found';
-      }
+    if (!trainingSessionDoc.exists()) {
+      // Throw error if the training session document doesn't exist
+      throw 'training-session-not-found';
+    }
 
-      // Get number of exercise items before update
-      const oldExerciseCount = trainingSessionDoc.data().exerciseItemsCount;
+    // Get number of exercise items before update
+    const oldExerciseCount = trainingSessionDoc.data().exerciseItemsCount;
 
-      // Try to update training session document with the TrainingSession's data
+    // Try to update training session document with the TrainingSession's data
+    transaction.set(
+        trainingSessionRef.withConverter(trainingSessionConverter),
+        trainingSession
+    );
+
+    // Reference to the training session's exercises subcollection
+    const exercisesRef = collection(trainingSessionRef, 'exercises');
+
+    // Try to update exercise items documents of the subcollection,
+    // adding more if necessary
+    const newExerciseCount = trainingSession.exerciseItemsCount;
+    for (let i = 0; i < newExerciseCount; i++) {
+      // Exercise item document reference with ID set to its ordinal
+      // position in the exercises list
+      const exerciseItemRef = doc(exercisesRef, String(i));
+
+      // Try to set the exercise item document
       transaction.set(
-          trainingSessionRef.withConverter(trainingSessionConverter),
-          trainingSession
+          exerciseItemRef.withConverter(exerciseItemConverter),
+          trainingSession.exercises[i]
       );
+    }
 
-      // Reference to the training session's exercises subcollection
-      const exercisesRef = collection(trainingSessionRef, 'exercises');
-
-      // Try to update exercise items documents of the subcollection,
-      // adding more if necessary
-      const newExerciseCount = trainingSession.exerciseItemsCount;
-      for (let i = 0; i < newExerciseCount; i++) {
-        // Exercise item document reference with ID set to its ordinal
-        // position in the exercises list
+    if (newExerciseCount < oldExerciseCount) {
+      // If the number of exercise items of the given TrainingSession
+      // is lower than the number in the document before the update,
+      // remove excess documents
+      for (let i = newExerciseCount; i < oldExerciseCount; i++) {
         const exerciseItemRef = doc(exercisesRef, String(i));
-
-        // Try to set the exercise item document
-        transaction.set(
-            exerciseItemRef.withConverter(exerciseItemConverter),
-            trainingSession.exercises[i]
-        );
+        transaction.delete(exerciseItemRef);
       }
-
-      if (newExerciseCount < oldExerciseCount) {
-        // If the number of exercise items of the given TrainingSession
-        // is lower than the number in the document before the update,
-        // remove excess documents
-        for (let i = newExerciseCount; i < oldExerciseCount; i++) {
-          const exerciseItemRef = doc(exercisesRef, String(i));
-          transaction.delete(exerciseItemRef);
-        }
-      }
-    });
-  } catch (error) {
-    // Return any error caught trying to execute the transaction
-    return Promise.reject(error);
-  }
+    }
+  });
 }
 
 
@@ -652,7 +636,6 @@ export async function loadExampleTrainingSessionsJSON(uid) {
       // one and create them as documents in the user's
       // trainingSessions collection
       for (const i in validItems) {
-        console.log(validItems[i]);
         try {
           // Try to create training session document and increment counter
           await createTrainingSession(uid, validItems[i]);
