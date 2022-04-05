@@ -172,6 +172,7 @@ window.addEventListener('load', function () {
     } else {
       // If the user is signed-out, add info message indicating the
       // user to sign in
+      utils.clearAlertMessages();
       utils.addAlertMessage(
         'alert-info',
         ['Inicie sesión para gestionar sus sesiones de entrenamiento.']

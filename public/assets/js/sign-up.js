@@ -79,8 +79,6 @@ function showPasswordError(password) {
   } else if (password.validity.tooShort) {
     feedback.textContent =
         'Insuficientes caracteres (mínimo ' + password.minLength + ').';
-  } else if (password.validity.patternMismatch) {
-    feedback.textContent = 'Solo se permiten caracteres alfanuméricos.';
   }
 }
 
@@ -133,6 +131,7 @@ window.addEventListener( "load", function () {
       submit.disabled = true;
 
       // Add alert message indicating that the user is already signed-up
+      utils.clearAlertMessages();
       utils.addAlertMessage(
           'alert-info',
           ['Usted ya se encuentra registrado.']

@@ -194,19 +194,19 @@ function createTrainingSessionCard(snapshot) {
 
   // Detail link button
   const detailLink = document.createElement('a');
-  detailLink.classList.add('card-link', 'btn', 'btn-primary');
+  detailLink.classList.add('card-link', 'btn', 'btn-primary', 'mb-2');
   detailLink.href = '/historial/detalle.html?id=' + snapshot.id;
   detailLink.textContent = 'Ver detalles';
 
   // Edit link button
   const editLink = document.createElement('a');
-  editLink.classList.add('card-link', 'btn', 'btn-outline-secondary');
+  editLink.classList.add('card-link', 'btn', 'btn-outline-secondary', 'mb-2');
   editLink.href = '/historial/modificar.html?id=' + snapshot.id;
   editLink.textContent = 'Modificar';
 
   // Delete link button
   const deleteLink = document.createElement('a');
-  deleteLink.classList.add('card-link', 'btn', 'btn-outline-danger');
+  deleteLink.classList.add('card-link', 'btn', 'btn-outline-danger', 'mb-2');
   deleteLink.href = '/historial/eliminar.html?id=' + snapshot.id;
   deleteLink.textContent = 'Eliminar';
 
@@ -250,7 +250,14 @@ function addPagination(
   // Previous button
   const previous = document.createElement('button');
   previous.classList.add('btn', 'btn-outline-primary');
-  previous.textContent = 'Página anterior';
+  previous.ariaLabel = 'Página anterior';
+  previous.title = previous.ariaLabel;
+
+  const previousIcon = document.createElement('span');
+  previousIcon.textContent = utils.LAQUO;
+  previousIcon.ariaHidden = true;
+
+  previous.appendChild(previousIcon);
 
   // Disable previous button if this is the first page (or lower, but
   // that should not be possible)
@@ -264,8 +271,16 @@ function addPagination(
   // Next button
   const next = document.createElement('button');
   next.classList.add('btn', 'btn-outline-primary');
-  next.textContent = 'Página siguiente';
+  next.ariaLabel = 'Página siguiente';
+  next.title = next.ariaLabel;
 
+  const nextIcon = document.createElement('span');
+  nextIcon.textContent = utils.RAQUO;
+  nextIcon.ariaHidden = true;
+
+  next.appendChild(nextIcon);
+
+  // Number of document snapshots in the query results
   const resultsCount = querySnapshot.docs.length;
 
   if (!resultsCount) {
