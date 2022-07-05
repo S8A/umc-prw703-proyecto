@@ -178,11 +178,13 @@ function createExerciseItemCard(item) {
     row3.classList.add('row', 'g-2', 'mb-2');
 
     const comments = document.createElement('div');
-    comments.classList.add('col', 'small');
+    comments.classList.add('col-sm-12', 'small');
 
     const commentsLabel = document.createElement('b');
-    commentsLabel.textContent = 'Comentarios: ' + item.comments;
+    commentsLabel.textContent = 'Comentarios: ';
     comments.appendChild(commentsLabel);
+
+    comments.appendChild(document.createTextNode(' ' + item.comments));
 
     row3.appendChild(comments);
 
