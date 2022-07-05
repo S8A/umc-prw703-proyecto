@@ -398,7 +398,11 @@ export async function createTrainingSession(uid, trainingSession) {
       || !trainingSession.isValid()) {
     // If the training session is not given or invalid, do not try to
     // record it and throw error
-    throw 'invalid-training-session';
+    if (trainingSession.exerciseItemsCount) {
+      throw 'invalid-training-session';
+    } else {
+      throw 'no-exercise-items';
+    }
   }
 
   // Try to create documents for the training session and its exercise
@@ -464,7 +468,11 @@ export async function createTrainingSession(uid, trainingSession) {
       || !trainingSession.isValid()) {
     // If the training session is not given or invalid, do not try to
     // update it and throw error
-    throw 'invalid-training-session';
+    if (trainingSession.exerciseItemsCount) {
+      throw 'invalid-training-session';
+    } else {
+      throw 'no-exercise-items';
+    }
   }
 
   // Try to update documents for the training session and its
