@@ -65,24 +65,31 @@ function constructTrainingSessionDetailsPage(id, trainingSession) {
   if (trainingSession.exerciseItemsCount) {
     const exercisesContainer = document.getElementById("exercises-container");
     utils.clearOutChildNodes(exercisesContainer);
-    
+
     for (const exerciseItem of trainingSession.exercises) {
-      const box = createExerciseItemBox(exerciseItem);
-      exercisesContainer.appendChild(box);
+      const card = createExerciseItemCard(exerciseItem);
+      exercisesContainer.appendChild(card);
     }
   }
 }
 
 
 /**
- * Create a box with the given exercise item's data.
+ * Create a card with the given exercise item's data.
  *
  * @param {ExerciseItem} item - List of exercise items to construct.
- * @returns {HTMLElement} Exercise item box.
+ * @returns {HTMLElement} Exercise item card.
  */
-function createExerciseItemBox(item) {
-  const section = document.createElement('section');
-  section.classList.add('row', 'bg-white', 'border', 'rounded', 'mb-2', 'py-2');
+function createExerciseItemCard(item) {
+  const card = document.createElement('section');
+  card.classList.add('exercise-item', 'card', 'mb-2');
+
+  const container = document.createElement('div');
+  container.classList.add('container-fluid', 'g-2');
+
+  // Row 1: Exercise, set type
+  const row1 = document.createElement('div');
+  row1.classList.add('row', 'g-2', 'mb-2');
 
   const exercise = document.createElement('div');
   exercise.classList.add('col-sm-8', 'col-lg-9');
@@ -92,17 +99,19 @@ function createExerciseItemBox(item) {
   exerciseHeading.textContent = item.exercise;
   exercise.appendChild(exerciseHeading);
 
+  row1.appendChild(exercise);
+
   const setType = document.createElement('div');
   setType.classList.add('col-sm-4', 'col-lg-3', 'text-sm-end');
 
   const setTypeBadge = document.createElement('span');
-  
+
   const setTypeHiddenLabel = document.createElement('span');
   setTypeHiddenLabel.classList.add('visually-hidden');
   setTypeHiddenLabel.textContent = 'Modalidad: ';
-  
+
   setTypeBadge.appendChild(setTypeHiddenLabel);
-  
+
   if (item.setType === SetType.Work) {
     setTypeBadge.classList.add('badge', 'bg-primary');
     setTypeBadge.appendChild(document.createTextNode('Trabajo'));
@@ -113,6 +122,14 @@ function createExerciseItemBox(item) {
 
   setType.appendChild(setTypeBadge);
 
+  row1.appendChild(setType);
+
+  container.appendChild(row1);
+
+  // Row 2: Weight, sets, reps
+  const row2 = document.createElement('div');
+  row2.classList.add('row', 'g-2', 'mb-2');
+
   const weight = document.createElement('div');
   weight.classList.add('col-sm-3', 'small');
 
@@ -121,12 +138,13 @@ function createExerciseItemBox(item) {
   weight.appendChild(weightLabel);
 
   if (item.weight) {
-    weight.appendChild(document.createTextNode(
-      ' ' + item.weight + utils.NBSP + 'kg'
-    ));
+    weight.appendChild(
+        document.createTextNode(' ' + item.weight + utils.NBSP + 'kg'));
   } else {
     weight.appendChild(document.createTextNode(' ' + utils.NDASH));
   }
+
+  row2.appendChild(weight);
 
   const sets = document.createElement('div');
   sets.classList.add('col-sm-3', 'small');
@@ -137,36 +155,43 @@ function createExerciseItemBox(item) {
 
   sets.appendChild(document.createTextNode(' ' + item.sets));
 
-  const reps = document.createElement('div');
-  reps.classList.add('col-sm-6', 'small');
+  row2.appendChild(sets);
 
-  const repsLabel = document.createElement('b');
-  repsLabel.textContent = 'Repeticiones:';
-  reps.appendChild(repsLabel);
+  if (item.sets) {
+    const reps = document.createElement('div');
+    reps.classList.add('col-sm-6', 'small');
 
-  reps.appendChild(document.createTextNode(' ' + item.reps.join(', ')));
+    const repsLabel = document.createElement('b');
+    repsLabel.textContent = 'Repeticiones:';
+    reps.appendChild(repsLabel);
 
-  const comments = document.createElement('div');
-  comments.classList.add('col', 'small');
+    reps.appendChild(document.createTextNode(' ' + item.reps.join(', ')));
 
-  const commentsLabel = document.createElement('b');
-  commentsLabel.textContent = 'Comentarios:';
-  comments.appendChild(commentsLabel);
-
-  if (item.comments) {
-    comments.appendChild(document.createTextNode(' ' + item.comments));
-  } else {
-    comments.appendChild(document.createTextNode(' ' + utils.NDASH));
+    row2.appendChild(reps);
   }
 
-  section.appendChild(exercise);
-  section.appendChild(setType);
-  section.appendChild(weight);
-  section.appendChild(sets);
-  section.appendChild(reps);
-  section.appendChild(comments);
+  container.appendChild(row2);
 
-  return section;
+  // Reps 3: Comments
+  if (item.comments) {
+    const row3 = document.createElement('div');
+    row3.classList.add('row', 'g-2', 'mb-2');
+
+    const comments = document.createElement('div');
+    comments.classList.add('col', 'small');
+
+    const commentsLabel = document.createElement('b');
+    commentsLabel.textContent = 'Comentarios: ' + item.comments;
+    comments.appendChild(commentsLabel);
+
+    row3.appendChild(comments);
+
+    container.appendChild(row3);
+  }
+
+  card.appendChild(container);
+
+  return card;
 }
 
 
