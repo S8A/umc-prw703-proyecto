@@ -19,12 +19,12 @@ export const MAX_EXERCISE_ITEMS = 50;
  */
 export function constructTrainingSessionForm(trainingSession = null) {
   // Setup basic data fields
-  date = setupDateField();
-  time = setupTimeField();
-  shortTitle = setupShortTitleField();
-  duration = setupDurationField();
-  bodyweight = setupBodyweightField();
-  comments = setupCommentsField();
+  const date = setupDateField();
+  const time = setupTimeField();
+  const shortTitle = setupShortTitleField();
+  const duration = setupDurationField();
+  const bodyweight = setupBodyweightField();
+  const comments = setupCommentsField();
 
   // Add button event listener
   const addButton = document.getElementById('add-btn');
