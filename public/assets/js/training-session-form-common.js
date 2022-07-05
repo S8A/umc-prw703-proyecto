@@ -69,14 +69,14 @@ function setupDateField() {
   const date = document.getElementById('date');
 
   date.addEventListener('invalid', function () {
-    showDateError(date);
+    showDateError(this);
   });
 
   date.addEventListener('change', function () {
-    if (date.validity.valid) {
-      utils.getInvalidFeedbackElement(date).textContent = '';
+    if (this.validity.valid) {
+      utils.getInvalidFeedbackElement(this).textContent = '';
     } else {
-      showDateError(date);
+      showDateError(this);
     }
   });
 
@@ -93,14 +93,14 @@ function setupTimeField() {
   const time = document.getElementById('time');
 
   time.addEventListener('invalid', function () {
-    showTimeError(time);
+    showTimeError(this);
   });
 
   time.addEventListener('change', function () {
-    if (time.validity.valid) {
-      utils.getInvalidFeedbackElement(time).textContent = '';
+    if (this.validity.valid) {
+      utils.getInvalidFeedbackElement(this).textContent = '';
     } else {
-      showTimeError(time);
+      showTimeError(this);
     }
   });
 
@@ -117,14 +117,14 @@ function setupShortTitleField() {
   const shortTitle = document.getElementById('short-title');
 
   shortTitle.addEventListener('invalid', function () {
-    showShortTitleError(shortTitle);
+    showShortTitleError(this);
   });
 
   shortTitle.addEventListener('change', function () {
-    if (shortTitle.validity.valid) {
-      utils.getInvalidFeedbackElement(shortTitle).textContent = '';
+    if (this.validity.valid) {
+      utils.getInvalidFeedbackElement(this).textContent = '';
     } else {
-      showShortTitleError(shortTitle);
+      showShortTitleError(this);
     }
   });
 
@@ -141,14 +141,14 @@ function setupDurationField() {
   const duration = document.getElementById('duration');
 
   duration.addEventListener('invalid', function () {
-    showDurationError(duration);
+    showDurationError(this);
   });
 
   duration.addEventListener('change', function () {
-    if (duration.validity.valid) {
-      utils.getInvalidFeedbackElement(duration).textContent = '';
+    if (this.validity.valid) {
+      utils.getInvalidFeedbackElement(this).textContent = '';
     } else {
-      showDurationError(duration);
+      showDurationError(this);
     }
   });
 
@@ -165,14 +165,14 @@ function setupBodyweightField() {
   const bodyweight = document.getElementById('bodyweight');
 
   bodyweight.addEventListener('invalid', function () {
-    showBodyweightError(bodyweight);
+    showBodyweightError(this);
   });
 
   bodyweight.addEventListener('change', function () {
-    if (bodyweight.validity.valid) {
-      utils.getInvalidFeedbackElement(bodyweight).textContent = '';
+    if (this.validity.valid) {
+      utils.getInvalidFeedbackElement(this).textContent = '';
     } else {
-      showBodyweightError(bodyweight);
+      showBodyweightError(this);
     }
   });
 
@@ -189,14 +189,14 @@ function setupCommentsField() {
   const comments = document.getElementById('comments');
 
   comments.addEventListener('invalid', function () {
-    showCommentsError(comments);
+    showCommentsError(this);
   });
 
   comments.addEventListener('change', function () {
-    if (comments.validity.valid) {
-      utils.getInvalidFeedbackElement(comments).textContent = '';
+    if (this.validity.valid) {
+      utils.getInvalidFeedbackElement(this).textContent = '';
     } else {
-      showCommentsError(comments);
+      showCommentsError(this);
     }
   });
 
