@@ -894,7 +894,7 @@ function createSetTypeDiv(index, value) {
 
   const label = document.createElement('label');
   label.classList.add('form-label', 'small');
-  label.htmlFor = field.id;
+  label.htmlFor = select.id;
   label.textContent = 'Modalidad:';
 
   div.appendChild(label);
