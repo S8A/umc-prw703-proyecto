@@ -57,6 +57,8 @@ export function constructTrainingSessionForm(trainingSession = null) {
       }
     }
   }
+
+  toggleActionButtons();
 }
 
 
