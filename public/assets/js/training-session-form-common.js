@@ -865,7 +865,7 @@ function createSetTypeDiv(index, value) {
   div.classList.add('col-sm-4');
 
   const select = document.createElement('select');
-  select.classList.add('form-select');
+  select.classList.add('form-select', 'form-select-sm');
   select.name = 'set-type-' + index;
   select.id = select.name;
   select.dataset.index = index;
