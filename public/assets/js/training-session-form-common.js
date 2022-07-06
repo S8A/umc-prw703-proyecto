@@ -734,7 +734,7 @@ function createEditableExerciseItem(index, data = {}) {
   card.appendChild(header);
   card.appendChild(container);
 
-  return tr;
+  return card;
 }
 
 
