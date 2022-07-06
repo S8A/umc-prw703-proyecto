@@ -1182,7 +1182,7 @@ function replaceExerciseItemIndex(item, newIndex) {
   setType.id = setType.name;
   setType.dataset.index = newIndex;
 
-  const setTypeLabel = item.querySelector('label[for^="setType-"]');
+  const setTypeLabel = item.querySelector('label[for^="set-type-"]');
   setTypeLabel.htmlFor = setType.id;
 
   // Weight
