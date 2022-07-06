@@ -752,33 +752,37 @@ function createActionButtonsHeader(index) {
   duplicateButton.classList.add('btn', 'btn-sm', 'btn-primary', 'me-1');
   duplicateButton.dataset.action = 'duplicate';
   duplicateButton.dataset.index = index;
+  duplicateButton.textContent = 'Duplicar';
 
   duplicateButton.addEventListener('click', function () {
     duplicateExerciseItem(this.dataset.index);
   });
 
   const moveUpButton = document.createElement('button');
-  moveUpButton.classList.add('btn', 'btn-sm', 'btn-primary', 'me-1');
+  moveUpButton.classList.add('btn', 'btn-sm', 'btn-secondary', 'me-1');
   moveUpButton.dataset.action = 'move-up';
   moveUpButton.dataset.index = index;
+  moveUpButton.textContent = 'Subir';
 
   moveUpButton.addEventListener('click', function () {
     moveUpExerciseItem(this.dataset.index);
   });
 
   const moveDownButton = document.createElement('button');
-  moveDownButton.classList.add('btn', 'btn-sm', 'btn-primary', 'me-1');
+  moveDownButton.classList.add('btn', 'btn-sm', 'btn-secondary', 'me-1');
   moveDownButton.dataset.action = 'move-down';
   moveDownButton.dataset.index = index;
+  moveDownButton.textContent = 'Bajar';
 
   moveDownButton.addEventListener('click', function () {
     moveDownExerciseItem(this.dataset.index);
   });
 
   const removeButton = document.createElement('button');
-  removeButton.classList.add('btn', 'btn-sm', 'btn-primary', 'me-1');
+  removeButton.classList.add('btn', 'btn-sm', 'btn-danger', 'me-1');
   removeButton.dataset.action = 'remove';
   removeButton.dataset.index = index;
+  removeButton.textContent = 'Eliminar';
 
   removeButton.addEventListener('click', function () {
     removeExerciseItem(this.dataset.index);
