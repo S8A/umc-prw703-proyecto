@@ -995,7 +995,7 @@ function createSetsDiv(index, value) {
     showSetsError(this);
   });
 
-  field.addEventListener('change', async function () {
+  field.addEventListener('change', function () {
     if (this.validity.valid) {
       // Temporarily disable field to avoid race condition
       this.disabled = true;
@@ -1006,8 +1006,9 @@ function createSetsDiv(index, value) {
       const setsCount = Number(this.value);
 
       // Update reps accordingly and then enable field again
-      await updateRepsItemsCount(currentIndex, setsCount);
-      this.disabled = false;
+      updateRepsItemsCount(currentIndex, setsCount).then(() => {
+        this.disabled = false;
+      });
     } else {
       showSetsError(this);
     }
