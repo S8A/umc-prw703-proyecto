@@ -245,8 +245,8 @@ export function toggleActionButtons() {
   addButton.disabled = itemCount >= MAX_EXERCISE_ITEMS;
 
   if (itemCount) {
-    for (const i in exerciseItems) {
-      const item = exerciseItems[i];
+    for (const item of exerciseItems) {
+      const i = item.dataset.index;
 
       const duplicateButton = item.querySelector(
         'button[data-action="duplicate"]');
@@ -290,8 +290,8 @@ export function removeExerciseItem(index) {
   const exerciseItems = getExerciseItems();
 
   if (exerciseItems.length) {
-    for (const i in exerciseItems) {
-      const item = exerciseItems[i];
+    for (const item of exerciseItems) {
+      const i = item.dataset.index;
       if (i === index) {
         // Remove item with the targeted index and reduce item count by one
         item.remove();
@@ -332,8 +332,8 @@ export function duplicateExerciseItem(index) {
       exercisesContainer.insertBefore(newItem, exerciseItems[index + 1]);
 
       // Then increase by one the indexes of all items starting from that item
-      for (const i in exerciseItems) {
-        const item = exerciseItems[i];
+      for (const item of exerciseItems) {
+        const i = item.dataset.index;
         if (i >= index + 1) {
           replaceExerciseItemIndex(item, i + 1);
         }
