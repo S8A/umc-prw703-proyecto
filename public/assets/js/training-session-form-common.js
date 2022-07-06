@@ -238,7 +238,7 @@ export function getExerciseItem(index) {
  * exercise items.
  */
 export function toggleActionButtons() {
-  const exerciseItems = getExerciseItem();
+  const exerciseItems = getExerciseItems();
   const itemCount = exerciseItems.length;
   
   const addButton = document.getElementById('add-btn');
