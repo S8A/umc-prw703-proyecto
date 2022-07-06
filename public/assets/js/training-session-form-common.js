@@ -238,11 +238,11 @@ export function getExerciseItem(index) {
  * exercise items.
  */
 export function toggleActionButtons() {
-  const addButton = document.getElementById('add-btn');
-  addButton.disabled = itemCount >= MAX_EXERCISE_ITEMS;
-
   const exerciseItems = getExerciseItem();
   const itemCount = exerciseItems.length;
+  
+  const addButton = document.getElementById('add-btn');
+  addButton.disabled = itemCount >= MAX_EXERCISE_ITEMS;
 
   if (itemCount) {
     for (const i in exerciseItems) {
