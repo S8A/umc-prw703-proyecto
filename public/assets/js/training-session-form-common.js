@@ -248,7 +248,7 @@ export function toggleActionButtons() {
 
   if (itemCount) {
     for (const item of exerciseItems) {
-      const i = item.dataset.index;
+      const i = Number(item.dataset.index);
 
       const duplicateButton = item.querySelector(
         'button[data-action="duplicate"]');
@@ -293,7 +293,7 @@ export function removeExerciseItem(index) {
 
   if (exerciseItems.length) {
     for (const item of exerciseItems) {
-      const i = item.dataset.index;
+      const i = Number(item.dataset.index);
       if (i === index) {
         // Remove item with the targeted index and reduce item count by one
         item.remove();
@@ -335,7 +335,7 @@ export function duplicateExerciseItem(index) {
 
       // Then increase by one the indexes of all items starting from that item
       for (const item of exerciseItems) {
-        const i = item.dataset.index;
+        const i = Number(item.dataset.index);
         if (i >= index + 1) {
           replaceExerciseItemIndex(item, i + 1);
         }
@@ -757,7 +757,7 @@ function createActionButtonsHeader(index) {
   duplicateButton.textContent = 'Duplicar';
 
   duplicateButton.addEventListener('click', function () {
-    duplicateExerciseItem(this.dataset.index);
+    duplicateExerciseItem(Number(this.dataset.index));
   });
 
   const moveUpButton = document.createElement('button');
@@ -767,7 +767,7 @@ function createActionButtonsHeader(index) {
   moveUpButton.textContent = 'Subir';
 
   moveUpButton.addEventListener('click', function () {
-    moveUpExerciseItem(this.dataset.index);
+    moveUpExerciseItem(Number(this.dataset.index));
   });
 
   const moveDownButton = document.createElement('button');
@@ -777,7 +777,7 @@ function createActionButtonsHeader(index) {
   moveDownButton.textContent = 'Bajar';
 
   moveDownButton.addEventListener('click', function () {
-    moveDownExerciseItem(this.dataset.index);
+    moveDownExerciseItem(Number(this.dataset.index));
   });
 
   const removeButton = document.createElement('button');
@@ -787,7 +787,7 @@ function createActionButtonsHeader(index) {
   removeButton.textContent = 'Eliminar';
 
   removeButton.addEventListener('click', function () {
-    removeExerciseItem(this.dataset.index);
+    removeExerciseItem(Number(this.dataset.index));
   });
 
   div.appendChild(duplicateButton);
