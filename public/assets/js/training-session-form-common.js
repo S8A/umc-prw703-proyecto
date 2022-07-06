@@ -1084,7 +1084,7 @@ function createRepsDiv(index, setNumber, value) {
   fieldCol.appendChild(utils.createInvalidFeedbackElement());
 
   row.appendChild(label);
-  row.appendChild(fieldCold);
+  row.appendChild(fieldCol);
 
   div.appendChild(row);
 
