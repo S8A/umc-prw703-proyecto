@@ -17,9 +17,6 @@ window.addEventListener('load', function () {
       // Construct create form page
       common.constructTrainingSessionForm();
 
-      // Add initial empty exercise item
-      common.addExerciseItem();
-
       // Add event listener for form submission
       form.addEventListener('submit', function (event) {
         event.preventDefault();

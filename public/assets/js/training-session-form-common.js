@@ -35,9 +35,8 @@ export function constructTrainingSessionForm(trainingSession = null) {
   // Exercises container
   const exercisesContainer = document.getElementById('exercises-container');
 
-  // If a TrainingSession was given
   if (trainingSession && trainingSession instanceof TrainingSession) {
-    // Set basic data fields' values
+    // If a TrainingSession was given, set basic data fields' values
     date.value = trainingSession.date;
     time.value = trainingSession.time;
     shortTitle.value = trainingSession.shortTitle;
@@ -55,10 +54,13 @@ export function constructTrainingSessionForm(trainingSession = null) {
         const item = createEditableExerciseItem(indexNumber, exerciseItem);
         exercisesContainer.appendChild(item);
       }
+      toggleActionButtons();
     }
+  } else {
+    // Otherwise, create initial empty exercise item
+    utils.clearOutChildNodes(exercisesContainer);
+    addExerciseItem();
   }
-
-  toggleActionButtons();
 }
 
 
