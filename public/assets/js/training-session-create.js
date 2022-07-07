@@ -77,7 +77,7 @@ window.addEventListener('load', function () {
             utils.addAlertMessage('alert-danger', [alertText]);
 
             // Scroll to the top of the page
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            scrollToTop();
           });
         } else {
           // If the form is not valid, show error message
@@ -88,7 +88,7 @@ window.addEventListener('load', function () {
           );
 
           // Scroll to the top of the page
-          window.scrollTo({top: 0, behavior: 'smooth'});
+          scrollToTop();
         }
 
         // Add .was-validated to form if it wasn't already
@@ -104,15 +104,10 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      scrollToTop();
 
       // Disable all form controls
-      const formControls = form.querySelectorAll('input, button');
-      if (formControls.length) {
-        for (const element of formControls) {
-          element.disabled = true;
-        }
-      }
+      utils.disableFormControls(form);
     }
   });
 

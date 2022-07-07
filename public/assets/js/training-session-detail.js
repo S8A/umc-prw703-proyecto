@@ -264,7 +264,7 @@ window.addEventListener('load', function () {
         utils.addAlertMessage('alert-danger', [alertText]);
 
         // Scroll to the top of the page
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        scrollToTop();
       });
     } else {
       // If the user is signed-out, add info message indicating the
@@ -276,7 +276,7 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      scrollToTop();
 
       // Remove main buttons and training session data
       const mainButtons = document.getElementById('main-buttons');

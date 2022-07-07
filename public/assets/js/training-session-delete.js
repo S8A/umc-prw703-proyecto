@@ -62,7 +62,7 @@ function constructDeleteConfirmationPage(uid, id, trainingSession) {
       utils.addAlertMessage('alert-danger', [text]);
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      scrollToTop();
     });
   });
 
@@ -167,7 +167,7 @@ window.addEventListener('load', function () {
         utils.addAlertMessage('alert-danger', [alertText]);
 
         // Scroll to the top of the page
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        scrollToTop();
       });
     } else {
       // If the user is signed-out, add info message indicating the
@@ -179,7 +179,7 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      scrollToTop();
 
       // Remove question and action buttons
       const container = document.querySelector('#delete-confirmation');
