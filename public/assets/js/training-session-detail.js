@@ -24,7 +24,7 @@ function constructTrainingSessionDetailsPage(id, trainingSession) {
   const mainButtons = document.getElementById("main-buttons");
 
   const editButton = document.createElement('a');
-  editButton.classList.add('btn', 'btn-primary', 'me-2');
+  editButton.classList.add('btn', 'btn-primary', 'me-sm-2');
   editButton.href = '/historial/modificar.html?id=' + id;
   editButton.appendChild(utils.createBSIcon('pencil-fill'));
   editButton.appendChild(document.createTextNode(' Modificar sesión'));
