@@ -36,8 +36,12 @@
             <div id="alert-messages"></div>
             <div class="row">
                 <div id="delete-confirmation" class="col col-md-10 col-lg-8 col-xl-6 mx-auto my-5 p-4 rounded-3 border shadow-lg">
-                    <h1 id="main-title" class="text-center">Eliminar sesión de entrenamiento</h1>
-                    <p id="empty-text">No se ha podido cargar la información de la sesión de entrenamiento solicitada.</p>
+                    <h1 id="main-title" class="text-center">Eliminar sesión de entrenamiento</h1>                    
+                    <p id="question">¿Está seguro de que desea eliminar el registro de esta sesión de entrenamiento? Esta acción es irreversible.</p>
+                    <div class="text-center">
+                        <button class="btn btn-danger me-2 mb-2" type="button" id="confirm-delete-btn" disabled>Eliminar el registro</button>
+                        <button class="btn btn-secondary me-2 mb-2" type="button" id="cancel-delete-btn" disabled>Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>

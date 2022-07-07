@@ -12,11 +12,8 @@ import { auth, deleteTrainingSession, getTrainingSession } from './firebase.js';
  * @param {TrainingSession} trainingSession - TrainingSession object.
  */
 function constructDeleteConfirmationPage(uid, id, trainingSession) {
-  // Delete confirmation container
-  const container = document.querySelector('#delete-confirmation');
-
   // Main title
-  const mainTitle = container.querySelector('h1#main-title');
+  const mainTitle = document.getElementById('main-title');
   const mainTitleText =
       'Eliminar sesión de entrenamiento: ' + trainingSession.fullTitle;
   mainTitle.textContent = mainTitleText;
@@ -24,27 +21,9 @@ function constructDeleteConfirmationPage(uid, id, trainingSession) {
   // Page title
   document.title = mainTitleText + ' ' + utils.NDASH + ' 8A Training';
 
-  // Remove #empty-text element
-  const emptyText = container.querySelector('p#empty-text');
-  container.removeChild(emptyText);
-
-  // Question paragraph
-  const question = document.createElement('p');
-  question.id = 'question';
-  question.textContent =
-      '¿Está seguro de que desea eliminar el registro de esta sesión de '
-      + 'entrenamiento? Esta acción es irreversible.';
-
-  // Action buttons
-  const actionButtons = document.createElement('div');
-  actionButtons.classList.add('text-center');
-  actionButtons.id = 'action-buttons';
-
-  const confirmButton = document.createElement('button');
-  confirmButton.classList.add('btn', 'btn-danger', 'me-2', 'mb-2');
-  confirmButton.type = 'button';
-  confirmButton.id = 'confirm-delete-btn';
-  confirmButton.textContent = 'Eliminar el registro';
+  // Enable and add event listener to confirm button
+  const confirmButton = document.getElementById('confirm-delete-btn');
+  confirmButton.disabled = false;
 
   confirmButton.addEventListener('click', function () {
     // Try to delete the training session by its ID
@@ -60,43 +39,18 @@ function constructDeleteConfirmationPage(uid, id, trainingSession) {
       // If deletion was unsuccessful, add error alert message
       const text = 'No se pudo eliminar la sesión de entrenamiento.';
       utils.addAlertMessage('alert-danger', [text]);
-
-      // Scroll to the top of the page
       scrollToTop();
     });
   });
 
-  const cancelButton = document.createElement('button');
-  cancelButton.classList.add('btn', 'btn-secondary', 'me-2', 'mb-2');
-  cancelButton.type = 'button';
-  cancelButton.id = 'cancel-delete-btn';
-  cancelButton.textContent = 'Cancelar';
+  // Enable and add event listener to cancel button
+  const cancelButton = document.getElementById('cancel-delete-btn');
+  cancelButton.disabled = false;
 
   cancelButton.addEventListener('click', function () {
     // If the user cancels the deletion, redirect to detail page
     window.location.assign('/historial/detalle.html?id=' + id);
   });
-
-  actionButtons.appendChild(confirmButton);
-  actionButtons.appendChild(cancelButton);
-
-  // Put everything together
-  container.appendChild(question);
-  container.appendChild(actionButtons);
-}
-
-
-/**
- * Add empty page text to the given container.
- * @param {HTMLElement} container - Container to which the text will be added.
- */
- function addEmptyPageText(container) {
-  const emptyText = document.createElement('p');
-  emptyText.id = 'empty-text';
-  emptyText.textContent =
-      'No se ha podido cargar la información de la sesión de entrenamiento '
-      + 'solicitada.';
-  container.appendChild(emptyText);
 }
 
 
@@ -125,7 +79,7 @@ window.addEventListener('load', function () {
       // Try to get the user's requested training session
       getTrainingSession(user.uid, id)
       .then((trainingSession) => {
-        // Construct the returned training session's detail page
+        // Construct the returned training session's delete confirmation page
         constructDeleteConfirmationPage(user.uid, id, trainingSession);
       })
       .catch((error) => {
@@ -165,8 +119,6 @@ window.addEventListener('load', function () {
 
         utils.clearAlertMessages();
         utils.addAlertMessage('alert-danger', [alertText]);
-
-        // Scroll to the top of the page
         scrollToTop();
       });
     } else {
@@ -177,31 +129,14 @@ window.addEventListener('load', function () {
         'alert-info',
         ['Inicie sesión para gestionar sus sesiones de entrenamiento.']
       );
-
-      // Scroll to the top of the page
       scrollToTop();
 
-      // Remove question and action buttons
-      const container = document.querySelector('#delete-confirmation');
+      // Disable buttons
+      const confirmButton = document.getElementById('confirm-delete-btn');
+      confirmButton.disabled = true;
 
-      const question = container.querySelector('p#question');
-      question.remove();
-
-      const actionButtons = container.querySelector('#action-buttons');
-      actionButtons.remove();
-
-      // Reset main title
-      const mainTitle = container.querySelector('h1#main-title');
-      mainTitle.textContent = 'Eliminar sesión de entrenamiento';
-
-      // Reset page title
-      document.title = 'Eliminar sesión de entrenamiento ' + utils.NBSP
-          + ' 8A Training';
-
-      // Add empty page text if it isn't present
-      if (!document.querySelector('p#empty-text')) {
-        addEmptyPageText(container);
-      }
+      const cancelButton = document.getElementById('cancel-delete-btn');
+      cancelButton.disabled = true;
     }
   });
 
