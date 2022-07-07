@@ -31,7 +31,8 @@ window.addEventListener('load', function () {
       getTrainingSession(user.uid, id)
       .then((trainingSession) => {
         // Construct edit form page
-        mainTitle.textContent += ': ' + trainingSession.fullTitle;
+        mainTitle.textContent =
+            'Modificar sesión de entrenamiento: ' + trainingSession.fullTitle;
         common.constructTrainingSessionForm(trainingSession);
 
         // Add event listener for form submission
