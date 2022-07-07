@@ -103,7 +103,7 @@ window.addEventListener('load', function () {
               utils.addAlertMessage('alert-danger', [alertText]);
 
               // Scroll to the top of the page
-              scrollToTop();
+              utils.scrollToTop();
             });
           } else {
             // If the form is not valid, show error message
@@ -114,7 +114,7 @@ window.addEventListener('load', function () {
             );
 
             // Scroll to the top of the page
-            scrollToTop();
+            utils.scrollToTop();
           }
 
           // Add .was-validated to form if it wasn't already
@@ -160,7 +160,7 @@ window.addEventListener('load', function () {
         utils.addAlertMessage('alert-danger', [alertText]);
 
         // Scroll to the top of the page
-        scrollToTop();
+        utils.scrollToTop();
 
         // Disable form controls
         utils.disableFormControls(form);
@@ -175,7 +175,7 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      scrollToTop();
+      utils.scrollToTop();
 
       // Disable form controls
       utils.disableFormControls(form);

@@ -87,7 +87,7 @@ function constructTrainingLog(
     utils.addAlertMessage('alert-danger', [alertText]);
 
     // Scroll to the top of the page
-    scrollToTop();
+    utils.scrollToTop();
   });
 }
 
@@ -386,7 +386,7 @@ function createLoadDataButton(uid) {
       }
 
       // Scroll to the top of the page
-      scrollToTop();
+      utils.scrollToTop();
     });
   });
 
@@ -502,7 +502,7 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      scrollToTop();
+      utils.scrollToTop();
 
       // Disable create button
       createButton.href = '';

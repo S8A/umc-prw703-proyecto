@@ -39,7 +39,7 @@ function constructDeleteConfirmationPage(uid, id, trainingSession) {
       // If deletion was unsuccessful, add error alert message
       const text = 'No se pudo eliminar la sesión de entrenamiento.';
       utils.addAlertMessage('alert-danger', [text]);
-      scrollToTop();
+      utils.scrollToTop();
     });
   });
 
@@ -119,7 +119,7 @@ window.addEventListener('load', function () {
 
         utils.clearAlertMessages();
         utils.addAlertMessage('alert-danger', [alertText]);
-        scrollToTop();
+        utils.scrollToTop();
       });
     } else {
       // If the user is signed-out, add info message indicating the
@@ -129,7 +129,7 @@ window.addEventListener('load', function () {
         'alert-info',
         ['Inicie sesión para gestionar sus sesiones de entrenamiento.']
       );
-      scrollToTop();
+      utils.scrollToTop();
 
       // Disable buttons
       const confirmButton = document.getElementById('confirm-delete-btn');
