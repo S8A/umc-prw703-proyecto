@@ -714,6 +714,7 @@ function createEditableExerciseItem(index, data = {}) {
   const repsLegend = document.createElement('legend');
   repsLegend.classList.add('mb-0', 'small', 'd-none');
   repsLegend.textContent = 'Repeticiones:';
+  row3.appendChild(repsLegend);
 
   const setsNumber = Number(data.sets);
 
