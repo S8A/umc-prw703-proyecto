@@ -991,6 +991,7 @@ function createSetsDiv(index, value) {
   field.id = field.name;
   field.dataset.index = index;
   field.min = 0;
+  field.max = 12;
   field.step = 1;
   field.required = true;
 
