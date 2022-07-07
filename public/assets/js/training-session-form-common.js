@@ -242,7 +242,7 @@ export function getExerciseItem(index) {
 export function toggleActionButtons() {
   const exerciseItems = getExerciseItems();
   const itemCount = exerciseItems.length;
-  
+
   const addButton = document.getElementById('add-btn');
   addButton.disabled = itemCount >= MAX_EXERCISE_ITEMS;
 
@@ -708,10 +708,17 @@ function createEditableExerciseItem(index, data = {}) {
   row2.appendChild(setsDiv);
 
   // Row 3: Reps
-  const row3 = document.createElement('div');
+  const row3 = document.createElement('fieldset');
   row3.classList.add('row', 'g-2', 'mb-2', 'reps-wrapper');
 
-  if (data.sets && Number.isInteger(Number(data.sets))) {
+  const repsLegend = document.createElement('legend');
+  repsLegend.classList.add('mb-0', 'small', 'd-none');
+  repsLegend.textContent = 'Repeticiones:';
+
+  const setsNumber = Number(data.sets);
+
+  if (data.sets && Number.isInteger(setsNumber) && setsNumber > 0) {
+    repsLegend.classList.remove('d-none');
     for (let i = 0; i < data.sets; i++) {
       const setNumber = i + 1;
       const reps = data.reps[i];
@@ -1039,7 +1046,7 @@ function createSetsDiv(index, value) {
  */
 function createRepsDiv(index, setNumber, value) {
   const div = document.createElement('div');
-  div.classList.add('col-sm-6', 'reps-item');
+  div.classList.add('reps-item', 'col-sm-3', 'col-md-2', 'form-floating');
 
   const field = document.createElement('input');
   field.classList.add('form-control', 'form-control-sm');
@@ -1051,6 +1058,7 @@ function createRepsDiv(index, setNumber, value) {
   field.min = 1;
   field.step = 1;
   field.required = true;
+  field.placeholder = 1;
 
   if (value !== null || value !== undefined) {
     // Explicit check to allow setting zero as value
@@ -1070,23 +1078,13 @@ function createRepsDiv(index, setNumber, value) {
   });
 
   const label = document.createElement('label');
-  label.classList.add('col-sm-8', 'col-md-6', 'col-form-label');
+  label.classList.add('form-label', 'small');
   label.htmlFor = field.id;
-  label.textContent = 'Repeticiones (serie' + utils.NBSP + setNumber + '):';
+  label.textContent = 'Serie ' + setNumber;
 
-  const row = document.createElement('div');
-  row.classList.add('row', 'g-2', 'mb-2', 'small');
-
-  const fieldCol = document.createElement('div');
-  fieldCol.classList.add('col-sm-4');
-
-  fieldCol.appendChild(field)
-  fieldCol.appendChild(utils.createInvalidFeedbackElement());
-
-  row.appendChild(label);
-  row.appendChild(fieldCol);
-
-  div.appendChild(row);
+  div.appendChild(field);
+  div.appendChild(label);
+  div.appendChild(utils.createInvalidFeedbackElement());
 
   return div;
 }
@@ -1294,6 +1292,7 @@ async function updateRepsItemsCount(index, setsCount) {
     const repsWrapper = exerciseItem.querySelector('.reps-wrapper');
 
     if (repsWrapper && Number.isInteger(setsCount) && setsCount >= 0) {
+      const repsLegend = repsWrapper.querySelector('legend');
       const repsItems = repsWrapper.querySelectorAll('.reps-item');
       const repsItemsCount = Number(repsItems.length);
 
@@ -1311,6 +1310,13 @@ async function updateRepsItemsCount(index, setsCount) {
           // Reminder: set number is 1-index, repsItems is 0-index
           repsItems[set - 1].remove();
         }
+      }
+
+      // Show/hide reps legend according to sets count
+      if (setsCount > 0) {
+        repsLegend.classList.remove('d-none');
+      } else {
+        repsLegend.classList.add('d-none');
       }
     }
   }
