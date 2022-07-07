@@ -763,7 +763,14 @@ function createActionButtonsHeader(index) {
   duplicateButton.type = 'button';
   duplicateButton.dataset.action = 'duplicate';
   duplicateButton.dataset.index = index;
-  duplicateButton.textContent = 'Duplicar';
+  duplicateButton.title = 'Duplicar ejercicio';
+  
+  const duplicateButtonText = document.createElement('span');
+  duplicateButtonText.classList.add('d-none', 'd-sm-inline');
+  duplicateButtonText.textContent = ' Duplicar';
+
+  duplicateButton.appendChild(utils.createBSIcon('clipboard2-plus-fill'));
+  duplicateButton.appendChild(duplicateButtonText);
 
   duplicateButton.addEventListener('click', function () {
     duplicateExerciseItem(Number(this.dataset.index));
@@ -774,7 +781,14 @@ function createActionButtonsHeader(index) {
   moveUpButton.type = 'button';
   moveUpButton.dataset.action = 'move-up';
   moveUpButton.dataset.index = index;
-  moveUpButton.textContent = 'Subir';
+  moveUpButton.title = 'Subir ejercicio';
+  
+  const moveUpButtonText = document.createElement('span');
+  moveUpButtonText.classList.add('d-none', 'd-sm-inline');
+  moveUpButtonText.textContent = ' Subir';
+
+  moveUpButton.appendChild(utils.createBSIcon('arrow-up-circle-fill'));
+  moveUpButton.appendChild(moveUpButtonText);
 
   moveUpButton.addEventListener('click', function () {
     moveUpExerciseItem(Number(this.dataset.index));
@@ -785,7 +799,14 @@ function createActionButtonsHeader(index) {
   moveDownButton.type = 'button';
   moveDownButton.dataset.action = 'move-down';
   moveDownButton.dataset.index = index;
-  moveDownButton.textContent = 'Bajar';
+  moveDownButton.title = 'Bajar ejercicio';
+  
+  const moveDownButtonText = document.createElement('span');
+  moveDownButtonText.classList.add('d-none', 'd-sm-inline');
+  moveDownButtonText.textContent = ' Bajar';
+
+  moveDownButton.appendChild(utils.createBSIcon('arrow-down-circle-fill'));
+  moveDownButton.appendChild(moveDownButtonText);
 
   moveDownButton.addEventListener('click', function () {
     moveDownExerciseItem(Number(this.dataset.index));
@@ -796,7 +817,14 @@ function createActionButtonsHeader(index) {
   removeButton.type = 'button';
   removeButton.dataset.action = 'remove';
   removeButton.dataset.index = index;
-  removeButton.textContent = 'Eliminar';
+  removeButton.title = 'Eliminar ejercicio';
+  
+  const removeButtonText = document.createElement('span');
+  removeButtonText.classList.add('d-none', 'd-sm-inline');
+  removeButtonText.textContent = ' Eliminar';
+
+  removeButton.appendChild(utils.createBSIcon('x-circle-fill'));
+  removeButton.appendChild(removeButtonText);
 
   removeButton.addEventListener('click', function () {
     removeExerciseItem(Number(this.dataset.index));

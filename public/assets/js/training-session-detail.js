@@ -24,14 +24,16 @@ function constructTrainingSessionDetailsPage(id, trainingSession) {
   const mainButtons = document.getElementById("main-buttons");
 
   const editButton = document.createElement('a');
-  editButton.classList.add('btn', 'btn-primary', 'mx-2');
+  editButton.classList.add('btn', 'btn-primary', 'me-2');
   editButton.href = '/historial/modificar.html?id=' + id;
-  editButton.textContent = 'Modificar sesión';
+  editButton.appendChild(utils.createBSIcon('pencil-fill'));
+  editButton.appendChild(document.createTextNode(' Modificar sesión'));
 
   const deleteButton = document.createElement('a');
   deleteButton.classList.add('btn', 'btn-danger');
   deleteButton.href = '/historial/eliminar.html?id=' + id;
-  deleteButton.textContent = 'Eliminar sesión';
+  deleteButton.appendChild(utils.createBSIcon('x-circle-fill'));
+  deleteButton.appendChild(document.createTextNode(' Eliminar sesión'));
 
   mainButtons.appendChild(editButton);
   mainButtons.appendChild(deleteButton);
@@ -85,7 +87,7 @@ function createExerciseItemCard(item) {
   card.classList.add('exercise-item', 'card', 'mb-2');
 
   const container = document.createElement('div');
-  container.classList.add('container-fluid', 'g-2');
+  container.classList.add('container-fluid', 'g-2', 'pt-2');
 
   // Row 1: Exercise, set type
   const row1 = document.createElement('div');
@@ -113,10 +115,10 @@ function createExerciseItemCard(item) {
   setTypeBadge.appendChild(setTypeHiddenLabel);
 
   if (item.setType === SetType.Work) {
-    setTypeBadge.classList.add('badge', 'bg-primary');
+    setTypeBadge.classList.add('badge', 'align-top', 'bg-primary');
     setTypeBadge.appendChild(document.createTextNode('Trabajo'));
   } else if (item.setType === SetType.WarmUp) {
-    setTypeBadge.classList.add('badge', 'bg-secondary');
+    setTypeBadge.classList.add('badge', 'align-top', 'bg-secondary');
     setTypeBadge.appendChild(document.createTextNode('Calentamiento'));
   }
 

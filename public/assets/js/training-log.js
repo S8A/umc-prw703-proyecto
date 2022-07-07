@@ -194,21 +194,27 @@ function createTrainingSessionCard(snapshot) {
 
   // Detail link button
   const detailLink = document.createElement('a');
-  detailLink.classList.add('card-link', 'btn', 'btn-primary', 'mb-2');
+  detailLink.classList.add(
+      'btn', 'btn-sm', 'btn-primary', 'me-2', 'mb-2', 'mb-sm-0');
   detailLink.href = '/historial/detalle.html?id=' + snapshot.id;
-  detailLink.textContent = 'Ver detalles';
+  detailLink.appendChild(utils.createBSIcon('journal-text'));
+  detailLink.appendChild(document.createTextNode(' Ver detalles'));
 
   // Edit link button
   const editLink = document.createElement('a');
-  editLink.classList.add('card-link', 'btn', 'btn-outline-secondary', 'mb-2');
+  editLink.classList.add(
+      'btn', 'btn-sm', 'btn-outline-secondary', 'me-2', 'mb-2', 'mb-sm-0');
   editLink.href = '/historial/modificar.html?id=' + snapshot.id;
-  editLink.textContent = 'Modificar';
+  editLink.appendChild(utils.createBSIcon('pencil-fill'));
+  editLink.appendChild(document.createTextNode(' Modificar'));
 
   // Delete link button
   const deleteLink = document.createElement('a');
-  deleteLink.classList.add('card-link', 'btn', 'btn-outline-danger', 'mb-2');
+  deleteLink.classList.add(
+      'btn', 'btn-sm', 'btn-outline-danger', 'me-2', 'mb-2', 'mb-sm-0');
   deleteLink.href = '/historial/eliminar.html?id=' + snapshot.id;
-  deleteLink.textContent = 'Eliminar';
+  deleteLink.appendChild(utils.createBSIcon('x-circle-fill'));
+  deleteLink.appendChild(document.createTextNode(' Eliminar'));
 
   // Add everything to card
   cardBody1.appendChild(h2);
