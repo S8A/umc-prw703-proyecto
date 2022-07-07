@@ -302,6 +302,19 @@ export function clearOutChildNodes(element) {
 }
 
 
+/**
+ * Create a Bootstrap icon element.
+ *
+ * @param {string} iconName - Name of the requested icon.
+ * @returns {HTMLElement} Bootstrap icon element.
+ */
+export function createBSIcon(iconName) {
+  const icon = document.createElement('i');
+  icon.classList.add('bi-' + iconName);
+  return icon;
+}
+
+
 /* TYPE CHECKING */
 
 /**
