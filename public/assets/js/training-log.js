@@ -148,7 +148,7 @@ function createTrainingSessionCard(snapshot) {
 
   // Training session card
   const container = document.createElement('div');
-  container.classList.add('training-session', 'card', 'mb-4', 'shadow');
+  container.classList.add('training-session', 'card', 'mb-4', 'shadow-sm');
 
   // Card body 1
   const cardBody1 = document.createElement('div');
