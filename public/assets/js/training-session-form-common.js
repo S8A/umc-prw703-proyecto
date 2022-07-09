@@ -764,7 +764,7 @@ function createActionButtonsHeader(index) {
   duplicateButton.dataset.action = 'duplicate';
   duplicateButton.dataset.index = index;
   duplicateButton.title = 'Duplicar ejercicio';
-  
+
   const duplicateButtonText = document.createElement('span');
   duplicateButtonText.classList.add('d-none', 'd-sm-inline');
   duplicateButtonText.textContent = ' Duplicar';
@@ -782,7 +782,7 @@ function createActionButtonsHeader(index) {
   moveUpButton.dataset.action = 'move-up';
   moveUpButton.dataset.index = index;
   moveUpButton.title = 'Subir ejercicio';
-  
+
   const moveUpButtonText = document.createElement('span');
   moveUpButtonText.classList.add('d-none', 'd-sm-inline');
   moveUpButtonText.textContent = ' Subir';
@@ -800,7 +800,7 @@ function createActionButtonsHeader(index) {
   moveDownButton.dataset.action = 'move-down';
   moveDownButton.dataset.index = index;
   moveDownButton.title = 'Bajar ejercicio';
-  
+
   const moveDownButtonText = document.createElement('span');
   moveDownButtonText.classList.add('d-none', 'd-sm-inline');
   moveDownButtonText.textContent = ' Bajar';
@@ -818,7 +818,7 @@ function createActionButtonsHeader(index) {
   removeButton.dataset.action = 'remove';
   removeButton.dataset.index = index;
   removeButton.title = 'Eliminar ejercicio';
-  
+
   const removeButtonText = document.createElement('span');
   removeButtonText.classList.add('d-none', 'd-sm-inline');
   removeButtonText.textContent = ' Eliminar';
