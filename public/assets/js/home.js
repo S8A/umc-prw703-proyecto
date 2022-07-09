@@ -4,32 +4,38 @@ import { auth } from './firebase.js';
 
 
 /**
- * Replace action call paragraph with customized text for the signed-in
- * user.
+ * Customize home page to welcome the signed-in user.
  *
  * @param {string} firstName - First name of the user.
  */
-function setUpSignedInActionCall(firstName) {
+function customizeWelcome(firstName) {
+  const mainTitle = document.getElementById('main-title');
+  mainTitle.textContent = 'Le damos la bienvenida, ' + firstName;
 
-  const actionCall = document.querySelector('#action-call');
-  actionCall.textContent =
-      'Le damos la bienvenida, ' + firstName + '. Puede revisar su ';
+  const paragraphs = document.querySelectorAll('#landing-text p.lead');
 
-  const trainingLogLink = document.createElement('a');
-  trainingLogLink.href = '/historial/';
-  trainingLogLink.textContent = 'historial de entrenamiento';
+  if (paragraphs.length >= 2) {
+    const p2 = paragraphs[1];
+    p2.textContent = '';
 
-  actionCall.appendChild(trainingLogLink);
-
-  actionCall.appendChild(document.createTextNode(' o '));
-
-  const createTrainingSessionLink = document.createElement('a');
-  createTrainingSessionLink.href = '/historial/crear.html';
-  createTrainingSessionLink.textContent =
-      'registrar una nueva sesión de entrenamiento';
-
-  actionCall.appendChild(createTrainingSessionLink);
-  actionCall.appendChild(document.createTextNode('.'));
+    const trainingLogBtn = document.createElement('a');
+    trainingLogBtn.classList.add('btn', 'btn-outline-primary', 'mb-2', 'me-2');
+    trainingLogBtn.href = '/historial/';
+    trainingLogBtn.appendChild(utils.createBSIcon('journal'));
+    trainingLogBtn.appendChild(
+        document.createTextNode(' Historial de entrenamiento'));
+    p2.appendChild(trainingLogBtn);
+  
+    const newTrainingSessionBtn = document.createElement('a');
+    newTrainingSessionBtn.classList.add(
+      'btn', 'btn-outline-success', 'mb-2', 'me-2');
+    newTrainingSessionBtn.href = '/historial/crear.html';
+    newTrainingSessionBtn.appendChild(utils.createBSIcon('plus-circle-fill'));
+    newTrainingSessionBtn.appendChild(
+        document.createTextNode(' Registrar nueva sesión'));
+  
+    p2.appendChild(newTrainingSessionBtn);
+  }
 }
 
 
@@ -39,8 +45,8 @@ window.addEventListener('load', function () {
     if (user) {
       // If user is signed in, set up signed-in header
       utils.setUpSignedInHeader(user).then((userData) => {
-        // Then set up custom action call text with the user's first name
-        setUpSignedInActionCall(userData.name.first);
+        // Then give the user a custom welcome
+        customizeWelcome(userData.name.first);
       });
     }
   });
