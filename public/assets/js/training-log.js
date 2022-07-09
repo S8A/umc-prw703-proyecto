@@ -368,9 +368,10 @@ function setPageTitle(startDate = null, endDate = null) {
  */
 function createLoadDataButton(uid) {
   const button = document.createElement('button');
-  button.classList.add('btn', 'btn-warning');
+  button.classList.add('btn', 'btn-warning', 'ms-sm-1');
   button.id = 'load-data-btn';
-  button.textContent = 'Cargar sesiones desde JSON';
+  button.appendChild(utils.createBSIcon('cloud-download-fill'));
+  button.appendChild(document.createTextNode(' Cargar sesiones de ejemplo'));
 
   button.addEventListener('click', function (event) {
     loadExampleTrainingSessionsJSON(uid).then((createdCount) => {
