@@ -74,7 +74,7 @@ window.addEventListener( "load", function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      utils.scrollToTop();
 
       // Set up header
       utils.setUpSignedInHeader(user);
@@ -82,11 +82,11 @@ window.addEventListener( "load", function () {
   });
 
   // Add event listeners to form fields
-  email.addEventListener('invalid', function (event) {
+  email.addEventListener('invalid', function () {
     showEmailError(email);
   });
 
-  email.addEventListener('input', function (event) {
+  email.addEventListener('change', function () {
     if (email.validity.valid) {
       utils.getInvalidFeedbackElement(email).textContent = '';
     } else {
@@ -94,11 +94,11 @@ window.addEventListener( "load", function () {
     }
   });
 
-  password.addEventListener('invalid', function (event) {
+  password.addEventListener('invalid', function () {
     showPasswordError(password);
   });
 
-  password.addEventListener('input', function (event) {
+  password.addEventListener('change', function () {
     if (password.validity.valid) {
       utils.getInvalidFeedbackElement(password).textContent = '';
     } else {
@@ -158,7 +158,7 @@ window.addEventListener( "load", function () {
         utils.addAlertMessage('alert-danger', [alertText]);
 
         // Scroll to the top of the page
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        utils.scrollToTop();
       });
     } else {
       // If the form is not valid, show error message
@@ -169,7 +169,7 @@ window.addEventListener( "load", function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      utils.scrollToTop();
     }
 
     // Add .was-validated to form if it wasn't already

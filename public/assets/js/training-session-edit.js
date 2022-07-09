@@ -4,28 +4,10 @@ import { auth, getTrainingSession, updateTrainingSession } from './firebase.js';
 'use strict';
 
 
-/**
- * Add empty form text to the given container.
- * @param {HTMLElement} container - Container to which the text will be added.
- */
- function addEmptyFormText(container) {
-  const emptyText = document.createElement('p');
-  emptyText.textContent =
-      'No se ha podido cargar el formulario para modificar la sesión de'
-      + 'entrenamiento solicitada.';
-  container.appendChild(emptyText);
-}
-
-
 window.addEventListener('load', function () {
-  // Form container
-  const container = document.querySelector('#training-session-form-container');
-
-  // Form parameters
-  let mainTitleText = 'Modificar sesión de entrenamiento: ';
-  const formId = 'edit-form';
-  const formLabel = 'Modificar datos de la sesión de entrenamiento';
-  const submitButtonText = 'Guardar cambios';
+  // Get main title and edit form
+  const mainTitle = document.getElementById('main-title');
+  const form = document.getElementById('edit-form');
 
   // Get query params
   const params = utils.getQueryParams();
@@ -49,23 +31,18 @@ window.addEventListener('load', function () {
       getTrainingSession(user.uid, id)
       .then((trainingSession) => {
         // Construct edit form page
-        mainTitleText += trainingSession.fullTitle;
-        common.constructTrainingSessionForm(
-            mainTitleText,
-            formId,
-            formLabel,
-            submitButtonText,
-            trainingSession
-        );
+        common.constructTrainingSessionForm(trainingSession);
+        const mainTitleText =
+            'Modificar sesión de entrenamiento: ' + trainingSession.fullTitle;
+        mainTitle.textContent = mainTitleText;
+        document.title = mainTitleText + ' ' + utils.NDASH + ' 8A Training';
 
-        // Get form element and add event listener for submission
-        const form = document.getElementById(formId);
-
+        // Add event listener for form submission
         form.addEventListener('submit', function (event) {
           event.preventDefault();
           event.stopPropagation();
 
-          if (form.checkValidity()) {
+          if (this.checkValidity()) {
             // If form is valid, extract form data and create TrainingSession
             const trainingSession = common.extractTrainingSessionData();
 
@@ -95,6 +72,10 @@ window.addEventListener('load', function () {
                     'El usuario no tiene datos registrados en la base de datos.'
                     + 'Comuníquese con el administrador: '
                     + 'samuelochoap@gmail.com';
+              } else if (error === 'no-exercise-items') {
+                alertText =
+                    'La sesión de entrenamiento no tiene ningún '
+                    + 'ejercicio registrado.';
               } else if (error === 'invalid-training-session') {
                 alertText =
                     'La sesión de entrenamiento contiene datos inválidos. '
@@ -122,7 +103,7 @@ window.addEventListener('load', function () {
               utils.addAlertMessage('alert-danger', [alertText]);
 
               // Scroll to the top of the page
-              window.scrollTo({top: 0, behavior: 'smooth'});
+              utils.scrollToTop();
             });
           } else {
             // If the form is not valid, show error message
@@ -133,11 +114,11 @@ window.addEventListener('load', function () {
             );
 
             // Scroll to the top of the page
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            utils.scrollToTop();
           }
 
           // Add .was-validated to form if it wasn't already
-          form.classList.add('was-validated');
+          this.classList.add('was-validated');
         });
       })
       .catch((error) => {
@@ -179,7 +160,10 @@ window.addEventListener('load', function () {
         utils.addAlertMessage('alert-danger', [alertText]);
 
         // Scroll to the top of the page
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        utils.scrollToTop();
+
+        // Disable form controls
+        utils.disableFormControls(form);
       });
     } else {
       // If the user is signed-out, add info message indicating the
@@ -191,26 +175,10 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      utils.scrollToTop();
 
-      // Remove form if present
-      const form = document.getElementById(formId);
-      if (form) {
-        form.remove();
-      }
-
-      // Reset main title
-      const mainTitle = document.querySelector('h1#main-title');
-      mainTitle.textContent = 'Modificar sesión de entrenamiento';
-
-      // Reset page title
-      document.title = 'Modificar sesión de entrenamiento ' + utils.NBSP
-          + ' 8A Training';
-
-      // Add empty results text if it isn't present
-      if (!document.querySelector('p#empty-text')) {
-        addEmptyFormText(container);
-      }
+      // Disable form controls
+      utils.disableFormControls(form);
     }
   });
 

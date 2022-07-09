@@ -8,6 +8,7 @@
 
     <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-icons.css">
     <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
@@ -37,14 +38,64 @@
             <div class="row">
                 <div id="training-session-form-container" class="col col-lg-10 col-xl-8 py-4 mx-auto">
                     <h1 id="main-title" class="text-center">Modificar sesión de entrenamiento</h1>
-                    <p id="empty-text">No se ha podido cargar la información de la sesión de entrenamiento solicitada.</p>
+                    <form class="needs-validation" id="edit-form" aria-label="Modificar datos de la sesión de entrenamiento" novalidate>
+                        <section id="basic-data">
+                            <h2>Datos generales</h2>
+                            <p>Los campos requeridos son indicados por <abbr title="requerido">*</abbr>.</p>
+                            <div class="row">
+                                <div class="mb-3 col col-12 col-sm-6 col-lg-4">
+                                    <label class="form-label" for="date">Fecha:<abbr title="requerido">*</abbr></label>
+                                    <input class="form-control" type="date" id="date" name="date" pattern="d{4}-d{2}-d{2}" required>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="mb-3 col col-12 col-sm-6 col-lg-4">
+                                    <label class="form-label" for="time">Hora:<abbr title="requerido">*</abbr></label>
+                                    <input class="form-control" type="time" id="time" name="time" pattern="d{2}:d{2}" required>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="mb-3 col col-12 col-sm-6 col-lg-4">
+                                    <label class="form-label" for="short-title">Título breve:</label>
+                                    <input class="form-control" type="text" id="short-title" name="short-title" maxlength="50">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="mb-3 col col-12 col-sm-6 col-lg-4">
+                                    <label class="form-label" for="duration">Duración de la sesión (minutos):</label>
+                                    <input class="form-control" type="number" id="duration" name="duration" min="0" step="1">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="mb-3 col col-12 col-sm-6 col-lg-4">
+                                    <label class="form-label" for="bodyweight">Peso corporal (kilogramos):</label>
+                                    <input class="form-control" type="number" id="bodyweight" name="bodyweight" min="0" step="1">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="mb-3 col col-12">
+                                    <label class="form-label" for="comments">Comentarios:</label>
+                                    <textarea class="form-control" id="comments" name="comments" cols="50" rows="10" maxlength="280"></textarea>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="exercises">
+                            <h2>Ejercicios</h2>
+                            <div class="alert alert-warning"><p class="mb-0 small">Puede registrar un máximo de 50 ejercicios por sesión de entrenamiento.</p></div>
+                            <div class="d-grid gap-2 d-sm-block mb-3 text-center">
+                                <button class="btn btn-success btn-sm" type="button" id="add-btn" disabled><i class="bi-plus-circle-fill"></i> Agregar ejercicio</button>
+                            </div>
+                            <div id="exercises-container">
+                                <p>No hay ejercicios registrados.</p>
+                            </div>
+                        </section>
+                        <section class="text-center" id="form-buttons">
+                            <button class="btn btn-primary" type="submit">Guardar cambios</button>
+                        </section>
+                    </form>
                 </div>
             </div>
         </div>
     </main>
     <footer class="container">
         <div class="py-3 my-4">
-            <p class="text-center text-muted text-small"><small>Samuel Ochoa · UMC PRW703 · 2022</small></p>
+            <p class="text-center text-muted small mb-0"><a href="https://s8a.github.io/" class="text-muted">Samuel Ochoa</a> · UMC PRW703 · 2022</p>
         </div>
     </footer>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>

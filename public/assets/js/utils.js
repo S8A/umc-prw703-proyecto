@@ -101,9 +101,7 @@ export async function setUpSignedInHeader(user) {
 
         clearAlertMessages();
         addAlertMessage('alert-danger', [alertText]);
-
-        // Scroll to the top of the page
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        scrollToTop();
       });
     });
 
@@ -135,9 +133,7 @@ export async function setUpSignedInHeader(user) {
 
     clearAlertMessages();
     addAlertMessage('alert-danger', [alertText]);
-
-    // Scroll to the top of the page
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    scrollToTop();
   }
 }
 
@@ -306,6 +302,19 @@ export function clearOutChildNodes(element) {
 }
 
 
+/**
+ * Create a Bootstrap icon element.
+ *
+ * @param {string} iconName - Name of the requested icon.
+ * @returns {HTMLElement} Bootstrap icon element.
+ */
+export function createBSIcon(iconName) {
+  const icon = document.createElement('i');
+  icon.classList.add('bi-' + iconName);
+  return icon;
+}
+
+
 /* TYPE CHECKING */
 
 /**
@@ -318,4 +327,29 @@ export function clearOutChildNodes(element) {
  */
 export function isString(x) {
   return typeof x === 'string' || x instanceof String;
+}
+
+
+/* ETC */
+
+/**
+ * Disable all input elements and buttons of the given form.
+ *
+ * @param {HTMLFormElement} form - Form whose fields must be disabled.
+ */
+export function disableFormControls(form) {
+  const formControls = form.querySelectorAll('input, textarea, select, button');
+  if (formControls.length) {
+    for (const element of formControls) {
+      element.disabled = true;
+    }
+  }
+}
+
+
+/**
+ * Scroll smoothly to the top of the window.
+ */
+export function scrollToTop() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }

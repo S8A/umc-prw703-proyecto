@@ -4,30 +4,9 @@ import { auth, createTrainingSession } from './firebase.js';
 'use strict';
 
 
-/**
- * Add empty form text to the given container.
- * @param {HTMLElement} container - Container to which the text will be added.
- */
- function addEmptyFormText(container) {
-  const emptyText = document.createElement('p');
-  emptyText.textContent =
-      'No se ha podido cargar el formulario para crear un nuevo registro.';
-  container.appendChild(emptyText);
-}
-
-
 window.addEventListener('load', function () {
-  // Form container
-  const container = document.querySelector('#training-session-form-container');
-
-  // Form parameters
-  const mainTitleText = 'Registrar una nueva sesión de entrenamiento';
-  const formId = 'create-form';
-  const formLabel = 'Registrar datos de la sesión de entrenamiento';
-  const submitButtonText = 'Crear registro';
-
-  // Get query params
-  const params = utils.getQueryParams();
+  // Get create form
+  const form = document.getElementById('create-form');
 
   // Set up authentication state observer
   auth.onAuthStateChanged((user) => {
@@ -36,20 +15,14 @@ window.addEventListener('load', function () {
       utils.setUpSignedInHeader(user);
 
       // Construct create form page
-      common.constructTrainingSessionForm(
-          mainTitleText, formId, formLabel, submitButtonText);
+      common.constructTrainingSessionForm();
 
-      // Add initial empty exercise item row to table
-      common.addExerciseItemRow();
-
-      // Get form element and add event listener for submission
-      const form = document.getElementById(formId);
-
+      // Add event listener for form submission
       form.addEventListener('submit', function (event) {
         event.preventDefault();
         event.stopPropagation();
 
-        if (form.checkValidity()) {
+        if (this.checkValidity()) {
           // If form is valid, extract form data and create TrainingSession
           const trainingSession = common.extractTrainingSessionData();
 
@@ -78,6 +51,10 @@ window.addEventListener('load', function () {
               alertText =
                   'El usuario no tiene datos registrados en la base de datos.'
                   + 'Comuníquese con el administrador: samuelochoap@gmail.com';
+            } else if (error === 'no-exercise-items') {
+              alertText =
+                  'La sesión de entrenamiento no tiene ningún '
+                  + 'ejercicio registrado.';
             } else if (error === 'invalid-training-session') {
               alertText =
                   'La sesión de entrenamiento contiene datos inválidos. '
@@ -100,7 +77,7 @@ window.addEventListener('load', function () {
             utils.addAlertMessage('alert-danger', [alertText]);
 
             // Scroll to the top of the page
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            utils.scrollToTop();
           });
         } else {
           // If the form is not valid, show error message
@@ -111,11 +88,11 @@ window.addEventListener('load', function () {
           );
 
           // Scroll to the top of the page
-          window.scrollTo({top: 0, behavior: 'smooth'});
+          utils.scrollToTop();
         }
 
         // Add .was-validated to form if it wasn't already
-        form.classList.add('was-validated');
+        this.classList.add('was-validated');
       });
     } else {
       // If the user is signed-out, add info message indicating the
@@ -127,18 +104,10 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      utils.scrollToTop();
 
-      // Remove form if present
-      const form = document.getElementById(formId);
-      if (form) {
-        form.remove();
-      }
-
-      // Add empty results text if it isn't present
-      if (!document.querySelector('p#empty-text')) {
-        addEmptyFormText(container);
-      }
+      // Disable all form controls
+      utils.disableFormControls(form);
     }
   });
 

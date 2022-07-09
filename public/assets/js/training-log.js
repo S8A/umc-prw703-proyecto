@@ -87,7 +87,7 @@ function constructTrainingLog(
     utils.addAlertMessage('alert-danger', [alertText]);
 
     // Scroll to the top of the page
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    utils.scrollToTop();
   });
 }
 
@@ -148,7 +148,7 @@ function createTrainingSessionCard(snapshot) {
 
   // Training session card
   const container = document.createElement('div');
-  container.classList.add('training-session', 'card', 'mb-4', 'shadow');
+  container.classList.add('training-session', 'card', 'mb-4', 'shadow-sm');
 
   // Card body 1
   const cardBody1 = document.createElement('div');
@@ -194,21 +194,27 @@ function createTrainingSessionCard(snapshot) {
 
   // Detail link button
   const detailLink = document.createElement('a');
-  detailLink.classList.add('card-link', 'btn', 'btn-primary', 'mb-2');
+  detailLink.classList.add(
+      'btn', 'btn-sm', 'btn-primary', 'me-2', 'mb-2', 'mb-sm-0');
   detailLink.href = '/historial/detalle.html?id=' + snapshot.id;
-  detailLink.textContent = 'Ver detalles';
+  detailLink.appendChild(utils.createBSIcon('journal-text'));
+  detailLink.appendChild(document.createTextNode(' Ver detalles'));
 
   // Edit link button
   const editLink = document.createElement('a');
-  editLink.classList.add('card-link', 'btn', 'btn-outline-secondary', 'mb-2');
+  editLink.classList.add(
+      'btn', 'btn-sm', 'btn-outline-secondary', 'me-2', 'mb-2', 'mb-sm-0');
   editLink.href = '/historial/modificar.html?id=' + snapshot.id;
-  editLink.textContent = 'Modificar';
+  editLink.appendChild(utils.createBSIcon('pencil-fill'));
+  editLink.appendChild(document.createTextNode(' Modificar'));
 
   // Delete link button
   const deleteLink = document.createElement('a');
-  deleteLink.classList.add('card-link', 'btn', 'btn-outline-danger', 'mb-2');
+  deleteLink.classList.add(
+      'btn', 'btn-sm', 'btn-outline-danger', 'me-2', 'mb-2', 'mb-sm-0');
   deleteLink.href = '/historial/eliminar.html?id=' + snapshot.id;
-  deleteLink.textContent = 'Eliminar';
+  deleteLink.appendChild(utils.createBSIcon('x-circle-fill'));
+  deleteLink.appendChild(document.createTextNode(' Eliminar'));
 
   // Add everything to card
   cardBody1.appendChild(h2);
@@ -249,7 +255,7 @@ function addPagination(
 
   // Previous button
   const previous = document.createElement('button');
-  previous.classList.add('btn', 'btn-outline-primary');
+  previous.classList.add('btn', 'btn-sm', 'btn-outline-primary');
   previous.ariaLabel = 'Página anterior';
   previous.title = previous.ariaLabel;
 
@@ -265,12 +271,13 @@ function addPagination(
 
   // Current page indicator
   const currentPage = document.createElement('div');
+  currentPage.classList.add('small');
   currentPage.id = '#current-page-number';
   currentPage.textContent = 'Página ' + page;
 
   // Next button
   const next = document.createElement('button');
-  next.classList.add('btn', 'btn-outline-primary');
+  next.classList.add('btn', 'btn-sm', 'btn-outline-primary');
   next.ariaLabel = 'Página siguiente';
   next.title = next.ariaLabel;
 
@@ -362,9 +369,10 @@ function setPageTitle(startDate = null, endDate = null) {
  */
 function createLoadDataButton(uid) {
   const button = document.createElement('button');
-  button.classList.add('btn', 'btn-warning');
+  button.classList.add('btn', 'btn-warning', 'ms-sm-1');
   button.id = 'load-data-btn';
-  button.textContent = 'Cargar sesiones desde JSON';
+  button.appendChild(utils.createBSIcon('cloud-download-fill'));
+  button.appendChild(document.createTextNode(' Cargar sesiones de ejemplo'));
 
   button.addEventListener('click', function (event) {
     loadExampleTrainingSessionsJSON(uid).then((createdCount) => {
@@ -386,7 +394,7 @@ function createLoadDataButton(uid) {
       }
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      utils.scrollToTop();
     });
   });
 
@@ -502,7 +510,7 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      utils.scrollToTop();
 
       // Disable create button
       createButton.href = '';

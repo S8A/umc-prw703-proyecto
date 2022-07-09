@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sesión de entrenamiento &ndash; 8A Training</title>
-
+    
     <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-icons.css">
     <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
@@ -37,14 +38,40 @@
             <div class="row">
                 <div id="training-session-detail" class="col col-lg-10 col-xl-8 py-4 mx-auto">
                     <h1 id="main-title" class="text-center">Sesión de entrenamiento</h1>
-                    <p id="empty-text">No se ha podido cargar la información de la sesión de entrenamiento solicitada.</p>
+                    <div id="main-buttons" class="py-3 text-center d-grid gap-2 d-sm-block"></div>
+                    <section id="basic-data">
+                        <h2>Datos generales</h2>
+                        <ul class="list-group mb-5">
+                            <li class="list-group-item">
+                                <b>Fecha y hora:</b> <span id="datetime-text">&ndash;</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Título breve:</b> <span id="short-title-text">&ndash;</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Duración de de la sesión:</b> <span id="duration-text">&ndash;</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Peso corporal:</b> <span id="bodyweight-text">&ndash;</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Comentarios:</b> <span id="comments-text">&ndash;</span>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="exercises">
+                        <h2>Ejercicios</h2>
+                        <div id="exercises-container">
+                            <p>No hay ejercicios registrados.</p>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
     </main>
     <footer class="container">
         <div class="py-3 my-4">
-            <p class="text-center text-muted text-small"><small>Samuel Ochoa · UMC PRW703 · 2022</small></p>
+            <p class="text-center text-muted small mb-0"><a href="https://s8a.github.io/" class="text-muted">Samuel Ochoa</a> · UMC PRW703 · 2022</p>
         </div>
     </footer>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>

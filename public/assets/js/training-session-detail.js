@@ -1,5 +1,5 @@
 import * as utils from './utils.js';
-import { TrainingSession, SetType } from './data-classes.js';
+import { TrainingSession, SetType, ExerciseItem } from './data-classes.js';
 import { auth, getTrainingSession } from './firebase.js';
 'use strict';
 
@@ -11,264 +11,191 @@ import { auth, getTrainingSession } from './firebase.js';
  * @param {TrainingSession} trainingSession - TrainingSession object.
  */
 function constructTrainingSessionDetailsPage(id, trainingSession) {
-  // Training session details container
-  const container = document.querySelector('#training-session-detail');
-
-  // Title
-  const mainTitle = container.querySelector('h1#main-title');
-  mainTitle.textContent = trainingSession.fullTitle;
-
   // Page title
   document.title =
     'Sesión de entrenamiento: ' + trainingSession.fullTitle + ' ' + utils.NDASH
     + ' 8A Training';
 
-  // Remove #empty-text element
-  const emptyText = container.querySelector('p#empty-text');
-  container.removeChild(emptyText);
+  // Title
+  const mainTitle = document.getElementById("main-title");
+  mainTitle.textContent = trainingSession.fullTitle;
 
   // Main buttons
-  const mainButtons = document.createElement('div');
-  mainButtons.id = 'main-buttons';
-  mainButtons.classList.add('py-3', 'text-center');
+  const mainButtons = document.getElementById("main-buttons");
 
   const editButton = document.createElement('a');
-  editButton.classList.add('btn', 'btn-primary', 'mx-2');
+  editButton.classList.add('btn', 'btn-primary', 'me-sm-2');
   editButton.href = '/historial/modificar.html?id=' + id;
-  editButton.textContent = 'Modificar sesión';
+  editButton.appendChild(utils.createBSIcon('pencil-fill'));
+  editButton.appendChild(document.createTextNode(' Modificar sesión'));
 
   const deleteButton = document.createElement('a');
   deleteButton.classList.add('btn', 'btn-danger');
   deleteButton.href = '/historial/eliminar.html?id=' + id;
-  deleteButton.textContent = 'Eliminar sesión';
+  deleteButton.appendChild(utils.createBSIcon('x-circle-fill'));
+  deleteButton.appendChild(document.createTextNode(' Eliminar sesión'));
 
   mainButtons.appendChild(editButton);
   mainButtons.appendChild(deleteButton);
 
   // Basic data
-  const basicDataSection = document.createElement('section');
-  basicDataSection.id = 'basic-data';
+  const datetime = trainingSession.date + ' ' + trainingSession.time;
+  const datetimeText = document.getElementById("datetime-text");
+  datetimeText.textContent = datetime;
 
-  const basicDataTitle = document.createElement('h2');
-  basicDataTitle.textContent = 'Datos generales';
+  if (trainingSession.shortTitle) {
+    const shortTitleText = document.getElementById("short-title-text");
+    shortTitleText.textContent = trainingSession.shortTitle;
+  }
 
-  const basicDataList = createBasicDataList(trainingSession);
+  if (trainingSession.duration) {
+    const durationText = document.getElementById("duration-text");
+    durationText.textContent = trainingSession.duration + utils.NBSP + 'min';
+  }
 
-  basicDataSection.appendChild(basicDataTitle);
-  basicDataSection.appendChild(basicDataList);
+  if (trainingSession.bodyweight) {
+    const bodyweightText = document.getElementById("bodyweight-text");
+    bodyweightText.textContent = trainingSession.bodyweight + utils.NBSP + 'kg';
+  }
+
+  if (trainingSession.comments) {
+    const commentsText = document.getElementById("comments-text");
+    commentsText.textContent = trainingSession.comments;
+  }
 
   // Exercises
-  const exercisesSection = document.createElement('section');
-  exercisesSection.id = 'exercises';
-
-  const exercisesTitle = document.createElement('h2');
-  exercisesTitle.textContent = 'Ejercicios';
-
-  const exercisesDiv = document.createElement('div');
-  exercisesDiv.classList.add('table-responsive');
-
-  const exercisesTable = createExercisesTable(trainingSession);
-  exercisesDiv.appendChild(exercisesTable);
-
-  exercisesSection.appendChild(exercisesTitle);
-  exercisesSection.appendChild(exercisesDiv);
-
-  // Put everything together
-  container.appendChild(mainButtons);
-  container.appendChild(basicDataSection);
-  container.appendChild(exercisesSection);
-}
-
-
-function createBasicDataList(trainingSession) {
-  /* Create basic data list with the given training session data. */
-
-  const basicDataList = document.createElement('ul');
-  basicDataList.classList.add('list-group', 'mb-5');
-
-  // Date and time
-  const datetimeListItem = document.createElement('li');
-  datetimeListItem.classList.add('list-group-item');
-
-  const datetimeLabel = document.createElement('b');
-  datetimeLabel.textContent = 'Fecha y hora:';
-  datetimeListItem.appendChild(datetimeLabel);
-
-  const datetime = trainingSession.date + ' ' + trainingSession.time;
-  datetimeListItem.appendChild(document.createTextNode(' ' + datetime));
-
-  // Short title
-  const shortTitleListItem = document.createElement('li');
-  shortTitleListItem.classList.add('list-group-item');
-
-  const shortTitleLabel = document.createElement('b');
-  shortTitleLabel.textContent = 'Título breve:';
-  shortTitleListItem.appendChild(shortTitleLabel);
-
-  let shortTitle = utils.NDASH;
-  if (trainingSession.shortTitle) {
-    shortTitle = trainingSession.shortTitle;
-  }
-  shortTitleListItem.appendChild(document.createTextNode(' ' + shortTitle));
-
-  // Duration
-  const durationListItem = document.createElement('li');
-  durationListItem.classList.add('list-group-item');
-
-  const durationLabel = document.createElement('b');
-  durationLabel.textContent = 'Duración de la sesión:';
-  durationListItem.appendChild(durationLabel);
-
-  let duration = utils.NDASH;
-  if (trainingSession.duration) {
-    duration = trainingSession.duration + utils.NBSP + 'min';
-  }
-  durationListItem.appendChild(document.createTextNode(' ' + duration));
-
-  // Bodyweight
-  const bodyweightListItem = document.createElement('li');
-  bodyweightListItem.classList.add('list-group-item');
-
-  const bodyweightLabel = document.createElement('b');
-  bodyweightLabel.textContent = 'Peso corporal:';
-  bodyweightListItem.appendChild(bodyweightLabel);
-
-  let bodyweight = utils.NDASH;
-  if (trainingSession.bodyweight) {
-    bodyweight = trainingSession.bodyweight + utils.NBSP + 'kg';
-  }
-  bodyweightListItem.appendChild(document.createTextNode(' ' + bodyweight));
-
-  // Comments
-  const commentsListItem = document.createElement('li');
-  commentsListItem.classList.add('list-group-item');
-
-  const commentsLabel = document.createElement('b');
-  commentsLabel.textContent = 'Comentarios:';
-  commentsListItem.appendChild(commentsLabel);
-
-  let comments = utils.NDASH;
-  if (trainingSession.comments) {
-    comments = trainingSession.comments;
-  }
-  commentsListItem.appendChild(document.createTextNode(' ' + comments));
-
-  // Add to list
-  basicDataList.appendChild(datetimeListItem);
-  basicDataList.appendChild(shortTitleListItem);
-  basicDataList.appendChild(durationListItem);
-  basicDataList.appendChild(bodyweightListItem);
-  basicDataList.appendChild(commentsListItem);
-
-  return basicDataList;
-}
-
-
-/**
- * Create table with the given training session's exercise items.
- *
- * @param {TrainingSession} trainingSession
- * TrainingSession from which to extract the ExerciseItem objects to
- * add to the table as rows.
- * @returns {HTMLTableElement} Exercise items table.
- */
-function createExercisesTable(trainingSession) {
-  // Table
-  const table = document.createElement('table');
-  table.classList.add('table', 'table-striped', 'table-hover');
-
-  // Table head
-  const thead = document.createElement('thead');
-  const headers = [
-    'Ejercicio',
-    'Modalidad',
-    'Peso',
-    'Series',
-    'Repeticiones',
-    'Comentarios',
-  ];
-
-  for (const header of headers) {
-    const th = document.createElement('th');
-    th.classList.add('px-2');
-    th.textContent = header;
-    thead.appendChild(th);
-  }
-
-  // Table body
-  const tbody = document.createElement('tbody');
-
   if (trainingSession.exerciseItemsCount) {
-    for (const item of trainingSession.exercises) {
-      // For each exercise item, create a table row and append it to table body
-      const tr = document.createElement('tr');
+    const exercisesContainer = document.getElementById("exercises-container");
+    utils.clearOutChildNodes(exercisesContainer);
 
-      const exercise = document.createElement('td');
-      exercise.classList.add('px-2');
-      exercise.textContent = item.exercise;
-
-      const setType = document.createElement('td');
-      setType.classList.add('px-2');
-      if (item.setType === SetType.Work) {
-        setType.textContent = 'Trabajo';
-      } else if (item.setType === SetType.WarmUp) {
-        setType.textContent = 'Calentamiento';
-      }
-
-      const weight = document.createElement('td');
-      weight.classList.add('px-2');
-      weight.textContent = utils.NDASH;
-
-      if (item.weight) {
-        weight.textContent = item.weight + utils.NBSP + 'kg'
-      }
-
-      const sets = document.createElement('td');
-      sets.classList.add('px-2');
-      sets.textContent = item.sets;
-
-      const reps = document.createElement('td');
-      reps.classList.add('px-2');
-      reps.textContent = item.reps.join(', ');
-
-      const comments = document.createElement('td');
-      comments.classList.add('px-2');
-      comments.textContent = utils.NDASH;
-
-      if (item.comments) {
-        comments.textContent = item.comments;
-      }
-
-      tr.appendChild(exercise);
-      tr.appendChild(setType);
-      tr.appendChild(weight);
-      tr.appendChild(sets);
-      tr.appendChild(reps);
-      tr.appendChild(comments);
-
-      tbody.appendChild(tr);
+    for (const exerciseItem of trainingSession.exercises) {
+      const card = createExerciseItemCard(exerciseItem);
+      exercisesContainer.appendChild(card);
     }
   }
-
-  table.appendChild(thead);
-  table.appendChild(tbody);
-
-  return table;
 }
 
 
-
 /**
- * Add empty page text to the given container.
- * @param {HTMLElement} container - Container to which the text will be added.
+ * Create a card with the given exercise item's data.
+ *
+ * @param {ExerciseItem} item - List of exercise items to construct.
+ * @returns {HTMLElement} Exercise item card.
  */
- function addEmptyPageText(container) {
-  const emptyText = document.createElement('p');
-  emptyText.id = 'empty-text';
-  emptyText.textContent =
-      'No se ha podido cargar la información de la sesión de '
-      + 'entrenamiento solicitada.';
-  container.appendChild(emptyText);
+function createExerciseItemCard(item) {
+  const card = document.createElement('section');
+  card.classList.add('exercise-item', 'card', 'mb-2');
+
+  const container = document.createElement('div');
+  container.classList.add('container-fluid', 'g-2', 'pt-2');
+
+  // Row 1: Exercise, set type
+  const row1 = document.createElement('div');
+  row1.classList.add('row', 'g-2', 'mb-2');
+
+  const exercise = document.createElement('div');
+  exercise.classList.add('col-sm-8', 'col-lg-9');
+
+  const exerciseHeading = document.createElement('h3');
+  exerciseHeading.classList.add('fs-6', 'fw-bold', 'mb-0', 'lh-base');
+  exerciseHeading.textContent = item.exercise;
+  exercise.appendChild(exerciseHeading);
+
+  row1.appendChild(exercise);
+
+  const setType = document.createElement('div');
+  setType.classList.add('col-sm-4', 'col-lg-3', 'text-sm-end');
+
+  const setTypeBadge = document.createElement('span');
+
+  const setTypeHiddenLabel = document.createElement('span');
+  setTypeHiddenLabel.classList.add('visually-hidden');
+  setTypeHiddenLabel.textContent = 'Modalidad: ';
+
+  setTypeBadge.appendChild(setTypeHiddenLabel);
+
+  if (item.setType === SetType.Work) {
+    setTypeBadge.classList.add('badge', 'align-top', 'bg-primary');
+    setTypeBadge.appendChild(document.createTextNode('Trabajo'));
+  } else if (item.setType === SetType.WarmUp) {
+    setTypeBadge.classList.add('badge', 'align-top', 'bg-secondary');
+    setTypeBadge.appendChild(document.createTextNode('Calentamiento'));
+  }
+
+  setType.appendChild(setTypeBadge);
+
+  row1.appendChild(setType);
+
+  container.appendChild(row1);
+
+  // Row 2: Weight, sets, reps
+  const row2 = document.createElement('div');
+  row2.classList.add('row', 'g-2', 'mb-2');
+
+  const weight = document.createElement('div');
+  weight.classList.add('col-sm-3', 'small');
+
+  const weightLabel = document.createElement('b');
+  weightLabel.textContent = 'Peso:';
+  weight.appendChild(weightLabel);
+
+  if (item.weight) {
+    weight.appendChild(
+        document.createTextNode(' ' + item.weight + utils.NBSP + 'kg'));
+  } else {
+    weight.appendChild(document.createTextNode(' ' + utils.NDASH));
+  }
+
+  row2.appendChild(weight);
+
+  const sets = document.createElement('div');
+  sets.classList.add('col-sm-3', 'small');
+
+  const setsLabel = document.createElement('b');
+  setsLabel.textContent = 'Series:';
+  sets.appendChild(setsLabel);
+
+  sets.appendChild(document.createTextNode(' ' + item.sets));
+
+  row2.appendChild(sets);
+
+  if (item.sets) {
+    const reps = document.createElement('div');
+    reps.classList.add('col-sm-6', 'small');
+
+    const repsLabel = document.createElement('b');
+    repsLabel.textContent = 'Repeticiones:';
+    reps.appendChild(repsLabel);
+
+    reps.appendChild(document.createTextNode(' ' + item.reps.join(', ')));
+
+    row2.appendChild(reps);
+  }
+
+  container.appendChild(row2);
+
+  // Reps 3: Comments
+  if (item.comments) {
+    const row3 = document.createElement('div');
+    row3.classList.add('row', 'g-2', 'mb-2');
+
+    const comments = document.createElement('div');
+    comments.classList.add('col-sm-12', 'small');
+
+    const commentsLabel = document.createElement('b');
+    commentsLabel.textContent = 'Comentarios: ';
+    comments.appendChild(commentsLabel);
+
+    comments.appendChild(document.createTextNode(' ' + item.comments));
+
+    row3.appendChild(comments);
+
+    container.appendChild(row3);
+  }
+
+  card.appendChild(container);
+
+  return card;
 }
 
 
@@ -339,7 +266,7 @@ window.addEventListener('load', function () {
         utils.addAlertMessage('alert-danger', [alertText]);
 
         // Scroll to the top of the page
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        utils.scrollToTop();
       });
     } else {
       // If the user is signed-out, add info message indicating the
@@ -351,28 +278,40 @@ window.addEventListener('load', function () {
       );
 
       // Scroll to the top of the page
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      utils.scrollToTop();
 
-      // Remove main buttons and detail page sections
-      const container = document.querySelector('#training-session-detail');
+      // Remove main buttons and training session data
+      const mainButtons = document.getElementById('main-buttons');
+      utils.clearOutChildNodes(mainButtons);
 
-      const mainButtons = container.querySelector('#main-buttons');
-      mainButtons.remove();
+      const datetimeText = document.getElementById('datetime-text');
+      datetimeText.textContent = utils.NDASH;
 
-      const sections = container.querySelector('section');
-      sections.remove();
+      const shortTitleText = document.getElementById('short-title-text');
+      shortTitleText.textContent = utils.NDASH;
+
+      const durationText = document.getElementById('duration-text');
+      durationText.textContent = utils.NDASH;
+
+      const bodyweightText = document.getElementById('bodyweight-text');
+      bodyweightText.textContent = utils.NDASH;
+
+      const commentsText = document.getElementById('comments-text');
+      commentsText.textContent = utils.NDASH;
+
+      const exercisesContainer = document.getElementById('exercises-container');
+      utils.clearOutChildNodes(exercisesContainer);
+
+      const emptyText = document.createElement('p');
+      emptyText.textContent = 'No hay ejercicios registrados.';
+      exercisesContainer.appendChild(emptyText);
 
       // Reset main title
-      const mainTitle = container.querySelector('h1#main-title');
+      const mainTitle = document.getElementById('main-title');
       mainTitle.textContent = 'Sesión de entrenamiento';
 
       // Reset page title
       document.title = 'Sesión de entrenamiento ' + utils.NBSP + ' 8A Training';
-
-      // Add empty page text if it isn't present
-      if (!document.querySelector('p#empty-text')) {
-        addEmptyPageText(container);
-      }
     }
   });
 
