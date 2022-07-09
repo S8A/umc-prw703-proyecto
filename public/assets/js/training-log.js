@@ -255,7 +255,7 @@ function addPagination(
 
   // Previous button
   const previous = document.createElement('button');
-  previous.classList.add('btn', 'btn-outline-primary');
+  previous.classList.add('btn', 'btn-sm', 'btn-outline-primary');
   previous.ariaLabel = 'Página anterior';
   previous.title = previous.ariaLabel;
 
@@ -271,12 +271,13 @@ function addPagination(
 
   // Current page indicator
   const currentPage = document.createElement('div');
+  currentPage.classList.add('small');
   currentPage.id = '#current-page-number';
   currentPage.textContent = 'Página ' + page;
 
   // Next button
   const next = document.createElement('button');
-  next.classList.add('btn', 'btn-outline-primary');
+  next.classList.add('btn', 'btn-sm', 'btn-outline-primary');
   next.ariaLabel = 'Página siguiente';
   next.title = next.ariaLabel;
 
