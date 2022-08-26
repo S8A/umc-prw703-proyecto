@@ -436,8 +436,10 @@ export async function createTrainingSession(uid, trainingSession) {
     // Try to add exercise items documents to the subcollection
     for (let i = 0; i < trainingSession.exerciseItemsCount; i++) {
       // Exercise item document reference with ID set to its ordinal
-      // position in the exercises list
-      const exerciseItemRef = doc(exercisesRef, String(i));
+      // position in the exercises list, padded by zero if needed to
+      // reach two digits
+      const paddedOrdinalPosition = String(i).padStart(2, "0");
+      const exerciseItemRef = doc(exercisesRef, paddedOrdinalPosition);
 
       // Try to set the exercise item document
       transaction.set(
@@ -516,8 +518,10 @@ export async function createTrainingSession(uid, trainingSession) {
     const newExerciseCount = trainingSession.exerciseItemsCount;
     for (let i = 0; i < newExerciseCount; i++) {
       // Exercise item document reference with ID set to its ordinal
-      // position in the exercises list
-      const exerciseItemRef = doc(exercisesRef, String(i));
+      // position in the exercises list, padded by zero if needed to
+      // reach two digits
+      const paddedOrdinalPosition = String(i).padStart(2, "0");
+      const exerciseItemRef = doc(exercisesRef, paddedOrdinalPosition);
 
       // Try to set the exercise item document
       transaction.set(
@@ -531,7 +535,12 @@ export async function createTrainingSession(uid, trainingSession) {
       // is lower than the number in the document before the update,
       // remove excess documents
       for (let i = newExerciseCount; i < oldExerciseCount; i++) {
-        const exerciseItemRef = doc(exercisesRef, String(i));
+        // Exercise item document reference with ID set to its ordinal
+        // position in the exercises list, padded by zero if needed to
+        // reach two digits
+        const paddedOrdinalPosition = String(i).padStart(2, "0");
+        const exerciseItemRef = doc(exercisesRef, paddedOrdinalPosition);
+
         transaction.delete(exerciseItemRef);
       }
     }
@@ -564,7 +573,12 @@ export async function createTrainingSession(uid, trainingSession) {
 
   // Delete all exercise items belonging to the training session
   for (let i = 0; i < exerciseItemsCount; i++) {
-    const exerciseItemRef = doc(exercisesRef, String(i));
+    // Exercise item document reference with ID set to its ordinal
+    // position in the exercises list, padded by zero if needed to
+    // reach two digits
+    const paddedOrdinalPosition = String(i).padStart(2, "0");
+    const exerciseItemRef = doc(exercisesRef, paddedOrdinalPosition);
+
     batch.delete(exerciseItemRef);
   }
 
