@@ -544,6 +544,27 @@ export async function createTrainingSession(uid, trainingSession) {
         transaction.delete(exerciseItemRef);
       }
     }
+
+    // RETROACTIVE BUGFIX: Remove old exercise item documents whose ID
+    // numbers are not zero-padded, if any.
+    for (let i = 0; i < oldExerciseCount; i++) {
+      // Ordinal position of the exercise item in the exercises list,
+      // WITHOUT ZERO-PADDING (the old, wrong way).
+      const ordinalPosition = String(i);
+
+      if (ordinalPosition.length < 2) {
+        // If the ordinal position is a single-digit number, check if
+        // there is an exercise item document whose ID is set to that
+        // unpadded number and delete it.
+        const unpaddedExerciseItemRef = doc(exercisesRef, ordinalPosition);
+        const unpaddedExerciseItemDoc = await transaction.get(
+            unpaddedExerciseItemRef.withConverter(exerciseItemConverter));
+  
+        if (unpaddedExerciseItemDoc.exists()) {
+          transaction.delete(unpaddedExerciseItemRef);
+        }
+      }
+    }
   });
 }
 
