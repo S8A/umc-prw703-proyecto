@@ -504,18 +504,64 @@ export async function createTrainingSession(uid, trainingSession) {
     // Get number of exercise items before update
     const oldExerciseCount = trainingSessionDoc.data().exerciseItemsCount;
 
+    // Number of exercise items after update
+    const newExerciseCount = trainingSession.exerciseItemsCount;
+
+    // Reference to the training session's exercises subcollection
+    const exercisesRef = collection(trainingSessionRef, 'exercises');
+
+    // Gather exercise item refs to delete
+    const exerciseItemRefsToDelete = []
+
+    // RETROACTIVE BUGFIX: Remove old exercise item documents whose ID
+    // numbers are not zero-padded, if any.
+    for (let i = 0; i < oldExerciseCount; i++) {
+      // Unpadded ordinal position of the exercise item in the exercises list
+      const ordinalPosition = String(i);
+      
+      if (ordinalPosition.length < 2) {
+        // If the ordinal position is a single-digit number, check if
+        // there is an exercise item document whose ID is set to that
+        // unpadded number and delete it.
+        const unpaddedExerciseItemRef = doc(exercisesRef, ordinalPosition);
+        const unpaddedExerciseItemDoc = await transaction.get(
+            unpaddedExerciseItemRef.withConverter(exerciseItemConverter));
+  
+        if (unpaddedExerciseItemDoc.exists()) {
+          exerciseItemRefsToDelete.push(unpaddedExerciseItemRef);
+        }
+      }
+    }
+
+    if (newExerciseCount < oldExerciseCount) {
+      // If the number of exercise items of the given TrainingSession
+      // is lower than the number in the document before the update,
+      // remove excess documents
+      for (let i = newExerciseCount; i < oldExerciseCount; i++) {
+        const paddedOrdinalPosition = String(i).padStart(2, "0");
+        const exerciseItemRef = doc(exercisesRef, paddedOrdinalPosition);
+        const exerciseItemDoc = await transaction.get(
+            exerciseItemRef.withConverter(exerciseItemConverter));
+
+        if (exerciseItemDoc.exists()) {
+          exerciseItemRefsToDelete.push(exerciseItemRef);
+        }
+      }
+    }
+
+    // Delete exercise item refs set to be removed
+    for (const exerciseItemRef of exerciseItemRefsToDelete) {
+      transaction.delete(exerciseItemRef);
+    }
+
     // Try to update training session document with the TrainingSession's data
     transaction.set(
         trainingSessionRef.withConverter(trainingSessionConverter),
         trainingSession
     );
 
-    // Reference to the training session's exercises subcollection
-    const exercisesRef = collection(trainingSessionRef, 'exercises');
-
     // Try to update exercise items documents of the subcollection,
     // adding more if necessary
-    const newExerciseCount = trainingSession.exerciseItemsCount;
     for (let i = 0; i < newExerciseCount; i++) {
       // Exercise item document reference with ID set to its ordinal
       // position in the exercises list, padded by zero if needed to
@@ -528,21 +574,6 @@ export async function createTrainingSession(uid, trainingSession) {
           exerciseItemRef.withConverter(exerciseItemConverter),
           trainingSession.exercises[i]
       );
-    }
-
-    if (newExerciseCount < oldExerciseCount) {
-      // If the number of exercise items of the given TrainingSession
-      // is lower than the number in the document before the update,
-      // remove excess documents
-      for (let i = newExerciseCount; i < oldExerciseCount; i++) {
-        // Exercise item document reference with ID set to its ordinal
-        // position in the exercises list, padded by zero if needed to
-        // reach two digits
-        const paddedOrdinalPosition = String(i).padStart(2, "0");
-        const exerciseItemRef = doc(exercisesRef, paddedOrdinalPosition);
-
-        transaction.delete(exerciseItemRef);
-      }
     }
   });
 }
@@ -561,32 +592,74 @@ export async function createTrainingSession(uid, trainingSession) {
  * @returns {Promise<void>} Promise of void return value if successful.
  */
  export async function deleteTrainingSession(uid, id, exerciseItemsCount) {
-  // Get a new write batch
-  const batch = writeBatch(db);
+  // Try to delete documents for the training session and its
+  // exercise items in a single atomic transaction
+  return await runTransaction(db, async (transaction) => {
+    // Try to get user document
+    const userDoc = await transaction.get(doc(db, 'users', uid));
 
-  // Reference to the training session in the user's trainingSessions
-  // subcollection
-  const trainingSessionRef = doc(db, 'users', uid, 'trainingSessions', id);
+    if (!userDoc.exists()) {
+      // Throw error if the user document doesn't exist
+      throw 'user-doc-does-not-exist';
+    }
 
-  // Reference to the training session's exercises subcollection
-  const exercisesRef = collection(trainingSessionRef, 'exercises');
+    // Reference to the training session in the user's
+    // trainingSessions subcollection
+    const trainingSessionRef = doc(userDoc.ref, 'trainingSessions', id);
 
-  // Delete all exercise items belonging to the training session
-  for (let i = 0; i < exerciseItemsCount; i++) {
-    // Exercise item document reference with ID set to its ordinal
-    // position in the exercises list, padded by zero if needed to
-    // reach two digits
-    const paddedOrdinalPosition = String(i).padStart(2, "0");
-    const exerciseItemRef = doc(exercisesRef, paddedOrdinalPosition);
+    // Get training session document snapshot
+    const trainingSessionDoc = await transaction.get(
+        trainingSessionRef.withConverter(trainingSessionConverter));
 
-    batch.delete(exerciseItemRef);
-  }
+    if (!trainingSessionDoc.exists()) {
+      // Throw error if the training session document doesn't exist
+      throw 'training-session-not-found';
+    }
 
-  // Delete the training session document
-  batch.delete(trainingSessionRef);
+    // TODO: Remove exerciseItemsCount parameter from function and
+    // get number of exercise items from document.
+    // const exerciseItemsCount = trainingSessionDoc.data().exerciseItemsCount;
 
-  // Commit the batch
-  return await batch.commit();
+    // Reference to the training session's exercises subcollection
+    const exercisesRef = collection(trainingSessionRef, 'exercises');
+
+    // Try to delete exercise items documents of the subcollection
+    const exerciseItemRefs = []
+    for (let i = 0; i < exerciseItemsCount; i++) {
+      const ordinalPosition = String(i);
+
+      // RETROACTIVE BUGFIX: Remove old exercise item documents whose ID
+      // numbers are not zero-padded, if any.
+      if (ordinalPosition.length < 2) {
+        const unpaddedExerciseItemRef = doc(exercisesRef, ordinalPosition);
+        const unpaddedExerciseItemDoc = await transaction.get(
+            unpaddedExerciseItemRef);
+  
+        if (unpaddedExerciseItemDoc.exists()) {
+          exerciseItemRefs.push(unpaddedExerciseItemRef);
+        }
+      }
+
+      // Exercise item document reference with ID set to its ordinal
+      // position in the exercises list, padded by zero if needed to
+      // reach two digits
+      const paddedOrdinalPosition = ordinalPosition.padStart(2, "0");
+      const exerciseItemRef = doc(exercisesRef, paddedOrdinalPosition);
+      const exerciseItemDoc = await transaction.get(exerciseItemRef);
+
+      if (exerciseItemDoc.exists()) {
+        exerciseItemRefs.push(exerciseItemRef);
+      }
+    }
+
+    // Delete exercise item documents set to be removed
+    for (const exerciseItemRef of exerciseItemRefs) {
+      transaction.delete(exerciseItemRef);
+    }
+
+    // Delete the training session document
+    transaction.delete(trainingSessionRef);
+  });
 }
 
 
